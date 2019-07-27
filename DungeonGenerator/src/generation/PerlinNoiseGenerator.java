@@ -1,26 +1,16 @@
 package generation;
 
-import java.util.Random;
-
-import graph.Point;
 import utils.Vector;
 
 public class PerlinNoiseGenerator{
 
-    private static final Random R = new Random();
-    static{
-        //R.setSeed(4623779473289L);
-    }
-
-    private final Point[][] map;
     private final Vector[][] vec;
     private final int octaveNum;
     private final double lacunarity, persistence;
     private double amplitude;
 
-    public PerlinNoiseGenerator(Point[][] m, double amp, int oc, double l, double p){
-        map = m;
-        vec = new Vector[m.length + 1][m[0].length + 1];
+    public PerlinNoiseGenerator(int width, int height, double amp, int oc, double l, double p){
+        vec = new Vector[height + 1][width + 1];
         octaveNum = oc;
         lacunarity = l;
         persistence = p;
@@ -29,21 +19,31 @@ public class PerlinNoiseGenerator{
     }
 
     private void initializeRandomVectors(){
-        for(int y = 0; y < vec.length; y++){
+        for(Vector[] row : vec){
             for(int x = 0; x < vec[0].length; x++){
-                vec[y][x] = new Vector(R);
-                //Utils.printArray(vec[y][x].v);
+                row[x] = new Vector();
             }
         }
     }
 
-    public void apply(){
-        int xCoarse = 60, yCoarse = 60;
+    public void apply(double[][] map){
+        int xCoarse = map[0].length/4, yCoarse = map.length/4;
         for(int n = 0; n < octaveNum; n++){
-            overlayOctave(amplitude, xCoarse, yCoarse);
+            overlayOctave(map, amplitude, xCoarse, yCoarse);
             amplitude *= persistence;
             xCoarse *= lacunarity;
             yCoarse *= lacunarity;
+            if(xCoarse<1) xCoarse = 1;
+            if(yCoarse<1) yCoarse = 1;
+        }
+        shiftMean(map, 125);
+    }
+    
+    private void shiftMean(double[][] map, double mean){
+        for(int y=0;y<map.length;y++){
+            for(int x=0;x<map[0].length;x++){
+                map[y][x] += mean;
+            }
         }
     }
 
@@ -55,16 +55,16 @@ public class PerlinNoiseGenerator{
         return (1D - x) * a + x * b;
     }
 
-    private void overlayOctave(double p, int xCoarse, int yCoarse){
+    private void overlayOctave(double[][] map, double p, int xCoarse, int yCoarse){
         double min = 1000, max = -1000;
         for(int y = 0; y < map.length; y++){
             for(int x = 0; x < map[0].length; x++){
-                map[y][x].value += p * getPerlin(x, y, xCoarse, yCoarse);
-                if(min > map[y][x].value){
-                    min = map[y][x].value;
+                map[y][x] += p * getPerlin(x, y, xCoarse, yCoarse);
+                if(min > map[y][x]){
+                    min = map[y][x];
                 }
-                if(max < map[y][x].value){
-                    max = map[y][x].value;
+                if(max < map[y][x]){
+                    max = map[y][x];
                 }
             }
         }
@@ -75,7 +75,6 @@ public class PerlinNoiseGenerator{
         double xN = fade((double) (x % xC) / xC), yN = fade((double) (y % yC) / yC),
                 iU = interpolate(dotTL(x, y, xC, yC), dotTR(x, y, xC, yC), xN),
                 iD = interpolate(dotBL(x, y, xC, yC), dotBR(x, y, xC, yC), xN);
-        //System.out.println(" x: "+x+" y: "+y+" iU: "+iU+" iD: "+iD);
         return interpolate(iU, iD, yN);
     }
 

@@ -9,9 +9,9 @@ public class DungeonColorer implements BiFunction<Point, int[], int[]>{
     //Colors for perlin noise.
     /*@Override
     public int[] apply(Point p, int[] pix) {
-        pix[0] = (int)(2D*p.value) + 125;
-        pix[1] = (int)(2D*p.value) + 125;
-        pix[2] = (int)(2D*p.value) + 125;
+        pix[0] = (int)(2D*p.value);
+        pix[1] = (int)(2D*p.value);
+        pix[2] = (int)(2D*p.value);
         return pix;
     }*/
     
@@ -24,7 +24,7 @@ public class DungeonColorer implements BiFunction<Point, int[], int[]>{
         return pix;
     }*/
     
-    //Colors for perlin noise.
+    //Colors for room demonstration.
     @Override
     public int[] apply(Point p, int[] pix) {
         pix[0] = p.isCorridor ? 100 : 0;

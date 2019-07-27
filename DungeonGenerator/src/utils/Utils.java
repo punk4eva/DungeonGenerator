@@ -6,7 +6,10 @@
 
 package utils;
 
-import components.RoomDesc;
+import components.Area;
+import components.LevelFeeling;
+import components.rooms.Room;
+import components.rooms.PlainRoom;
 import generation.MidpointDisplacer;
 import generation.PerlinNoiseGenerator;
 import generation.RoomPlacer;
@@ -29,24 +32,40 @@ public final class Utils{
         String value() default "";
     }
     
-    public static RoomDesc getRandomRoom(){
-        return new RoomDesc("Random room", 5+R.nextInt(12), 5+R.nextInt(12));
+    public static @interface ThreadUsed{
+        String value() default "";
+    }
+    
+    public static Room getRandomRoom(){
+        return new PlainRoom(5+R.nextInt(12), 5+R.nextInt(12));
+    }
+    
+    public static void print2DArray(int[][] ary){
+        for(int[] row : ary){
+            System.out.print("[");
+            for(int x = 0; x<ary[0].length; x++){
+                System.out.print(row[x] + " ");
+            }
+            System.out.println("]");
+        }
     }
     
     public static void main(String... args) throws IOException{
         System.out.println("Running...");
         
+        //Graph graph = new Graph(80, 80);
+        /*Area area = new Area(80, 80, LevelFeeling.DEFAULT_FEELING);
         
-        Graph graph = new Graph(80, 80);
+        LinkedList<Room> list = new LinkedList<>();
+        for(int n=0;n<20;n++) list.add(getRandomRoom());
+        new RoomPlacer(area, list).generate();*/
         
-        LinkedList<RoomDesc> list = new LinkedList<>();
-        for(int n=0;n<40;n++) list.add(getRandomRoom());
-        new RoomPlacer(graph, list).generate();
+        double[][] map = new double[500][500];
+        //new PerlinNoiseGenerator(map[0].length, map.length, 100, 5, 0.75, 0.75).apply(map);
+        new MidpointDisplacer(125, 80, 0.7, 255, true, true).apply(map);
         
-        //new PerlinNoiseGenerator(graph.map, 50, 4, 0.6, 0.6).apply();
-        //new MidpointDisplacer(125, 80, 0.7, 255, false).apply(graph.map);
+        Graph.makePNG(map, "saves/map.png");
         
-        graph.makePNG("saves/map.png", new DungeonColorer());
     }
     
 }

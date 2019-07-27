@@ -40,5 +40,9 @@ public class Point{
         x = _x;
         y = _y;
     }
+    
+    public void refresh(Type t){
+        type = t;
+    }
 
 }
