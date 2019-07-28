@@ -55,7 +55,7 @@ public class RoomPlacer{
         Room r;
         for(i=0;i<rooms.size();i++){
             r = rooms.get(i);
-            area.blitDirty(r, coords[i][0], coords[i][1]);
+            area.blitRoom(r, coords[i][0], coords[i][1]);
         }
     }
 
