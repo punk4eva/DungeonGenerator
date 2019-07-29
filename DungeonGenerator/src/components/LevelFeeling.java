@@ -16,6 +16,7 @@ import utils.GaussProbability;
  */
 public class LevelFeeling{
     
+    
     /**
      * This Enum represents the different possible types of noise.
      */
@@ -29,13 +30,15 @@ public class LevelFeeling{
      * RoomDist: Relative chances to generate each Room.
      * TrapVisibleChance: The chance for a Trap to be visible.
      * TrapChance: Relative chances to generate each Trap.
-     * TrapGenChance: The chance to generate a trap.
      * WaterGenChance: The chance to generate water.
      * GrassGenChance: The chance to generate grass.
      * GrassUpgradeChance: The chance to upgrade low grass into high grass.
      * WallDecoChance: The chance to convert a wall into a decorated wall.
      * FloorDecoChance: The chance to convert a floor into a decorated floor.
      * DoorHideChance: The chance to hide a door.
+     * DoorTrapChance: The chance to make a Door trapped.
+     * FloorTrapChance: The chance to generate a trap on a floor.
+     * WallTrapChance: The chance to generate a trap on a wall.
      * WallNoise: The noise to use when building a wall image.
      * FloorNoise: The noise to use when building a floor image.
      * WaterBeforeGrass: Whether to generate water before grass.
@@ -48,8 +51,9 @@ public class LevelFeeling{
      */
     public final String description;
     public final Distribution roomDist, trapVisibleChance, trapChance, octaves;
-    public final double trapGenChance, waterGenChance, grassGenChance, 
-            grassUpgradeChance, wallDecoChance, floorDecoChance, doorHideChance;
+    public final double waterGenChance, grassGenChance, 
+            grassUpgradeChance, wallDecoChance, floorDecoChance, doorHideChance,
+            doorTrapChance, floorTrapChance, wallTrapChance;
     public final List<Room> forcedRooms;
     public final NoiseType wallNoise, floorNoise;
     public final boolean waterBeforeGrass, alternateTiles;
@@ -64,16 +68,18 @@ public class LevelFeeling{
      * @param trapVis
      * @param trap
      * @param oct
-     * @param trCh
      * @param wC
      * @param gC
      * @param guc
      * @param wallCh
      * @param floorCh
      * @param dhc
-     * @param wall
-     * @param floor
-     * @param wbg
+     * @param doorTrap
+     * @param floorTrap
+     * @param wallTrap
+     * @param wNoise
+     * @param fNoise
+     * @param wBeforeG
      * @param altT
      * @param iJ
      * @param jD
@@ -84,16 +90,17 @@ public class LevelFeeling{
      */
     protected LevelFeeling(String desc, Distribution room,
             Distribution trapVis, Distribution trap, Distribution oct,
-            double trCh, double wC, double gC, double guc, double wallCh, 
-            double floorCh, double dhc, NoiseType wall, NoiseType floor, 
-            boolean wbg, boolean altT, GaussProbability iJ, GaussProbability jD,
+            double wC, double gC, double guc, double wallCh, 
+            double floorCh, double dhc, double doorTrap, double floorTrap, 
+            double wallTrap, NoiseType wNoise, NoiseType fNoise, 
+            boolean wBeforeG, boolean altT, GaussProbability iJ, GaussProbability jD,
             GaussProbability amp, GaussProbability lac, GaussProbability per, 
             List<Room>... fRooms){
         description = desc;
         lacunarity = lac;
         persistence = per;
-        wallNoise = wall;
-        floorNoise = floor;
+        wallNoise = wNoise;
+        floorNoise = fNoise;
         initialJitter = iJ;
         jitterDecay = jD;
         amplitude = amp;
@@ -108,14 +115,16 @@ public class LevelFeeling{
         if(fRooms.length==0) forcedRooms = new LinkedList<>(); 
         else forcedRooms = fRooms[0];
         waterGenChance = wC;
-        waterBeforeGrass = wbg;
+        waterBeforeGrass = wBeforeG;
         grassUpgradeChance = guc;
         grassGenChance = gC;
-        trapGenChance = trCh;
+        doorTrapChance = doorTrap;
+        wallTrapChance = wallTrap;
+        floorTrapChance = floorTrap;
     }
     
     public static final LevelFeeling DEFAULT_FEELING = new LevelFeeling("Default", null, null, null, new Distribution(new int[]{2,3,4,5,6}, new int[]{1,3,5,3,2}), 
-            0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, NoiseType.MIDPOINT, NoiseType.TILE, true, false, 
+            0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.1, 0.1, 0.1, NoiseType.PERLIN, NoiseType.TILE, true, false, 
             new GaussProbability(80, 25), new GaussProbability(0.65, 0.25), new GaussProbability(80, 25), new GaussProbability(0.6, 0.2), new GaussProbability(0.8, 0.2));
     
 }

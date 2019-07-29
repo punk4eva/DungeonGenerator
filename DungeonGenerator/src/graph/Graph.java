@@ -6,10 +6,13 @@
 
 package graph;
 
+import components.Area;
+import graph.Point.Type;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.function.BiFunction;
 import javax.imageio.ImageIO;
@@ -23,7 +26,7 @@ public class Graph{
 
     public final Point[][] map;
     
-    private final LinkedList<Point> doors = new LinkedList<>();
+    public final LinkedList<Point> doors = new LinkedList<>();
     
     public Graph(int w, int h){
         map = new Point[h][w];
@@ -32,6 +35,24 @@ public class Graph{
                 map[y][x] = new Point(x, y);
             }
         }
+    }
+    
+    /**
+     * Ensures this Graph is ready for use by resetting all flood fill trails.
+     */
+    public void reset(){
+        for(Point[] row : map)
+            for(int x = 0; x<map[0].length; x++) row[x].resetFloodFill();
+    }
+    
+    public void recalculateDoors(Area area){
+        doors.clear();
+        for(int y=0;y<map.length;y++){
+            for(int x=0;x<map[0].length;x++){
+                if(area.map[y][x]!=null && area.map[y][x].equals(Type.DOOR)) doors.add(map[y][x]);
+            }
+        }
+        Collections.shuffle(doors);
     }
     
     @Unfinished("Debug")

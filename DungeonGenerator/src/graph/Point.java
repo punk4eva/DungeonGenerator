@@ -16,7 +16,7 @@ public class Point{
         
         NORTH(0,-1), EAST(1,0), SOUTH(0,1), WEST(-1,0);
         
-        private final int x, y;
+        public final int x, y;
         
         private Direction(int _x, int _y){
             x = _x;
@@ -26,15 +26,16 @@ public class Point{
     }
     
     public static enum Type{
-        WALL, FLOOR, DOOR, NULL
+        WALL, FLOOR, DOOR, NULL;
     }
     
     public int x, y;
-    public Boolean checked;
-    public Type type = Type.NULL;
+    public Boolean checked; //refreshed
+    public Type type = Type.NULL; //refreshed
     public boolean isCorridor = false;
     public int roomNum = -1;
-    public double value = 0;
+    public double currentCost = Double.MAX_VALUE; //refreshed
+    public Point cameFrom = null; //refreshed
     
     public Point(int _x, int _y){
         x = _x;
@@ -43,6 +44,19 @@ public class Point{
     
     public void refresh(Type t){
         type = t;
+        if(t.equals(Type.NULL) || t.equals(Type.WALL)) checked = null;
+        else checked = false;
+        currentCost = Double.MAX_VALUE;
+        cameFrom = null;
+    }
+    
+    /**
+     * Resets The pathfinding aspects of this Point.
+     */
+    public void resetFloodFill(){
+        if(checked!=null) checked = false;
+        cameFrom = null;
+        currentCost = Double.MAX_VALUE;
     }
 
 }

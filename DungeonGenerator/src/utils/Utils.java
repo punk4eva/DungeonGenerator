@@ -10,10 +10,15 @@ import components.Area;
 import components.LevelFeeling;
 import components.rooms.Room;
 import components.rooms.PlainRoom;
-import generation.MidpointDisplacer;
-import generation.PerlinNoiseGenerator;
-import generation.RoomPlacer;
+import components.tiles.Floor;
+import generation.noise.MidpointDisplacer;
+import generation.noise.PerlinNoiseGenerator;
+import generation.rooms.RoomPlacer;
 import graph.Graph;
+import graph.Point;
+import graph.Point.Type;
+import gui.DungeonViewer;
+import java.awt.Canvas;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Random;
@@ -37,7 +42,7 @@ public final class Utils{
     }
     
     public static Room getRandomRoom(){
-        return new PlainRoom(5+R.nextInt(12), 5+R.nextInt(12));
+        return new PlainRoom(5+R.nextInt(5)*2, 5+R.nextInt(5)*2);
     }
     
     public static void print2DArray(int[][] ary){
@@ -60,11 +65,11 @@ public final class Utils{
         for(int n=0;n<20;n++) list.add(getRandomRoom());
         new RoomPlacer(area, list).generate();*/
         
-        double[][] map = new double[500][500];
+        //double[][] map = new double[500][500];
         //new PerlinNoiseGenerator(map[0].length, map.length, 100, 5, 0.75, 0.75).apply(map);
-        new MidpointDisplacer(125, 80, 0.7, 255, true, true).apply(map);
+        //new MidpointDisplacer(125, 80, 0.7, 255, true, true).apply(map);
         
-        Graph.makePNG(map, "saves/map.png");
+        //Graph.makePNG(map, "saves/map.png");
         
     }
     

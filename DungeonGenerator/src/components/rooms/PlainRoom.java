@@ -1,8 +1,8 @@
 
 package components.rooms;
 
+import components.Area;
 import components.tiles.Tile;
-import graph.Point.Type;
 
 /**
  *
@@ -14,14 +14,19 @@ public class PlainRoom extends Room{
         super("Plain Room", w, h);
     }
 
-    @Override
-    public void generate(){
+    protected void paintAndPave(Area area){
         for(int y=0;y<height;y++){
             for(int x=0;x<width;x++){
-                if(y==0||x==0||x==width-1||y==height-1) map[y][x] = new Tile("wall", null, Type.WALL, null, null);
-                else map[y][x] = new Tile("floor", null, Type.FLOOR, null, null);
+                if(y==0||x==0||x==width-1||y==height-1) map[y][x] = Tile.genWall(area);
+                else map[y][x] = Tile.genFloor(area);
             }
         }
+    }
+    
+    @Override
+    public void generate(Area area){
+        paintAndPave(area);
+        addDoors(area);
     }
 
 }

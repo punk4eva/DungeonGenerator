@@ -1,9 +1,11 @@
 
 package components.mementoes;
 
+import components.LevelFeeling;
+import generation.noise.PerlinNoiseGenerator;
+import generation.noise.MidpointDisplacer;
 import components.LevelFeeling.NoiseType;
 import components.tiles.Tile;
-import generation.*;
 import graph.Point.Type;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -32,40 +34,29 @@ public class AreaInfo implements Serializable{
     private final double initialJitter, jitterDecay, 
             amplitude, lacunarity, persistence;
     private final int octaves;
-    private final boolean alteredTiles;
-    public final NoiseType wallNoise, floorNoise;
+    public final LevelFeeling feeling;
     
     public transient double[][] perlinNoise;
     public transient double[][] midpointNoise;
     public transient double[][] tileNoise;
     
     /**
-     * Creates an instance.
-     * @param w
-     * @param h
-     * @param iJ
-     * @param jD
-     * @param altT
-     * @param amp
-     * @param oc
-     * @param l
-     * @param p
-     * @param wNoise
-     * @param fNoise
+     * Creates a random instance based on a given level feeling.
+     * @param w The width.
+     * @param h The height.
+     * @param f The ethos of the level.
      */
-    public AreaInfo(int w, int h, double iJ, double jD, boolean altT, double amp, int oc, double l, double p, NoiseType wNoise, NoiseType fNoise){
+    public AreaInfo(int w, int h, LevelFeeling f){
         width = w;
         height = h;
         seed = SEED_MAKER.nextLong();
-        initialJitter = iJ;
-        jitterDecay = jD;
-        amplitude = amp;
-        wallNoise = wNoise;
-        floorNoise = fNoise;
-        octaves = oc;
-        lacunarity = l;
-        persistence = p;
-        alteredTiles = altT;
+        initialJitter = f.initialJitter.next(0,120);
+        jitterDecay = f.jitterDecay.next(0.7, 0.95); 
+        amplitude = f.amplitude.next(30, 120);
+        octaves = f.octaves.next(); 
+        lacunarity = f.lacunarity.next(0.3, 1.0);
+        persistence = f.persistence.next(0.3, 1.0);
+        feeling = f;
         initializeNoise();
     }
     
@@ -78,10 +69,10 @@ public class AreaInfo implements Serializable{
         perlinNoise = new double[height*16][width*16];
         tileNoise = new double[height*16][width*16];
         System.out.println("Amp: " + amplitude + " Oc: " + octaves + "  L: " + lacunarity + 
-                " P: " + persistence + "\niJ: " + initialJitter + " jD: " + jitterDecay + " alt: " + alteredTiles);
+                " P: " + persistence + "\niJ: " + initialJitter + " jD: " + jitterDecay + " alt: " + feeling.alternateTiles);
         new MidpointDisplacer(125, initialJitter, jitterDecay, 255, false, false).apply(midpointNoise);
         new PerlinNoiseGenerator(width*16, height*16, amplitude, octaves, lacunarity, persistence).apply(perlinNoise);
-        new MidpointDisplacer(125, initialJitter, jitterDecay, 255, alteredTiles, true).apply(tileNoise);
+        new MidpointDisplacer(125, initialJitter, jitterDecay, 255, feeling.alternateTiles, true).apply(tileNoise);
     }
     
     /**
@@ -90,8 +81,8 @@ public class AreaInfo implements Serializable{
      * @return
      */
     public double[][] getNoiseMap(Tile tile){
-        if(tile.type.equals(Type.WALL)) return getNoiseFromType(wallNoise);
-        else return getNoiseFromType(floorNoise);
+        if(tile.type.equals(Type.WALL)) return getNoiseFromType(feeling.wallNoise);
+        else return getNoiseFromType(feeling.floorNoise);
     }
     
     /**

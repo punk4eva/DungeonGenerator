@@ -1,4 +1,4 @@
-package generation;
+package generation.noise;
 
 import utils.Vector;
 

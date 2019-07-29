@@ -1,7 +1,11 @@
 
 package components.rooms;
 
+import components.Area;
 import components.tiles.Tile;
+import graph.Point.Type;
+import utils.Distribution;
+import static utils.Utils.R;
 
 /**
  *
@@ -25,7 +29,7 @@ public abstract class Room{
     public final int width, height;
     public int orientation;
     protected boolean generated = false;
-    protected final Tile[][] map;
+    public final Tile[][] map;
     
     
     /**
@@ -42,20 +46,51 @@ public abstract class Room{
     }
     
     /**
-     * Gets the tile map, ensuring it is generated.
-     * @return
+     * Generates this Room if it is not already generated.
+     * @param area The Area that the room is being generated for.
      */
-    public Tile[][] getMap(){
+    public void ensureGenerated(Area area){
         if(!generated){
-            generate();
+            generate(area);
             generated = true;
         }
-        return map;
     }
     
     /**
      * Generates this room.
+     * @param area The Area that the room is being generated for.
      */
-    protected abstract void generate();
+    protected abstract void generate(Area area);
+    
+    /**
+     * Populates this Room with Doors.
+     * @param area The Area object that this Room is being created for.
+     * @param doorNum The number of doors (random if left blank).
+     */
+    protected void addDoors(Area area, int... doorNum){
+        int numDoors = doorNum.length==0 ? (int)new Distribution(new int[]{1,2,3,4,5,6},
+                new int[]{3,4,6,4,2,1}).next() : doorNum[0];
+        int failed = 0;
+        while(numDoors>0||failed>=40){
+            int x, y;
+            if(R.nextDouble()<0.5){
+                x = 1 +  R.nextInt(width-2);
+                y = R.nextDouble()<0.5 ? 0 : height-1;
+            }else{
+                y = 1 + R.nextInt(height-2);
+                x = R.nextDouble()<0.5 ? 0 : width-1;
+            }
+            if(map[y][x].equals(Type.WALL)){
+                if(
+                        (y!=0||(x!=0&&x!=width-1)&&(y != height-1 || (x != 0 && x != width-1)))&&
+                        ((y!=0&&y!=height-1)||(!map[y][x+1].equals(Type.DOOR)&&!map[y][x-1].equals(Type.DOOR)))&&
+                        ((x!=0&&x!=width-1)||(!map[y+1][x].equals(Type.DOOR)&&!map[y-1][x].equals(Type.DOOR)))
+                ){
+                    numDoors--;
+                    map[y][x] = Tile.genDoor(area);
+                }else failed++;
+            }
+        }
+    }
     
 }

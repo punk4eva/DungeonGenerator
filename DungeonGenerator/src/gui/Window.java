@@ -3,7 +3,8 @@ package gui;
 import components.Area;
 import components.LevelFeeling;
 import components.rooms.Room;
-import generation.RoomPlacer;
+import generation.corridors.SpiderCorridorBuilder;
+import generation.rooms.RoomPlacer;
 import java.awt.Dimension;
 import java.io.IOException;
 import java.util.LinkedList;
@@ -13,7 +14,7 @@ import static utils.Utils.getRandomRoom;
 
 /**
  *
- * @author Charlie Hands and Adam Whittaker
+ * @author Adam Whittaker
  * 
  * The actual Window onto which everything is painted.
  */
@@ -58,6 +59,7 @@ public class Window{
         for(int n=0;n<20;n++) list.add(getRandomRoom());
         new RoomPlacer(viewer.area, list).generate();
         viewer.area.refreshGraph();
+        new SpiderCorridorBuilder(viewer.area, 10, false).build();
         viewer.area.initializeImages();
         
         viewer.area.graph.makePNG("saves/map.png", new DungeonColorer());

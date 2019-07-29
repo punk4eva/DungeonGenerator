@@ -1,5 +1,5 @@
 
-package generation;
+package generation.noise;
 
 import static utils.Utils.R;
 

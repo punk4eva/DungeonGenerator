@@ -54,7 +54,7 @@ public class DungeonViewer extends Canvas implements Runnable{
     /**
      * Creates an instance.
      */
-    protected DungeonViewer(){
+    public DungeonViewer(){
         window = new Window(WIDTH, HEIGHT, "Dungeon Generator", this);
     }
     

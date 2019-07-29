@@ -1,5 +1,5 @@
 
-package generation;
+package generation.rooms;
 
 import components.Area;
 import components.rooms.Room;
@@ -60,15 +60,15 @@ public class RoomPlacer{
     }
 
     protected Integer[] generatePoint(int width, int height){
-        return new Integer[]{R.nextInt((area.graph.map[0].length-width)/2)*2,
-            R.nextInt((area.graph.map.length-height)/2)*2};
+        return new Integer[]{R.nextInt((area.graph.map[0].length-width-4)/2)*2+2,
+            R.nextInt((area.graph.map.length-height-4)/2)*2+2};
     }
 
     protected boolean spaceFree(Integer[] c, int width, int height){
         for(int x=c[0];x<c[0]+width;x++)
-            if(area.graph.map[c[1]][x].isCorridor||area.graph.map[c[1]+height][x].isCorridor) return false;
+            if(area.graph.map[c[1]][x].roomNum!=-1||area.graph.map[c[1]+height][x].roomNum!=-1) return false;
         for(int y=c[1];y<c[1]+height;y++)
-            if(area.graph.map[y][c[0]].isCorridor||area.graph.map[y][c[0]+width].isCorridor) return false;
+            if(area.graph.map[y][c[0]].roomNum!=-1||area.graph.map[y][c[0]+width].roomNum!=-1) return false;
         return true;
     }
 
@@ -77,14 +77,14 @@ public class RoomPlacer{
         coords[n] = c;
         for(int x=c[0];x<c[0]+width;x++)
             for(int y=c[1];y<c[1]+height;y++)
-                area.graph.map[y][x].isCorridor = true;
+                area.graph.map[y][x].roomNum = n;
     }
 
     protected void unmark(Integer[] c, int width, int height, Integer n, Integer[][] coords){
         System.out.println("Unmarking: " + n + ", " + width + ", " + height);
         for(int x=c[0];x<c[0]+width;x++)
             for(int y=c[1];y<c[1]+height;y++)
-                area.graph.map[y][x].isCorridor = false;
+                area.graph.map[y][x].roomNum = -1;
         coords[n] = null;
     }
     
