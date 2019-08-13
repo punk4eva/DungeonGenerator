@@ -6,7 +6,7 @@ import components.Area;
 import components.Trap;
 import graph.Point.Type;
 import java.awt.image.BufferedImage;
-import utils.ImageBuilder;
+import filterGeneration.ImageBuilder;
 import static utils.Utils.R;
 
 /**
@@ -53,8 +53,8 @@ public class Tile{
     /**
      * Builds the image of this Tile.
      * @param area The Area that this Tile belongs to.
-     * @param x The x coordinate.
-     * @param y The y coordinate.
+     * @param x The pixel x coordinate.
+     * @param y The pixel y coordinate.
      */
     public final void buildImage(Area area, int x, int y){
         image = ImageBuilder.constructImage(this, area, x, y);

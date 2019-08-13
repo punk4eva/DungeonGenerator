@@ -12,10 +12,9 @@ import java.awt.Toolkit;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
+import utils.Utils.ThreadUsed;
 import utils.Utils.Unfinished;
+import static utils.Utils.exceptionStream;
 
 /**
  *
@@ -28,17 +27,10 @@ public class DungeonViewer extends Canvas implements Runnable{
     }
 
     public static final int WIDTH, HEIGHT;
-    public transient static PrintStream exceptionStream, performanceStream;
     static{
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         WIDTH = (int)screen.getWidth();
         HEIGHT = (int)screen.getHeight();
-        try{
-            exceptionStream = new PrintStream(new File("log/exceptions.txt"));
-            performanceStream = new PrintStream(new File("log/performance.txt"));
-        }catch(FileNotFoundException e){
-            System.err.println("PrintStream failed.");
-        }        
     }
 
     protected volatile boolean running = false;
@@ -58,10 +50,12 @@ public class DungeonViewer extends Canvas implements Runnable{
         window = new Window(WIDTH, HEIGHT, "Dungeon Generator", this);
     }
     
+    
     /**
-     * @thread render
+     * Starts the pacemaker and initializes mouse input.
      */
     @Override
+    @ThreadUsed("Render")
     public void run(){
         addMouseListener(mouse);
         addMouseMotionListener(mouse);
@@ -123,6 +117,7 @@ public class DungeonViewer extends Canvas implements Runnable{
             running = false;
         }catch(InterruptedException e){
             e.printStackTrace(exceptionStream);
+            System.err.println("Fail in stop() method of DungeonViewer");
         }
     }
     

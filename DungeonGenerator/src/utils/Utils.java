@@ -6,21 +6,12 @@
 
 package utils;
 
-import components.Area;
-import components.LevelFeeling;
 import components.rooms.Room;
 import components.rooms.PlainRoom;
-import components.tiles.Floor;
-import generation.noise.MidpointDisplacer;
-import generation.noise.PerlinNoiseGenerator;
-import generation.rooms.RoomPlacer;
-import graph.Graph;
-import graph.Point;
-import graph.Point.Type;
-import gui.DungeonViewer;
-import java.awt.Canvas;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.LinkedList;
+import java.io.PrintStream;
 import java.util.Random;
 
 /**
@@ -32,6 +23,15 @@ public final class Utils{
     private Utils(){}
     
     public static final Random R = new Random();
+    public transient static PrintStream exceptionStream, performanceStream;
+    static{
+        try{
+            exceptionStream = new PrintStream(new File("log/exceptions.txt"));
+            performanceStream = new PrintStream(new File("log/performance.txt"));
+        }catch(FileNotFoundException e){
+            System.err.println("PrintStream failed.");
+        }
+    }
     
     public static @interface Unfinished{
         String value() default "";
@@ -45,13 +45,17 @@ public final class Utils{
         return new PlainRoom(5+R.nextInt(5)*2, 5+R.nextInt(5)*2);
     }
     
+    public static void printArray(int[] ary){
+        System.out.print("[");
+        for(int x : ary){
+            System.out.print(x + " ");
+        }
+        System.out.println("]");
+    }
+    
     public static void print2DArray(int[][] ary){
         for(int[] row : ary){
-            System.out.print("[");
-            for(int x = 0; x<ary[0].length; x++){
-                System.out.print(row[x] + " ");
-            }
-            System.out.println("]");
+            printArray(row);
         }
     }
     

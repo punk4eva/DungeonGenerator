@@ -6,8 +6,9 @@ import components.mementoes.AreaInfo;
 import components.tiles.Tile;
 import graph.Graph;
 import graph.Point;
-import static gui.MouseInterpreter.xOrient;
-import static gui.MouseInterpreter.yOrient;
+import static gui.DungeonViewer.HEIGHT;
+import static gui.DungeonViewer.WIDTH;
+import static gui.MouseInterpreter.zoom;
 import java.awt.Graphics2D;
 import utils.Utils.ThreadUsed;
 
@@ -54,7 +55,7 @@ public class Area{
             for(int x=fx, maxX=fx+info.width*16;x<maxX;x+=16){
                 int tx = (x-fx)/16, ty = (y-fy)/16;
                 try{
-                    if( map[ty][tx]!=null) g.drawImage(map[ty][tx].image, x, y, null);
+                    if(x>=-16&&y>=-16&&x*zoom<=WIDTH&&y*zoom<=HEIGHT && map[ty][tx]!=null) g.drawImage(map[ty][tx].image, x, y, null);
                 }catch(ArrayIndexOutOfBoundsException e){/*Skip frame*/}
             }
         }
@@ -103,13 +104,49 @@ public class Area{
     public void initializeImages(){
         for(int y=0;y<map.length;y++){
             for(int x=0;x<map[0].length;x++){
-                if(map[y][x]!=null) map[y][x].buildImage(this, x, y);
+                if(map[y][x]!=null) map[y][x].buildImage(this, x*16, y*16);
             }
         }
     }
     
     public boolean withinBounds(int x, int y){
         return x>=0 && x<info.width && y>=0 && y<info.height;
+    }
+    
+    /**
+     * Applies the re-centred quadrant rotate matrix to the given x,y coordinates.
+     * @param o The number of quadrants rotated.
+     * @param x
+     * @param y
+     * @param w The width
+     * @param h The height
+     * @return The x coordinate of the image.
+     */
+    public static int xOrient(int o, int x, int y, int w, int h){
+        switch(o){
+            case 0: return x;
+            case 1: return y;
+            case 2: return w-x-1;
+            default: return h-y-1;
+        }
+    }
+    
+    /**
+     * Applies the re-centred quadrant rotate matrix to the given x,y coordinates.
+     * @param o The number of quadrants rotated.
+     * @param x
+     * @param y
+     * @param w The width
+     * @param h The height
+     * @return The y coordinate of the image.
+     */
+    public static int yOrient(int o, int x, int y, int w, int h){
+        switch(o){
+            case 0: return y;
+            case 1: return w-x-1;
+            case 2: return h-y-1;
+            default: return x;
+        }
     }
 
 }

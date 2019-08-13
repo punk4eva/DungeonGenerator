@@ -2,10 +2,12 @@
 package components;
 
 import components.rooms.Room;
+import filterGeneration.FilterLibrary;
 import java.util.LinkedList;
 import java.util.List;
 import utils.Distribution;
 import utils.GaussProbability;
+import utils.Utils.Unfinished;
 
 /**
  *
@@ -55,10 +57,14 @@ public class LevelFeeling{
             grassUpgradeChance, wallDecoChance, floorDecoChance, doorHideChance,
             doorTrapChance, floorTrapChance, wallTrapChance;
     public final List<Room> forcedRooms;
-    public final NoiseType wallNoise, floorNoise;
-    public final boolean waterBeforeGrass, alternateTiles;
+    public final NoiseType wallNoiseType, floorNoiseType;
+    public final boolean waterBeforeGrass, alternateWallTiles, alternateFloorTiles;
     public final GaussProbability initialJitter, jitterDecay, amplitude, 
             lacunarity, persistence;
+    
+    @Unfinished
+    public final FilterLibrary filters = new FilterLibrary();
+            
     
     /**
      * Creates an instance, the parameters are in the same order as their 
@@ -80,7 +86,8 @@ public class LevelFeeling{
      * @param wNoise
      * @param fNoise
      * @param wBeforeG
-     * @param altT
+     * @param altWT
+     * @param altFT
      * @param iJ
      * @param jD
      * @param amp
@@ -93,18 +100,19 @@ public class LevelFeeling{
             double wC, double gC, double guc, double wallCh, 
             double floorCh, double dhc, double doorTrap, double floorTrap, 
             double wallTrap, NoiseType wNoise, NoiseType fNoise, 
-            boolean wBeforeG, boolean altT, GaussProbability iJ, GaussProbability jD,
+            boolean wBeforeG, boolean altWT, boolean altFT, GaussProbability iJ, GaussProbability jD,
             GaussProbability amp, GaussProbability lac, GaussProbability per, 
             List<Room>... fRooms){
         description = desc;
         lacunarity = lac;
         persistence = per;
-        wallNoise = wNoise;
-        floorNoise = fNoise;
+        wallNoiseType = wNoise;
+        floorNoiseType = fNoise;
         initialJitter = iJ;
         jitterDecay = jD;
         amplitude = amp;
-        alternateTiles = altT;
+        alternateWallTiles = altWT;
+        alternateFloorTiles = altFT;
         octaves = oct;
         wallDecoChance = wallCh;
         floorDecoChance = floorCh;
@@ -124,7 +132,7 @@ public class LevelFeeling{
     }
     
     public static final LevelFeeling DEFAULT_FEELING = new LevelFeeling("Default", null, null, null, new Distribution(new int[]{2,3,4,5,6}, new int[]{1,3,5,3,2}), 
-            0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.1, 0.1, 0.1, NoiseType.PERLIN, NoiseType.TILE, true, false, 
+            0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.1, 0.1, 0.1, NoiseType.MIDPOINT, NoiseType.PERLIN, true, false, false,
             new GaussProbability(80, 25), new GaussProbability(0.65, 0.25), new GaussProbability(80, 25), new GaussProbability(0.6, 0.2), new GaussProbability(0.8, 0.2));
     
 }

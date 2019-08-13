@@ -36,9 +36,8 @@ public class AreaInfo implements Serializable{
     private final int octaves;
     public final LevelFeeling feeling;
     
-    public transient double[][] perlinNoise;
-    public transient double[][] midpointNoise;
-    public transient double[][] tileNoise;
+    public transient double[][] wallNoise;
+    public transient double[][] floorNoise;
     
     /**
      * Creates a random instance based on a given level feeling.
@@ -65,14 +64,26 @@ public class AreaInfo implements Serializable{
      */
     private void initializeNoise(){
         R.setSeed(seed);
-        midpointNoise = new double[height*16][width*16];
-        perlinNoise = new double[height*16][width*16];
-        tileNoise = new double[height*16][width*16];
+        wallNoise = new double[height*16][width*16];
+        floorNoise = new double[height*16][width*16];
         System.out.println("Amp: " + amplitude + " Oc: " + octaves + "  L: " + lacunarity + 
-                " P: " + persistence + "\niJ: " + initialJitter + " jD: " + jitterDecay + " alt: " + feeling.alternateTiles);
-        new MidpointDisplacer(125, initialJitter, jitterDecay, 255, false, false).apply(midpointNoise);
-        new PerlinNoiseGenerator(width*16, height*16, amplitude, octaves, lacunarity, persistence).apply(perlinNoise);
-        new MidpointDisplacer(125, initialJitter, jitterDecay, 255, feeling.alternateTiles, true).apply(tileNoise);
+                " P: " + persistence + "\niJ: " + initialJitter + " jD: " + jitterDecay + " alt: " + feeling.alternateWallTiles);
+        switch(feeling.wallNoiseType){
+            case MIDPOINT: new MidpointDisplacer(125, initialJitter, jitterDecay, 255, false, false).apply(wallNoise);
+                break;
+            case PERLIN: new PerlinNoiseGenerator(width*16, height*16, amplitude, octaves, lacunarity, persistence).apply(wallNoise);
+                break;
+            case TILE: new MidpointDisplacer(125, initialJitter, jitterDecay, 255, feeling.alternateWallTiles, true).apply(wallNoise);
+                break;
+        }
+        switch(feeling.floorNoiseType){
+            case MIDPOINT: new MidpointDisplacer(125, initialJitter, jitterDecay, 255, false, false).apply(floorNoise);
+                break;
+            case PERLIN: new PerlinNoiseGenerator(width*16, height*16, amplitude, octaves, lacunarity, persistence).apply(floorNoise);
+                break;
+            case TILE: new MidpointDisplacer(125, initialJitter, jitterDecay, 255, feeling.alternateFloorTiles, true).apply(floorNoise);
+                break;
+        }
     }
     
     /**
@@ -81,22 +92,8 @@ public class AreaInfo implements Serializable{
      * @return
      */
     public double[][] getNoiseMap(Tile tile){
-        if(tile.type.equals(Type.WALL)) return getNoiseFromType(feeling.wallNoise);
-        else return getNoiseFromType(feeling.floorNoise);
-    }
-    
-    /**
-     * Gets the noise map from the given NoiseType.
-     * @param tile
-     * @return
-     */
-    private double[][] getNoiseFromType(NoiseType type){
-        switch(type){
-            case MIDPOINT: return midpointNoise;
-            case PERLIN: return perlinNoise;
-            case TILE: return tileNoise;
-        }
-        throw new IllegalStateException();
+        if(tile.type.equals(Type.WALL)) return wallNoise;
+        else return floorNoise;
     }
     
     

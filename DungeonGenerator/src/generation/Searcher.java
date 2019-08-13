@@ -17,7 +17,7 @@ public class Searcher{
     
     public BiFunction<Point, Point, Boolean> addCheck = ((Serializable & BiFunction<Point, Point, Boolean>) ((from, to) -> to.checked!=null && !to.checked));
     public PriorityQueue<Point> frontier = new PriorityQueue<>((Serializable & Function<Point, Double>)p -> p.currentCost);
-    public Area area;
+    protected Area area;
     
     public Searcher(Area a){
         area = a;

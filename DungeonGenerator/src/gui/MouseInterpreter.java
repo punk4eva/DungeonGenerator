@@ -1,19 +1,13 @@
 
 package gui;
 
-import components.Area;
 import static gui.DungeonViewer.HEIGHT;
 import static gui.DungeonViewer.WIDTH;
-import static gui.DungeonViewer.performanceStream;
+import static utils.Utils.performanceStream;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
-import utils.Utils.Unfinished;
 
-/**
- *
- * @author Adam Whittaker
- */
 /**
  *
  * @author Adam Whittaker
@@ -23,13 +17,11 @@ import utils.Utils.Unfinished;
 public class MouseInterpreter extends MouseAdapter{
     
     public volatile static int focusX=16, focusY=16;
-    private int xOfDrag=-1, yOfDrag=-1, maxFX, maxFY, minFX, minFY;
+    private int xOfDrag=-1, yOfDrag=-1;
     public static double zoom = 1.0;
     public static final double MAX_ZOOM = 8.0, MIN_ZOOM = 0.512;
-    public static final int MOVE_RESOLUTION = 4;
     
     @Override
-    @Unfinished("Remove debug prints")
     public void mouseClicked(MouseEvent me){
         if(me.isConsumed()) return;
         Integer[] p = pixelToTile(me.getX(), me.getY());
@@ -41,6 +33,32 @@ public class MouseInterpreter extends MouseAdapter{
         if(xOfDrag!=-1){
             xOfDrag = -1;
         }
+    }
+    
+    @Override
+    public void mouseDragged(MouseEvent me){
+        if(xOfDrag == -1){
+            xOfDrag = (int)(me.getX()/zoom) - focusX;
+            yOfDrag = (int)(me.getY()/zoom) - focusY;        
+        }
+        focusX = (int)(me.getX()/zoom) - xOfDrag;
+        focusY = (int)(me.getY()/zoom) - yOfDrag;
+    }
+    
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent me){
+        switch(me.getWheelRotation()){
+            case -1: if(zoom<MAX_ZOOM){
+                zoom *= 1.25;
+                performanceStream.println("ZOOM: " + zoom);
+            }
+                break;
+            default: if(zoom>MIN_ZOOM){
+                zoom /= 1.25;
+                performanceStream.println("ZOOM: " + zoom);
+            }
+        }
+        //setFocusBounds(Window.VIEWER.area);
     }
     
     /**
@@ -88,7 +106,7 @@ public class MouseInterpreter extends MouseAdapter{
      * @param x The x pixel
      * @param y The y pixel
      */
-    public void setDirectFocus(int x, int y){
+    public void setFocusDirectly(int x, int y){
         focusX = x;
         focusY = y;
     }
@@ -97,7 +115,7 @@ public class MouseInterpreter extends MouseAdapter{
      * Sets the focus bounds for a given Area.
      * @param area The Area.
      */
-    public void setFocusBounds(Area area){
+    /*public void setFocusBounds(Area area){
         int temp = WIDTH - 32 - (int)((area.info.width*16)*zoom);
         if(temp > 16){
             maxFX = temp;
@@ -114,7 +132,7 @@ public class MouseInterpreter extends MouseAdapter{
             maxFY = 16;
             minFY = temp;
         }
-    }
+    }*/
     
     /**
      * Returns the centre coordinates of the screen.
@@ -122,75 +140,6 @@ public class MouseInterpreter extends MouseAdapter{
      */
     public static int[] getCenter(){
         return new int[]{(int)(WIDTH/zoom/2d), (int)(HEIGHT/zoom/2d)};
-    }
-    
-    /**
-     * Applies the re-centered quadrant rotate matrix to the given x,y coordinates.
-     * @param o The number of quadrants rotated.
-     * @param x
-     * @param y
-     * @param w The width
-     * @param h The height
-     * @return The x coordinate of the image.
-     */
-    public static int xOrient(int o, int x, int y, int w, int h){
-        switch(o){
-            case 0: return x;
-            case 1: return y;
-            case 2: return w-x-1;
-            default: return h-y-1;
-        }
-    }
-    
-    /**
-     * Applies the re-centered quadrant rotate matrix to the given x,y coordinates.
-     * @param o The number of quadrants rotated.
-     * @param x
-     * @param y
-     * @param w The width
-     * @param h The height
-     * @return The y coordinate of the image.
-     */
-    public static int yOrient(int o, int x, int y, int w, int h){
-        switch(o){
-            case 0: return y;
-            case 1: return w-x-1;
-            case 2: return h-y-1;
-            default: return x;
-        }
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent me){
-        if(xOfDrag == -1){
-            xOfDrag = (int)(me.getX()/zoom) - focusX;
-            yOfDrag = (int)(me.getY()/zoom) - focusY;        
-        }
-        int tempx, tempy;
-        tempx = me.getX() - xOfDrag;
-        tempy = me.getY() - yOfDrag;
-        focusX = tempx>minFX ? (tempx<maxFX ? tempx : maxFX) : minFX;
-        focusY = tempy>minFY ? (tempy<maxFY ? tempy : maxFY) : minFY;
-        focusX = (int)(me.getX()/zoom) - xOfDrag;
-        focusY = (int)(me.getY()/zoom) - yOfDrag;
-    }
-    
-    @Override
-    public void mouseWheelMoved(MouseWheelEvent me){
-        //zoomCenterX = me.getX();
-        //zoomCenterY = me.getY();
-        switch(me.getWheelRotation()){
-            case -1: if(zoom<MAX_ZOOM){
-                zoom *= 1.25;
-                performanceStream.println("ZOOM: " + zoom);
-            }
-                break;
-            default: if(zoom>MIN_ZOOM){
-                zoom /= 1.25;
-                performanceStream.println("ZOOM: " + zoom);
-            }
-        }
-        setFocusBounds(Window.VIEWER.area);
     }
     
 }

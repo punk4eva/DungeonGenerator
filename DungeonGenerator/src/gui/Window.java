@@ -3,7 +3,7 @@ package gui;
 import components.Area;
 import components.LevelFeeling;
 import components.rooms.Room;
-import generation.corridors.SpiderCorridorBuilder;
+import generation.corridors.CaveGrower;
 import generation.rooms.RoomPlacer;
 import java.awt.Dimension;
 import java.io.IOException;
@@ -57,9 +57,14 @@ public class Window{
         
         LinkedList<Room> list = new LinkedList<>();
         for(int n=0;n<20;n++) list.add(getRandomRoom());
+        //new RoomPlacer(viewer.area, list).generate();
+        //viewer.area.refreshGraph();
+        //new SpiderCorridorBuilder(viewer.area, 10, false).build();
+        CaveGrower grower = new CaveGrower(viewer.area, 0.3, 2, 9, 4, 5, 20, true, true);
+        grower.build();
         new RoomPlacer(viewer.area, list).generate();
         viewer.area.refreshGraph();
-        new SpiderCorridorBuilder(viewer.area, 10, false).build();
+        grower.ensureConnectedness();
         viewer.area.initializeImages();
         
         viewer.area.graph.makePNG("saves/map.png", new DungeonColorer());
