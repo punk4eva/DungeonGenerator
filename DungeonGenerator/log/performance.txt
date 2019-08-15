@@ -1,3 +1,1 @@
 ZOOM: 0.8
-ZOOM: 1.0
-ZOOM: 0.8

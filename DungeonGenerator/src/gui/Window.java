@@ -4,6 +4,7 @@ import components.Area;
 import components.LevelFeeling;
 import components.rooms.Room;
 import generation.corridors.CaveGrower;
+import generation.corridors.OneToOneCorridorBuilder;
 import generation.rooms.RoomPlacer;
 import java.awt.Dimension;
 import java.io.IOException;

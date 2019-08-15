@@ -16,7 +16,7 @@ import java.util.function.Function;
  */
 public class PriorityQueue<T extends Object> extends LinkedList<T> implements Comparator<T>{
     
-    private final Function<T, Double> enumerator;
+    private Function<T, Double> enumerator;
     
     /**
      * Creates a new instance.
@@ -82,6 +82,10 @@ public class PriorityQueue<T extends Object> extends LinkedList<T> implements Co
         }
         super.add(element);
         return true;
+    }
+    
+    public void setFunction(Function<T, Double> func){
+        enumerator = func;
     }
     
 }
