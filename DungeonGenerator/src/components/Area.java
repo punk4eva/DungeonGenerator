@@ -28,7 +28,7 @@ public class Area{
      */
     public final Tile[][] map;
     public final AreaInfo info;
-    public transient final Graph graph;
+    public transient Graph graph;
     public int orientation;
     
     /**
@@ -45,17 +45,21 @@ public class Area{
     
     /**
      * Paints the given area on the given graphics.
-     * @param fx The focusX
-     * @param fy The focusY
+     * @param focusX The focusX
+     * @param focusY The focusY
      * @param g The image to paint on.
      */
     @ThreadUsed("Render")
-    public void paint(Graphics2D g, int fx, int fy){
-        for(int y=fy, maxY=fy+info.height*16;y<maxY;y+=16){
-            for(int x=fx, maxX=fx+info.width*16;x<maxX;x+=16){
-                int tx = (x-fx)/16, ty = (y-fy)/16;
+    public void paint(Graphics2D g, int focusX, int focusY){
+        int tileX, tileY;
+        for(int y=focusY, maxY=focusY+info.height*16;y<maxY;y+=16){
+            for(int x=focusX, maxX=focusX+info.width*16;x<maxX;x+=16){
+                tileX = (x-focusX)/16;
+                tileY = (y-focusY)/16;
                 try{
-                    if(x>=-16&&y>=-16&&x*zoom<=WIDTH&&y*zoom<=HEIGHT && map[ty][tx]!=null) g.drawImage(map[ty][tx].image, x, y, null);
+                    if(x>=-16 && x*zoom<=WIDTH &&
+                            y >=-16 && y*zoom<=HEIGHT && map[tileY][tileX]!=null) 
+                        g.drawImage(map[tileY][tileX].image, x, y, null);
                 }catch(ArrayIndexOutOfBoundsException e){/*Skip frame*/}
             }
         }
@@ -68,11 +72,11 @@ public class Area{
      * @param y1 The top left y.
      */
     public void blitRoom(Room r, int x1, int y1){
+        r.setCoords(x1, y1);
         r.ensureGenerated(this);
         int o = getApparentOrientation(r), w = r.width, h = r.height;
-        for(int y=0;y<h;y++) for(int x=0;x<w;x++){
+        for(int y=0;y<h;y++) for(int x=0;x<w;x++)
             map[yOrient(o,x,y,w,h)+y1][xOrient(o,x,y,w,h)+x1] = r.map[y][x];
-        }
     }
     
     /**

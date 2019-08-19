@@ -26,7 +26,6 @@ public class PlainRoom extends Room{
     @Override
     public void generate(Area area){
         paintAndPave(area);
-        addDoors(area);
     }
 
 }

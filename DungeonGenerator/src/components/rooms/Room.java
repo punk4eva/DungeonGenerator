@@ -62,14 +62,27 @@ public abstract class Room{
      */
     protected abstract void generate(Area area);
     
+    
+    public final void setCoords(int x1, int y1){
+        x = x1;
+        y = y1;
+    }
+    
     /**
      * Populates this Room with Doors.
      * @param area The Area object that this Room is being created for.
      * @param doorNum The number of doors (random if left blank).
      */
-    protected void addDoors(Area area, int... doorNum){
-        int numDoors = doorNum.length==0 ? (int)new Distribution(new int[]{1,2,3,4,5,6},
-                new int[]{3,4,6,4,2,1}).next() : doorNum[0];
+    public void addDoorsRandomly(Area area){
+        addDoors(area, new Distribution(new int[]{3,4,6,4,2,1}).next()+1);
+    }
+    
+    public void addDoorsSparcely(Area area){
+        addDoors(area, new Distribution(new int[]{3,3,1}).next()+1);
+    }
+    
+    protected void addDoors(Area area, int numDoors){
+        ensureGenerated(area);
         int failed = 0;
         while(numDoors>0||failed>=40){
             int x, y;

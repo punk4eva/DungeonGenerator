@@ -4,6 +4,7 @@ package generation.rooms;
 import components.Area;
 import components.rooms.Room;
 import java.util.LinkedList;
+import java.util.function.Consumer;
 import static utils.Utils.R;
 
 /**
@@ -14,12 +15,14 @@ public class RoomPlacer{
 
     private final LinkedList<Room> rooms;
     private final Area area;
+    private final Consumer<Room> doorGenerator;
     
     private static final int ATTEMPT_LIMIT = 15;
     
-    public RoomPlacer(Area a, LinkedList<Room> r){
+    public RoomPlacer(Area a, LinkedList<Room> r, Consumer<Room> doorGen){
         area = a;
         rooms = r;
+        doorGenerator = doorGen;
     }
     
     public void generate(){
@@ -55,6 +58,7 @@ public class RoomPlacer{
         Room r;
         for(i=0;i<rooms.size();i++){
             r = rooms.get(i);
+            doorGenerator.accept(r);
             area.blitRoom(r, coords[i][0], coords[i][1]);
         }
     }
