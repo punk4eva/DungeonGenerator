@@ -4,9 +4,9 @@ package components.tiles;
 import builders.TrapBuilder;
 import components.Area;
 import components.Trap;
+import filterGeneration.ImageBuilder;
 import graph.Point.Type;
 import java.awt.image.BufferedImage;
-import filterGeneration.ImageBuilder;
 import static utils.Utils.R;
 
 /**
@@ -50,14 +50,8 @@ public class Tile{
     }
     
     
-    /**
-     * Builds the image of this Tile.
-     * @param area The Area that this Tile belongs to.
-     * @param x The pixel x coordinate.
-     * @param y The pixel y coordinate.
-     */
-    public final void buildImage(Area area, int x, int y){
-        image = ImageBuilder.constructImage(this, area, x, y);
+    public void buildImage(Area area, int x, int y){
+        ImageBuilder.constructImage(this, area, x, y);
     }
     
     public final boolean equals(Class clazz){
@@ -76,7 +70,7 @@ public class Tile{
     public static Door genDoor(Area area){
         return new Door(R.nextDouble() < area.info.feeling.doorHideChance ? 
                 genWall(area) : null, R.nextDouble() < area.info.feeling.doorTrapChance ?
-                        TrapBuilder.getDoorTrap(area) : null);
+                        TrapBuilder.getDoorTrap(area) : null, false);
     }
     
     public static Floor genFloor(Area area){

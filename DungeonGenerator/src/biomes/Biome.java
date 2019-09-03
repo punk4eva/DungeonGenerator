@@ -1,6 +1,8 @@
 
 package biomes;
 
+import utils.Utils.Unfinished;
+
 /**
  *
  * @author Adam Whittaker
@@ -71,6 +73,11 @@ public enum Biome{
         hostility = ho;
         height = he;
         technology = tech;
+    }
+    
+    @Unfinished
+    public String getRandomTreeType(){
+        return "oak";
     }
     
 }

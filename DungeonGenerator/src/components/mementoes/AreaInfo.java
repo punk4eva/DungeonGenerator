@@ -4,9 +4,11 @@ package components.mementoes;
 import components.LevelFeeling;
 import generation.noise.PerlinNoiseGenerator;
 import generation.noise.MidpointDisplacer;
-import components.LevelFeeling.NoiseType;
 import components.tiles.Tile;
+import filterGeneration.DoorIconGenerator;
+import filterGeneration.ImageBuilder;
 import graph.Point.Type;
+import java.awt.Color;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
@@ -35,6 +37,9 @@ public class AreaInfo implements Serializable{
             amplitude, lacunarity, persistence;
     private final int octaves;
     public final LevelFeeling feeling;
+    public final Color grassColor;
+    
+    public final ArchitectureInfo architecture;
     
     public transient double[][] wallNoise;
     public transient double[][] floorNoise;
@@ -56,7 +61,9 @@ public class AreaInfo implements Serializable{
         lacunarity = f.lacunarity.next(0.3, 1.0);
         persistence = f.persistence.next(0.3, 1.0);
         feeling = f;
+        grassColor = Color.decode("#16560d");
         initializeNoise();
+        architecture = new ArchitectureInfo(this, f);
     }
     
     /**

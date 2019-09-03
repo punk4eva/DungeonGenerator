@@ -62,6 +62,30 @@ public abstract class Filter implements Serializable{
         return (int)(v1*(1D-weight) + v2*weight);
     }
     
+    /**
+     * Compares the first 3 color channels of a pixel for equality.
+     * Compatible only with RGB and not ARGB pixels.
+     * @param p1 pixel 1
+     * @param p2 pixel 2
+     * @return true if the pixels are the same color.
+     */
+    public static boolean RGBPixelEquals(int[] p1, int[] p2){
+        for(int n=0;n<3;n++) if(p1[n] != p2[n]) return false;
+        return true;
+    }
+    
+    /**
+     * Compares the last 3 color channels of a pixel for equality.
+     * Compatible only with ARGB and not RGB pixels.
+     * @param p1 pixel 1
+     * @param p2 pixel 2
+     * @return true if the pixels are the same color.
+     */
+    public static boolean ARGBPixelEquals(int[] p1, int[] p2){
+        for(int n=1;n<4;n++) if(p1[n] != p2[n]) return false;
+        return true;
+    }
+    
     
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException{
         in.defaultReadObject();

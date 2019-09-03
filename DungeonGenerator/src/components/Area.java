@@ -3,6 +3,8 @@ package components;
 
 import components.rooms.Room;
 import components.mementoes.AreaInfo;
+import components.tiles.Floor;
+import components.tiles.Grass;
 import components.tiles.Tile;
 import graph.Graph;
 import graph.Point;
@@ -10,6 +12,7 @@ import static gui.DungeonViewer.HEIGHT;
 import static gui.DungeonViewer.WIDTH;
 import static gui.MouseInterpreter.zoom;
 import java.awt.Graphics2D;
+import static utils.Utils.R;
 import utils.Utils.ThreadUsed;
 
 /**
@@ -150,6 +153,45 @@ public class Area{
             case 1: return w-x-1;
             case 2: return h-y-1;
             default: return x;
+        }
+    }
+    
+    
+    private boolean hasAdjacentTile(int x, int y, Class clazz){
+        if(y>0 && clazz.isInstance(map[y-1][x])) return true;
+        else if(y<map.length-1 && clazz.isInstance(map[y+1][x])) return true;
+        else if(x>0 && clazz.isInstance(map[y][x-1])) return true;
+        return x<map.length-1 && clazz.isInstance(map[y][x+1]);
+    }
+    
+    public void growGrass(){
+        for(int y=1;y<map.length-1;y++){
+            for(int x=1;x<map[0].length-1;x++){
+                if(map[y][x] instanceof Floor && R.nextDouble()<info.feeling.grassGenChance){
+                    map[y][x] = new Grass(info.feeling.getTrapOrNull(), R.nextDouble()<info.feeling.grassUpgradeChance);
+                }
+            }
+        }
+        
+        for(int c=3;c<12;c++){
+            for(int y=1;y<map.length-1;y++){
+                for(int x=1;x<map[0].length-1;x++){
+                    if(map[y][x] instanceof Grass && c*R.nextDouble()<1){
+                        if(map[y-1][x] instanceof Floor){
+                            map[y-1][x] = new Grass(info.feeling.getTrapOrNull(), R.nextDouble()<info.feeling.grassUpgradeChance);
+                        }
+                        if(map[y+1][x] instanceof Floor){
+                            map[y+1][x] = new Grass(info.feeling.getTrapOrNull(), R.nextDouble()<info.feeling.grassUpgradeChance);
+                        }
+                        if(map[y][x-1] instanceof Floor){
+                            map[y][x-1] = new Grass(info.feeling.getTrapOrNull(), R.nextDouble()<info.feeling.grassUpgradeChance);
+                        }
+                        if(map[y][x+1] instanceof Floor){
+                            map[y][x+1] = new Grass(info.feeling.getTrapOrNull(), R.nextDouble()<info.feeling.grassUpgradeChance);
+                        }
+                    }
+                }
+            }
         }
     }
 

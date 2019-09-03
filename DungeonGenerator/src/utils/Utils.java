@@ -8,6 +8,7 @@ package utils;
 
 import components.rooms.Room;
 import components.rooms.PlainRoom;
+import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -74,6 +75,18 @@ public final class Utils{
         //new MidpointDisplacer(125, 80, 0.7, 255, true, true).apply(map);
         
         //Graph.makePNG(map, "saves/map.png");
+        
+        Color rgb = new Color(0, 0, 0);
+
+        for (int i = 0; i < 5; i++) {
+            rgb = rgb.darker();
+            System.out.println("After darker(): " + rgb);
+        }
+
+        for (int i = 0; i < 5; i++) {
+            rgb = rgb.brighter();
+            System.out.println("After brighter(): " + rgb);
+        }
         
     }
     

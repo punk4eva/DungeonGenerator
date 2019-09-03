@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import utils.Distribution;
 import utils.GaussProbability;
+import static utils.Utils.R;
 import utils.Utils.Unfinished;
 
 /**
@@ -131,8 +132,20 @@ public class LevelFeeling{
         floorTrapChance = floorTrap;
     }
     
+    
+    public Trap getTrapOrNull(){
+        if(R.nextDouble()<floorTrapChance) return getRandomTrap();
+        else return null;
+    }
+    
+    @Unfinished
+    public Trap getRandomTrap(){
+        return null;
+    }
+    
+    
     public static final LevelFeeling DEFAULT_FEELING = new LevelFeeling("Default", null, null, null, new Distribution(new int[]{2,3,4,5,6}, new int[]{1,3,5,3,2}), 
-            0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.1, 0.1, 0.1, NoiseType.MIDPOINT, NoiseType.PERLIN, true, false, false,
-            new GaussProbability(80, 25), new GaussProbability(0.65, 0.25), new GaussProbability(80, 25), new GaussProbability(0.6, 0.2), new GaussProbability(0.8, 0.2));
+            0.1, 0.05, 0.5, 0.5, 0.5, 0.5, 0.1, 0.1, 0.1, NoiseType.MIDPOINT, NoiseType.PERLIN, true, false, false,
+            new GaussProbability(80, 25), new GaussProbability(0.65, 0.25), new GaussProbability(80, 25), new GaussProbability(0.5, 0.2), new GaussProbability(0.8, 0.2));
     
 }

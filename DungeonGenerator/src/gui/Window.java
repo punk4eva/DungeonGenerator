@@ -67,9 +67,8 @@ public class Window{
         //new RoomPlacer(viewer.area, list).generate();
         //viewer.area.refreshGraph();
         //grower.buildCorridors();
+        viewer.area.growGrass();
         viewer.area.initializeImages();
-        
-        viewer.area.graph.makePNG("saves/map.png", new DungeonColorer());
         
         viewer.start();
     }
