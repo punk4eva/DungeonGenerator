@@ -1,17 +1,14 @@
 
 package materials;
 
+import filterGeneration.Filter;
 import java.awt.Color;
-import materials.composite.*;
-import materials.improvised.*;
-import materials.stone.*;
-import materials.wood.*;
 
 /**
  *
  * @author Adam Whittaker
  */
-public class Material{
+public abstract class Material{
     
     public final String description;
     public final Color color;
@@ -20,6 +17,8 @@ public class Material{
     public final double complexity;
     public final double maxTemp;
     public final double minHeight, maxHeight;
+    
+    public Filter filter;
     
     
     public Material(String desc, Color col, double res, double comp, double mTemp, double minH, double maxH){

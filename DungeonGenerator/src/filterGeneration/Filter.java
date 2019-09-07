@@ -19,17 +19,30 @@ public abstract class Filter implements Serializable{
     
     protected transient BufferedImage filter;
     
-    protected SerSupplier supplier;
-    protected LinkedList<SerInstruction> instructions = new LinkedList<>();
+    private final SerSupplier supplier;
+    private final LinkedList<SerInstruction> instructions = new LinkedList<>();
+    
+    public Filter(SerSupplier s){
+        supplier = s;
+    }
     
     
     public abstract BufferedImage generateImage(int _x, int _y, double[][] map);
     
-    protected void buildFilter(){
+    public void buildFilter(){
         filter = supplier.get();
         instructions.forEach((i) -> {
             i.accept(filter);
         });
+    }
+    
+    public void addInstruction(SerInstruction inst){
+        instructions.add(inst);
+    }
+    
+    
+    public static BufferedImage defaultSupplier(){
+        return new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
     }
     
     /**

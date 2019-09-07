@@ -7,7 +7,6 @@ import filterGeneration.ImageBuilder.SerSupplier;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
-import javax.swing.ImageIcon;
 import utils.Utils.Unfinished;
 
 /**
@@ -55,12 +54,12 @@ public class DoorIconGenerator{
         BufferedImage img = new BufferedImage(16, 16, BufferedImage.TYPE_INT_RGB);
         Graphics g = img.getGraphics();
         g.drawImage(closed, 0, 0, null);
-        g.drawImage(new ImageIcon("graphics/tiles/lock.png").getImage(), 0, 0, null);
+        g.drawImage(ImageBuilder.getImageFromFile("lock.png"), 0, 0, null);
         return img;
     }
     
     private void fillWall(BufferedImage img, int tx, int ty){
-        BufferedImage wall = info.feeling.filters.wall.generateImage(tx, ty, info.wallNoise);
+        BufferedImage wall = info.architecture.wallMaterial.filter.generateImage(tx, ty, info.wallNoise);
         WritableRaster raster = img.getRaster(), wallRaster = wall.getRaster();
         int[] pixel = new int[3];
         for(int y=0;y<img.getHeight();y++){
@@ -72,7 +71,7 @@ public class DoorIconGenerator{
     }
     
     private void fillFloor(BufferedImage img, int tx, int ty){
-        BufferedImage floor = info.feeling.filters.floor.generateImage(tx, ty, info.floorNoise);
+        BufferedImage floor = info.architecture.floorMaterial.filter.generateImage(tx, ty, info.floorNoise);
         WritableRaster raster = img.getAlphaRaster(), floorRaster = floor.getRaster();
         int[] pixel = new int[4];
         for(int y=0;y<img.getHeight();y++)
@@ -84,6 +83,17 @@ public class DoorIconGenerator{
     }
     
     @Unfinished
-    private void fillDoor(BufferedImage img, int tx, int ty){}
+    private void fillDoor(BufferedImage img, int tx, int ty){
+        BufferedImage door = info.architecture.doorMaterial.filter.generateImage(tx, ty, info.wallNoise);
+        WritableRaster raster = img.getAlphaRaster(), doorRaster = door.getRaster();
+        int[] pixel = new int[4];
+        for(int y=0;y<img.getHeight();y++)
+            for(int x=0;x<img.getWidth();x++)
+                if(Filter.ARGBPixelEquals(raster.getPixel(x, y, pixel), FLOOR_REGEX)){
+            raster.setPixel(x, y, Filter.overlayColor(doorRaster.getPixel(x, y, pixel), 
+                    raster.getPixel(x, y, pixel)));
+        }
+        img.getGraphics().drawImage(ImageBuilder.getImageFromFile("handle.png"), 0, 0, null);
+    }
     
 }

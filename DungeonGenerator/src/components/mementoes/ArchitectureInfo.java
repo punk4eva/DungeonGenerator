@@ -5,7 +5,7 @@ import components.LevelFeeling;
 import filterGeneration.DoorIconGenerator;
 import filterGeneration.ImageBuilder;
 import materials.Material;
-import materials.stone.StoneBrick;
+import materials.stone.*;
 import materials.wood.*;
 import utils.Utils.Unfinished;
 
@@ -18,7 +18,7 @@ public class ArchitectureInfo{
 
     public final Material doorMaterial = new Ebony();
     public final Material floorMaterial = new Oak();
-    public final Material wallMaterial = new StoneBrick();
+    public final Material wallMaterial = new CaveStone();
     public final Material specFloorMaterial = new Birch();
     public final Material furnitureMaterial = new Mahogany();
 

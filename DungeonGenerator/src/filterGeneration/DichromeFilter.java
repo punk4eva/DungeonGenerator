@@ -1,10 +1,10 @@
 
 package filterGeneration;
 
+import filterGeneration.ImageBuilder.SerSupplier;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
-import utils.Utils;
 
 /**
  *
@@ -14,9 +14,14 @@ public class DichromeFilter extends Filter{
     
     private final Color col1, col2;
     
-    public DichromeFilter(Color c1, Color c2){
+    public DichromeFilter(SerSupplier s, Color c1, Color c2){
+        super(s);
         col1 = c1;
         col2 = c2;
+    }
+    
+    public DichromeFilter(SerSupplier s, Color color){
+        this(s, color.brighter(), color.darker());
     }
     
 

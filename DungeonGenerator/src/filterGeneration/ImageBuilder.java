@@ -35,11 +35,13 @@ public class ImageBuilder{
             for(int x=0;x<img.getWidth();x++){
                 pixel = raster.getPixel(x, y, pixel);
                 if(pixel[0]==0){
-                    pixel[0] = midPoint + 2*R.nextInt(jitter) - jitter;
-                    pixel[0] = pixel[0]>255 ? 255 : pixel[0];
-                    pixel[0] = pixel[0]<0 ? 0 : pixel[0];
-                    raster.setPixel(x, y, pixel);
+                    pixel[0] = midPoint + R.nextInt(2*jitter) - jitter;
+                }else{
+                    pixel[0] += R.nextInt(2*jitter) - jitter;
                 }
+                pixel[0] = pixel[0]>255 ? 255 : pixel[0];
+                pixel[0] = pixel[0]<0 ? 0 : pixel[0];
+                raster.setPixel(x, y, pixel);
             }
         }
     }
@@ -82,9 +84,9 @@ public class ImageBuilder{
     
     public static void constructImage(Tile tile, Area area, int x, int y){
         switch(tile.type){
-            case FLOOR: tile.image = area.info.feeling.filters.floor.generateImage(x, y, area.info.floorNoise);
+            case FLOOR: tile.image = area.info.architecture.floorMaterial.filter.generateImage(x, y, area.info.floorNoise);
                 break;
-            case WALL: tile.image = area.info.feeling.filters.wall.generateImage(x, y, area.info.wallNoise);
+            case WALL: tile.image = area.info.architecture.wallMaterial.filter.generateImage(x, y, area.info.wallNoise);
                 break;
             case DOOR: area.info.architecture.doorGenerator.generateAllImages((Door)tile, x, y);
                 break;
@@ -109,6 +111,7 @@ public class ImageBuilder{
     
     public static Color getColor(String name){
         switch(name){
+            //General colors
             case "apple green": return Color.decode("#00ff1d");
             case "aquamarine": return Color.decode("#7FFFD4");
             case     "apricot": return Color.decode("#FBCEB1");
@@ -176,6 +179,7 @@ public class ImageBuilder{
             case     "flame": return Color.decode("#f84400");
             case     "white wine": return Color.decode("#dae8a9");
             case     "red" : return Color.decode("#ff0000");
+            //fantasy materials
             case "red mogle wood": return Color.decode("#872f10");
             case "hurian titan wood": return Color.decode("#eddbd5");
             case "hurian goddess wood": return Color.decode("#edd5e3");
@@ -195,12 +199,13 @@ public class ImageBuilder{
             case "roachwood": return Color.decode("#556b00");
             case "crying brown magmatic wood": return Color.decode("#5b0606");
             case "white magmatic wood": return Color.decode("#ffffff");
-            case "stone": return Color.decode("#9b9a93");
-            case "birch": return Color.decode("#f7f4de");
+            //real materials
+            case "stone": return Color.decode("#7b7a73");
+            case "birch": return Color.decode("#e1c785").darker();
             case "dark oak": return Color.decode("#261609");
-            case "oak": return Color.decode("#54361e");
-            case "mahogany": return Color.decode("#842e11");
-            case "ebony": return new Color(20, 0, 0);
+            case "oak": return Color.decode("#c89959").darker();
+            case "mahogany": return Color.decode("#5a2e11");
+            case "ebony": return new Color(40, 20, 20);
             default: throw new IllegalStateException("Illegal color: " + name);
         }
     }

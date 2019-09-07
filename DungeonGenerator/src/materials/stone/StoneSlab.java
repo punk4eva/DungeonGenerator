@@ -12,6 +12,7 @@ public class StoneSlab extends Material{
 
     public StoneSlab(){
         super("@Unfinished", new Color(130, 130, 130), 55, 30, 400, -30, 60);
+        throw new UnsupportedOperationException("No filter");
     }
 
 }

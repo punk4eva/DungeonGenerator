@@ -4,12 +4,10 @@ import components.Area;
 import components.LevelFeeling;
 import components.rooms.Room;
 import generation.corridors.*;
-import generation.rooms.RoomPlacer;
 import java.awt.Dimension;
 import java.io.IOException;
 import java.util.LinkedList;
 import javax.swing.JFrame;
-import utils.DungeonColorer;
 import static utils.Utils.getRandomRoom;
 
 /**

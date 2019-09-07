@@ -42,7 +42,7 @@ public class Grass extends Tile{
     
     private void constructLowGrass(Color col, Graphics g){
         g.setColor(col.darker());
-        for(int n=0;n<22;n++)
+        for(int n=0;n<15;n++)
             g.fillRect(R.nextInt(16), R.nextInt(16), 1, 1);
         g.setColor(col);
         for(int n=0;n<22;n++)
