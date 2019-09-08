@@ -23,7 +23,7 @@ public class Grass extends Tile{
     
     @Override
     public void buildImage(Area area, int x, int y){
-        super.buildImage(area, x, y);
+        generateFloorImage(area, x, y);
         if(tall) constructTallGrass(area.info.grassColor, image.getGraphics());
         else constructLowGrass(area.info.grassColor, image.getGraphics());
     }

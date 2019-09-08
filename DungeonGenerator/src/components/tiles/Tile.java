@@ -15,7 +15,7 @@ import static utils.Utils.R;
  * 
  * This class represents a metre-squared of dungeon.
  */
-public class Tile{
+public abstract class Tile{
     
     
     /**
@@ -50,9 +50,7 @@ public class Tile{
     }
     
     
-    public void buildImage(Area area, int x, int y){
-        ImageBuilder.constructImage(this, area, x, y);
-    }
+    public abstract void buildImage(Area area, int x, int y);
     
     public final boolean equals(Class clazz){
         return clazz.getSimpleName().equals(getClass().getSimpleName());
@@ -87,6 +85,15 @@ public class Tile{
                         TrapBuilder.getWallTrap(area) : null);
         else return new Wall(R.nextDouble() < area.info.feeling.wallTrapChance ?
                         TrapBuilder.getWallTrap(area) : null);
+    }
+    
+    
+    protected void generateWallImage(Area area, int x, int y){
+        image = area.info.architecture.wallMaterial.filter.generateImage(x, y, area.info.wallNoise);
+    }
+    
+    protected void generateFloorImage(Area area, int x, int y){
+        image = area.info.architecture.floorMaterial.filter.generateImage(x, y, area.info.floorNoise);
     }
     
 }

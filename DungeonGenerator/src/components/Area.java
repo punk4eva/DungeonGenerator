@@ -8,9 +8,11 @@ import components.tiles.Grass;
 import components.tiles.Tile;
 import graph.Graph;
 import graph.Point;
+import graph.Point.Type;
 import static gui.DungeonViewer.HEIGHT;
 import static gui.DungeonViewer.WIDTH;
 import static gui.MouseInterpreter.zoom;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import static utils.Utils.R;
 import utils.Utils.ThreadUsed;
@@ -34,6 +36,8 @@ public class Area{
     public transient Graph graph;
     public int orientation;
     
+    private static final Color BORDER_COLOR = new Color(0, 0, 0, 100);
+    
     /**
      * Creates a new instance.
      * @param w The width
@@ -45,6 +49,7 @@ public class Area{
         info = new AreaInfo(w, h, f);
         graph = new Graph(w, h);
     }
+    
     
     /**
      * Paints the given area on the given graphics.
@@ -61,12 +66,36 @@ public class Area{
                 tileY = (y-focusY)/16;
                 try{
                     if(x>=-16 && x*zoom<=WIDTH &&
-                            y >=-16 && y*zoom<=HEIGHT && map[tileY][tileX]!=null) 
+                            y >=-16 && y*zoom<=HEIGHT && map[tileY][tileX]!=null){
                         g.drawImage(map[tileY][tileX].image, x, y, null);
+                    }
                 }catch(ArrayIndexOutOfBoundsException e){/*Skip frame*/}
             }
         }
+        g.setColor(BORDER_COLOR);
+        paintOutsideBorder(g, focusX, focusY);
+        for(tileY=0;tileY<info.height;tileY++){
+            for(tileX=0;tileX<info.width;tileX++){
+                if(map[tileY][tileX].type.equals(Type.FLOOR))
+                    paintInsideBorder(tileX, tileY, g, focusX, focusY);
+            }
+        }
     }
+    
+    private void paintOutsideBorder(Graphics2D g, int focusX, int focusY){
+        g.drawLine(focusX, focusY, 16*info.width+focusX - 1, focusY);
+        g.drawLine(focusX, focusY, focusX, focusY + 16*info.height - 1);
+        g.drawLine(focusX, focusY + 16*info.height - 1, 16*info.width + focusX - 1, focusY + 16*info.height - 1);
+        g.drawLine(focusX + 16*info.width - 1, focusY, focusX + 16*info.width - 1, focusY + 16*info.height-1);
+    }
+    
+    private void paintInsideBorder(int tx, int ty, Graphics2D g, int focusX, int focusY){
+        if(map[ty-1][tx].type.equals(Type.WALL)) g.fillRect(tx*16+focusX, ty*16+focusY-1, 16, 2);
+        if(map[ty+1][tx].type.equals(Type.WALL)) g.fillRect(tx*16+focusX, ty*16+focusY+15, 16, 2);
+        if(map[ty][tx-1].type.equals(Type.WALL)) g.fillRect(tx*16+focusX-1, ty*16+focusY, 2, 16);
+        if(map[ty][tx+1].type.equals(Type.WALL)) g.fillRect(tx*16+focusX+15, ty*16+focusY, 2, 16);
+    }
+    
     
     /**
      * Copies the given room onto this area, without any clipping prevention.
@@ -157,7 +186,7 @@ public class Area{
     }
     
     
-    private boolean hasAdjacentTile(int x, int y, Class clazz){
+    public boolean hasAdjacentTile(int x, int y, Class clazz){
         if(y>0 && clazz.isInstance(map[y-1][x])) return true;
         else if(y<map.length-1 && clazz.isInstance(map[y+1][x])) return true;
         else if(x>0 && clazz.isInstance(map[y][x-1])) return true;

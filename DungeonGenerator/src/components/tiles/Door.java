@@ -1,6 +1,7 @@
 
 package components.tiles;
 
+import components.Area;
 import components.Trap;
 import graph.Point.Type;
 import java.awt.image.BufferedImage;
@@ -18,6 +19,13 @@ public class Door extends Tile{
         super("Door", "@Unfinished", Type.DOOR, al, tr);
         locked = lo;
     }
+    
+    
+    @Override
+    public void buildImage(Area area, int x, int y){
+        area.info.architecture.doorGenerator.generateAllImages(this, x, y);
+    }
+    
     
     public void setOpenImage(BufferedImage img){
         openImage = img;

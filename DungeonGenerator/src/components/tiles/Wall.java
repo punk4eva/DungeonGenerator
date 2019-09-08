@@ -1,6 +1,7 @@
 
 package components.tiles;
 
+import components.Area;
 import components.Trap;
 import graph.Point.Type;
 
@@ -16,6 +17,11 @@ public class Wall extends Tile{
     
     protected Wall(String na, String desc, Trap tr){
         super(na, desc, Type.WALL, null, tr);
+    }
+    
+    @Override
+    public void buildImage(Area area, int x, int y){
+        generateWallImage(area, x, y);
     }
 
 }

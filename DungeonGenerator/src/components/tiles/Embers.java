@@ -20,7 +20,7 @@ public class Embers extends Tile{
     
     @Override
     public void buildImage(Area area, int x, int y){
-        super.buildImage(area, x, y);
+        generateFloorImage(area, x, y);
         Graphics g = image.getGraphics();
         g.setColor(Color.BLACK);
         for(int n=0;n<23;n++)
