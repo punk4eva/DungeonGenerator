@@ -19,6 +19,19 @@ import static utils.Utils.exceptionStream;
  */
 public class ImageBuilder{
     
+    public static final String[] COLORS = {"apple green", "aquamarine", "apricot",
+        "lime", "sky blue", "amber", "auburn", "gold", "electrum", "silver",
+        "azure", "magnolia", "banana", "orange", "blizzard blue", "blueberry",
+        "cerulean", "periwinckle", "turquoise", "rose", "bubblegum", "burgundy",
+        "chocolate", "coral", "cyan", "dandelion", "chestnut", "tangerine",
+        "lemon", "ruby", "emerald", "forest green", "ginger", "tea", "voilet", 
+        "amaranth red", "scorpion brown", "amethyst", "charcoal", "asparagus", 
+        "ash", "copper", "tin", "beige", "bistre", "olive", "bronze", "sapphire",
+        "purple", "boysenberry", "ochre", "maroon", "lavender", 
+        "lilac", "sugar brown", "coffee", "scarlet", "crimson", "salmon", 
+        "metallic", "mint", "saffron", "eggplant", "firebrick", "flame", "white wine"};
+    
+    
     public static interface SerSupplier extends Supplier<BufferedImage>, Serializable{}
     
     public static interface SerInstruction extends Serializable, Consumer<BufferedImage>{}
@@ -45,13 +58,22 @@ public class ImageBuilder{
     public static BufferedImage getImageFromFile(String filepath){
         try{
             BufferedImage img = ImageIO.read(new File("graphics/tiles/" + filepath));
-            System.out.println("Type: " + img.getType());
             return img;
         }catch(IOException ex){
             ex.printStackTrace(System.err);
             ex.printStackTrace(exceptionStream);
             throw new IllegalStateException();
         }
+    }
+    
+    public static int[] colorToPixelArray(Color c){
+        return new int[]{c.getRed(), c.getGreen(), c.getBlue()};
+    }
+    
+    public static BufferedImage convertToRGB(BufferedImage img){
+        BufferedImage ret = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
+        ret.getGraphics().drawImage(img, 0, 0, null);
+        return ret;
     }
 
     
@@ -154,6 +176,10 @@ public class ImageBuilder{
             case "ebony": return new Color(40, 20, 20);
             default: throw new IllegalStateException("Illegal color: " + name);
         }
+    }
+    
+    public static Color getRandomColor(){
+        return getColor(COLORS[R.nextInt(COLORS.length)]);
     }
 
 }

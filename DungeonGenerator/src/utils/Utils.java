@@ -8,11 +8,15 @@ package utils;
 
 import components.rooms.Room;
 import components.rooms.PlainRoom;
+import static filterGeneration.Filter.RGBPixelEquals;
 import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -58,6 +62,17 @@ public final class Utils{
         for(int[] row : ary){
             printArray(row);
         }
+    }
+    
+    public static <T> boolean mapContainsArray(List<SimpleEntry<int[], T>> map, int[] ary){
+        return map.stream().anyMatch((e) -> (RGBPixelEquals(e.getKey(), ary)));
+    }
+    
+    public static <T> T getValueFromMap(List<SimpleEntry<int[], T>> map, int[] ary){
+        for(SimpleEntry<int[], T> e : map){
+            if(RGBPixelEquals(e.getKey(), ary)) return e.getValue();
+        }
+        return null;
     }
     
     public static void main(String... args) throws IOException{
