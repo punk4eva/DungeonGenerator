@@ -1,6 +1,7 @@
 
 package components.mementoes;
 
+import biomes.Biome;
 import components.LevelFeeling;
 import filterGeneration.DoorIconGenerator;
 import filterGeneration.ImageBuilder;
@@ -23,6 +24,8 @@ public class ArchitectureInfo{
     public final Material furnitureMaterial = new Mahogany();
 
     public final DoorIconGenerator doorGenerator;
+    
+    public final Biome biome = Biome.MIDLANDS;
     
     public ArchitectureInfo(AreaInfo info, LevelFeeling f){
         doorGenerator = new DoorIconGenerator(info, () -> ImageBuilder.getImageFromFile("rectDoor.png"));

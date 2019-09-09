@@ -1,6 +1,9 @@
 
 package biomes;
 
+import materials.Wood;
+import materials.wood.*;
+import static utils.Utils.R;
 import utils.Utils.Unfinished;
 
 /**
@@ -75,9 +78,15 @@ public enum Biome{
         technology = tech;
     }
     
-    @Unfinished
-    public String getRandomTreeType(){
-        return "oak";
+    @Unfinished("Make dependant on biome, might need to give each biome its own tree.")
+    public Wood getRandomTreeType(){
+        switch(R.nextInt(4)){
+            case 0: return new Oak();
+            case 1: return new Mahogany();
+            case 2: return new Ebony();
+            case 3: return new Birch();
+            default: throw new IllegalStateException();
+        }
     }
     
 }

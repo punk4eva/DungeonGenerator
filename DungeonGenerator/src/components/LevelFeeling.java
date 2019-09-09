@@ -1,6 +1,7 @@
 
 package components;
 
+import components.traps.Trap;
 import components.rooms.Room;
 import java.util.LinkedList;
 import java.util.List;

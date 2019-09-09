@@ -2,7 +2,7 @@
 package components.tiles;
 
 import components.Area;
-import components.Trap;
+import components.traps.Trap;
 import graph.Point.Type;
 import java.awt.image.BufferedImage;
 
@@ -10,13 +10,13 @@ import java.awt.image.BufferedImage;
  *
  * @author Adam Whittaker
  */
-public class Door extends Tile{
+public class Door extends Passage{
     
     public transient BufferedImage openImage, closedImage, lockedImage;
     public boolean open = false, locked;
 
-    public Door(Tile al, Trap tr, boolean lo){
-        super("Door", "@Unfinished", Type.DOOR, al, tr);
+    public Door(Tile al, Trap tr, boolean lo, boolean pathfind){
+        super("Door", "@Unfinished", Type.DOOR, al, tr, pathfind);
         locked = lo;
     }
     

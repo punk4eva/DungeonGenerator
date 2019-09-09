@@ -2,7 +2,7 @@
 package components.tiles;
 
 import components.Area;
-import components.Trap;
+import components.traps.Trap;
 import filterGeneration.ImageBuilder;
 import static filterGeneration.ImageBuilder.convertToRGB;
 import static filterGeneration.ImageBuilder.getImageFromFile;
@@ -19,13 +19,10 @@ import static utils.Utils.R;
  *
  * @author Adam Whittaker
  */
-public class Bookshelf extends Tile{
-    
-    public final boolean entrance;
+public class Bookshelf extends Passage{
 
-    public Bookshelf(Tile al, Trap tr, final boolean e){
-        super("bookshelf", "@Unfinished", Type.WALL, al, tr);
-        entrance = e;
+    public Bookshelf(Tile al, Trap tr, final boolean p){
+        super("bookshelf", "@Unfinished", Type.WALL, al, tr, p);
     }
 
     @Override

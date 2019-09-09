@@ -2,7 +2,6 @@
 package materials.improvised;
 
 import biomes.Biome;
-import filterGeneration.ImageBuilder;
 import materials.Material;
 
 /**
@@ -12,7 +11,7 @@ import materials.Material;
 public class Thatch extends Material{
 
     public Thatch(Biome b){
-        super("@Unfinished", ImageBuilder.getColor(b.getRandomTreeType()), 25, 10, 42, -10, 30);
+        super("@Unfinished", b.getRandomTreeType().color, 25, 10, 42, -10, 30);
         throw new UnsupportedOperationException("No filter");
     }
 

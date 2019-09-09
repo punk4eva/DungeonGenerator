@@ -100,7 +100,7 @@ public abstract class Room{
                         ((x!=0&&x!=width-1)||(!map[y+1][x].equals(Type.DOOR)&&!map[y-1][x].equals(Type.DOOR)))
                 ){
                     numDoors--;
-                    map[y][x] = Tile.genDoor(area);
+                    map[y][x] = Tile.genDoor(area, true);
                 }else failed++;
             }
         }

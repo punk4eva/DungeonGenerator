@@ -3,8 +3,7 @@ package components.tiles;
 
 import builders.TrapBuilder;
 import components.Area;
-import components.Trap;
-import filterGeneration.ImageBuilder;
+import components.traps.Trap;
 import graph.Point.Type;
 import java.awt.image.BufferedImage;
 import static utils.Utils.R;
@@ -65,10 +64,10 @@ public abstract class Tile{
     }
     
     
-    public static Door genDoor(Area area){
+    public static Door genDoor(Area area, boolean path){
         return new Door(R.nextDouble() < area.info.feeling.doorHideChance ? 
                 genWall(area) : null, R.nextDouble() < area.info.feeling.doorTrapChance ?
-                        TrapBuilder.getDoorTrap(area) : null, false);
+                        TrapBuilder.getDoorTrap(area) : null, false, path);
     }
     
     public static Floor genFloor(Area area){

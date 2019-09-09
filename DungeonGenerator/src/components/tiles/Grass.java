@@ -2,7 +2,7 @@
 package components.tiles;
 
 import components.Area;
-import components.Trap;
+import components.traps.Trap;
 import graph.Point.Type;
 import java.awt.Color;
 import java.awt.Graphics;

@@ -2,7 +2,7 @@
 package builders;
 
 import components.Area;
-import components.Trap;
+import components.traps.Trap;
 import utils.Utils.Unfinished;
 
 /**

@@ -1,7 +1,7 @@
 
 package components.tiles;
 
-import components.Trap;
+import components.traps.Trap;
 
 /**
  *
