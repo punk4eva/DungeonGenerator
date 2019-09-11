@@ -1,6 +1,7 @@
 
 package gui;
 
+import animation.Animator;
 import components.Area;
 import static gui.MouseInterpreter.focusX;
 import static gui.MouseInterpreter.focusY;
@@ -39,7 +40,7 @@ public class DungeonViewer extends Canvas implements Runnable{
     protected Window window;
     protected MouseInterpreter mouse = new MouseInterpreter();
 
-    //public final static Animator animator = new Animator();
+    public final static Animator animator = new Animator();
     //protected static final GuiManager gui = new GuiManager();
     protected volatile Area area;
     
@@ -88,7 +89,7 @@ public class DungeonViewer extends Canvas implements Runnable{
         Graphics2D g = (Graphics2D) buffer.getGraphics();
         
         area.paint(g, focusX, focusY);
-        //animator.animate(g, focusX, focusY, frames);
+        animator.animate(g, focusX, focusY, frames);
         AffineTransform at = AffineTransform.getScaleInstance(zoom, zoom);
         bsg.drawRenderedImage(buffer, at);
         //gui.paint(bsg);

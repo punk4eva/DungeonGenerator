@@ -24,6 +24,9 @@ public class Door extends Passage{
     @Override
     public void buildImage(Area area, int x, int y){
         area.info.architecture.doorGenerator.generateAllImages(this, x, y);
+        if(open) image = openImage;
+        else if(locked) image = lockedImage;
+        else image = closedImage;
     }
     
     

@@ -30,15 +30,15 @@ public class Barricade extends Passage{
         g.setTransform(getRandomRotation());
         g.setColor(wood);
         for(int n=0;n<17;n++)
-            g.fillRect(R.nextInt(13), R.nextInt(15), 4+R.nextInt(4), 2);
+            g.fillRect(R.nextInt(13), R.nextInt(15), 4+R.nextInt(4), 1);
         g.setTransform(getRandomRotation());
         g.setColor(wood.brighter());
         for(int n=0;n<17;n++)
-            g.fillRect(R.nextInt(13), R.nextInt(15), 4+R.nextInt(3), 2);
+            g.fillRect(R.nextInt(13), R.nextInt(15), 4+R.nextInt(3), 1);
     }
     
     private static AffineTransform getRandomRotation(){
-        return AffineTransform.getRotateInstance(R.nextDouble()*8D*Math.PI/9D - 4D*Math.PI/9D, 8, 8);
+        return AffineTransform.getRotateInstance(R.nextDouble()*2D*Math.PI/9D - Math.PI/9D, 8, 8);
     }
 
 }

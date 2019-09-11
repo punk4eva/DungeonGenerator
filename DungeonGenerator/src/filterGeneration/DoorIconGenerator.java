@@ -31,9 +31,6 @@ public class DoorIconGenerator{
         door.setClosedImage(generateClosed(x, y));
         door.setOpenImage(generateOpen(x, y));
         door.setLockedImage(generateLocked(door.closedImage));
-        if(door.open) door.image = door.openImage;
-        else if(door.locked) door.image = door.lockedImage;
-        else door.image = door.closedImage;
     }
     
     private BufferedImage generateOpen(int tx, int ty){

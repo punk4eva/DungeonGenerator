@@ -67,7 +67,7 @@ public class Area{
                 try{
                     if(x>=-16 && x*zoom<=WIDTH &&
                             y >=-16 && y*zoom<=HEIGHT && map[tileY][tileX]!=null){
-                        g.drawImage(map[tileY][tileX].image, x, y, null);
+                        map[tileY][tileX].draw(g, x, y);
                     }
                 }catch(ArrayIndexOutOfBoundsException e){/*Skip frame*/}
             }

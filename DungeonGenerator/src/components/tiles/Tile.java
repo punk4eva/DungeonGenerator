@@ -5,6 +5,7 @@ import builders.TrapBuilder;
 import components.Area;
 import components.traps.Trap;
 import graph.Point.Type;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import static utils.Utils.R;
 
@@ -29,7 +30,7 @@ public abstract class Tile{
     public Tile alias;
     public Trap trap;
     public Type type;
-    public transient BufferedImage image;
+    protected transient BufferedImage image;
     
     
     /**
@@ -46,6 +47,11 @@ public abstract class Tile{
         description = desc;
         alias = al;
         trap = tr;
+    }
+    
+    
+    public void draw(Graphics2D g, int _x, int _y){
+        g.drawImage(image, _x, _y, null);
     }
     
     
