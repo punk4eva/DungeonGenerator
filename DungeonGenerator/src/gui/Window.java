@@ -66,6 +66,7 @@ public class Window{
         //viewer.area.refreshGraph();
         //grower.buildCorridors();
         viewer.area.growGrass();
+        viewer.area.spillWater();
         viewer.area.initializeImages();
         
         viewer.start();

@@ -9,6 +9,9 @@ package utils;
 import components.rooms.Room;
 import components.rooms.PlainRoom;
 import static filterGeneration.Filter.RGBPixelEquals;
+import generation.noise.AlternateNoise;
+import generation.noise.PerlinNoiseGenerator;
+import graph.Graph;
 import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,7 +19,6 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 /**
@@ -85,23 +87,11 @@ public final class Utils{
         for(int n=0;n<20;n++) list.add(getRandomRoom());
         new RoomPlacer(area, list).generate();*/
         
-        //double[][] map = new double[500][500];
-        //new PerlinNoiseGenerator(map[0].length, map.length, 100, 5, 0.75, 0.75).apply(map);
+        double[][] map = new double[512][512];
+        new PerlinNoiseGenerator(map[0].length, map.length, 25, 1, 0.75, 0.75).apply(map);
         //new MidpointDisplacer(125, 80, 0.7, 255, true, true).apply(map);
         
-        //Graph.makePNG(map, "saves/map.png");
-        
-        Color rgb = new Color(0, 0, 0);
-
-        for (int i = 0; i < 5; i++) {
-            rgb = rgb.darker();
-            System.out.println("After darker(): " + rgb);
-        }
-
-        for (int i = 0; i < 5; i++) {
-            rgb = rgb.brighter();
-            System.out.println("After brighter(): " + rgb);
-        }
+        Graph.makePNG(map, "saves/map.png");
         
     }
     

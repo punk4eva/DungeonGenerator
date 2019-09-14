@@ -6,6 +6,7 @@ import components.mementoes.AreaInfo;
 import components.tiles.Floor;
 import components.tiles.Grass;
 import components.tiles.Tile;
+import components.tiles.Water;
 import graph.Graph;
 import graph.Point;
 import graph.Point.Type;
@@ -80,6 +81,8 @@ public class Area{
                     paintInsideBorder(tileX, tileY, g, focusX, focusY);
             }
         }
+        
+        info.waterPainter.checkFrameUpdate();
     }
     
     private void paintOutsideBorder(Graphics2D g, int focusX, int focusY){
@@ -217,6 +220,37 @@ public class Area{
                         }
                         if(map[y][x+1] instanceof Floor){
                             map[y][x+1] = new Grass(info.feeling.getTrapOrNull(), R.nextDouble()<info.feeling.grassUpgradeChance);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    public void spillWater(){
+        for(int y=1;y<map.length-1;y++){
+            for(int x=1;x<map[0].length-1;x++){
+                if(map[y][x] instanceof Floor && R.nextDouble()<info.feeling.waterGenChance){
+                    map[y][x] = new Water(info);
+                }
+            }
+        }
+        
+        for(int c=3;c<12;c++){
+            for(int y=1;y<map.length-1;y++){
+                for(int x=1;x<map[0].length-1;x++){
+                    if(map[y][x] instanceof Water && c*R.nextDouble()<1){
+                        if(map[y-1][x] instanceof Floor){
+                            map[y-1][x] = new Water(info);
+                        }
+                        if(map[y+1][x] instanceof Floor){
+                            map[y+1][x] = new Water(info);
+                        }
+                        if(map[y][x-1] instanceof Floor){
+                            map[y][x-1] = new Water(info);
+                        }
+                        if(map[y][x+1] instanceof Floor){
+                            map[y][x+1] = new Water(info);
                         }
                     }
                 }

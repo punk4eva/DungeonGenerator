@@ -1,19 +1,22 @@
 
 package components.mementoes;
 
+import animation.WaterPainter;
 import components.LevelFeeling;
 import generation.noise.PerlinNoiseGenerator;
 import generation.noise.MidpointDisplacer;
 import components.tiles.Tile;
-import filterGeneration.DoorIconGenerator;
-import filterGeneration.ImageBuilder;
+import filterGeneration.Filter;
 import graph.Point.Type;
 import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.awt.image.WritableRaster;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.Random;
 import static utils.Utils.R;
+import utils.Utils.Unfinished;
 
 /**
  *
@@ -37,12 +40,13 @@ public class AreaInfo implements Serializable{
             amplitude, lacunarity, persistence;
     private final int octaves;
     public final LevelFeeling feeling;
-    public final Color grassColor;
+    public final Color grassColor, waterColor;
     
     public final ArchitectureInfo architecture;
     
     public transient double[][] wallNoise;
     public transient double[][] floorNoise;
+    public transient WaterPainter waterPainter;
     
     /**
      * Creates a random instance based on a given level feeling.
@@ -50,6 +54,7 @@ public class AreaInfo implements Serializable{
      * @param h The height.
      * @param f The ethos of the level.
      */
+    @Unfinished("Remove temporary declarations")
     public AreaInfo(int w, int h, LevelFeeling f){
         width = w;
         height = h;
@@ -62,6 +67,7 @@ public class AreaInfo implements Serializable{
         persistence = f.persistence.next(0.3, 1.0);
         feeling = f;
         grassColor = Color.decode("#16560d");
+        waterColor = Color.decode("#0f7e9c").darker();
         initializeNoise();
         architecture = new ArchitectureInfo(this, f);
     }
@@ -91,7 +97,10 @@ public class AreaInfo implements Serializable{
             case TILE: new MidpointDisplacer(125, initialJitter, jitterDecay, 255, feeling.alternateFloorTiles, true).apply(floorNoise);
                 break;
         }
+        
+        waterPainter = new WaterPainter(waterColor, width, height);
     }
+            
     
     /**
      * Gets the noise map of the given Tile.
