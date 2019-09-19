@@ -34,6 +34,16 @@ public class AreaInfo implements Serializable{
     
     /**
      * The elemental fields that need to be retained upon saving on the Area.
+     * width, height: The dimensions of the Area.
+     * initialJitter: The initial noise amplitude for midpoint displacement.
+     * jitterDecay: The persistence of noise amplitude for midpoint displacement.
+     * amplitude: The amplitude of noise for Perlin noise.
+     * lacunarity: The rate of decrease of size of the Perlin noise vector grids.
+     * persistence: The rate of decrease of amplitude of the Perlin noise.
+     * octaves: The number of iterations of the Perlin noise algorithm.
+     * feeling: The overall ethos of the level.
+     * grassColor, waterColor: The average color of grass and water.
+     * architecture: The information about which material tiles are made of.
      */
     public final int width, height;
     private final double initialJitter, jitterDecay, 
@@ -47,6 +57,7 @@ public class AreaInfo implements Serializable{
     public transient double[][] wallNoise;
     public transient double[][] floorNoise;
     public transient WaterPainter waterPainter;
+    
     
     /**
      * Creates a random instance based on a given level feeling.
