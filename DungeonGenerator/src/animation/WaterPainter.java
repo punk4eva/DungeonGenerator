@@ -3,7 +3,6 @@ package animation;
 
 import filterGeneration.Filter;
 import generation.noise.PerlinNoiseGenerator;
-import gui.MouseInterpreter;
 import static gui.MouseInterpreter.focusX;
 import static gui.MouseInterpreter.focusY;
 import java.awt.Color;
@@ -23,7 +22,7 @@ public class WaterPainter{
     private final int height;
     private long lastFrameUpdate;
     
-    private final static long DELAY = 60;
+    private final static long DELAY = 110;
     
     
     public WaterPainter(Color waterColor, int width, int height){

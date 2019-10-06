@@ -19,11 +19,12 @@ public class PerlinNoiseGenerator{
     }
 
     private void initializeRandomVectors(){
-        for(Vector[] row : vec){
+        for(int y = 0; y < vec.length-1; y++){
             for(int x = 0; x < vec[0].length; x++){
-                row[x] = new Vector();
+                vec[y][x] = new Vector();
             }
         }
+        System.arraycopy(vec[0], 0, vec[vec.length-1], 0, vec[0].length);
     }
 
     public void apply(double[][] map){

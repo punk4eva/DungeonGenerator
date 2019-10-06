@@ -31,6 +31,8 @@ public class ImageBuilder{
         "lilac", "sugar brown", "coffee", "scarlet", "crimson", "salmon", 
         "metallic", "mint", "saffron", "eggplant", "firebrick", "flame", "white wine"};
     
+    private final static BufferedImage WATER_SHADERS = getImageFromFile("waterShaders.png");
+    
     
     public static interface SerSupplier extends Supplier<BufferedImage>, Serializable{}
     
@@ -180,6 +182,25 @@ public class ImageBuilder{
     
     public static Color getRandomColor(){
         return getColor(COLORS[R.nextInt(COLORS.length)]);
+    }
+    
+    
+    public static BufferedImage generateWaterShader(BufferedImage tile, int shaderCode){
+        BufferedImage img = new BufferedImage(tile.getWidth(), tile.getHeight(), BufferedImage.TYPE_INT_ARGB);
+        WritableRaster readRaster = tile.getRaster(), shadeRaster = WATER_SHADERS.getRaster(),
+                writeRaster = img.getRaster();
+        int[] pixel = new int[4];
+        int alpha;
+        shaderCode *= 16;
+        for(int y=0;y<tile.getHeight();y++){
+            for(int x=0;x<tile.getWidth();x++){
+                alpha = shadeRaster.getPixel(x+shaderCode, y, pixel)[3];
+                pixel = readRaster.getPixel(x, y, pixel);
+                pixel[3] = alpha==0 ? 80 : alpha;
+                writeRaster.setPixel(x, y, pixel);
+            }
+        }
+        return img;
     }
 
 }
