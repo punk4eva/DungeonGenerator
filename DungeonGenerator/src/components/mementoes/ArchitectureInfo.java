@@ -13,6 +13,9 @@ import utils.Utils.Unfinished;
 /**
  *
  * @author Adam Whittaker
+ *
+ * This class holds all the information required to color individual tiles in a location.
+ * It holds the materials used to build different parts of the place, the biome, and the door generation algorithm.
  */
 @Unfinished("All placeholders")
 public class ArchitectureInfo{
