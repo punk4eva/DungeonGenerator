@@ -14,6 +14,7 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.LinkedList;
 import utils.Utils;
 import static utils.Utils.R;
+import utils.Utils.Unfinished;
 
 /**
  *
@@ -25,7 +26,9 @@ public class Bookshelf extends Passage{
         super("bookshelf", "@Unfinished", Type.WALL, al, tr, p);
     }
 
+    
     @Override
+    @Unfinished("Write generateStyle0()")
     public void buildImage(Area area, int x, int y){
         switch(R.nextInt(2)){
             case 0: generateStyle1(area); break;

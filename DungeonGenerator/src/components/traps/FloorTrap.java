@@ -9,7 +9,7 @@ import static utils.Utils.R;
  *
  * @author Adam Whittaker
  */
-public class FloorTrap extends Trap{
+public abstract class FloorTrap extends Trap{
     
     private final boolean horizontalOuter, verticalOuter, diagonal, innerLeft, 
             innerRight;

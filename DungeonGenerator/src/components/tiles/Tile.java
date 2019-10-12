@@ -3,7 +3,9 @@ package components.tiles;
 
 import builders.TrapBuilder;
 import components.Area;
+import components.traps.FloorTrap;
 import components.traps.Trap;
+import components.traps.WallTrap;
 import graph.Point.Type;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -78,18 +80,25 @@ public abstract class Tile{
     
     public static Floor genFloor(Area area){
         if(R.nextDouble() < area.info.feeling.floorDecoChance)
-            return new DecoFloor(R.nextDouble() < area.info.feeling.floorTrapChance ?
-                        TrapBuilder.getFloorTrap(area) : null);
-        else return new Floor(R.nextDouble() < area.info.feeling.floorTrapChance ?
-                        TrapBuilder.getFloorTrap(area) : null);
+            return new DecoFloor(floorTrap(area));
+        else return new Floor(floorTrap(area));
     }
     
     public static Wall genWall(Area area){
         if(R.nextDouble() < area.info.feeling.wallDecoChance)
-            return new DecoWall(R.nextDouble() < area.info.feeling.wallTrapChance ?
-                        TrapBuilder.getWallTrap(area) : null);
-        else return new Wall(R.nextDouble() < area.info.feeling.wallTrapChance ?
-                        TrapBuilder.getWallTrap(area) : null);
+            return new DecoWall(wallTrap(area));
+        else return new Wall(wallTrap(area));
+    }
+    
+    
+    public static FloorTrap floorTrap(Area area){
+        return R.nextDouble() < area.info.feeling.floorTrapChance ?
+                        TrapBuilder.getFloorTrap(area) : null;
+    }
+    
+    public static WallTrap wallTrap(Area area){
+        return R.nextDouble() < area.info.feeling.wallTrapChance ?
+                        TrapBuilder.getWallTrap(area) : null;
     }
     
     

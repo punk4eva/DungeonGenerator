@@ -2,7 +2,6 @@
 package materials.wood;
 
 import filterGeneration.ImageBuilder;
-import materials.Material;
 import materials.Wood;
 
 /**

@@ -32,6 +32,7 @@ public class ImageBuilder{
         "metallic", "mint", "saffron", "eggplant", "firebrick", "flame", "white wine"};
     
     private final static BufferedImage WATER_SHADERS = getImageFromFile("waterShaders.png");
+    private final static int WATER_SHADE_LEVEL = 80; //out of 255
     
     
     public static interface SerSupplier extends Supplier<BufferedImage>, Serializable{}
@@ -196,7 +197,7 @@ public class ImageBuilder{
             for(int x=0;x<tile.getWidth();x++){
                 alpha = shadeRaster.getPixel(x+shaderCode, y, pixel)[3];
                 pixel = readRaster.getPixel(x, y, pixel);
-                pixel[3] = alpha==0 ? 80 : alpha;
+                pixel[3] = alpha==0 ? WATER_SHADE_LEVEL : alpha;
                 writeRaster.setPixel(x, y, pixel);
             }
         }

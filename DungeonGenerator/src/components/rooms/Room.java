@@ -6,6 +6,7 @@ import components.tiles.Tile;
 import graph.Point.Type;
 import utils.Distribution;
 import static utils.Utils.R;
+import static utils.Utils.exceptionStream;
 
 /**
  *
@@ -28,7 +29,7 @@ public abstract class Room{
     public String description;
     public final int width, height;
     public int orientation;
-    protected boolean generated = false;
+    private boolean generated = false, itemsPlopped = false;
     public final Tile[][] map;
     
     
@@ -45,6 +46,7 @@ public abstract class Room{
         map = new Tile[height][width];
     }
     
+    
     /**
      * Generates this Room if it is not already generated.
      * @param area The Area that the room is being generated for.
@@ -56,11 +58,20 @@ public abstract class Room{
         }
     }
     
+    public void ensurePopulated(Area area){
+        if(!itemsPlopped){
+            plopItems(area);
+            itemsPlopped = true;
+        }
+    }
+    
     /**
      * Generates this room.
      * @param area The Area that the room is being generated for.
      */
     protected abstract void generate(Area area);
+    
+    protected abstract void plopItems(Area area);
     
     
     public final void setCoords(int x1, int y1){
@@ -104,6 +115,10 @@ public abstract class Room{
                 }else failed++;
             }
         }
+        if(failed>=40) exceptionStream.println("Failed to add doors to room: " + name + "\n" +
+                    "Dimensions: " + width + ", " + height + "\n" +
+                    "Orientation: " + orientation + "\n" +
+                    "Number of doors remaining: " + numDoors);
     }
     
 }

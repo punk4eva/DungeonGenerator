@@ -45,7 +45,7 @@ public class BurrowCaveGrower extends ConwayCaveGrower{
         area.graph.doors.forEach((p) -> {
             while(p.cameFrom!=p && p.cameFrom!=null){
                 p = p.cameFrom;
-                if(paths) area.map[p.y][p.x] = new SpecialFloor();
+                if(paths) area.map[p.y][p.x] = new SpecialFloor("pathway");
                 else area.map[p.y][p.x] = Tile.genFloor(area);
             }
         });

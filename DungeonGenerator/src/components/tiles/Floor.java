@@ -12,12 +12,13 @@ import graph.Point.Type;
 public class Floor extends Tile{
 
     public Floor(Trap tr){
-        super("floor", "@Unfinished", Type.FLOOR, null, tr);
+        this("floor", "@Unfinished", tr);
     }
     
     protected Floor(String name, String desc, Trap tr){
         super(name, desc, Type.FLOOR, null, tr);
     }
+    
     
     @Override
     public void buildImage(Area area, int x, int y){
