@@ -58,7 +58,7 @@ public class DoorIconGenerator{
     private void fillWall(BufferedImage img, int tx, int ty){
         BufferedImage wall = info.architecture.wallMaterial.filter.generateImage(tx, ty, info.wallNoise);
         WritableRaster raster = img.getRaster(), wallRaster = wall.getRaster();
-        int[] pixel = new int[3];
+        int[] pixel = new int[4];
         for(int y=0;y<img.getHeight();y++){
             for(int x=0;x<img.getWidth();x++){
                 if(Filter.RGBPixelEquals(WALL_REGEX, raster.getPixel(x, y, pixel)))

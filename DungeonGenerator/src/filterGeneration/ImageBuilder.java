@@ -65,7 +65,7 @@ public class ImageBuilder{
         }catch(IOException ex){
             ex.printStackTrace(System.err);
             ex.printStackTrace(exceptionStream);
-            throw new IllegalStateException();
+            throw new IllegalStateException("Potentially invalid filepath: " + filepath);
         }
     }
     

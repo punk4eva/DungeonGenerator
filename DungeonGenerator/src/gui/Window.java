@@ -4,6 +4,7 @@ import components.Area;
 import components.LevelFeeling;
 import components.rooms.Room;
 import generation.corridors.*;
+import generation.rooms.*;
 import java.awt.Dimension;
 import java.io.IOException;
 import java.util.LinkedList;
@@ -59,14 +60,14 @@ public class Window{
         //viewer.area.refreshGraph();
         //new SpiderCorridorBuilder(viewer.area, 10, false).build();
         //BurrowCaveGrower grower = new BurrowCaveGrower(viewer.area, 0.3, 2, 9, 4, 5, 20, true);
-        //new RoomPlacer(viewer.area, list, r -> r.addDoorsSparcely(viewer.area)).generate();
-        CaveGrower grower = new CaveGrower(viewer.area, 0.48, 7);
-        grower.build();
-        //new RoomPlacer(viewer.area, list).generate();
+        //new RandomRoomPlacer(viewer.area, list, r -> r.addDoorsSparcely(viewer.area)).generate();
+        new DenseFractalRoomPlacer(viewer.area, 1).generate();
+        //CaveGrower grower = new CaveGrower(viewer.area, 0.48, 7);
+        //grower.build();
         //viewer.area.refreshGraph();
         //grower.buildCorridors();
-        viewer.area.growGrass();
-        viewer.area.spillWater();
+        //viewer.area.growGrass();
+        //viewer.area.spillWater();
         viewer.area.initializeImages();
         
         viewer.start();
