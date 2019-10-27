@@ -60,8 +60,8 @@ public class Window{
         //viewer.area.refreshGraph();
         //new SpiderCorridorBuilder(viewer.area, 10, false).build();
         //BurrowCaveGrower grower = new BurrowCaveGrower(viewer.area, 0.3, 2, 9, 4, 5, 20, true);
-        //new RandomRoomPlacer(viewer.area, list, r -> r.addDoorsSparcely(viewer.area)).generate();
-        new DenseFractalRoomPlacer(viewer.area, 1).generate();
+        new RandomRoomPlacer(viewer.area, list, r -> r.addDoorsSparcely(viewer.area)).generate();
+        //new DenseFractalRoomPlacer(viewer.area, 1).generate();
         //CaveGrower grower = new CaveGrower(viewer.area, 0.48, 7);
         //grower.build();
         //viewer.area.refreshGraph();

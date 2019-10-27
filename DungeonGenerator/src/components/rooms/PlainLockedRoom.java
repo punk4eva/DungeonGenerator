@@ -2,7 +2,6 @@
 package components.rooms;
 
 import components.Area;
-import components.tiles.Door;
 import components.tiles.Tile;
 import static utils.Utils.R;
 import utils.Utils.Unfinished;

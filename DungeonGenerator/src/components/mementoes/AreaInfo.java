@@ -4,7 +4,7 @@ package components.mementoes;
 import animation.WaterPainter;
 import components.LevelFeeling;
 import generation.noise.PerlinNoiseGenerator;
-import generation.noise.MidpointDisplacer;
+import generation.noise.MidpointDisplacmentNoise;
 import components.tiles.Tile;
 import graph.Point.Type;
 import java.awt.Color;
@@ -90,19 +90,19 @@ public class AreaInfo implements Serializable{
         System.out.println("Amp: " + amplitude + " Oc: " + octaves + "  L: " + lacunarity + 
                 " P: " + persistence + "\niJ: " + initialJitter + " jD: " + jitterDecay + " alt: " + feeling.alternateWallTiles);
         switch(feeling.wallNoiseType){
-            case MIDPOINT: new MidpointDisplacer(125, initialJitter, jitterDecay, 255, false, false).apply(wallNoise);
+            case MIDPOINT: new MidpointDisplacmentNoise(125, initialJitter, jitterDecay, 255, false, false).apply(wallNoise);
                 break;
             case PERLIN: new PerlinNoiseGenerator(width*16, height*16, amplitude, octaves, lacunarity, persistence).apply(wallNoise);
                 break;
-            case TILE: new MidpointDisplacer(125, initialJitter, jitterDecay, 255, feeling.alternateWallTiles, true).apply(wallNoise);
+            case TILE: new MidpointDisplacmentNoise(125, initialJitter, jitterDecay, 255, feeling.alternateWallTiles, true).apply(wallNoise);
                 break;
         }
         switch(feeling.floorNoiseType){
-            case MIDPOINT: new MidpointDisplacer(125, initialJitter, jitterDecay, 255, false, false).apply(floorNoise);
+            case MIDPOINT: new MidpointDisplacmentNoise(125, initialJitter, jitterDecay, 255, false, false).apply(floorNoise);
                 break;
             case PERLIN: new PerlinNoiseGenerator(width*16, height*16, amplitude, octaves, lacunarity, persistence).apply(floorNoise);
                 break;
-            case TILE: new MidpointDisplacer(125, initialJitter, jitterDecay, 255, feeling.alternateFloorTiles, true).apply(floorNoise);
+            case TILE: new MidpointDisplacmentNoise(125, initialJitter, jitterDecay, 255, feeling.alternateFloorTiles, true).apply(floorNoise);
                 break;
         }
         

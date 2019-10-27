@@ -50,22 +50,22 @@ public class DenseFractalRoomPlacer implements RoomPlacer{
         for(int y=c[3]-1;y>y_;y--) area.map[y][c[0]] = Tile.genWall(area);
         
         if(c[0]-x_>MIN_WIDTH*3 && c[3]-y_>MIN_WIDTH*3) fractalSplit(x_, y_, c[0]-x_, c[3]-y_);
-        else if((c[0]-x_>MIN_WIDTH*2 || c[3]-y_>MIN_WIDTH*2) && R.nextDouble()<splitChance) disectRoom(x_, y_, c[0]-x_, c[3]-y_);
+        else if((c[0]-x_>MIN_WIDTH*2 || c[3]-y_>MIN_WIDTH*2) && R.nextDouble()<splitChance) dissectRoom(x_, y_, c[0]-x_, c[3]-y_);
         
         if(x_+w-c[0]>MIN_WIDTH*3 && c[1]-y_>MIN_WIDTH*3) fractalSplit(c[0], y_, x_+w-c[0], c[1]-y_);
-        else if((x_+w-c[0]>MIN_WIDTH*2 || c[1]-y_>MIN_WIDTH*2) && R.nextDouble()<splitChance) disectRoom(c[0], y_, x_+w-c[0], c[1]-y_);
+        else if((x_+w-c[0]>MIN_WIDTH*2 || c[1]-y_>MIN_WIDTH*2) && R.nextDouble()<splitChance) dissectRoom(c[0], y_, x_+w-c[0], c[1]-y_);
         
         if(x_+w-c[2]>MIN_WIDTH*3 && y_+h-c[1]>MIN_WIDTH*3) fractalSplit(c[2], c[1], x_+w-c[2], y_+h-c[1]);
-        else if((x_+w-c[2]>MIN_WIDTH*2 || y_+h-c[1]>MIN_WIDTH*2) && R.nextDouble()<splitChance) disectRoom(c[2], c[1], x_+w-c[2], y_+h-c[1]);
+        else if((x_+w-c[2]>MIN_WIDTH*2 || y_+h-c[1]>MIN_WIDTH*2) && R.nextDouble()<splitChance) dissectRoom(c[2], c[1], x_+w-c[2], y_+h-c[1]);
         
         if(c[2]-x_>MIN_WIDTH*3 && y_+h-c[3]>MIN_WIDTH*3) fractalSplit(x_, c[3], c[2]-x_, y_+h-c[3]);
-        else if((c[2]-x_>MIN_WIDTH*2 || y_+h-c[3]>MIN_WIDTH*2) && R.nextDouble()<splitChance) disectRoom(x_, c[3], c[2]-x_, y_+h-c[3]);
+        else if((c[2]-x_>MIN_WIDTH*2 || y_+h-c[3]>MIN_WIDTH*2) && R.nextDouble()<splitChance) dissectRoom(x_, c[3], c[2]-x_, y_+h-c[3]);
         
         if(c[2]-c[0]>MIN_WIDTH*3 && c[3]-c[1]>MIN_WIDTH*3) fractalSplit(c[0], c[1], c[2]-c[0], c[3]-c[1]);
-        else if((c[2]-c[0]>MIN_WIDTH*2 || c[3]-c[1]>MIN_WIDTH*2) && R.nextDouble()<splitChance) disectRoom(c[0], c[1], c[2]-c[0], c[3]-c[1]);
+        else if((c[2]-c[0]>MIN_WIDTH*2 || c[3]-c[1]>MIN_WIDTH*2) && R.nextDouble()<splitChance) dissectRoom(c[0], c[1], c[2]-c[0], c[3]-c[1]);
     }
     
-    private void disectRoom(int x_, int y_, int w, int h){
+    private void dissectRoom(int x_, int y_, int w, int h){
         if(w>MIN_WIDTH*2){
             int x0 = x_ + MIN_WIDTH + R.nextInt(w-MIN_WIDTH*2);
             for(int y=y_;y<h+y_;y++) area.map[y][x0] = Tile.genWall(area);

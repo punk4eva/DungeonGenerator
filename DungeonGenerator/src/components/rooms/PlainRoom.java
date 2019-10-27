@@ -2,7 +2,6 @@
 package components.rooms;
 
 import components.Area;
-import components.tiles.Statue;
 import components.tiles.Tile;
 import utils.Utils.Unfinished;
 
@@ -42,9 +41,6 @@ public class PlainRoom extends Room{
     public void generate(Area area){
         buildWalls(area);
         layFloor(area);
-        
-        map[height/2-1][width/2] = new Statue(false);
-        map[height/2][width/2] = new Statue(true);
     }
 
     @Override

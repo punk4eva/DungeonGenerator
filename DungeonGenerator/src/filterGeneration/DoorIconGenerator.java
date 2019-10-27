@@ -7,6 +7,7 @@ import filterGeneration.ImageBuilder.SerSupplier;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
+import utils.Utils;
 import utils.Utils.Unfinished;
 
 /**
@@ -15,8 +16,7 @@ import utils.Utils.Unfinished;
  */
 public class DoorIconGenerator{
     
-    private final static int[] WALL_REGEX = new int[]{95, 24, 86}, 
-            FLOOR_REGEX = new int[]{0,0,0,0};
+    private final static int[] WALL_REGEX = new int[]{242, 61, 219};
     
     public final AreaInfo info;
     public final SerSupplier doorShapeSupplier;
@@ -52,13 +52,17 @@ public class DoorIconGenerator{
         Graphics g = img.getGraphics();
         g.drawImage(closed, 0, 0, null);
         g.drawImage(ImageBuilder.getImageFromFile("lock.png"), 0, 0, null);
+        g.dispose();
         return img;
     }
     
     private void fillWall(BufferedImage img, int tx, int ty){
+        //Construct a full wall image
         BufferedImage wall = info.architecture.wallMaterial.filter.generateImage(tx, ty, info.wallNoise);
+        //Initialize raster and pixel objects.
         WritableRaster raster = img.getRaster(), wallRaster = wall.getRaster();
         int[] pixel = new int[4];
+        //Loop through all pixels.
         for(int y=0;y<img.getHeight();y++){
             for(int x=0;x<img.getWidth();x++){
                 if(Filter.RGBPixelEquals(WALL_REGEX, raster.getPixel(x, y, pixel)))
@@ -69,27 +73,40 @@ public class DoorIconGenerator{
     
     private void fillFloor(BufferedImage img, int tx, int ty){
         BufferedImage floor = info.architecture.floorMaterial.filter.generateImage(tx, ty, info.floorNoise);
-        WritableRaster raster = img.getAlphaRaster(), floorRaster = floor.getRaster();
+        WritableRaster raster = img.getRaster(), floorRaster = floor.getRaster();
         int[] pixel = new int[4];
+        int temp;
+        
         for(int y=0;y<img.getHeight();y++)
-            for(int x=0;x<img.getWidth();x++)
-                if(Filter.ARGBPixelEquals(raster.getPixel(x, y, pixel), FLOOR_REGEX)){
-            raster.setPixel(x, y, Filter.overlayColor(floorRaster.getPixel(x, y, pixel), 
-                    raster.getPixel(x, y, pixel)));
+            for(int x=0;x<img.getWidth();x++){
+                pixel = raster.getPixel(x, y, pixel);
+                if(pixel[0]==0 && pixel[1]==0 && pixel[2]==0){
+                    temp = pixel[3];
+                    pixel = floorRaster.getPixel(x, y, pixel);
+                    pixel[3] = 255 - temp;
+                    raster.setPixel(x, y, pixel);
+                }
         }
     }
     
     @Unfinished
     private void fillDoor(BufferedImage img, int tx, int ty){
         BufferedImage door = info.architecture.doorMaterial.filter.generateImage(tx, ty, info.wallNoise);
-        WritableRaster raster = img.getAlphaRaster(), doorRaster = door.getRaster();
+        WritableRaster raster = img.getRaster(), doorRaster = door.getRaster();
         int[] pixel = new int[4];
+        int temp;
+        
         for(int y=0;y<img.getHeight();y++)
-            for(int x=0;x<img.getWidth();x++)
-                if(Filter.ARGBPixelEquals(raster.getPixel(x, y, pixel), FLOOR_REGEX)){
-            raster.setPixel(x, y, Filter.overlayColor(doorRaster.getPixel(x, y, pixel), 
-                    raster.getPixel(x, y, pixel)));
+            for(int x=0;x<img.getWidth();x++){
+                pixel = raster.getPixel(x, y, pixel);
+                if(pixel[0]==0 && pixel[1]==0 && pixel[2]==0){
+                    temp = pixel[3];
+                    pixel = doorRaster.getPixel(y, x, pixel); //intentional reflection in line y = x
+                    pixel[3] = 255 - temp;
+                    raster.setPixel(x, y, pixel);
+                }
         }
+        
         img.getGraphics().drawImage(ImageBuilder.getImageFromFile("handle.png"), 0, 0, null);
     }
     

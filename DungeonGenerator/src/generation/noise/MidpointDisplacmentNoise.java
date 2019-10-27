@@ -3,18 +3,18 @@ package generation.noise;
 
 import static utils.Utils.R;
 
-public class MidpointDisplacer{
+public class MidpointDisplacmentNoise{
 
     private final double initialHeight, initialJitter, jitterDecay, maxHeight;
-    private final boolean preserveArtifacts, tileArtifacts;
+    private final boolean preserveArtefacts, tileArtefacts;
 
-    public MidpointDisplacer(double iH, double iJ, double jD, double mH, boolean pA, boolean tA){
+    public MidpointDisplacmentNoise(double iH, double iJ, double jD, double mH, boolean pA, boolean tA){
         initialJitter = iJ;
         jitterDecay = jD;
         initialHeight = iH;
         maxHeight = mH;
-        preserveArtifacts = pA;
-        tileArtifacts = tA;
+        preserveArtefacts = pA;
+        tileArtefacts = tA;
     }
 
     public void apply(double[][] map){
@@ -29,13 +29,13 @@ public class MidpointDisplacer{
     private void fillRectangle(double[][] map, int tlx, int tly, int brx, int bry, double jitter){
         int xA = (tlx + brx) / 2, yA = (tly + bry) / 2;
 
-        if(map[tly][xA] == 0 || preserveArtifacts)
+        if(map[tly][xA] == 0 || preserveArtefacts)
             map[tly][xA] = (map[tly][tlx] + map[tly][brx]) / 2D + R.nextDouble() * jitter - jitter / 2;
-        if(map[bry][xA]== 0 || preserveArtifacts)
+        if(map[bry][xA]== 0 || preserveArtefacts)
             map[bry][xA] = (map[bry][tlx] + map[bry][brx]) / 2D + R.nextDouble() * jitter - jitter / 2;       
-        if(map[yA][tlx]== 0 || preserveArtifacts)
+        if(map[yA][tlx]== 0 || preserveArtefacts)
             map[yA][tlx] = (map[tly][tlx] + map[bry][tlx]) / 2D + R.nextDouble() * jitter - jitter / 2;
-        if(map[yA][brx]== 0 || preserveArtifacts)
+        if(map[yA][brx]== 0 || preserveArtefacts)
             map[yA][brx] = (map[tly][brx] + map[bry][brx]) / 2D + R.nextDouble() * jitter - jitter / 2;
 
         if(map[tly][xA] > maxHeight) map[tly][xA] = maxHeight;
@@ -52,7 +52,7 @@ public class MidpointDisplacer{
 
         map[yA][xA] = (map[tly][tlx] + map[tly][brx]
                 + map[bry][tlx] + map[bry][brx]) / 4D + R.nextDouble() * jitter;
-        if(!tileArtifacts) map[yA][xA] -= jitter / 2;
+        if(!tileArtefacts) map[yA][xA] -= jitter / 2;
         
         if(map[yA][xA] > maxHeight) map[yA][xA] = maxHeight;
         else if(map[yA][xA] < 0) map[yA][xA] = 0;
