@@ -77,8 +77,9 @@ public class Area{
         paintOutsideBorder(g, focusX, focusY);
         for(tileY=0;tileY<info.height;tileY++){
             for(tileX=0;tileX<info.width;tileX++){
-                if(map[tileY][tileX] != null && map[tileY][tileX].type.equals(Type.FLOOR))
+                if(map[tileY][tileX] != null && map[tileY][tileX].type.equals(Type.FLOOR)){
                     paintInsideBorder(tileX, tileY, g, focusX, focusY);
+                }
             }
         }
         

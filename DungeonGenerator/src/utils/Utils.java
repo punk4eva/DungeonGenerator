@@ -25,7 +25,9 @@ import java.util.Random;
  */
 public final class Utils{
 
+    
     private Utils(){}
+    
     
     public static final Random R = new Random();
     public transient static PrintStream exceptionStream, performanceStream;
@@ -38,6 +40,7 @@ public final class Utils{
         }
     }
     
+    
     public static @interface Unfinished{
         String value() default "";
     }
@@ -45,6 +48,11 @@ public final class Utils{
     public static @interface ThreadUsed{
         String value() default "";
     }
+    
+    public static @interface Tested{
+        String value() default "";
+    }
+    
     
     public static Room getRandomRoom(){
         return new PlainRoom(5+R.nextInt(5)*2, 5+R.nextInt(5)*2);

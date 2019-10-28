@@ -8,6 +8,7 @@ import static gui.MouseInterpreter.focusY;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.awt.image.RasterFormatException;
 import java.awt.image.WritableRaster;
 
 /**
@@ -48,7 +49,9 @@ public class WaterPainter{
     }
     
     public void paint(Graphics2D g, int x, int y){
-        g.drawImage(waterImage.getSubimage((x-focusX), (y-focusY-frame+height)%(height-16), 16, 16), x, y, null);
+        try{
+            g.drawImage(waterImage.getSubimage((x-focusX), (y-focusY-frame+height)%(height-16), 16, 16), x, y, null);
+        }catch(RasterFormatException e){/*Skip frame*/}
     }
     
     public void checkFrameUpdate(){

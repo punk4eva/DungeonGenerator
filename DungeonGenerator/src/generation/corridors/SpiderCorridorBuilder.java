@@ -19,6 +19,7 @@ import components.Area;
 import components.tiles.Tile;
 import graph.Point;
 import graph.Point.*;
+import java.util.function.Function;
 import static utils.Utils.R;
 
 /**
@@ -30,50 +31,44 @@ import static utils.Utils.R;
 public class SpiderCorridorBuilder extends CorridorBuilder{
     
     
-    private final static int DECAY_LIMIT = 2;
-    
+    private final int decayFactor;
     private final int windyness;
-    private final boolean decayActive;
     
     /**
      * Creates a new instance.
      * @param a The Area.
      * @param w The windyness factor of the corridors.
-     * @param decay Whether to decay walls into cavities.
+     * @param decay The minimum number of adjacent floor tiles needed for a wall
+     * to decay into a floor. 0 corresponds to maximum decay and 9 corresponds
+     * to no decay.
+     * @param prioritySkew A user-specified function used to skew the priority
+     * queue of the corridor flood fill algorithm in order to get paths with
+     * desirable characteristics.
      */
-    public SpiderCorridorBuilder(Area a, int w, boolean decay){
+    public SpiderCorridorBuilder(Area a, int w, int decay, Function<Point, Double> prioritySkew){
         super(a);
         windyness = w;
-        decayActive = decay;
-        addCheck = (from, to) -> /*to.currentCost > from.currentCost + to.movementCost &&*/ to.cameFrom==null&&(to.checked==null||!to.checked);
-        frontier.setFunction(p -> (double)R.nextInt(windyness) + p.currentCost);
+        decayFactor = decay;
+        addCheck = (from, to) -> to.cameFrom==null && (to.checked==null||!to.checked) && to.roomNum==-1;
+        frontier.setFunction(p -> R.nextDouble()*2D*windyness - windyness + p.currentCost + prioritySkew.apply(p));
     }
+    
     
     private void growCavities(){
         for(int x=1;x<area.info.width-1;x++) for(int y=1;y<area.info.height-1;y++)
             if(canDecayWall(x, y)) area.map[y][x] = Tile.genFloor(area);
     }
     
-    private boolean canDecayWall(int x, int y){
-        if(area.map[y][x] == null || !area.map[y][x].equals(Type.WALL) || area.graph.map[y][x].isCorridor) return false;
+    private boolean canDecayWall(int _x, int _y){
+        if(area.map[_y][_x] == null || !area.map[_y][_x].equals(Type.WALL) 
+                || !area.graph.map[_y][_x].isCorridor) return false;
+        
         int floors = 0;
-        if(area.map[y-1][x-1]==null) return false;
-        if(area.map[y-1][x-1].isTraversable()) floors++;
-        if(area.map[y-1][x+1]==null) return false;
-        if(area.map[y-1][x+1].isTraversable()) floors++;
-        if(area.map[y+1][x-1]==null) return false;
-        if(area.map[y+1][x-1].isTraversable()) floors++;
-        if(area.map[y+1][x+1]==null) return false;
-        if(area.map[y+1][x+1].isTraversable()) floors++;
-        if(area.map[y-1][x]==null) return false;
-        if(area.map[y-1][x].isTraversable()) floors++;
-        if(area.map[y+1][x]==null) return false;
-        if(area.map[y+1][x].isTraversable()) floors++;
-        if(area.map[y][x-1]==null) return false;
-        if(area.map[y][x-1].isTraversable()) floors++;
-        if(area.map[y][x+1]==null) return false;
-        if(area.map[y][x+1].isTraversable()) floors++;
-        return floors>DECAY_LIMIT;
+        for(int y=_y-1;y<=_y+1;y++) for(int x=_x-1;x<=_x+1;x++){
+            if(area.map[y][x]==null) return false;
+            else if(area.map[y][x].isTraversable()) floors++;
+        }
+        return floors>=decayFactor;
     }
     
     @Override
@@ -87,7 +82,7 @@ public class SpiderCorridorBuilder extends CorridorBuilder{
         area.graph.doors.forEach((door) -> {
             buildCorridor(door);
         });
-        if(decayActive) growCavities();
+        if(decayFactor<9) growCavities();
     }
     
     private Point getFreePoint(){
@@ -104,9 +99,15 @@ public class SpiderCorridorBuilder extends CorridorBuilder{
         throw new IllegalStateException("No point found!");
     }
     
+    
+    /**
+     * Assumptions: 
+     *      Point.cameFrom is null throughout the graph at the beginning. (1)
+     *      A tile is part of a room if its roomNum is not -1. (2)
+     */
     @Override
     public void floodfill(Point start){
-        area.graph.reset();
+        area.graph.reset(); //Verifies assumption (1)
         frontier.clear();
         start.currentCost = 0;
         frontier.add(start);
@@ -120,12 +121,14 @@ public class SpiderCorridorBuilder extends CorridorBuilder{
                 nx = p.x+dir.x;
                 ny = p.y+dir.y;
                 area.graph.map[ny][nx].currentCost = p.currentCost + 1;
+                
                 if(area.withinBounds(nx-1, ny-1)&&area.withinBounds(nx+1, ny+1)){
                     if(addCheck.apply(p, area.graph.map[ny][nx])){
                         area.graph.map[ny][nx].checked = true;
                         area.graph.map[ny][nx].cameFrom = p;
                         frontier.add(area.graph.map[ny][nx]);
-                    }else if(area.map[ny][nx]!=null&&area.map[ny][nx].equals(Type.DOOR)){
+                    }else if(area.map[ny][nx]!=null && area.map[ny][nx].equals(Type.DOOR)
+                            && area.graph.map[ny][nx].cameFrom == null){
                         area.graph.map[ny][nx].checked = true;
                         area.graph.map[ny][nx].cameFrom = p;
                     }

@@ -5,6 +5,7 @@ import components.Area;
 import components.tiles.Tile;
 import generation.Searcher;
 import graph.Point;
+import java.util.function.Function;
 
 /**
  *
@@ -110,6 +111,19 @@ public abstract class CorridorBuilder extends Searcher{
             pp = p;
             p = np;
         }
+    }
+    
+    
+    public static Function<Point, Double> circularWave(Point shift, double amplitude, double deviation, double phaseShift){
+        return p -> amplitude*(Math.cos(euclideanDist(p, shift)/deviation + phaseShift) + 1D);
+    }
+    
+    public static Function<Point, Double> diamondWave(Point shift, double amplitude, double deviation, double phaseShift){
+        return p -> amplitude*(Math.cos(manhattanDist(p, shift)/deviation + phaseShift) + 1D);
+    }
+    
+    public static Function<Point, Double> gaussianKernel(Point shift, double amplitude, double variance){
+        return p -> amplitude*Math.exp(-(Math.pow(p.x-shift.x, 2) + Math.pow(p.y-shift.y, 2))/variance);
     }
     
 }
