@@ -9,9 +9,9 @@ import static utils.Utils.R;
  *
  * @author Adam Whittaker
  */
-public abstract class FloorTrap extends Trap{
+public class FloorTrap extends Trap{
     
-    private final boolean horizontalOuter, verticalOuter, diagonal, innerLeft, 
+    private boolean horizontalOuter, verticalOuter, diagonal, innerLeft, 
             innerRight;
 
     public FloorTrap(String n, String desc, boolean rev){
@@ -66,6 +66,18 @@ public abstract class FloorTrap extends Trap{
             g.fillRect(x+7, y+9, 1, 1);
             g.fillRect(x+6, y+7, 1, 1);
         }
+    }
+    
+    
+    public final FloorTrap copy(){
+        FloorTrap trap = new FloorTrap(name, description, revealed);
+        trap.color = color;
+        trap.horizontalOuter = horizontalOuter;
+        trap.verticalOuter = verticalOuter;
+        trap.diagonal = diagonal;
+        trap.innerLeft = innerLeft;
+        trap.innerRight = innerRight;
+        return trap;
     }
 
 }

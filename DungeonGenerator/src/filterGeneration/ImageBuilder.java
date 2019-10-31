@@ -172,6 +172,7 @@ public class ImageBuilder{
             case "white magmatic wood": return Color.decode("#ffffff");
             //real materials
             case "stone": return Color.decode("#7b7a73");
+            case "marble": return Color.decode("#8b8563");
             case "birch": return Color.decode("#e1c785").darker();
             case "dark oak": return Color.decode("#261609");
             case "oak": return Color.decode("#c89959").darker();

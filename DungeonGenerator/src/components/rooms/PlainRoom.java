@@ -10,9 +10,11 @@ import utils.Utils.Unfinished;
  * @author Adam Whittaker
  */
 public class PlainRoom extends Room{
+    
 
     public PlainRoom(int w, int h){
         super("Plain Room", w, h);
+        if(w<5 || h<5) throw new IllegalArgumentException("Dimensions " + w + ", " + h + " are to small.");
     }
     
     protected PlainRoom(String name, int w, int h){

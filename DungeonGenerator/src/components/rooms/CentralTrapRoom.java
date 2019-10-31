@@ -11,8 +11,10 @@ import components.traps.FloorTrap;
  */
 public class CentralTrapRoom extends PlainRoom{
     
+    
     public CentralTrapRoom(int w, int h){
         super("central trap room", w, h);
+        if(w<7 || h<7) throw new IllegalArgumentException("Dimensions " + w + ", " + h + " are to small.");
     }
     
     
@@ -25,7 +27,8 @@ public class CentralTrapRoom extends PlainRoom{
         
         for(int y=height/2-1;y<=height/2+1;y++){
             for(int x=width/2-1;x<=width/2+1;x++){
-                if(y!=0||x!=0) map[y][x].trap = TrapBuilder.copyFloorTrap(trap);
+                if(y!=height/2||x!=width/2) map[y][x].trap = trap.copy();
+                else map[y][x].trap = null;
             }
         }
     }

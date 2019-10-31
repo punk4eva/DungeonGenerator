@@ -12,9 +12,13 @@ import static utils.Utils.R;
  * @author Adam Whittaker
  */
 public class Library extends PlainRoom{
+    
+    public final static int MIN_WIDTH = 7, MIN_HEIGHT = 7;
+    
 
     public Library(int w, int h){
         super("Library", w, h);
+        if(w<7 || h<7) throw new IllegalArgumentException("Dimensions " + w + ", " + h + " are to small.");
     }
 
     @Override

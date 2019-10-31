@@ -4,6 +4,7 @@ package components.tiles;
 import components.Area;
 import components.traps.Trap;
 import graph.Point.Type;
+import java.awt.Graphics2D;
 
 /**
  *
@@ -22,6 +23,7 @@ public class Wall extends Tile{
     @Override
     public void buildImage(Area area, int x, int y){
         generateWallImage(area, x, y);
+        if(trap!=null && trap.revealed) trap.drawImage((Graphics2D) image.getGraphics(), 0, 0);
     }
 
 }

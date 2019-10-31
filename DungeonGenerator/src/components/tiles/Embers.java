@@ -2,10 +2,9 @@
 package components.tiles;
 
 import components.Area;
-import components.traps.Trap;
 import graph.Point.Type;
 import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 import static utils.Utils.R;
 
 /**
@@ -14,14 +13,14 @@ import static utils.Utils.R;
  */
 public class Embers extends Tile{
     
-    public Embers(Trap tr){
-        super("embers", "@Unfinished", Type.FLOOR, null, tr);
+    public Embers(){
+        super("embers", "@Unfinished", Type.FLOOR, null, null);
     }
     
     @Override
     public void buildImage(Area area, int x, int y){
         generateFloorImage(area, x, y);
-        Graphics g = image.getGraphics();
+        Graphics2D g = (Graphics2D) image.getGraphics();
         g.setColor(Color.BLACK);
         for(int n=0;n<23;n++)
             g.fillRect(R.nextInt(15), R.nextInt(15), 2, 2);

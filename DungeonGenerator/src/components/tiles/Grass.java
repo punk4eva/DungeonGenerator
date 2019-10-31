@@ -2,8 +2,6 @@
 package components.tiles;
 
 import components.Area;
-import components.traps.Trap;
-import graph.Point.Type;
 import java.awt.Color;
 import java.awt.Graphics;
 import static utils.Utils.R;
@@ -15,15 +13,20 @@ import static utils.Utils.R;
 public class Grass extends Tile{
 
     private final boolean tall;
+    private final Tile underTile;
 
-    public Grass(Trap tr, boolean t){
-        super(t ? "high grass" : "low grass", "@Unfinished", Type.FLOOR, null, tr);
+    
+    public Grass(boolean t, Tile tile){
+        super(t ? "high grass" : "low grass", "@Unfinished", tile.type, null, tile.trap);
         tall = t;
+        underTile = tile;
     }
+    
     
     @Override
     public void buildImage(Area area, int x, int y){
-        generateFloorImage(area, x, y);
+        if(underTile.image==null) underTile.buildImage(area, x, y);
+        image = underTile.image;
         if(tall) constructTallGrass(area.info.grassColor, image.getGraphics());
         else constructLowGrass(area.info.grassColor, image.getGraphics());
     }

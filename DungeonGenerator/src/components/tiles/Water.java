@@ -4,7 +4,6 @@ package components.tiles;
 import components.Area;
 import components.mementoes.AreaInfo;
 import filterGeneration.ImageBuilder;
-import graph.Point.Type;
 import java.awt.Graphics2D;
 
 /**
@@ -14,22 +13,24 @@ import java.awt.Graphics2D;
 public class Water extends Tile{    
 
     private final AreaInfo info;
+    private final Tile underTile;
     
-    public Water(AreaInfo inf){
-        this(inf, "water", "@Unfinished");
+    public Water(AreaInfo inf, Tile tile){
+        this(inf, "water", "@Unfinished", tile);
     }
 
-    protected Water(AreaInfo inf, String na, String desc){
-        super(na, desc, Type.FLOOR, null, null);
+    protected Water(AreaInfo inf, String na, String desc, Tile tile){
+        super(na, desc, tile.type, null, tile.trap);
         info = inf;
+        underTile = tile;
     }
     
 
     @Override
     public void buildImage(Area area, int x, int y){
+        if(underTile.image==null) underTile.buildImage(area, x, y);
         image = ImageBuilder.generateWaterShader(
-                area.info.architecture.floorMaterial.filter.generateImage(x, y, area.info.floorNoise),
-                genShaderCode(area, x/16, y/16));
+                underTile.image, genShaderCode(area, x/16, y/16));
     }
     
     private int genShaderCode(Area area, int x, int y){

@@ -17,7 +17,7 @@ public abstract class Trap{
     
     public boolean revealed;
     public boolean triggered = false;
-    protected final Color color;
+    protected Color color;
     
     public Trap(String n, String desc, boolean rev){
         name = n;

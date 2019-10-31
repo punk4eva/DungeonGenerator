@@ -58,11 +58,11 @@ public class Window{
         LinkedList<Room> list = new LinkedList<>();
         for(int n=0;n<20;n++) list.add(getRandomRoom());
         //BurrowCaveGrower grower = new BurrowCaveGrower(viewer.area, 0.3, 2, 9, 4, 5, 20, true);
-        new RandomRoomPlacer(viewer.area, list, r -> r.addDoorsSparcely(viewer.area)).generate();
+        //new RandomRoomPlacer(viewer.area, list, r -> r.addDoorsSparcely(viewer.area)).generate();
         viewer.area.refreshGraph();
         //new SpiderCorridorBuilder(viewer.area, 3, 4, CorridorBuilder.gaussianKernel(new Point(40, 79), 120, 24)).build();
-        new OneToOneCorridorBuilder(viewer.area, 2, CorridorBuilder.circularWave(new Point(40, 79), 90, 5, 0)).build();
-        //new DenseFractalRoomPlacer(viewer.area, 1).generate();
+        //new OneToOneCorridorBuilder(viewer.area, 2, CorridorBuilder.circularWave(new Point(40, 79), 90, 5, 0)).build();
+        new DenseFractalRoomPlacer(viewer.area, 0).generate();
         //CaveGrower grower = new CaveGrower(viewer.area, 0.48, 7);
         //grower.build();
         //viewer.area.refreshGraph();

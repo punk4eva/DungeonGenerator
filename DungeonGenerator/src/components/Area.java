@@ -78,7 +78,7 @@ public class Area{
         for(tileY=0;tileY<info.height;tileY++){
             for(tileX=0;tileX<info.width;tileX++){
                 if(map[tileY][tileX] != null && map[tileY][tileX].type.equals(Type.FLOOR)){
-                    paintInsideBorder(tileX, tileY, g, focusX, focusY);
+                    //paintInsideBorder(tileX, tileY, g, focusX, focusY);
                 }
             }
         }
@@ -122,7 +122,7 @@ public class Area{
     private int getApparentOrientation(Room r){
         int o = r.orientation - orientation;
         if(o<0) return o+4;
-        return o;
+        else return o;
     }
     
     /**
@@ -201,7 +201,7 @@ public class Area{
         for(int y=1;y<map.length-1;y++){
             for(int x=1;x<map[0].length-1;x++){
                 if(map[y][x] instanceof Floor && R.nextDouble()<info.feeling.grassGenChance){
-                    map[y][x] = new Grass(info.feeling.getTrapOrNull(), R.nextDouble()<info.feeling.grassUpgradeChance);
+                    map[y][x] = new Grass(R.nextDouble()<info.feeling.grassUpgradeChance, map[y][x]);
                 }
             }
         }
@@ -211,16 +211,16 @@ public class Area{
                 for(int x=1;x<map[0].length-1;x++){
                     if(map[y][x] instanceof Grass && c*R.nextDouble()<1){
                         if(map[y-1][x] instanceof Floor){
-                            map[y-1][x] = new Grass(info.feeling.getTrapOrNull(), R.nextDouble()<info.feeling.grassUpgradeChance);
+                            map[y-1][x] = new Grass(R.nextDouble()<info.feeling.grassUpgradeChance, map[y-1][x]);
                         }
                         if(map[y+1][x] instanceof Floor){
-                            map[y+1][x] = new Grass(info.feeling.getTrapOrNull(), R.nextDouble()<info.feeling.grassUpgradeChance);
+                            map[y+1][x] = new Grass(R.nextDouble()<info.feeling.grassUpgradeChance, map[y+1][x]);
                         }
                         if(map[y][x-1] instanceof Floor){
-                            map[y][x-1] = new Grass(info.feeling.getTrapOrNull(), R.nextDouble()<info.feeling.grassUpgradeChance);
+                            map[y][x-1] = new Grass(R.nextDouble()<info.feeling.grassUpgradeChance, map[y][x-1]);
                         }
                         if(map[y][x+1] instanceof Floor){
-                            map[y][x+1] = new Grass(info.feeling.getTrapOrNull(), R.nextDouble()<info.feeling.grassUpgradeChance);
+                            map[y][x+1] = new Grass(R.nextDouble()<info.feeling.grassUpgradeChance, map[y][x+1]);
                         }
                     }
                 }
@@ -232,7 +232,7 @@ public class Area{
         for(int y=1;y<map.length-1;y++){
             for(int x=1;x<map[0].length-1;x++){
                 if(map[y][x] instanceof Floor && R.nextDouble()<info.feeling.waterGenChance){
-                    map[y][x] = new Water(info);
+                    map[y][x] = new Water(info, map[y][x]);
                 }
             }
         }
@@ -242,16 +242,16 @@ public class Area{
                 for(int x=1;x<map[0].length-1;x++){
                     if(map[y][x] instanceof Water && c*R.nextDouble()<1){
                         if(map[y-1][x] instanceof Floor){
-                            map[y-1][x] = new Water(info);
+                            map[y-1][x] = new Water(info, map[y-1][x]);
                         }
                         if(map[y+1][x] instanceof Floor){
-                            map[y+1][x] = new Water(info);
+                            map[y+1][x] = new Water(info, map[y+1][x]);
                         }
                         if(map[y][x-1] instanceof Floor){
-                            map[y][x-1] = new Water(info);
+                            map[y][x-1] = new Water(info, map[y][x-1]);
                         }
                         if(map[y][x+1] instanceof Floor){
-                            map[y][x+1] = new Water(info);
+                            map[y][x+1] = new Water(info, map[y][x+1]);
                         }
                     }
                 }

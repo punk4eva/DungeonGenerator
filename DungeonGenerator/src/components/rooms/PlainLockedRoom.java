@@ -11,9 +11,11 @@ import utils.Utils.Unfinished;
  * @author Adam Whittaker
  */
 public class PlainLockedRoom extends PlainRoom{
+    
 
     public PlainLockedRoom(int w, int h){
         super("Plain locked room", w, h);
+        if(w<5 || h<5) throw new IllegalArgumentException("Dimensions " + w + ", " + h + " are to small.");
     }
     
     

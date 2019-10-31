@@ -3,6 +3,7 @@ package builders;
 
 import components.Area;
 import components.traps.*;
+import static utils.Utils.R;
 import utils.Utils.Unfinished;
 
 /**
@@ -21,18 +22,12 @@ public final class TrapBuilder{
     
     @Unfinished("Complete")
     public static FloorTrap getFloorTrap(Area area){
-        return null;
+        return new BearTrap(R.nextDouble()<0.5); //debug @Unfinished
     }
     
     @Unfinished("Complete")
     public static WallTrap getWallTrap(Area area){
-        return null;
-    }
-    
-    
-    @Unfinished
-    public static Trap copyFloorTrap(FloorTrap trap){
-        throw new UnsupportedOperationException("@Unfinished");
+        return new DartTrap(R.nextDouble()<0.5); //debug @Unfinished
     }
     
 }

@@ -22,6 +22,7 @@ import utils.Utils.Unfinished;
  */
 public class Bookshelf extends Passage{
 
+    
     public Bookshelf(Tile al, Trap tr, final boolean p){
         super("bookshelf", "@Unfinished", Type.WALL, al, tr, p);
     }
