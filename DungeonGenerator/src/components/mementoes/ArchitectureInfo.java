@@ -8,6 +8,7 @@ import filterGeneration.ImageBuilder;
 import materials.Material;
 import materials.stone.*;
 import materials.wood.*;
+import static utils.Utils.R;
 import utils.Utils.Unfinished;
 
 /**
@@ -20,11 +21,11 @@ import utils.Utils.Unfinished;
 @Unfinished("All placeholders")
 public class ArchitectureInfo{
 
-    public final Material doorMaterial = new Ebony();
-    public final Material floorMaterial = new Oak();
+    public final Material doorMaterial = new Ebony((R.nextInt(2)+2));
+    public final Material floorMaterial = new Oak((R.nextInt(2)+2));
     public final Material wallMaterial = new Marble();
-    public final Material specFloorMaterial = new Birch();
-    public final Material furnitureMaterial = new Mahogany();
+    public final Material specFloorMaterial = new Birch((R.nextInt(2)+2));
+    public final Material furnitureMaterial = new Mahogany((R.nextInt(2)+2));
 
     public final DoorIconGenerator doorGenerator;
     

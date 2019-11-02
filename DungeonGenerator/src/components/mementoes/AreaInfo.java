@@ -7,6 +7,7 @@ import generation.noise.PerlinNoiseGenerator;
 import generation.noise.MidpointDisplacmentNoise;
 import components.tiles.Tile;
 import graph.Point.Type;
+import gui.Settings;
 import java.awt.Color;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -50,6 +51,7 @@ public class AreaInfo implements Serializable{
     public final Color grassColor, waterColor;
     
     public final ArchitectureInfo architecture;
+    public final Settings settings = new Settings();
     
     public transient double[][] wallNoise;
     public transient double[][] floorNoise;

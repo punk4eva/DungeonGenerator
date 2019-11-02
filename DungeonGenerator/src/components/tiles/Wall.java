@@ -23,7 +23,7 @@ public class Wall extends Tile{
     @Override
     public void buildImage(Area area, int x, int y){
         generateWallImage(area, x, y);
-        if(trap!=null && trap.revealed) trap.drawImage((Graphics2D) image.getGraphics(), 0, 0);
+        if(decoration!=null) decoration.drawImage((Graphics2D) image.getGraphics(), 0, 0);
     }
 
 }

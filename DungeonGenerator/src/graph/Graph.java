@@ -7,6 +7,7 @@
 package graph;
 
 import components.Area;
+import components.tiles.Passage;
 import graph.Point.Type;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
@@ -21,13 +22,28 @@ import utils.Utils.Unfinished;
 /**
  *
  * @author Adam Whittaker
+ * 
+ * A representation of a dungeon floor optimized for path-finding. This class
+ * contains all the attributes of the floor needed for generation but not for
+ * deserialization. This class is not Serializable and is transient to save
+ * reduce file sizes of serialized dungeons.
  */
 public class Graph{
 
-    public final Point[][] map;
     
+    /**
+     * map: The Point matrix representing the dungeon space.
+     * doors: A list of all doors for path-finding purposes.
+     */
+    public final Point[][] map;
     public final LinkedList<Point> doors = new LinkedList<>();
     
+    
+    /**
+     * Initializes an empty Graph object full of Points.
+     * @param w The width of the floor.
+     * @param h The height of the floor.
+     */
     public Graph(int w, int h){
         map = new Point[h][w];
         for(int y=0;y<h;y++){
@@ -37,6 +53,7 @@ public class Graph{
         }
     }
     
+    
     /**
      * Ensures this Graph is ready for use by resetting all flood fill trails.
      */
@@ -45,15 +62,21 @@ public class Graph{
             for(int x = 0; x<map[0].length; x++) row[x].resetFloodFill();
     }
     
+    /**
+     * Recreates the "doors" list in case new doors have been added. This is the
+     * method to call for first-time initialization as well.
+     * @param area The Area owning this Graph.
+     */
     public void recalculateDoors(Area area){
         doors.clear();
         for(int y=0;y<map.length;y++){
             for(int x=0;x<map[0].length;x++){
-                if(area.map[y][x]!=null && area.map[y][x].equals(Type.DOOR)) doors.add(map[y][x]);
+                if(area.map[y][x]!=null && area.map[y][x] instanceof Passage) doors.add(map[y][x]);
             }
         }
         Collections.shuffle(doors);
     }
+    
     
     @Unfinished("Debug")
     public void makePNG(String filepath, BiFunction<Point, int[], int[]> colorGetter) throws IOException{

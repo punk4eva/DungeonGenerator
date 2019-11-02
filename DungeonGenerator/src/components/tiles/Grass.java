@@ -17,7 +17,7 @@ public class Grass extends Tile{
 
     
     public Grass(boolean t, Tile tile){
-        super(t ? "high grass" : "low grass", "@Unfinished", tile.type, null, tile.trap);
+        super(t ? "high grass" : "low grass", "@Unfinished", tile.type, null, tile.decoration);
         tall = t;
         underTile = tile;
     }

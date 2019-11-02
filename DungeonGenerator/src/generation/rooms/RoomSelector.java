@@ -1,7 +1,6 @@
 
 package generation.rooms;
 
-import components.Area;
 import components.rooms.*;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -34,7 +33,7 @@ public class RoomSelector{
     }
     
     
-    public Room select(Area area, int w, int h){
+    public Room select(int w, int h){
         HashMap<BiFunction<Integer, Integer, Room>, Integer> map = 
                 (HashMap<BiFunction<Integer, Integer, Room>, Integer>) rooms.clone();
         int chance, count;

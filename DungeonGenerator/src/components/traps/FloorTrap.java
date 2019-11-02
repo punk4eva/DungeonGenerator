@@ -25,6 +25,8 @@ public class FloorTrap extends Trap{
 
     @Override
     public void drawImage(Graphics2D g, int x, int y){
+        if(!revealed) return;
+        
         g.setColor(triggered ? Color.BLACK : color);
         //Outer border
         g.drawLine(x+6, y+3, x+9, y+3);

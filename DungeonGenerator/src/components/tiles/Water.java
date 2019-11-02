@@ -20,7 +20,7 @@ public class Water extends Tile{
     }
 
     protected Water(AreaInfo inf, String na, String desc, Tile tile){
-        super(na, desc, tile.type, null, tile.trap);
+        super(na, desc, tile.type, null, tile.decoration);
         info = inf;
         underTile = tile;
     }

@@ -15,6 +15,7 @@ public class DoorTrap extends Trap{
 
     @Override
     public void drawImage(Graphics2D g, int x, int y){
+        if(!revealed) return;
         throw new UnsupportedOperationException("@Unfinished");
     }
 

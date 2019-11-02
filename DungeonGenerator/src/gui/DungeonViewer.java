@@ -122,4 +122,9 @@ public class DungeonViewer extends Canvas implements Runnable{
         }
     }
     
+    
+    public static Settings getSettings(){
+        return Window.VIEWER.area.info.settings;
+    }
+    
 }

@@ -106,7 +106,7 @@ public class DenseFractalRoomPlacer implements RoomPlacer{
     private void generateRooms(RoomSelector selector){
         Room r;
         for(int[] coords : rooms){
-            r = selector.select(area, coords[2], coords[3]);
+            r = selector.select(coords[2], coords[3]);
             
             r.ensureGenerated(area);
             r.map[0][0] = new Embers();

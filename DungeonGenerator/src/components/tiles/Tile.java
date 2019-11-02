@@ -3,8 +3,8 @@ package components.tiles;
 
 import builders.TrapBuilder;
 import components.Area;
+import components.Decoration;
 import components.traps.FloorTrap;
-import components.traps.Trap;
 import components.traps.WallTrap;
 import graph.Point.Type;
 import java.awt.Graphics2D;
@@ -24,13 +24,13 @@ public abstract class Tile{
      * Name: Name of this tile.
      * Description: Description of this tile.
      * Alias: The Tile that this Tile is masquerading as.
-     * Trap: The Trap which this tile contains.
+     * Decoration: The Decoration on this Tile.
      * Type: The Type of tile (for image noise generation).
      * Image: The image of the tile.
      */
     public String name, description;
     public Tile alias;
-    public Trap trap;
+    public Decoration decoration;
     public Type type;
     protected transient BufferedImage image;
     
@@ -43,12 +43,12 @@ public abstract class Tile{
      * @param al
      * @param tr
      */
-    public Tile(String na, String desc, Type t, Tile al, Trap tr){
+    public Tile(String na, String desc, Type t, Tile al, Decoration tr){
         name = na;
         type = t;
         description = desc;
         alias = al;
-        trap = tr;
+        decoration = tr;
     }
     
     

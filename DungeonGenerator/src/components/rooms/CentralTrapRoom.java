@@ -27,8 +27,8 @@ public class CentralTrapRoom extends PlainRoom{
         
         for(int y=height/2-1;y<=height/2+1;y++){
             for(int x=width/2-1;x<=width/2+1;x++){
-                if(y!=height/2||x!=width/2) map[y][x].trap = trap.copy();
-                else map[y][x].trap = null;
+                if(y!=height/2||x!=width/2) map[y][x].decoration = trap.copy();
+                else map[y][x].decoration = null;
             }
         }
     }

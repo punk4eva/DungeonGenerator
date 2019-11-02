@@ -10,6 +10,7 @@ import components.rooms.Room;
 import components.rooms.PlainRoom;
 import static filterGeneration.Filter.RGBPixelEquals;
 import generation.noise.PerlinNoiseGenerator;
+import generation.rooms.RoomSelector;
 import graph.Graph;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -55,7 +56,8 @@ public final class Utils{
     
     
     public static Room getRandomRoom(){
-        return new PlainRoom(5+R.nextInt(5)*2, 5+R.nextInt(5)*2);
+        return new RoomSelector(new int[]{5,5,5,5,5})
+                .select(7+2*R.nextInt(4), 7+2*R.nextInt(4));
     }
     
     public static void printArray(int[] ary){

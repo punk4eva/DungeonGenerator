@@ -2,16 +2,16 @@
 package materials.wood;
 
 import filterGeneration.ImageBuilder;
-import materials.Wood;
+import materials.WoodPlanks;
 
 /**
  *
  * @author Adam Whittaker
  */
-public class Oak extends Wood{
+public class Oak extends WoodPlanks{
 
-    public Oak(){
-        super("@Unfinished", ImageBuilder.getColor("oak"), 40, 20, 42, -30, 50);
+    public Oak(int bN){
+        super(bN, "@Unfinished", ImageBuilder.getColor("oak"), 40, 20, 42, -30, 50);
     }
 
 }
