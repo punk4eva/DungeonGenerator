@@ -7,6 +7,7 @@ import static gui.MouseInterpreter.focusX;
 import static gui.MouseInterpreter.focusY;
 import static gui.MouseInterpreter.zoom;
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
@@ -28,6 +29,7 @@ public class DungeonViewer extends Canvas implements Runnable{
     }
 
     public static final int WIDTH, HEIGHT;
+    public static final Color BACKGROUND_COLOR = new Color(20,20,20);
     static{
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         WIDTH = (int)screen.getWidth();
@@ -40,7 +42,7 @@ public class DungeonViewer extends Canvas implements Runnable{
     protected Window window;
     protected MouseInterpreter mouse = new MouseInterpreter();
 
-    public final static Animator animator = new Animator();
+    public final static Animator ANIMATOR = new Animator();
     //protected static final GuiManager gui = new GuiManager();
     protected volatile Area area;
     
@@ -74,6 +76,9 @@ public class DungeonViewer extends Canvas implements Runnable{
         BufferStrategy bs = this.getBufferStrategy();
         Graphics2D bsg = (Graphics2D) bs.getDrawGraphics();
         
+        bsg.setColor(BACKGROUND_COLOR);
+        bsg.fillRect(0, 0, WIDTH, HEIGHT);
+        
         switch(state){
             case CHOOSING: break;
             case LOADING: break;
@@ -85,11 +90,11 @@ public class DungeonViewer extends Canvas implements Runnable{
     }
     
     public void paintArea(Graphics2D bsg, int frames){
-        BufferedImage buffer = new BufferedImage((int)(WIDTH/zoom), (int)(HEIGHT/zoom), BufferedImage.TYPE_INT_RGB);
+        BufferedImage buffer = new BufferedImage((int)(WIDTH/zoom), (int)(HEIGHT/zoom), BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = (Graphics2D) buffer.getGraphics();
         
         area.paint(g, focusX, focusY);
-        animator.animate(g, focusX, focusY, frames);
+        ANIMATOR.animate(g, focusX, focusY, frames);
         AffineTransform at = AffineTransform.getScaleInstance(zoom, zoom);
         bsg.drawRenderedImage(buffer, at);
         //gui.paint(bsg);

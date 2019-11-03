@@ -7,7 +7,6 @@
 package utils;
 
 import components.rooms.Room;
-import components.rooms.PlainRoom;
 import static filterGeneration.Filter.RGBPixelEquals;
 import generation.noise.PerlinNoiseGenerator;
 import generation.rooms.RoomSelector;

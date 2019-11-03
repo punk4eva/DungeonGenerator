@@ -1,6 +1,7 @@
 
 package components;
 
+import components.decorations.Pot;
 import components.rooms.Room;
 import components.mementoes.AreaInfo;
 import components.tiles.Floor;
@@ -254,6 +255,16 @@ public class Area{
                             map[y][x+1] = new Water(info, map[y][x+1]);
                         }
                     }
+                }
+            }
+        }
+    }
+    
+    public void addDeco(){
+        for(int y=0;y<info.height;y++){
+            for(int x=0;x<info.width;x++){
+                if(map[y][x] instanceof Floor && !graph.map[y][x].isCorridor && R.nextDouble()<0.03){
+                    map[y][x].decoration = new Pot(info);
                 }
             }
         }

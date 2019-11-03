@@ -1,5 +1,5 @@
 
-package components;
+package components.decorations;
 
 import java.awt.Graphics2D;
 

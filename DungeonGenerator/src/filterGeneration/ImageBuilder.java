@@ -171,6 +171,7 @@ public class ImageBuilder{
             case "crying brown magmatic wood": return Color.decode("#5b0606");
             case "white magmatic wood": return Color.decode("#ffffff");
             //real materials
+            case "clay": return Color.decode("#966432");
             case "stone": return Color.decode("#7b7a73");
             case "marble": return Color.decode("#8b8563");
             case "birch": return Color.decode("#e1c785").darker();

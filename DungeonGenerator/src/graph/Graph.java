@@ -71,7 +71,8 @@ public class Graph{
         doors.clear();
         for(int y=0;y<map.length;y++){
             for(int x=0;x<map[0].length;x++){
-                if(area.map[y][x]!=null && area.map[y][x] instanceof Passage) doors.add(map[y][x]);
+                if(area.map[y][x]!=null && area.map[y][x] instanceof Passage
+                        && ((Passage)area.map[y][x]).pathfind) doors.add(map[y][x]);
             }
         }
         Collections.shuffle(doors);

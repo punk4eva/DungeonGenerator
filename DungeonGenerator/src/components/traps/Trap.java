@@ -1,7 +1,7 @@
 
 package components.traps;
 
-import components.Decoration;
+import components.decorations.Decoration;
 import filterGeneration.ImageBuilder;
 import java.awt.Color;
 

@@ -3,7 +3,7 @@ package components.tiles;
 
 import builders.TrapBuilder;
 import components.Area;
-import components.Decoration;
+import components.decorations.Decoration;
 import components.traps.FloorTrap;
 import components.traps.WallTrap;
 import graph.Point.Type;

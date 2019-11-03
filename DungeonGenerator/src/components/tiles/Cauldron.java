@@ -9,10 +9,10 @@ import graph.Point;
  *
  * @author Adam Whittaker
  */
-public class Pot extends Tile{
+public class Cauldron extends Tile{
 
     
-    public Pot(String na, String desc, Point.Type t, Tile al, Trap tr){
+    public Cauldron(String na, String desc, Point.Type t, Tile al, Trap tr){
         super(na, desc, t, al, tr);
     }
 
