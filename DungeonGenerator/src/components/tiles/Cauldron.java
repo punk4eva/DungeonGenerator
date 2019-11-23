@@ -2,24 +2,32 @@
 package components.tiles;
 
 import components.Area;
-import components.traps.Trap;
-import graph.Point;
+import filterGeneration.ImageBuilder;
+import graph.Point.Type;
 
 /**
  *
  * @author Adam Whittaker
  */
 public class Cauldron extends Tile{
-
     
-    public Cauldron(String na, String desc, Point.Type t, Tile al, Trap tr){
-        super(na, desc, t, al, tr);
+    
+    private final boolean specialFloor;
+    
+    
+    public Cauldron(String name, boolean specFloor){
+        super(name, "@Unfinished", Type.FLOOR, null, null);
+        specialFloor = specFloor;
     }
 
     
     @Override
     public void buildImage(Area area, int x, int y){
-        throw new UnsupportedOperationException("Not supported yet.");
+        if(specialFloor)
+            image = area.info.architecture.specFloorMaterial.filter.generateImage(x, y, area.info.floorNoise);
+        else generateFloorImage(area, x, y);
+        
+        image.getGraphics().drawImage(ImageBuilder.getImageFromFile("cauldrons/cauldron0.png"), 0, 0, null);
     }
 
 }

@@ -18,7 +18,7 @@ public class Library extends PlainRoom{
 
     public Library(int w, int h){
         super("Library", w, h);
-        if(w<7 || h<7) throw new IllegalArgumentException("Dimensions " + w + ", " + h + " are to small.");
+        assertDimensions(w, h, 7, 7);
     }
 
     @Override

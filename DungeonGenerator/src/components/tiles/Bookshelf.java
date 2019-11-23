@@ -42,16 +42,16 @@ public class Bookshelf extends Passage{
         map.add(new SimpleEntry(new int[]{88, 60, 40}, ImageBuilder.colorToPixelArray(area.info.architecture.furnitureMaterial.color.darker())));
         map.add(new SimpleEntry(new int[]{120, 88, 48}, ImageBuilder.colorToPixelArray(area.info.architecture.furnitureMaterial.color)));
         map.add(new SimpleEntry(new int[]{128, 100, 64}, ImageBuilder.colorToPixelArray(area.info.architecture.furnitureMaterial.color.brighter())));
-        map.add(new SimpleEntry(new int[]{112, 56, 112}, ImageBuilder.colorToPixelArray(ImageBuilder.getRandomColor())));
-        map.add(new SimpleEntry(new int[]{48,  56, 136}, ImageBuilder.colorToPixelArray(ImageBuilder.getRandomColor())));
-        map.add(new SimpleEntry(new int[]{160, 92, 32}, ImageBuilder.colorToPixelArray(ImageBuilder.getRandomColor())));
-        map.add(new SimpleEntry(new int[]{80,  100, 128}, ImageBuilder.colorToPixelArray(ImageBuilder.getRandomColor())));
-        map.add(new SimpleEntry(new int[]{152, 148, 120}, ImageBuilder.colorToPixelArray(ImageBuilder.getRandomColor())));
-        map.add(new SimpleEntry(new int[]{88,  0, 16}, ImageBuilder.colorToPixelArray(ImageBuilder.getRandomColor())));
-        map.add(new SimpleEntry(new int[]{152, 24, 32}, ImageBuilder.colorToPixelArray(ImageBuilder.getRandomColor())));
-        map.add(new SimpleEntry(new int[]{120, 148, 24}, ImageBuilder.colorToPixelArray(ImageBuilder.getRandomColor())));
-        map.add(new SimpleEntry(new int[]{160, 96, 24}, ImageBuilder.colorToPixelArray(ImageBuilder.getRandomColor())));
-        map.add(new SimpleEntry(new int[]{72,  132, 56}, ImageBuilder.colorToPixelArray(ImageBuilder.getRandomColor())));
+        map.add(new SimpleEntry(new int[]{112, 56, 112}, ImageBuilder.colorToPixelArray(ImageBuilder.getRandomColor().darker())));
+        map.add(new SimpleEntry(new int[]{48,  56, 136}, ImageBuilder.colorToPixelArray(ImageBuilder.getRandomColor().darker())));
+        map.add(new SimpleEntry(new int[]{160, 92, 32}, ImageBuilder.colorToPixelArray(ImageBuilder.getRandomColor().darker())));
+        map.add(new SimpleEntry(new int[]{80,  100, 128}, ImageBuilder.colorToPixelArray(ImageBuilder.getRandomColor().darker())));
+        map.add(new SimpleEntry(new int[]{152, 148, 120}, ImageBuilder.colorToPixelArray(ImageBuilder.getRandomColor().darker())));
+        map.add(new SimpleEntry(new int[]{88,  0, 16}, ImageBuilder.colorToPixelArray(ImageBuilder.getRandomColor().darker())));
+        map.add(new SimpleEntry(new int[]{152, 24, 32}, ImageBuilder.colorToPixelArray(ImageBuilder.getRandomColor().darker())));
+        map.add(new SimpleEntry(new int[]{120, 148, 24}, ImageBuilder.colorToPixelArray(ImageBuilder.getRandomColor().darker())));
+        map.add(new SimpleEntry(new int[]{160, 96, 24}, ImageBuilder.colorToPixelArray(ImageBuilder.getRandomColor().darker())));
+        map.add(new SimpleEntry(new int[]{72,  132, 56}, ImageBuilder.colorToPixelArray(ImageBuilder.getRandomColor().darker())));
         
         image = new BufferedImage(16, 16, BufferedImage.TYPE_INT_RGB);
         WritableRaster raster = image.getRaster(),

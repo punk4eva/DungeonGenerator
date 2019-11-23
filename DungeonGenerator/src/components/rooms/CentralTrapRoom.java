@@ -14,7 +14,7 @@ public class CentralTrapRoom extends PlainRoom{
     
     public CentralTrapRoom(int w, int h){
         super("central trap room", w, h);
-        if(w<7 || h<7) throw new IllegalArgumentException("Dimensions " + w + ", " + h + " are to small.");
+        assertDimensions(w, h, 7, 7);
     }
     
     

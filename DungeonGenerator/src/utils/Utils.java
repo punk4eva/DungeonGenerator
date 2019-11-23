@@ -55,7 +55,7 @@ public final class Utils{
     
     
     public static Room getRandomRoom(){
-        return new RoomSelector(new int[]{5,5,5,5,5})
+        return new RoomSelector(new int[]{5,5,5, 5,5,5})
                 .select(7+2*R.nextInt(4), 7+2*R.nextInt(4));
     }
     

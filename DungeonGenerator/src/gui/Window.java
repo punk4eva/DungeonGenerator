@@ -61,7 +61,7 @@ public class Window{
         new RandomRoomPlacer(viewer.area, list, r -> r.addDoorsSparcely(viewer.area)).generate();
         viewer.area.refreshGraph();
         //new SpiderCorridorBuilder(viewer.area, 3, 4, CorridorBuilder.gaussianKernel(new Point(40, 79), 120, 24)).build();
-        new OneToOneCorridorBuilder(viewer.area, 2, CorridorBuilder.circularWave(new Point(40, 79), 90, 5, 0)).build();
+        new OneToOneCorridorBuilder(viewer.area, 2, null).build();
         //new DenseFractalRoomPlacer(viewer.area, 0).generate();
         //CaveGrower grower = new CaveGrower(viewer.area, 0.48, 7);
         //grower.build();

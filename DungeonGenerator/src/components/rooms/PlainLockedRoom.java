@@ -2,8 +2,7 @@
 package components.rooms;
 
 import components.Area;
-import components.tiles.Tile;
-import static utils.Utils.R;
+import components.tiles.Door;
 import utils.Utils.Unfinished;
 
 /**
@@ -14,8 +13,12 @@ public class PlainLockedRoom extends PlainRoom{
     
 
     public PlainLockedRoom(int w, int h){
-        super("Plain locked room", w, h);
-        if(w<5 || h<5) throw new IllegalArgumentException("Dimensions " + w + ", " + h + " are to small.");
+        this("Plain locked room", w, h);
+        assertDimensions(w, h, 5, 5);
+    }
+    
+    public PlainLockedRoom(String name, int w, int h){
+        super(name, w, h);
     }
     
     
@@ -39,20 +42,7 @@ public class PlainLockedRoom extends PlainRoom{
     @Override
     protected void addDoors(Area area, int numDoors){
         ensureGenerated(area);
-        switch(R.nextInt(4)){
-            case 0: 
-                map[R.nextInt(height-2)+1][0] = Tile.genDoor(area, true);
-                break;
-            case 1:
-                map[R.nextInt(height-2)+1][width-1] = Tile.genDoor(area, true);
-                break;
-            case 2:
-                map[0][R.nextInt(width-2)+1] = Tile.genDoor(area, true);
-                break;
-            case 3:
-                map[height-1][R.nextInt(width-2)+1] = Tile.genDoor(area, true);
-                break;
-        }
+        map[height-1][width/2] = new Door(null, null, true, true);
     }
 
 }

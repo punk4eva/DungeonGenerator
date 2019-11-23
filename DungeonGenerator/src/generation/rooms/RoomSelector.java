@@ -30,6 +30,7 @@ public class RoomSelector{
         rooms.put((w, h) -> new StatueTrapRoom(w, h), prob[2]);
         rooms.put((w, h) -> new Library(w, h), prob[3]);
         rooms.put((w, h) -> new ChasmVault(w, h), prob[4]);
+        rooms.put((w, h) -> new Laboratory(w, h), prob[5]);
     }
     
     
@@ -56,7 +57,7 @@ public class RoomSelector{
                 }
             }
         }
-        throw new IllegalStateException("No small enough room for dimensions: " + w + ", " + h);
+        throw new IllegalStateException("No large enough room for dimensions: " + w + ", " + h);
     }
 
 }

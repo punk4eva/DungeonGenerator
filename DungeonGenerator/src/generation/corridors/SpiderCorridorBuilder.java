@@ -50,7 +50,8 @@ public class SpiderCorridorBuilder extends CorridorBuilder{
         windyness = w;
         decayFactor = decay;
         addCheck = (from, to) -> to.cameFrom==null && (to.checked==null||!to.checked) && to.roomNum==-1;
-        frontier.setFunction(p -> R.nextDouble()*2D*windyness - windyness + p.currentCost + prioritySkew.apply(p));
+        if(prioritySkew!=null) frontier.setFunction(p -> R.nextDouble()*2D*windyness - windyness + p.currentCost + prioritySkew.apply(p));
+        else frontier.setFunction(p -> R.nextDouble()*2D*windyness - windyness + p.currentCost);
     }
     
     

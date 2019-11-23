@@ -121,4 +121,9 @@ public abstract class Room{
                     "Number of doors remaining: " + numDoors);
     }
     
+    
+    public static void assertDimensions(int w, int h, int minW, int minH){
+        if(w<minW || h<minH) throw new IllegalArgumentException("Dimensions " + w + ", " + h + " are to small.");
+    }
+    
 }

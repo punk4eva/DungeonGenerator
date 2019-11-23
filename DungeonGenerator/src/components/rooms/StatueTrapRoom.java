@@ -4,7 +4,6 @@ package components.rooms;
 import builders.TrapBuilder;
 import components.Area;
 import components.tiles.DecoFloor;
-import components.tiles.Door;
 import components.tiles.Floor;
 import components.tiles.Desk;
 import components.tiles.SpecialFloor;
@@ -21,20 +20,14 @@ public class StatueTrapRoom extends PlainLockedRoom{
     
     
     public StatueTrapRoom(int w, int h){
-        super(w, h);
-        if(w<7 || h<9) throw new IllegalArgumentException("Dimensions " + w + ", " + h + " are to small.");
+        super("Statue trap room", w, h);
+        assertDimensions(w, h, 7, 9);
     }
     
     @Override
     @Unfinished
     protected void plopItems(Area area){
         throw new UnsupportedOperationException("@Unfinished");
-    }
-    
-    @Override
-    protected void addDoors(Area area, int numDoors){
-        ensureGenerated(area);
-        map[height-1][width/2] = new Door(null, null, true, true);
     }
     
     @Override

@@ -12,11 +12,12 @@ import utils.Utils.Unfinished;
  *
  * @author Adam Whittaker
  */
-public class ChasmVault extends PlainRoom{
+public class ChasmVault extends PlainLockedRoom{
 
     
     public ChasmVault(int w, int h){
         super("chasm vault", w, h);
+        assertDimensions(w, h, 5, 5);
     }
     
     

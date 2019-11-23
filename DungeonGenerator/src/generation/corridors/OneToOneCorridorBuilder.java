@@ -27,7 +27,7 @@ public class OneToOneCorridorBuilder extends CorridorBuilder{
         super(a);
         addCheck = (from, to) -> /*to.currentCost > from.currentCost + to.movementCost &&*/ to.cameFrom==null && !to.type.equals(Point.Type.DOOR) && to.roomNum==-1;
         windyness = w;
-        prioritySkewer = priority;
+        prioritySkewer = priority!=null ? priority : (p -> 0D);
     }
 
     
