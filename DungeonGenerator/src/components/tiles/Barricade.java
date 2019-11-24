@@ -6,6 +6,7 @@ import graph.Point.Type;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
+import static text.RegexParser.generateDescription;
 import static utils.Utils.R;
 
 /**
@@ -15,7 +16,7 @@ import static utils.Utils.R;
 public class Barricade extends Passage{
 
     public Barricade(boolean p){
-        super("Wooden logs", "@Unfinished", Type.WALL, null, null, p);
+        super("Wooden logs", generateDescription("An impregnable <pile> of old logs stacked high enough to be unliftable. They smell <smell>."), Type.WALL, null, null, p);
     }
 
     @Override

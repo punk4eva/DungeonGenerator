@@ -12,6 +12,7 @@ import java.awt.image.WritableRaster;
 import java.util.AbstractMap;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.LinkedList;
+import static text.RegexParser.generateDescription;
 import utils.Utils;
 import static utils.Utils.R;
 import utils.Utils.Unfinished;
@@ -24,7 +25,27 @@ public class Bookshelf extends Passage{
 
     
     public Bookshelf(Tile al, Trap tr, final boolean p){
-        super("bookshelf", "@Unfinished", Type.WALL, al, tr, p);
+        super("bookshelf", generateDescription("An old, dry, wooden bookshelf with a <color> finish and volumes of even older <shapeMod> books, some in forgotten languages. One of the books is titled \""+getBookName()+"\"."), Type.WALL, al, tr, p);
+    }
+    
+    
+    private static String getBookName(){
+        String ret = "$<book> of ";
+        switch(R.nextInt(6)){
+            case 0: ret += "$<rune> $<script>s"; 
+                break;
+            case 1: ret += "$<viscosity> $<red> Potions for Use in Combat";
+                break;
+            case 2: ret += "the $<pile>s Constructed by $<shapeMod> $<color> $<critter>s";
+                break;
+            case 3: ret += "$<rune> Ancient $<colorMod> Religions";
+                break;
+            case 4: ret += "$<color> Mastercrafted Armor";
+                break;
+            default: ret += "$<appearance> Weapons";
+                break;
+        }
+        return ret;
     }
 
     

@@ -10,26 +10,16 @@ import java.io.Serializable;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import javax.imageio.ImageIO;
+import static text.RegexParser.grabWord;
 import static utils.Utils.R;
 import static utils.Utils.exceptionStream;
+import static text.RegexParser.COLOR;
 
 /**
  *
  * @author Adam Whittaker
  */
 public class ImageBuilder{
-    
-    public static final String[] COLORS = {"apple green", "aquamarine", "apricot",
-        "lime", "sky blue", "amber", "auburn", "gold", "electrum", "silver",
-        "azure", "magnolia", "banana", "orange", "blizzard blue", "blueberry",
-        "cerulean", "periwinckle", "turquoise", "rose", "bubblegum", "burgundy",
-        "chocolate", "coral", "cyan", "dandelion", "chestnut", "tangerine",
-        "lemon", "ruby", "emerald", "forest green", "ginger", "tea", "voilet", 
-        "amaranth red", "scorpion brown", "amethyst", "charcoal", "asparagus", 
-        "ash", "copper", "tin", "beige", "bistre", "olive", "bronze", "sapphire",
-        "purple", "boysenberry", "ochre", "maroon", "lavender", 
-        "lilac", "sugar brown", "coffee", "scarlet", "crimson", "salmon", 
-        "metallic", "mint", "saffron", "eggplant", "firebrick", "flame", "white wine"};
     
     private final static BufferedImage WATER_SHADERS = getImageFromFile("waterShaders.png");
     private final static int WATER_SHADE_LEVEL = 80; //out of 255
@@ -184,7 +174,7 @@ public class ImageBuilder{
     }
     
     public static Color getRandomColor(){
-        return getColor(COLORS[R.nextInt(COLORS.length)]);
+        return getColor(grabWord(COLOR));
     }
     
     

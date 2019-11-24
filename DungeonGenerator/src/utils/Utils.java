@@ -7,6 +7,7 @@
 package utils;
 
 import components.rooms.Room;
+import components.tiles.Bookshelf;
 import static filterGeneration.Filter.RGBPixelEquals;
 import generation.noise.PerlinNoiseGenerator;
 import generation.rooms.RoomSelector;
@@ -18,6 +19,7 @@ import java.io.PrintStream;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.List;
 import java.util.Random;
+import static text.RegexParser.generateDescription;
 
 /**
  *
@@ -94,11 +96,7 @@ public final class Utils{
         for(int n=0;n<20;n++) list.add(getRandomRoom());
         new RoomPlacer(area, list).generate();*/
         
-        double[][] map = new double[512][512];
-        new PerlinNoiseGenerator(map[0].length, map.length, 25, 1, 0.75, 0.75).apply(map);
-        //new MidpointDisplacer(125, 80, 0.7, 255, true, true).apply(map);
-        
-        Graph.makePNG(map, "saves/map.png");
+        System.out.println(new Bookshelf(null, null, false).description);
         
     }
     
