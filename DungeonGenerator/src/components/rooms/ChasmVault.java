@@ -38,7 +38,7 @@ public class ChasmVault extends PlainLockedRoom{
         buildWalls(area);
         
         map[1][width/2-1] = new SpecialFloor("floor");
-        map[1][width/2] = new Desk(area.info, true, 2);
+        map[1][width/2] = new Desk("pedestal", "A place-holder of some high value item.", area.info, true, 2);
         map[1][width/2+1] = new SpecialFloor("floor");
         
         map[2][width/2-1] = new SpecialFloor("floor");

@@ -3,7 +3,7 @@ package components.tiles;
 
 import components.Area;
 import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 import static utils.Utils.R;
 
 /**
@@ -27,11 +27,18 @@ public class Grass extends Tile{
     public void buildImage(Area area, int x, int y){
         if(underTile.image==null) underTile.buildImage(area, x, y);
         image = underTile.image;
-        if(tall) constructTallGrass(area.info.grassColor, image.getGraphics());
-        else constructLowGrass(area.info.grassColor, image.getGraphics());
+        if(tall) constructTallGrass(area.info.grassColor, 
+                (Graphics2D) image.getGraphics());
+        else{
+            Graphics2D g = (Graphics2D) image.getGraphics();
+            constructLowGrass(area.info.grassColor, g);
+            if(underTile.decoration!=null && underTile.decoration.aboveWater){
+                underTile.decoration.drawImage((Graphics2D) image.getGraphics(), 0, 0);
+            }
+        }
     }
     
-    private void constructTallGrass(Color col, Graphics g){
+    private void constructTallGrass(Color col, Graphics2D g){
         g.setColor(col.darker());
         for(int n=0;n<23;n++)
             g.fillRect(R.nextInt(15), R.nextInt(15), 2, 2);
@@ -43,7 +50,7 @@ public class Grass extends Tile{
             g.fillRect(R.nextInt(16), R.nextInt(16), 1, 1);
     }
     
-    private void constructLowGrass(Color col, Graphics g){
+    private void constructLowGrass(Color col, Graphics2D g){
         g.setColor(col.darker());
         for(int n=0;n<15;n++)
             g.fillRect(R.nextInt(16), R.nextInt(16), 1, 1);

@@ -12,7 +12,7 @@ import static utils.Utils.R;
  *
  * @author Adam Whittaker
  */
-public class Pot extends Decoration{
+public class Pot extends Decoration implements FloorDecoration{
     
     
     private final int[] color;
@@ -25,7 +25,7 @@ public class Pot extends Decoration{
     }
     
     public Pot(AreaInfo info, int[] col){
-        super("Pot", "@Unfinished");
+        super("Pot", "@Unfinished", true);
         color = col;
     }
 

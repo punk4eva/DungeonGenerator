@@ -15,8 +15,8 @@ public class Cauldron extends Tile{
     private final boolean specialFloor;
     
     
-    public Cauldron(String name, boolean specFloor){
-        super(name, "@Unfinished", Type.FLOOR, null, null);
+    public Cauldron(String name, String desc, boolean specFloor){
+        super(name, desc, Type.FLOOR, null, null);
         specialFloor = specFloor;
     }
 

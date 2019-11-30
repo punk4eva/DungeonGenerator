@@ -70,7 +70,6 @@ public class Window{
         
         viewer.area.growGrass();
         viewer.area.spillWater();
-        viewer.area.addDeco();
         viewer.area.initializeImages();
         
         viewer.start();

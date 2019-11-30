@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
 public class Chasm extends Tile{
 
     public Chasm(){
-        super("chasm", "@Unfinished", Type.NULL, null, null);
+        super("chasm", "This is a <appearance>-looking void in the ground. It would probably be extremely painful or even lethal to fall into it.", Type.NULL, null, null);
     }
     
     @Override

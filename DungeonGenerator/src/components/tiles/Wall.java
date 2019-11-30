@@ -2,7 +2,7 @@
 package components.tiles;
 
 import components.Area;
-import components.traps.Trap;
+import components.decorations.Decoration;
 import graph.Point.Type;
 import java.awt.Graphics2D;
 
@@ -12,18 +12,21 @@ import java.awt.Graphics2D;
  */
 public class Wall extends Tile{
 
-    public Wall(Trap tr){
-        super("wall", "@Unfinished", Type.WALL, null, tr);
+    
+    public Wall(Decoration deco){
+        this("wall", "@Unfinished", deco);
     }
     
-    protected Wall(String na, String desc, Trap tr){
-        super(na, desc, Type.WALL, null, tr);
+    protected Wall(String na, String desc, Decoration deco){
+        super(na, desc, Type.WALL, null, deco);
     }
     
     @Override
     public void buildImage(Area area, int x, int y){
         generateWallImage(area, x, y);
-        if(decoration!=null) decoration.drawImage((Graphics2D) image.getGraphics(), 0, 0);
+        if(decoration!=null){
+            decoration.drawImage((Graphics2D) image.getGraphics(), 0, 0);
+        }
     }
 
 }

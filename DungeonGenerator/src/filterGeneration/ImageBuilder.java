@@ -59,8 +59,13 @@ public class ImageBuilder{
         }
     }
     
+    public static int[] colorToPixelArray(Color c, boolean four){
+        return four ? new int[]{c.getRed(), c.getGreen(), c.getBlue(), 255} 
+                : new int[]{c.getRed(), c.getGreen(), c.getBlue()};
+    }
+    
     public static int[] colorToPixelArray(Color c){
-        return new int[]{c.getRed(), c.getGreen(), c.getBlue()};
+        return colorToPixelArray(c, false);
     }
     
     public static BufferedImage convertToRGB(BufferedImage img){

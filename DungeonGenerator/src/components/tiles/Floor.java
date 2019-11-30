@@ -2,7 +2,7 @@
 package components.tiles;
 
 import components.Area;
-import components.traps.Trap;
+import components.decorations.Decoration;
 import graph.Point.Type;
 import java.awt.Graphics2D;
 
@@ -12,12 +12,13 @@ import java.awt.Graphics2D;
  */
 public class Floor extends Tile{
 
-    public Floor(Trap tr){
-        this("floor", "@Unfinished", tr);
+    
+    public Floor(Decoration deco){
+        this("floor", "@Unfinished", deco);
     }
     
-    protected Floor(String name, String desc, Trap tr){
-        super(name, desc, Type.FLOOR, null, tr);
+    protected Floor(String name, String desc, Decoration deco){
+        super(name, desc, Type.FLOOR, null, deco);
     }
     
     

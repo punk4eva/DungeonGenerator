@@ -1,6 +1,7 @@
 
 package components.traps;
 
+import components.decorations.FloorDecoration;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import static utils.Utils.R;
@@ -9,7 +10,7 @@ import static utils.Utils.R;
  *
  * @author Adam Whittaker
  */
-public class FloorTrap extends Trap{
+public class FloorTrap extends Trap implements FloorDecoration{
     
     private boolean horizontalOuter, verticalOuter, diagonal, innerLeft, 
             innerRight;

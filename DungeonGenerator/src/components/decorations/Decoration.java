@@ -12,11 +12,13 @@ public abstract class Decoration{
     
     public final String name;
     public final String description;
+    public final boolean aboveWater;
     
     
-    public Decoration(String na, String desc){
+    public Decoration(String na, String desc, boolean above){
         name = na;
         description = desc;
+        aboveWater = above;
     }
     
     

@@ -46,6 +46,7 @@ public class Water extends Tile{
     public void draw(Graphics2D g, int _x, int _y){
         info.waterPainter.paint(g, _x, _y);
         super.draw(g, _x, _y);
+        if(underTile.decoration!=null && underTile.decoration.aboveWater) underTile.decoration.drawImage(g, _x, _y);
     }
 
 }
