@@ -74,7 +74,7 @@ public abstract class Tile{
     
     public static Door genDoor(Area area, boolean path){
         return new Door(R.nextDouble() < area.info.feeling.doorHideChance ? 
-                genWall(area) : null, R.nextDouble() < area.info.feeling.doorTrapChance ?
+                new Wall(null) : null, R.nextDouble() < area.info.feeling.doorTrapChance ?
                         TrapBuilder.getDoorTrap(area) : null, false, path);
     }
     
@@ -82,8 +82,8 @@ public abstract class Tile{
         return new Floor(floorDeco(area));
     }
     
-    public static Wall genWall(Area area){
-        return new Wall(wallDeco(area));
+    public static Wall genWall(Area area, int x, int y){
+        return new Wall(wallDeco(area, x, y));
     }
     
     
@@ -94,9 +94,9 @@ public abstract class Tile{
                         TrapBuilder.getFloorTrap(area) : null);
     }
     
-    public static Decoration wallDeco(Area area){
+    public static Decoration wallDeco(Area area, int x, int y){
         return R.nextDouble() < area.info.feeling.wallDecoChance ?
-                WallDecoration.getWallDecoration(area) : 
+                WallDecoration.getWallDecoration(area, x, y) : 
                 (R.nextDouble() < area.info.feeling.floorTrapChance ?
                         TrapBuilder.getWallTrap(area) : null);
     }

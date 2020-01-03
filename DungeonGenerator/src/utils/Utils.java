@@ -8,10 +8,7 @@ package utils;
 
 import components.rooms.Room;
 import components.tiles.Bookshelf;
-import static filterGeneration.Filter.RGBPixelEquals;
-import generation.noise.PerlinNoiseGenerator;
 import generation.rooms.RoomSelector;
-import graph.Graph;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -19,7 +16,7 @@ import java.io.PrintStream;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.List;
 import java.util.Random;
-import static text.RegexParser.generateDescription;
+import static filterGeneration.Filter.rgbPixelEquals;
 
 /**
  *
@@ -76,12 +73,12 @@ public final class Utils{
     }
     
     public static <T> boolean mapContainsArray(List<SimpleEntry<int[], T>> map, int[] ary){
-        return map.stream().anyMatch((e) -> (RGBPixelEquals(e.getKey(), ary)));
+        return map.stream().anyMatch((e) -> (rgbPixelEquals(e.getKey(), ary)));
     }
     
     public static <T> T getValueFromMap(List<SimpleEntry<int[], T>> map, int[] ary){
         for(SimpleEntry<int[], T> e : map){
-            if(RGBPixelEquals(e.getKey(), ary)) return e.getValue();
+            if(rgbPixelEquals(e.getKey(), ary)) return e.getValue();
         }
         return null;
     }

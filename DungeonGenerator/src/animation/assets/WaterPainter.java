@@ -1,5 +1,5 @@
 
-package animation;
+package animation.assets;
 
 import filterGeneration.Filter;
 import generation.noise.PerlinNoiseGenerator;

@@ -81,7 +81,7 @@ public class CaveGrower extends Searcher{
     private void convertGraphToArea(){
         for(int x=0;x<area.info.width;x++) for(int y=0;y<area.info.height;y++) 
             if(area.map[y][x]==null){
-                if(area.graph.map[y][x].isCorridor) area.map[y][x] = Tile.genWall(area);
+                if(area.graph.map[y][x].isCorridor) area.map[y][x] = Tile.genWall(area, x, y);
                 else area.map[y][x] = Tile.genFloor(area);
         }
     }

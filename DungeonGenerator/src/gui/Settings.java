@@ -1,6 +1,9 @@
 
 package gui;
 
+import animation.ParticleGenerator;
+import animation.assets.FireParticle;
+
 /**
  *
  * @author Adam Whittaker
@@ -25,6 +28,17 @@ public class Settings{
     }
     
     
-    public GraphicsQuality GRAPHICS = GraphicsQuality.HIGH;
+    public GraphicsQuality GRAPHICS = GraphicsQuality.MEDIUM;
+    
+    
+    public ParticleGenerator getTorchAnimation(int x, int y){
+        switch(GRAPHICS){
+            case STATIC: return new ParticleGenerator(FireParticle::getStaticGraphicsParticle, () -> x+6, () -> y+5, () -> Integer.MAX_VALUE);
+            case LOW: return new ParticleGenerator(5, FireParticle::getLowGraphicsParticle, x+6, y+5, 4, 2);
+            case MEDIUM: return new ParticleGenerator(2, FireParticle::getMediumGraphicsParticle, x+6, y+5, 4, 2);
+            case HIGH: return null;
+            default: throw new IllegalStateException();
+        }
+    }
     
 }

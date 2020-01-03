@@ -65,7 +65,7 @@ public class DoorIconGenerator{
         //Loop through all pixels.
         for(int y=0;y<img.getHeight();y++){
             for(int x=0;x<img.getWidth();x++){
-                if(Filter.RGBPixelEquals(WALL_REGEX, raster.getPixel(x, y, pixel)))
+                if(Filter.rgbPixelEquals(WALL_REGEX, raster.getPixel(x, y, pixel)))
                     raster.setPixel(x, y, wallRaster.getPixel(x, y, pixel));
             }
         }

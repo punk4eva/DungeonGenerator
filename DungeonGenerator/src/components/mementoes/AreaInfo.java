@@ -1,7 +1,7 @@
 
 package components.mementoes;
 
-import animation.WaterPainter;
+import animation.assets.WaterPainter;
 import components.LevelFeeling;
 import generation.noise.PerlinNoiseGenerator;
 import generation.noise.MidpointDisplacmentNoise;

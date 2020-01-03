@@ -82,7 +82,7 @@ public abstract class Filter implements Serializable{
      * @param p2 pixel 2
      * @return true if the pixels are the same color.
      */
-    public static boolean RGBPixelEquals(int[] p1, int[] p2){
+    public static boolean rgbPixelEquals(int[] p1, int[] p2){
         for(int n=0;n<3;n++) if(p1[n] != p2[n]) return false;
         return true;
     }

@@ -76,10 +76,10 @@ public class SpiderCorridorBuilder extends CorridorBuilder{
     public void build(){
         Point p = getFreePoint();
         floodfill(p);
-        if(area.map[p.y-1][p.x-1]==null) area.map[p.y-1][p.x-1] = Tile.genWall(area);
-        if(area.map[p.y-1][p.x+1]==null) area.map[p.y-1][p.x+1] = Tile.genWall(area);
-        if(area.map[p.y+1][p.x-1]==null) area.map[p.y+1][p.x-1] = Tile.genWall(area);
-        if(area.map[p.y+1][p.x+1]==null) area.map[p.y+1][p.x+1] = Tile.genWall(area);
+        if(area.map[p.y-1][p.x-1]==null) area.map[p.y-1][p.x-1] = Tile.genWall(area, p.x-1, p.y-1);
+        if(area.map[p.y-1][p.x+1]==null) area.map[p.y-1][p.x+1] = Tile.genWall(area, p.x+1, p.y-1);
+        if(area.map[p.y+1][p.x-1]==null) area.map[p.y+1][p.x-1] = Tile.genWall(area, p.x-1, p.y+1);
+        if(area.map[p.y+1][p.x+1]==null) area.map[p.y+1][p.x+1] = Tile.genWall(area, p.x+1, p.y+1);
         area.graph.doors.forEach((door) -> {
             buildCorridor(door);
         });

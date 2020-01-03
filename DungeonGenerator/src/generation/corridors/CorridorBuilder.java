@@ -28,71 +28,71 @@ public abstract class CorridorBuilder extends Searcher{
         if(!(area.map[b.y][b.x]!=null && area.map[b.y][b.x].equals(Point.Type.DOOR))) area.map[b.y][b.x] = Tile.genFloor(area);
         if(a.x!=b.x){
             if(area.map[b.y-1][b.x]==null){
-                area.map[b.y-1][b.x] = Tile.genWall(area);
+                area.map[b.y-1][b.x] = Tile.genWall(area, b.y-1, b.x);
                 area.graph.map[b.y-1][b.x].isCorridor = true;
             }
             if(area.map[b.y+1][b.x]==null){
-                area.map[b.y+1][b.x] = Tile.genWall(area);
+                area.map[b.y+1][b.x] = Tile.genWall(area, b.y+1, b.x);
                 area.graph.map[b.y+1][b.x].isCorridor = true;
             }
             if(area.map[a.y-1][a.x]==null){
-                area.map[a.y-1][a.x] = Tile.genWall(area);
+                area.map[a.y-1][a.x] = Tile.genWall(area, a.y-1, a.x);
                 area.graph.map[a.y-1][a.x].isCorridor = true;
             }
             if(area.map[a.y+1][a.x]==null){
-                area.map[a.y+1][a.x] = Tile.genWall(area);
+                area.map[a.y+1][a.x] = Tile.genWall(area, a.y+1, a.x);
                 area.graph.map[a.y+1][a.x].isCorridor = true;
             }
             if(p==null||a.x==p.x){
                 if(area.map[a.y-1][a.x-1]==null){
-                    area.map[a.y-1][a.x-1] = Tile.genWall(area);
+                    area.map[a.y-1][a.x-1] = Tile.genWall(area, a.y-1, a.x-1);
                     area.graph.map[a.y-1][a.x-1].isCorridor = true;
                 }
                 if(area.map[a.y-1][a.x+1]==null){
-                    area.map[a.y-1][a.x+1] = Tile.genWall(area);
+                    area.map[a.y-1][a.x+1] = Tile.genWall(area, a.y-1, a.x+1);
                     area.graph.map[a.y-1][a.x+1].isCorridor = true;
                 }
                 if(area.map[a.y+1][a.x-1]==null){
-                    area.map[a.y+1][a.x-1] = Tile.genWall(area);
+                    area.map[a.y+1][a.x-1] = Tile.genWall(area, a.y+1, a.x-1);
                     area.graph.map[a.y+1][a.x-1].isCorridor = true;
                 }
                 if(area.map[a.y+1][a.x+1]==null){
-                    area.map[a.y+1][a.x+1] = Tile.genWall(area);
+                    area.map[a.y+1][a.x+1] = Tile.genWall(area, a.y+1, a.x+1);
                     area.graph.map[a.y+1][a.x+1].isCorridor = true;
                 }
             }
         }else{
             if(area.map[b.y][b.x-1]==null){
-                area.map[b.y][b.x-1] = Tile.genWall(area);
+                area.map[b.y][b.x-1] = Tile.genWall(area, b.y, b.x-1);
                 area.graph.map[b.y][b.x-1].isCorridor = true;
             }
             if(area.map[b.y][b.x+1]==null){
-                area.map[b.y][b.x+1] = Tile.genWall(area);
+                area.map[b.y][b.x+1] = Tile.genWall(area, b.y, b.x+1);
                 area.graph.map[b.y][b.x+1].isCorridor = true;
             }
             if(area.map[a.y][a.x-1]==null){
-                area.map[a.y][a.x-1] = Tile.genWall(area);
+                area.map[a.y][a.x-1] = Tile.genWall(area, a.y, a.x-1);
                 area.graph.map[a.y][a.x-1].isCorridor = true;
             }
             if(area.map[a.y][a.x+1]==null){
-                area.map[a.y][a.x+1] = Tile.genWall(area);
+                area.map[a.y][a.x+1] = Tile.genWall(area, a.y, a.x+1);
                 area.graph.map[a.y][a.x+1].isCorridor = true;
             }
             if(p==null||a.x!=p.x){
                 if(area.map[a.y-1][a.x-1]==null){
-                    area.map[a.y-1][a.x-1] = Tile.genWall(area);
+                    area.map[a.y-1][a.x-1] = Tile.genWall(area, a.y-1, a.x-1);
                     area.graph.map[a.y-1][a.x-1].isCorridor = true;
                 }
                 if(area.map[a.y-1][a.x+1]==null){
-                    area.map[a.y-1][a.x+1] = Tile.genWall(area);
+                    area.map[a.y-1][a.x+1] = Tile.genWall(area, a.y-1, a.x+1);
                     area.graph.map[a.y-1][a.x+1].isCorridor = true;
                 }
                 if(area.map[a.y+1][a.x-1]==null){
-                    area.map[a.y+1][a.x-1] = Tile.genWall(area);
+                    area.map[a.y+1][a.x-1] = Tile.genWall(area, a.y+1, a.x-1);
                     area.graph.map[a.y+1][a.x-1].isCorridor = true;
                 }
                 if(area.map[a.y+1][a.x+1]==null){
-                    area.map[a.y+1][a.x+1] = Tile.genWall(area);
+                    area.map[a.y+1][a.x+1] = Tile.genWall(area, a.y+1, a.x+1);
                     area.graph.map[a.y+1][a.x+1].isCorridor = true;
                 }
             }

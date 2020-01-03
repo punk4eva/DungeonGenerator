@@ -2,12 +2,12 @@
 package components.decorations;
 
 import components.mementoes.AreaInfo;
-import filterGeneration.Filter;
 import filterGeneration.ImageBuilder;
 import static filterGeneration.ImageBuilder.colorToPixelArray;
+import filterGeneration.ImageRecolorer;
+import static gui.DungeonViewer.ANIMATOR;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.awt.image.WritableRaster;
 
 /**
  *
@@ -16,44 +16,29 @@ import java.awt.image.WritableRaster;
 public class Torch extends Decoration implements WallDecoration{
 
     
-    private final static int[] LIGHT_REGEX = {243, 115, 240},
-            MEDIUM_REGEX = {215, 119, 223},
-            DARK_REGEX = {199, 110, 210};
+    private final int[][] palette;
+    //private final ParticleGenerator particles;
     
-    private final int[] light, medium, dark;
+    private final static ImageRecolorer RECOLORER = new ImageRecolorer(10, new int[][]{
+            {243, 115, 240},
+            {215, 119, 223},
+            {199, 110, 210}
+    });
     
     
-    public Torch(AreaInfo info){
+    public Torch(AreaInfo info, int x, int y){
         super("torch", "A simple torch hanging from the wall.", false);
-        medium = colorToPixelArray(info.architecture.furnitureMaterial.color, true);
-        light = colorToPixelArray(info.architecture.furnitureMaterial.color.brighter(), true);
-        dark = colorToPixelArray(info.architecture.furnitureMaterial.color.darker(), true);
+        palette = new int[][]{colorToPixelArray(info.architecture.furnitureMaterial.color.brighter(), true),
+            colorToPixelArray(info.architecture.furnitureMaterial.color, true),
+            colorToPixelArray(info.architecture.furnitureMaterial.color.darker(), true)};
+        ANIMATOR.addGenerator(info.settings.getTorchAnimation(x*16, y*16));
     }
 
     
     @Override
     public void drawImage(Graphics2D g, int _x, int _y){
-        BufferedImage torch = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
-        WritableRaster raster = ImageBuilder.getImageFromFile("torch.png").getRaster(),
-                torchRaster = torch.getRaster();
-        int[] pixel = new int[4];
-        int alpha;
-        
-        for(int y=0;y<16;y++) for(int x=0;x<16;x++){
-            pixel = raster.getPixel(x, y, pixel);
-            alpha = pixel[3];
-            if(Filter.RGBPixelEquals(pixel, LIGHT_REGEX)){
-                light[3] = alpha;
-                torchRaster.setPixel(x, y, light);
-            }else if(Filter.RGBPixelEquals(pixel, MEDIUM_REGEX)){
-                medium[3] = alpha;
-                torchRaster.setPixel(x, y, medium);
-            }else if(Filter.RGBPixelEquals(pixel, DARK_REGEX)){
-                dark[3] = alpha;
-                torchRaster.setPixel(x, y, dark);
-            }
-        }
-        
+        BufferedImage torch = ImageBuilder.getImageFromFile("torch.png");
+        RECOLORER.recolor(torch, palette);
         g.drawImage(torch, _x, _y, null);
     }
 

@@ -35,6 +35,7 @@ public class Pacemaker implements Runnable{
         long n;
         int frames;
         viewer.createBufferStrategy(BUFFER_NUM);
+        now = System.currentTimeMillis();
         while(viewer.running){
             n = System.currentTimeMillis();
             if(n-now>DELAY){

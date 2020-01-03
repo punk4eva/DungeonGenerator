@@ -71,6 +71,7 @@ public class Window{
         viewer.area.growGrass();
         viewer.area.spillWater();
         viewer.area.initializeImages();
+        DungeonViewer.ANIMATOR.addGenerator(viewer.area.info.settings.getTorchAnimation(80, 80));
         
         viewer.start();
     }
