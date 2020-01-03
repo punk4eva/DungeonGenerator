@@ -24,12 +24,12 @@ public class PlainRoom extends Room{
     
     protected void buildWalls(Area area){
         for(int x=0;x<width;x++){
-            map[0][x] = Tile.genWall(area, x, 0);
-            map[height-1][x] = Tile.genWall(area, x, height-1);
+            map[0][x] = Tile.genWall(area);
+            map[height-1][x] = Tile.genWall(area);
         }
         for(int y=1;y<height-1;y++){
-            map[y][0] = Tile.genWall(area, 0, y);
-            map[y][width-1] = Tile.genWall(area, width-1, y);
+            map[y][0] = Tile.genWall(area);
+            map[y][width-1] = Tile.genWall(area);
         }
     }
     

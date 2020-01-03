@@ -30,6 +30,7 @@ public class ParticleAnimator extends Animation{
             p.draw(g, focusX, focusY, frames);
         });
         particles.removeIf(p -> p.expired);
+        generators.removeIf(gen -> gen.done);
     }
     
     public void addGenerator(ParticleGenerator g){

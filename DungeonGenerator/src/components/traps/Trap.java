@@ -18,7 +18,7 @@ public abstract class Trap extends Decoration{
     protected Color color;
     
     public Trap(String n, String desc, boolean rev){
-        super(n, desc, false);
+        super(n, desc, false, null);
         color = ImageBuilder.getRandomColor();
         revealed = rev;
     }

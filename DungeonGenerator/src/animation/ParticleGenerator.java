@@ -1,6 +1,7 @@
 
 package animation;
 
+import java.awt.Graphics2D;
 import java.util.function.Supplier;
 import static utils.Utils.R;
 
@@ -8,7 +9,7 @@ import static utils.Utils.R;
  *
  * @author Adam Whittaker
  */
-public class ParticleGenerator{
+public class ParticleGenerator extends Animation{
 
     
     protected int intensity;
@@ -22,6 +23,7 @@ public class ParticleGenerator{
     }
     
     public ParticleGenerator(Supplier<Particle> sup, Supplier<Integer> x, Supplier<Integer> y, Supplier<Integer> delay){
+        super(0, 0);
         intensity = delay.get();
         supplier = sup;
         xGenerator = x;
@@ -50,5 +52,8 @@ public class ParticleGenerator{
         p.y = yGenerator.get();
         return p;
     }
+
+    @Override
+    public void animate(Graphics2D g, int focusX, int focusY, int frames){}
     
 }

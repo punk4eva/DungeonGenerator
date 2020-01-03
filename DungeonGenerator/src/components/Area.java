@@ -10,6 +10,7 @@ import components.tiles.Water;
 import graph.Graph;
 import graph.Point;
 import graph.Point.Type;
+import static gui.DungeonViewer.ANIMATOR;
 import static gui.DungeonViewer.HEIGHT;
 import static gui.DungeonViewer.WIDTH;
 import static gui.MouseInterpreter.zoom;
@@ -144,7 +145,11 @@ public class Area{
     public void initializeImages(){
         for(int y=0;y<map.length;y++){
             for(int x=0;x<map[0].length;x++){
-                if(map[y][x]!=null) map[y][x].buildImage(this, x*16, y*16);
+                if(map[y][x]!=null){
+                    map[y][x].buildImage(this, x*16, y*16);
+                    if(map[y][x].decoration!=null && map[y][x].decoration.animation!=null)
+                        ANIMATOR.add(map[y][x].decoration.animation.apply(x, y));
+                }
             }
         }
     }

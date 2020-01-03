@@ -35,25 +35,15 @@ public class Animator{
     
     public void add(Animation a){
         synchronized(animations){
-            animations.add(a);
+            if(a instanceof ParticleGenerator) particles.addGenerator((ParticleGenerator)a);
+            else animations.add(a);
         }
     }
     
     public void remove(Animation a){
         synchronized(animations){
-            animations.remove(a);
-        }
-    }
-    
-    public void addGenerator(ParticleGenerator g){
-        synchronized(animations){
-            particles.addGenerator(g);
-        }
-    }
-    
-    public void removeGenerator(ParticleGenerator g){
-        synchronized(animations){
-            particles.removeGenerator(g);
+            if(a instanceof ParticleGenerator) particles.removeGenerator((ParticleGenerator)a);
+            else animations.remove(a);
         }
     }
     

@@ -25,7 +25,7 @@ public class Pot extends Decoration implements FloorDecoration{
     }
     
     public Pot(AreaInfo info, int[] col){
-        super("Pot", "@Unfinished", true);
+        super("Pot", "@Unfinished", true, null);
         color = col;
     }
 

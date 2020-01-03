@@ -9,8 +9,8 @@ import components.Area;
  */
 public interface WallDecoration{
 
-    public static Decoration getWallDecoration(Area area, int x, int y){
-        return new Torch(area.info, x, y);
+    public static Decoration getWallDecoration(Area area){
+        return new Torch(area.info);
     }
 
 }

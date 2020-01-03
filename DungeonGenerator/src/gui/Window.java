@@ -5,7 +5,6 @@ import components.LevelFeeling;
 import components.rooms.Room;
 import generation.corridors.*;
 import generation.rooms.*;
-import graph.Point;
 import java.awt.Dimension;
 import java.io.IOException;
 import java.util.LinkedList;
@@ -71,7 +70,7 @@ public class Window{
         viewer.area.growGrass();
         viewer.area.spillWater();
         viewer.area.initializeImages();
-        DungeonViewer.ANIMATOR.addGenerator(viewer.area.info.settings.getTorchAnimation(80, 80));
+        //DungeonViewer.ANIMATOR.addGenerator(viewer.area.info.settings.getTorchAnimation(80, 80));
         
         viewer.start();
     }
