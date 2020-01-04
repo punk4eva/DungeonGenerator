@@ -1,8 +1,8 @@
 
-package gui;
+package gui.core;
 
-import static gui.DungeonViewer.HEIGHT;
-import static gui.DungeonViewer.WIDTH;
+import static gui.core.DungeonViewer.HEIGHT;
+import static gui.core.DungeonViewer.WIDTH;
 import static utils.Utils.performanceStream;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

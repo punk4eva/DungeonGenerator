@@ -1,5 +1,5 @@
 
-package gui;
+package gui.core;
 
 import animation.ParticleGenerator;
 import animation.assets.FireParticle;

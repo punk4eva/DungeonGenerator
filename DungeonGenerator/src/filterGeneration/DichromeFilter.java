@@ -2,7 +2,7 @@
 package filterGeneration;
 
 import filterGeneration.ImageBuilder.SerSupplier;
-import static gui.DungeonViewer.getSettings;
+import static gui.core.DungeonViewer.getSettings;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;

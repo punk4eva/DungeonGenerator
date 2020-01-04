@@ -7,7 +7,7 @@ import generation.noise.PerlinNoiseGenerator;
 import generation.noise.MidpointDisplacmentNoise;
 import components.tiles.Tile;
 import graph.Point.Type;
-import gui.Settings;
+import gui.core.Settings;
 import java.awt.Color;
 import java.io.IOException;
 import java.io.ObjectInputStream;

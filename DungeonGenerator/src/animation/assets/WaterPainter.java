@@ -3,8 +3,8 @@ package animation.assets;
 
 import filterGeneration.Filter;
 import generation.noise.PerlinNoiseGenerator;
-import static gui.MouseInterpreter.focusX;
-import static gui.MouseInterpreter.focusY;
+import static gui.core.MouseInterpreter.focusX;
+import static gui.core.MouseInterpreter.focusY;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;

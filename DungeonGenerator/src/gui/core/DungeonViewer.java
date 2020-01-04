@@ -1,11 +1,15 @@
 
-package gui;
+package gui.core;
 
+import gui.core.MouseInterpreter;
+import gui.core.Settings;
+import gui.core.Window;
 import animation.Animator;
 import components.Area;
-import static gui.MouseInterpreter.focusX;
-import static gui.MouseInterpreter.focusY;
-import static gui.MouseInterpreter.zoom;
+import static gui.core.MouseInterpreter.focusX;
+import static gui.core.MouseInterpreter.focusY;
+import static gui.core.MouseInterpreter.zoom;
+import gui.userInterface.GUI;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -43,7 +47,7 @@ public class DungeonViewer extends Canvas implements Runnable{
     protected MouseInterpreter mouse = new MouseInterpreter();
 
     public final static Animator ANIMATOR = new Animator();
-    //protected static final GuiManager gui = new GuiManager();
+    protected final GUI gui;
     protected volatile Area area;
     
     /**
@@ -51,6 +55,7 @@ public class DungeonViewer extends Canvas implements Runnable{
      */
     public DungeonViewer(){
         window = new Window(WIDTH, HEIGHT, "Dungeon Generator", this);
+        gui = new GUI(this);
     }
     
     
@@ -97,7 +102,7 @@ public class DungeonViewer extends Canvas implements Runnable{
         ANIMATOR.animate(g, focusX, focusY, frames);
         AffineTransform at = AffineTransform.getScaleInstance(zoom, zoom);
         bsg.drawRenderedImage(buffer, at);
-        //gui.paint(bsg);
+        gui.render(bsg);
         g.dispose();
     }
     

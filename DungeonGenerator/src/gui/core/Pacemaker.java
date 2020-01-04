@@ -1,5 +1,5 @@
 
-package gui;
+package gui.core;
 
 /**
  *
