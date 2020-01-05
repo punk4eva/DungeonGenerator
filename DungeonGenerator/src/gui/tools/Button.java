@@ -3,6 +3,9 @@ package gui.tools;
 
 import animation.Animation;
 import static gui.core.DungeonViewer.ANIMATOR;
+import static gui.tools.UIPanel.BUTTON_TEXT_COLOR;
+import static gui.tools.UIPanel.BUTTON_TEXT_FONT;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
@@ -61,7 +64,7 @@ public abstract class Button{
     }
     
     private void registerClickAnimation(){
-        ANIMATOR.add(new Animation(-1, -1){
+        ANIMATOR.add(new Animation(){
             
             private int duration = BUTTON_DURATION;
             
@@ -85,6 +88,13 @@ public abstract class Button{
     protected void resize(int w, int h){
         width = w;
         height = h;
+    }
+    
+    protected void paintText(Graphics g, String str){
+        g.setFont(BUTTON_TEXT_FONT);
+        g.setColor(BUTTON_TEXT_COLOR);
+        FontMetrics f = g.getFontMetrics();
+        g.drawString(str, x+(width - f.stringWidth(str))/2, y + width/2 + f.getDescent());
     }
     
 }

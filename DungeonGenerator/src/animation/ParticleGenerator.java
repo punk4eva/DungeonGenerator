@@ -23,7 +23,6 @@ public class ParticleGenerator extends Animation{
     }
     
     public ParticleGenerator(Supplier<Particle> sup, Supplier<Integer> x, Supplier<Integer> y, Supplier<Integer> delay){
-        super(0, 0);
         intensity = delay.get();
         supplier = sup;
         xGenerator = x;

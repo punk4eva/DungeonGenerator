@@ -7,7 +7,6 @@ import static gui.core.DungeonViewer.HEIGHT;
 import static gui.core.DungeonViewer.WIDTH;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
@@ -26,7 +25,7 @@ public class UIPanel extends MouseAdapter{
     public static final Font BUTTON_TEXT_FONT = new Font(Font.SERIF, Font.BOLD, 18);
     public static final int MINIMIZE_SPEED = 5;
     
-    protected int x, width = WIDTH/6;
+    protected int x, width = WIDTH/8;
     protected final Button[] buttons;
     
     
@@ -57,6 +56,7 @@ public class UIPanel extends MouseAdapter{
         
         private boolean minimized = false;
         private final boolean left;
+        private boolean moving = false;
 
         
         public MinimizeButton(int _x, int _y, int w, boolean l){
@@ -67,17 +67,20 @@ public class UIPanel extends MouseAdapter{
         
         @Override
         public void click(){
-            if(minimized){
-                minimized = false;
-                addAnimation(left ? MINIMIZE_SPEED : -MINIMIZE_SPEED, UIPanel.this.width);
-            }else{
-                minimized = true;
-                addAnimation(left ? -MINIMIZE_SPEED : MINIMIZE_SPEED, UIPanel.this.width);
+            if(!moving){
+                moving = true;
+                if(minimized){
+                    minimized = false;
+                    addAnimation(left ? MINIMIZE_SPEED : -MINIMIZE_SPEED, UIPanel.this.width);
+                }else{
+                    minimized = true;
+                    addAnimation(left ? -MINIMIZE_SPEED : MINIMIZE_SPEED, UIPanel.this.width);
+                }
             }
         }
         
         public void addAnimation(int plus, int dur){
-            ANIMATOR.add(new Animation(-1, -1){
+            ANIMATOR.add(new Animation(){
                     
                 int duration = dur;
 
@@ -87,7 +90,10 @@ public class UIPanel extends MouseAdapter{
                         duration-=frames*MINIMIZE_SPEED;
                         if(duration>0) moveX(plus*frames);
                         else moveX(plus*(frames+duration));
-                    }else done = true;
+                    }else{
+                        done = true;
+                        moving = false;
+                    }
                 }
 
             });
@@ -95,11 +101,8 @@ public class UIPanel extends MouseAdapter{
 
         @Override
         public void paint(Graphics g){
-            g.setFont(BUTTON_TEXT_FONT);
-            g.setColor(BUTTON_TEXT_COLOR);
-            FontMetrics f = g.getFontMetrics();
-            if(minimized) g.drawString("+", x+(width - f.charWidth('+'))/2, y + width/2 + f.getDescent());
-            else g.drawString("-", x+(width - f.charWidth('-'))/2, y + width/2 + f.getDescent());
+            if(minimized) paintText(g, "+");
+            else paintText(g, "-");
         }
         
     }

@@ -14,17 +14,13 @@ import java.awt.Graphics;
 public class GUI{
     
     
-    private final ControlPanel control = new ControlPanel();
+    private final ControlPanel control;
     private CalibrationPanel calibration;
     
     
     public GUI(DungeonViewer v){
+        control = new ControlPanel(this);
         v.addMouseListener(control);
-    }
-    
-    
-    public void setCalibration(CalibrationPanel p){
-        calibration = p;
     }
     
     

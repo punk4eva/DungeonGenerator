@@ -16,11 +16,6 @@ public class ParticleAnimator extends Animation{
     private final LinkedList<ParticleGenerator> generators = new LinkedList<>();
 
     
-    public ParticleAnimator(){
-        super(0, 0);
-    }
-
-    
     @Override
     public void animate(Graphics2D g, int focusX, int focusY, int frames){
         generators.stream().filter(gen -> gen.tickUp(frames))
