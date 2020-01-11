@@ -1,7 +1,6 @@
 
 package biomes;
 
-import components.mementoes.ArchitectureInfo;
 import materials.*;
 import components.rooms.*;
 import generation.rooms.RoomSelector;
@@ -26,23 +25,23 @@ public class BiomeProcessor{
     
     
     //Wood has minimum complexity level 20
-    public final WoodConstructor[] WOODS = new WoodConstructor[]{
+    private final WoodConstructor[] WOODS = new WoodConstructor[]{
         //                 temp       acco       host      height      tech
         new WoodConstructor(10, 0.10,  00, 0.00,  15, 0.13,  15, 0.50,  00, 0.0,  new Birch()),
         new WoodConstructor(15, 0.10,  00, 0.00,  16, 0.12,  10, 0.40,  00, 0.0,  new Oak()),
         new WoodConstructor(25, 0.27,  00, 0.00,  14, 0.12,  05, 0.43,  00, 0.0,  new Mahogany()),
         new WoodConstructor(14, 0.15,  00, 0.00,  15, 0.13,  10, 0.35,  00, 0.0,  new Ebony()),
     };
-    public final MaterialConstructor[] MATERIALS = new MaterialConstructor[]{
+    private final MaterialConstructor[] MATERIALS = new MaterialConstructor[]{
         //                     temp       acco       host      height      tech     minTech
         new MaterialConstructor(20, 0.03,  40, 0.02,  00, 0.02,  05, 0.20,  65, 0.01,  22,  b -> new WoodPlanks(b.getRandomWood())),
         new MaterialConstructor(25, 0.02,  50, 0.04,  10, 0.02,  00, 0.01,  75, 0.01,  30,  b -> new Brick()),
         new MaterialConstructor(20, 0.07,  18, 0.10,  00, 0.20,  00, 0.10,  12, 0.15,  05,  b -> new Thatch(b.getRandomWood())),
         new MaterialConstructor(20, 0.00,  00, 0.08,  00, 0.00,  -10, 0.2,  10, 0.02,  00,  b -> new CaveStone()),
         new MaterialConstructor(20, 0.01,  75, 0.06,  10, 0.02,  00, 0.01,  70, 0.07,  50,  b -> new Marble()),
-        new MaterialConstructor(20, 0.00,  40, 0.15,  10, 0.07,  30, 0.06,  60, 0.07,  40,  b -> new Slate()),
+        //new MaterialConstructor(20, 0.00,  40, 0.15,  10, 0.07,  30, 0.06,  60, 0.07,  40,  b -> new Slate()),
         new MaterialConstructor(20, 0.00,  55, 0.07,  10, 0.02,  00, 0.00,  60, 0.07,  43,  b -> new StoneBrick()),
-        new MaterialConstructor(20, 0.00,  45, 0.05,  10, 0.02,  00, 0.00,  60, 0.07,  42,  b -> new StoneSlab())
+        //new MaterialConstructor(20, 0.00,  45, 0.05,  10, 0.02,  00, 0.00,  60, 0.07,  42,  b -> new StoneSlab())
     };
     public final RoomConstructor[] ROOM_ALGORITHMS = new RoomConstructor[]{
         //                 temp       acco       host      height     tech
@@ -56,16 +55,18 @@ public class BiomeProcessor{
     
     
     private final Wood woodPalette[] = new Wood[3];
-    private final Distribution woodDist/*, materialDist*/;
+    private final Distribution woodDist;
     public final RoomSelector roomSelector;
     public final Biome biome;
+    public final int societyTechnology;
     
     
-    public BiomeProcessor(Biome b){
+    public BiomeProcessor(Biome b, int s){
         biome = b;
-        woodDist = selectWoods(b);
-        roomSelector = genRoomSelector(b);
-        /*materialDist = */selectMaterials(b);
+        societyTechnology = s;
+        woodDist = selectWoods(b, s);
+        roomSelector = genRoomSelector(b, s);
+        enumerateMaterials(b, s);
     }
     
     
@@ -73,8 +74,8 @@ public class BiomeProcessor{
         return woodPalette[woodDist.next()];
     }
     
-    private Distribution selectWoods(Biome b){
-        Arrays.asList(WOODS).stream().filter(w -> w.wood.biomeCompatible(b)).forEach(w -> w.evaluateProbability(b));
+    private Distribution selectWoods(Biome b, int s){
+        Arrays.asList(WOODS).stream().filter(w -> w.wood.biomeCompatible(b, s)).forEach(w -> w.evaluateProbability(b, s));
         Arrays.sort(WOODS, (w1, w2) -> -Double.compare(w1.probability, w2.probability));
         
         for(int n=0;n<woodPalette.length;n++) woodPalette[n] = WOODS[n].wood;
@@ -85,21 +86,19 @@ public class BiomeProcessor{
         return new Distribution(cha);
     }
     
-    private Distribution selectMaterials(Biome b){
-        double cha[] = new double[MATERIALS.length];
-        for(int n=0;n<MATERIALS.length;n++){
-            cha[n] = MATERIALS[n].evaluateProbability(b);
+    private void enumerateMaterials(Biome b, int s){
+        for(MaterialConstructor mat : MATERIALS){
+            mat.evaluateProbability(b, s);
         }
-        return new Distribution(cha);
     }
     
-    private RoomSelector genRoomSelector(Biome b){
-        for(RoomConstructor rc : ROOM_ALGORITHMS) rc.evaluateProbability(b);
+    private RoomSelector genRoomSelector(Biome b, int s){
+        for(RoomConstructor rc : ROOM_ALGORITHMS) rc.evaluateProbability(b, s);
         return new RoomSelector(ROOM_ALGORITHMS);
     }
     
     public Material getMaterial(Predicate<Material> filter){
-        List<MaterialConstructor> constructors = Arrays.asList(MATERIALS).stream().filter(mat -> filter.and(m -> m.biomeCompatible(biome)).test(mat.material.apply(this))).collect(Collectors.toList());
+        List<MaterialConstructor> constructors = Arrays.asList(MATERIALS).stream().filter(mat -> filter.and(m -> m.biomeCompatible(biome, societyTechnology)).test(mat.material.apply(this))).collect(Collectors.toList());
         double chance = R.nextDouble() * constructors.stream().mapToDouble(mat -> mat.probability).sum();
         double count = 0;
         for(MaterialConstructor mat : constructors){
@@ -147,12 +146,12 @@ public class BiomeProcessor{
         }
         
         
-        double evaluateProbability(Biome b){
+        double evaluateProbability(Biome b, int s){
             probability = probFunction(b.temperature, tempV, 80, temperature);
             probability += probFunction(b.accommodation, accV, 50, accommodation);
             probability += probFunction(b.hostility, hostV, 50, hostility);
             probability += probFunction(b.height, heightV, 100, height);
-            probability += probFunction(b.technology, techV, 50, technology);
+            probability += probFunction(s, techV, 50, technology);
             return probability;
         }
         

@@ -25,7 +25,7 @@ public class ArchitectureInfo{
 
     public final DoorIconGenerator doorGenerator;
     
-    public final BiomeProcessor biome = new BiomeProcessor(Biome.MIDLANDS);
+    public final BiomeProcessor biome = new BiomeProcessor(Biome.MIDLANDS, 80);
     
     public ArchitectureInfo(AreaInfo info, LevelFeeling f){
         doorGenerator = new DoorIconGenerator(info, () -> ImageBuilder.getImageFromFile("rectDoor.png"));

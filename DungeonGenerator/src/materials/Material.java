@@ -40,9 +40,9 @@ public abstract class Material{
     }
     
     
-    public boolean biomeCompatible(Biome b){
+    public boolean biomeCompatible(Biome b, int s){
         return b.temperature<=maxTemp && b.hostility<=resilience && 
-                minHeight <= b.height && b.height <= maxHeight;
+                minHeight <= b.height && b.height <= maxHeight && s>complexity;
     }
     
 }
