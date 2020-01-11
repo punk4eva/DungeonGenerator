@@ -174,6 +174,7 @@ public class ImageBuilder{
             case "oak": return Color.decode("#c89959").darker();
             case "mahogany": return Color.decode("#5a2e11");
             case "ebony": return new Color(40, 20, 20);
+            case "brick": return Color.decode("#68250a").darker();
             default: throw new IllegalStateException("Illegal color: " + name);
         }
     }
