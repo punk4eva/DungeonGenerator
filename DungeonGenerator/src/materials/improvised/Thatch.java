@@ -1,8 +1,8 @@
 
 package materials.improvised;
 
-import biomes.Biome;
 import materials.Material;
+import materials.Wood;
 
 /**
  *
@@ -10,8 +10,8 @@ import materials.Material;
  */
 public class Thatch extends Material{
 
-    public Thatch(Biome b){
-        super("@Unfinished", b.getRandomTreeType().color, 25, 10, 42, -10, 30);
+    public Thatch(Wood w){
+        super("@Unfinished", w.color, 25, 10, 42, -10, 30, true, true, true, true);
         throw new UnsupportedOperationException("No filter");
     }
 

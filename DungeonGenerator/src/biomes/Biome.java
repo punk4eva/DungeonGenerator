@@ -1,11 +1,6 @@
 
 package biomes;
 
-import materials.WoodPlanks;
-import materials.wood.*;
-import static utils.Utils.R;
-import utils.Utils.Unfinished;
-
 /**
  *
  * @author Adam Whittaker
@@ -76,17 +71,6 @@ public enum Biome{
         hostility = ho;
         height = he;
         technology = tech;
-    }
-    
-    @Unfinished("Make dependant on biome, might need to give each biome its own tree.")
-    public WoodPlanks getRandomTreeType(){
-        switch(R.nextInt(4)){
-            case 0: return new Oak(R.nextInt(2)+2);
-            case 1: return new Mahogany(R.nextInt(2)+2);
-            case 2: return new Ebony(R.nextInt(2)+2);
-            case 3: return new Birch(R.nextInt(2)+2);
-            default: throw new IllegalStateException();
-        }
     }
     
 }

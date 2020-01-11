@@ -9,7 +9,7 @@ import java.awt.Dimension;
 import java.io.IOException;
 import java.util.LinkedList;
 import javax.swing.JFrame;
-import static utils.Utils.getRandomRoom;
+import static utils.Utils.R;
 
 /**
  *
@@ -55,7 +55,7 @@ public class Window{
         viewer.area = new Area(80, 80, LevelFeeling.DEFAULT_FEELING);
         
         LinkedList<Room> list = new LinkedList<>();
-        for(int n=0;n<20;n++) list.add(getRandomRoom());
+        for(int n=0;n<20;n++) list.add(viewer.area.info.architecture.biome.roomSelector.select(7+2*R.nextInt(4), 7+2*R.nextInt(4)));
         //BurrowCaveGrower grower = new BurrowCaveGrower(viewer.area, 0.3, 2, 9, 4, 5, 20, true);
         new RandomRoomPlacer(viewer.area, list, r -> r.addDoorsSparcely(viewer.area)).generate();
         viewer.area.refreshGraph();

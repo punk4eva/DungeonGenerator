@@ -11,7 +11,7 @@ import materials.Material;
 public class StoneSlab extends Material{
 
     public StoneSlab(){
-        super("@Unfinished", new Color(130, 130, 130), 55, 30, 400, -30, 60);
+        super("@Unfinished", new Color(130, 130, 130), 55, 30, 400, -30, 60, true, false, true, true);
         throw new UnsupportedOperationException("No filter");
     }
 

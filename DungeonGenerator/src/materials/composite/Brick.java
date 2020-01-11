@@ -11,7 +11,7 @@ import materials.Material;
 public class Brick extends Material{
 
     public Brick(){
-        super("@Unfinished", ImageBuilder.getColor("firebrick"), 62, 35, 300, -100, 100);
+        super("@Unfinished", ImageBuilder.getColor("firebrick"), 62, 35, 300, -100, 100, false, false, false, true);
         throw new UnsupportedOperationException("No filter");
     }
 

@@ -11,7 +11,7 @@ import materials.Material;
 public class Slate extends Material{
 
     public Slate(){
-        super("@Unfinished", new Color(50, 50, 50), 50, 25, 400, -30, 60);
+        super("@Unfinished", new Color(50, 50, 50), 50, 25, 400, -30, 60, true, false, false, true);
         throw new UnsupportedOperationException("No filter");
     }
 

@@ -6,9 +6,6 @@
 
 package utils;
 
-import components.rooms.Room;
-import components.tiles.Bookshelf;
-import generation.rooms.RoomSelector;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -53,11 +50,6 @@ public final class Utils{
     }
     
     
-    public static Room getRandomRoom(){
-        return new RoomSelector(new int[]{5,5,5, 5,5,5})
-                .select(7+2*R.nextInt(4), 7+2*R.nextInt(4));
-    }
-    
     public static void printArray(int[] ary){
         System.out.print("[");
         for(int x : ary){
@@ -92,8 +84,6 @@ public final class Utils{
         LinkedList<Room> list = new LinkedList<>();
         for(int n=0;n<20;n++) list.add(getRandomRoom());
         new RoomPlacer(area, list).generate();*/
-        
-        System.out.println(new Bookshelf(null, null, false).description);
         
     }
     

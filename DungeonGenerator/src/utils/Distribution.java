@@ -14,14 +14,15 @@ public class Distribution implements Serializable{
     
     private final static long serialVersionUID = -1416387932;
     
-    protected int[] outputs, chances;
+    protected int[] outputs;
+    protected double[] chances;
     
     /**
      * Creates a new instance.
      * @param out The possible outputs.
      * @param cha The relative chances of those outputs.
      */
-    public Distribution(int[] out, int[] cha){
+    public Distribution(int[] out, double[] cha){
         outputs = out;
         chances = convertToCumulative(cha);
     }
@@ -31,7 +32,7 @@ public class Distribution implements Serializable{
      * chances array.
      * @param cha The relative chances of those outputs.
      */
-    public Distribution(int[] cha){
+    public Distribution(double[] cha){
         outputs = new int[cha.length];
         for(int n=0;n<outputs.length;n++) outputs[n] = n;
         chances = convertToCumulative(cha);
@@ -43,7 +44,7 @@ public class Distribution implements Serializable{
      * @return An output from the array.
      */
     public int next(){
-        return outputs[chanceToInt(R.nextInt(chances[chances.length-1])+1)];
+        return outputs[chanceToInt(R.nextDouble()*chances[chances.length-1])];
     }
     
     /**
@@ -51,8 +52,8 @@ public class Distribution implements Serializable{
      * @param ary The array.
      * @return The modified array.
      */
-    private static int[] convertToCumulative(int[] ary){
-        int cumulative = 0;
+    private static double[] convertToCumulative(double[] ary){
+        double cumulative = 0;
         for(int n=0;n<ary.length;n++){
             cumulative += ary[n];
             ary[n] = cumulative;
@@ -65,7 +66,7 @@ public class Distribution implements Serializable{
      * @param i The chance value.
      * @return The index of the output.
      */
-    private int chanceToInt(int i){
+    private int chanceToInt(double i){
         for(int n=0;n<chances.length;n++) if(i<=chances[n]) return n;
         throw new IllegalStateException();
     }

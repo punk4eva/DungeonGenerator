@@ -31,7 +31,7 @@ public class DenseFractalRoomPlacer implements RoomPlacer{
     public void generate(){
         //buildOuterWall();
         fractalSplit(0, 0, area.info.width, area.info.height);
-        generateRooms(new RoomSelector(new int[]{5,5,5,5,5,5}));
+        generateRooms(area.info.architecture.biome.roomSelector);
         //fillFloor();
     }
     

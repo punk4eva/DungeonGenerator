@@ -24,7 +24,7 @@ public class Desk extends Tile{
     public Desk(String name, String desc, AreaInfo info, boolean specFloor, int price){
         super(name, desc, Type.FLOOR, null, null);
         specialFloor = specFloor;
-        material = info.architecture.getFurnitureMaterial(price);
+        material = info.architecture.furnitureMaterial;
         filterPath = "desks/desk0.png"; //@Unfinished placeholder
     }
 

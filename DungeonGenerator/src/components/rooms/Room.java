@@ -82,14 +82,13 @@ public abstract class Room{
     /**
      * Populates this Room with Doors.
      * @param area The Area object that this Room is being created for.
-     * @param doorNum The number of doors (random if left blank).
      */
     public void addDoorsRandomly(Area area){
-        addDoors(area, new Distribution(new int[]{3,4,6,4,2,1}).next()+1);
+        addDoors(area, new Distribution(new double[]{3,4,6,4,2,1}).next()+1);
     }
     
     public void addDoorsSparcely(Area area){
-        addDoors(area, new Distribution(new int[]{3,3,1}).next()+1);
+        addDoors(area, new Distribution(new double[]{3,3,1}).next()+1);
     }
     
     protected void addDoors(Area area, int numDoors){
