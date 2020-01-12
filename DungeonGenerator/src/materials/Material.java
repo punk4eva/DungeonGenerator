@@ -2,8 +2,11 @@
 package materials;
 
 import biomes.Biome;
+import filterGeneration.DichromeFilter;
 import filterGeneration.Filter;
+import filterGeneration.ImageBuilder;
 import java.awt.Color;
+import static utils.Utils.R;
 
 /**
  *
@@ -43,6 +46,12 @@ public abstract class Material{
     public boolean biomeCompatible(Biome b, int s){
         return b.temperature<=maxTemp && b.hostility<=resilience && 
                 minHeight <= b.height && b.height <= maxHeight && s>complexity;
+    }
+    
+    protected final void setDefaultFilter(String filePath, int numPngs){
+        filter = new DichromeFilter(() -> ImageBuilder.getImageFromFile(filePath + "/" + filePath + R.nextInt(numPngs) + ".png"), color);
+        filter.addInstruction(img -> ImageBuilder.applyAlphaNoise(img, 10, 4));
+        filter.buildFilter();
     }
     
 }

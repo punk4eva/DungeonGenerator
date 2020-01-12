@@ -39,7 +39,7 @@ public class BiomeProcessor{
         new MaterialConstructor(20, 0.07,  18, 0.10,  00, 0.20,  00, 0.10,  12, 0.15,  05,  b -> new Thatch(b.getRandomWood())),
         new MaterialConstructor(20, 0.00,  00, 0.08,  00, 0.00,  -10, 0.2,  10, 0.02,  00,  b -> new CaveStone()),
         new MaterialConstructor(20, 0.01,  75, 0.06,  10, 0.02,  00, 0.01,  70, 0.07,  50,  b -> new Marble()),
-        //new MaterialConstructor(20, 0.00,  40, 0.15,  10, 0.07,  30, 0.06,  60, 0.07,  40,  b -> new Slate()),
+        new MaterialConstructor(20, 0.00,  40, 0.15,  10, 0.07,  30, 0.06,  60, 0.07,  40,  b -> new Slate()),
         new MaterialConstructor(20, 0.00,  55, 0.07,  10, 0.02,  00, 0.00,  60, 0.07,  43,  b -> new StoneBrick()),
         //new MaterialConstructor(20, 0.00,  45, 0.05,  10, 0.02,  00, 0.00,  60, 0.07,  42,  b -> new StoneSlab())
     };
@@ -105,7 +105,7 @@ public class BiomeProcessor{
             count += mat.probability;
             if(chance<=count) return mat.material.apply(this);
         }
-        throw new IllegalStateException();
+        throw new IllegalStateException("Count: " + count + ", Chance: " + chance);
     }
     
     
