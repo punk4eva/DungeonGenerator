@@ -16,6 +16,7 @@ import materials.stone.*;
 import materials.wood.*;
 import utils.Distribution;
 import static utils.Utils.R;
+import static utils.Utils.performanceLog;
 
 /**
  *
@@ -119,6 +120,12 @@ public class BiomeProcessor{
      */
     public static double probFunction(double x, double variance, double bound, double displacement){
         return (variance * 51D + 50D)/(1D + Math.pow(10D * (x - displacement) * variance / bound, 2));
+    }
+    
+    
+    public void printInfo(){
+        performanceLog.println(true, "      ---- Biome information ----");
+        performanceLog.println(true, " -    Biome: " + biome.name());
     }
     
     

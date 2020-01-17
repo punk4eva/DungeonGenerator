@@ -17,6 +17,7 @@ import materials.Material;
  */
 public class ArchitectureInfo{
 
+    
     public final Material doorMaterial;
     public final Material floorMaterial;
     public final Material wallMaterial;
@@ -25,7 +26,8 @@ public class ArchitectureInfo{
 
     public final DoorIconGenerator doorGenerator;
     
-    public final BiomeProcessor biome = new BiomeProcessor(Biome.JUNGLE, 80);
+    public final BiomeProcessor biome = new BiomeProcessor(Biome.PLAINS, 100);
+    
     
     public ArchitectureInfo(AreaInfo info, LevelFeeling f){
         doorGenerator = new DoorIconGenerator(info, () -> ImageBuilder.getImageFromFile("rectDoor.png"));

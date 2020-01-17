@@ -3,10 +3,10 @@ package gui.core;
 
 import static gui.core.DungeonViewer.HEIGHT;
 import static gui.core.DungeonViewer.WIDTH;
-import static utils.Utils.performanceStream;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
+import static utils.Utils.performanceLog;
 
 /**
  *
@@ -50,12 +50,12 @@ public class MouseInterpreter extends MouseAdapter{
         switch(me.getWheelRotation()){
             case -1: if(zoom<MAX_ZOOM){
                 zoom *= 1.25;
-                performanceStream.println("ZOOM: " + zoom);
+                performanceLog.printZoom(zoom);
             }
                 break;
             default: if(zoom>MIN_ZOOM){
                 zoom /= 1.25;
-                performanceStream.println("ZOOM: " + zoom);
+                performanceLog.printZoom(zoom);
             }
         }
         //setFocusBounds(Window.VIEWER.area);

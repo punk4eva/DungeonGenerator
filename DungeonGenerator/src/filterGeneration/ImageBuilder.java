@@ -12,8 +12,8 @@ import java.util.function.Supplier;
 import javax.imageio.ImageIO;
 import static text.RegexParser.grabWord;
 import static utils.Utils.R;
-import static utils.Utils.exceptionStream;
 import static text.RegexParser.COLOR;
+import static utils.Utils.performanceLog;
 
 /**
  *
@@ -54,7 +54,7 @@ public class ImageBuilder{
             return img;
         }catch(IOException ex){
             ex.printStackTrace(System.err);
-            ex.printStackTrace(exceptionStream);
+            performanceLog.log(ex);
             throw new IllegalStateException("Potentially invalid filepath: " + filepath);
         }
     }

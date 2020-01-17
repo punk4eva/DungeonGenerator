@@ -35,4 +35,8 @@ public class GUI{
         VIEWER.addMouseListener(calibration);
     }
     
+    public String getCalibrationPanelName(){
+        return calibration == null ? "null" : calibration.getClass().getSimpleName();
+    }
+    
 }

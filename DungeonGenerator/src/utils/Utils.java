@@ -6,10 +6,8 @@
 
 package utils;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.List;
 import java.util.Random;
@@ -26,11 +24,10 @@ public final class Utils{
     
     
     public static final Random R = new Random();
-    public transient static PrintStream exceptionStream, performanceStream;
+    public transient static PerformanceLog performanceLog;
     static{
         try{
-            exceptionStream = new PrintStream(new File("log/exceptions.txt"));
-            performanceStream = new PrintStream(new File("log/performance.txt"));
+            performanceLog = new PerformanceLog();
         }catch(FileNotFoundException e){
             System.err.println("PrintStream failed.");
         }

@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 import javax.swing.JFrame;
 import static utils.Utils.R;
+import static utils.Utils.performanceLog;
 
 /**
  *

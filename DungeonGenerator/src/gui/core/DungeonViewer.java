@@ -1,9 +1,6 @@
 
 package gui.core;
 
-import gui.core.MouseInterpreter;
-import gui.core.Settings;
-import gui.core.Window;
 import animation.Animator;
 import components.Area;
 import static gui.core.MouseInterpreter.focusX;
@@ -20,7 +17,7 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import utils.Utils.ThreadUsed;
 import utils.Utils.Unfinished;
-import static utils.Utils.exceptionStream;
+import static utils.Utils.performanceLog;
 
 /**
  *
@@ -55,6 +52,8 @@ public class DungeonViewer extends Canvas implements Runnable{
      */
     public DungeonViewer(){
         window = new Window(WIDTH, HEIGHT, "Dungeon Generator", this);
+        addMouseListener(performanceLog);
+        addKeyListener(performanceLog);
         gui = new GUI(this);
     }
     
@@ -127,7 +126,7 @@ public class DungeonViewer extends Canvas implements Runnable{
             runThread.join();
             running = false;
         }catch(InterruptedException e){
-            e.printStackTrace(exceptionStream);
+            performanceLog.log(e);
             System.err.println("Fail in stop() method of DungeonViewer");
         }
     }
@@ -135,6 +134,18 @@ public class DungeonViewer extends Canvas implements Runnable{
     
     public static Settings getSettings(){
         return Window.VIEWER.area.info.settings;
+    }
+    
+    public State getState(){
+        return state;
+    }
+    
+    public String getCalibrationPanelName(){
+        return gui.getCalibrationPanelName();
+    }
+    
+    public Area getArea(){
+        return area;
     }
     
 }

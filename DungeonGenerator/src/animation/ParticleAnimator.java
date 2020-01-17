@@ -35,5 +35,9 @@ public class ParticleAnimator extends Animation{
     public void removeGenerator(ParticleGenerator g){
         generators.remove(g);
     }
+    
+    public int getParticleNum(){
+        return particles.size();
+    }
 
 }

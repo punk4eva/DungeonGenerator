@@ -60,5 +60,13 @@ public class Animator{
             }
         }
     }
+    
+    public int getAnimationNum(){
+        return animations.size();
+    }
+    
+    public int getParticleNum(){
+        return particles.getParticleNum();
+    }
 
 }

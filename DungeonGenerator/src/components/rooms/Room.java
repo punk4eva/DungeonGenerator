@@ -6,7 +6,7 @@ import components.tiles.Tile;
 import graph.Point.Type;
 import utils.Distribution;
 import static utils.Utils.R;
-import static utils.Utils.exceptionStream;
+import static utils.Utils.performanceLog;
 
 /**
  *
@@ -114,7 +114,7 @@ public abstract class Room{
                 }else failed++;
             }
         }
-        if(failed>=40) exceptionStream.println("Failed to add doors to room: " + name + "\n" +
+        if(failed>=40) performanceLog.println("Failed to add doors to room: " + name + "\n" +
                     "Dimensions: " + width + ", " + height + "\n" +
                     "Orientation: " + orientation + "\n" +
                     "Number of doors remaining: " + numDoors);

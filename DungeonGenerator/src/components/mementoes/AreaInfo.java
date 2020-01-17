@@ -12,9 +12,9 @@ import java.awt.Color;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
-import java.util.Random;
 import static utils.Utils.R;
 import utils.Utils.Unfinished;
+import static utils.Utils.performanceLog;
 
 /**
  *
@@ -25,8 +25,6 @@ import utils.Utils.Unfinished;
 public class AreaInfo implements Serializable{
     
     private static final long serialVersionUID = 42748394236345L;
-    
-    private static final Random SEED_MAKER = new Random();
 
     private final long seed;
     
@@ -68,7 +66,7 @@ public class AreaInfo implements Serializable{
     public AreaInfo(int w, int h, LevelFeeling f){
         width = w;
         height = h;
-        seed = SEED_MAKER.nextLong();
+        seed = R.nextLong();
         initialJitter = f.initialJitter.next(0,120);
         jitterDecay = f.jitterDecay.next(0.7, 0.95); 
         amplitude = f.amplitude.next(30, 120);
@@ -120,6 +118,21 @@ public class AreaInfo implements Serializable{
     public double[][] getNoiseMap(Tile tile){
         if(tile.type.equals(Type.WALL)) return wallNoise;
         else return floorNoise;
+    }
+    
+    public long getSeed(){
+        return seed;
+    }
+    
+    public void printInfo(){
+        performanceLog.println(true, "      ---- Area ----");
+        performanceLog.println(true, " -    Area width, height: " + width + ", " + height);
+        performanceLog.println(true, " -    initialJitter: " + initialJitter);
+        performanceLog.println(true, " -    jitterJecay: " + jitterDecay);
+        performanceLog.println(true, " -    amlpitude: " + amplitude);
+        performanceLog.println(true, " -    lacunarity: " + lacunarity);
+        performanceLog.println(true, " -    persistence: " + persistence);
+        performanceLog.println(true, " -    octaves: " + octaves);
     }
     
     
