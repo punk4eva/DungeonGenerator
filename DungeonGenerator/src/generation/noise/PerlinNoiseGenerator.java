@@ -4,13 +4,15 @@ import utils.Vector;
 
 public class PerlinNoiseGenerator{
 
+    
     private final Vector[][] vec;
     private final int octaveNum;
     private final double lacunarity, persistence;
     private double amplitude;
 
+    
     public PerlinNoiseGenerator(int width, int height, double amp, int oc, double l, double p){
-        vec = new Vector[height + 1][width + 1];
+        vec = new Vector[height + 3][width + 3];
         octaveNum = oc;
         lacunarity = l;
         persistence = p;
@@ -18,13 +20,26 @@ public class PerlinNoiseGenerator{
         initializeRandomVectors();
     }
 
+    
     private void initializeRandomVectors(){
-        for(int y = 0; y < vec.length-1; y++){
-            for(int x = 0; x < vec[0].length; x++){
+        for(int y = 1; y < vec.length-1; y++){
+            for(int x = 1; x < vec[0].length-1; x++){
                 vec[y][x] = new Vector();
             }
         }
-        System.arraycopy(vec[0], 0, vec[vec.length-1], 0, vec[0].length);
+        vec[0][0] = vec[vec.length-2][vec[0].length-2];
+        vec[vec.length-1][vec[0].length-1] = vec[1][1];
+        vec[vec.length-1][0] = vec[1][vec[0].length-2];
+        vec[0][vec[0].length-1] = vec[vec.length-2][1];
+        for(int x=1;x<vec[0].length-1;x++){
+            vec[0][x] = vec[vec.length-2][x];
+            vec[vec.length-1][x] = vec[1][x];
+        }
+        for(int y=1;y<vec.length-1;y++){
+            vec[y][0] = vec[y][vec.length-2];
+            vec[y][vec.length-1] = vec[y][1];
+        }
+        //System.arraycopy(vec[0], 0, vec[vec.length-1], 0, vec[0].length);
     }
 
     public void apply(double[][] map){
@@ -80,7 +95,12 @@ public class PerlinNoiseGenerator{
     }
 
     private double dot(int x, int y, int xV, int yV, int xC, int yC){
-        return vec[yV][xV].v[0] * (x - xV) / xC + vec[yV][xV].v[1] * (y - yV) / yC;
+        //try{
+            return vec[yV][xV].v[0] * (x - xV) / xC + vec[yV][xV].v[1] * (y - yV) / yC;
+        /*}catch(Exception e){
+            System.out.println("vector: " + vec[yV][xV] + ", " + xV + ", " + yV);
+            throw new IllegalStateException();
+        }*/
     }
 
     private double dotTL(int x, int y, int xC, int yC){

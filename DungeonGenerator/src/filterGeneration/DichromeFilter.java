@@ -30,7 +30,7 @@ public class DichromeFilter extends Filter{
     public BufferedImage generateImage(int _x, int _y, double[][] map){
         BufferedImage img = new BufferedImage(16, 16, BufferedImage.TYPE_INT_RGB);
         if(getSettings().GRAPHICS.value>=3) buildFilter();
-        WritableRaster raster = img.getRaster(), filterRaster = filter.getAlphaRaster();
+        WritableRaster raster = img.getRaster(), filterRaster = filterImage.getAlphaRaster();
         int[] pixel = new int[3], filterPixel = new int[4];
         for(int y=0;y<img.getHeight();y++){
             for(int x=0;x<img.getWidth();x++){

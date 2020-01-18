@@ -17,7 +17,7 @@ public abstract class Filter implements Serializable{
     
     private static final long serialVersionUID = 427675489602L;
     
-    protected transient BufferedImage filter;
+    protected transient BufferedImage filterImage;
     
     private final SerSupplier supplier;
     private final LinkedList<SerInstruction> instructions = new LinkedList<>();
@@ -30,9 +30,9 @@ public abstract class Filter implements Serializable{
     public abstract BufferedImage generateImage(int _x, int _y, double[][] map);
     
     public void buildFilter(){
-        filter = supplier.get();
+        filterImage = supplier.get();
         instructions.forEach((i) -> {
-            i.accept(filter);
+            i.accept(filterImage);
         });
     }
     

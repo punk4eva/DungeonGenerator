@@ -26,7 +26,7 @@ public class ArchitectureInfo{
 
     public final DoorIconGenerator doorGenerator;
     
-    public final BiomeProcessor biome = new BiomeProcessor(Biome.PLAINS, 100);
+    public final BiomeProcessor biome = new BiomeProcessor(Biome.PLAINS, 60);
     
     
     public ArchitectureInfo(AreaInfo info, LevelFeeling f){

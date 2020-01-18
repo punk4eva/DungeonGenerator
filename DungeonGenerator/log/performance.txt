@@ -1,0 +1,20 @@
+ZOOM: 1.25
+ZOOM: 1.5625
+ZOOM: 1.953125
+ZOOM: 2.44140625
+ZOOM: 3.0517578125
+Mouse x, y, tile x, tile y: 975, 870, 18, 16
+Mouse x, y, tile x, tile y: 859, 482, 18, 16
+ZOOM: 3.814697265625
+ZOOM: 4.76837158203125
+ZOOM: 5.9604644775390625
+ZOOM: 7.450580596923828
+Mouse x, y, tile x, tile y: 1368, 772, 12, 13
+Mouse x, y, tile x, tile y: 1146, 387, 12, 13
+Mouse x, y, tile x, tile y: 1504, 574, 15, 15
+Mouse x, y, tile x, tile y: 1020, 337, 15, 14
+Mouse x, y, tile x, tile y: 1494, 479, 19, 16
+Mouse x, y, tile x, tile y: 1431, 668, 19, 16
+ZOOM: 5.9604644775390625
+ZOOM: 4.76837158203125
+ZOOM: 3.814697265625
