@@ -8,10 +8,15 @@ import java.util.stream.Collectors;
 /**
  *
  * @author Adam Whittaker
+ * Keeps track of all particles and particle generators.
  */
 public class ParticleAnimator extends Animation{
     
     
+    /**
+     * particles: All the currently active particles.
+     * generators: All the currently active particle generators.
+     */
     private final LinkedList<Particle> particles = new LinkedList<>();
     private final LinkedList<ParticleGenerator> generators = new LinkedList<>();
 
@@ -28,14 +33,26 @@ public class ParticleAnimator extends Animation{
         generators.removeIf(gen -> gen.done);
     }
     
+    /**
+     * Registers a new particle generator.
+     * @param g
+     */
     public void addGenerator(ParticleGenerator g){
         generators.add(g);
     }
-    
+     
+    /**
+     * De-registers a particle generator.
+     * @param g
+     */
     public void removeGenerator(ParticleGenerator g){
         generators.remove(g);
     }
     
+    /**
+     * Returns the number of currently active particles for debugging purposes.
+     * @return
+     */
     public int getParticleNum(){
         return particles.size();
     }
