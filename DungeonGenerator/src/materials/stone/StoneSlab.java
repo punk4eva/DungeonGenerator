@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
 import static java.lang.Math.abs;
 import static java.lang.Math.min;
+import static java.lang.Math.pow;
 import java.util.function.BiFunction;
 import materials.Material;
 import static utils.Utils.R;
@@ -26,7 +27,7 @@ public class StoneSlab extends Material{
     public StoneSlab(){
         super("@Unfinished", new Color(130, 130, 130), 55, 30, 400, -30, 60, true, false, true, true);
         filter = new DichromeFilter(Filter::defaultSupplier, color);
-        filter.addInstruction(img -> paintSlabs(img, 15));
+        filter.addInstruction(img -> paintSlabs(img, 12));
         filter.buildFilter();
     }
     
@@ -39,8 +40,8 @@ public class StoneSlab extends Material{
             for(int x=0;x<img.getWidth();x++){
                 pixel = raster.getPixel(x, y, pixel);
                 prob = PROBABILITY_FUNCTION.apply(x, y);
-                if(R.nextDouble()<Math.pow(prob, 12)){
-                    pixel[3] = (int)(2D*avgAlpha*(prob+0.03)*R.nextDouble());
+                if(R.nextDouble()<pow(prob, 12)){
+                    pixel[3] = (int)(2D*avgAlpha*(pow(prob, 2)+0.03)*R.nextDouble());
                 }
                 raster.setPixel(x, y, pixel);
             }
