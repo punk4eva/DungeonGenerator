@@ -5,6 +5,7 @@ import components.mementoes.AreaInfo;
 import filterGeneration.ImageBuilder;
 import static filterGeneration.ImageBuilder.colorToPixelArray;
 import filterGeneration.ImageRecolorer;
+import static gui.core.DungeonViewer.getSettings;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
@@ -26,7 +27,7 @@ public class Torch extends Decoration implements WallDecoration{
     
     
     public Torch(AreaInfo info){
-        super("torch", "A simple torch hanging from the wall.", false, (x, y) -> info.settings.getTorchAnimation(x*16, y*16));
+        super("torch", "A simple torch hanging from the wall.", false, (x, y) -> getSettings().getTorchAnimation(x*16, y*16));
         palette = new int[][]{colorToPixelArray(info.architecture.furnitureMaterial.color.brighter(), true),
             colorToPixelArray(info.architecture.furnitureMaterial.color, true),
             colorToPixelArray(info.architecture.furnitureMaterial.color.darker(), true)};

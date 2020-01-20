@@ -12,7 +12,7 @@ public class PerlinNoiseGenerator{
 
     
     public PerlinNoiseGenerator(int width, int height, double amp, int oc, double l, double p){
-        vec = new Vector[height + 3][width + 3];
+        vec = new Vector[height][width];
         octaveNum = oc;
         lacunarity = l;
         persistence = p;
@@ -22,7 +22,7 @@ public class PerlinNoiseGenerator{
 
     
     private void initializeRandomVectors(){
-        for(int y = 1; y < vec.length-1; y++){
+        /*for(int y = 1; y < vec.length-1; y++){
             for(int x = 1; x < vec[0].length-1; x++){
                 vec[y][x] = new Vector();
             }
@@ -38,8 +38,16 @@ public class PerlinNoiseGenerator{
         for(int y=1;y<vec.length-1;y++){
             vec[y][0] = vec[y][vec.length-2];
             vec[y][vec.length-1] = vec[y][1];
+        }*/
+        //int w = vec[0].length/3, h = vec.length/3;
+        for(int y = 0; y < vec.length; y++){
+            for(int x = 0; x < vec[0].length; x++){
+                //if(x<=w && y<=h) vec[y][x] = new Vector();
+                //else vec[y][x] = vec[y%h][x%w];
+                
+                vec[y][x] = new Vector();
+            }
         }
-        //System.arraycopy(vec[0], 0, vec[vec.length-1], 0, vec[0].length);
     }
 
     public void apply(double[][] map){
@@ -72,7 +80,7 @@ public class PerlinNoiseGenerator{
     }
 
     private void overlayOctave(double[][] map, double p, int xCoarse, int yCoarse){
-        double min = 1000, max = -1000;
+        double min = Integer.MAX_VALUE, max = -Integer.MIN_VALUE;
         for(int y = 0; y < map.length; y++){
             for(int x = 0; x < map[0].length; x++){
                 map[y][x] += p * getPerlin(x, y, xCoarse, yCoarse);
@@ -88,15 +96,18 @@ public class PerlinNoiseGenerator{
     }
 
     private double getPerlin(int x, int y, int xC, int yC){
-        double xN = fade((double) (x % xC) / xC), yN = fade((double) (y % yC) / yC),
+        double xN = fade((double) (x % xC) / xC), 
+                yN = fade((double) (y % yC) / yC),
                 iU = interpolate(dotTL(x, y, xC, yC), dotTR(x, y, xC, yC), xN),
                 iD = interpolate(dotBL(x, y, xC, yC), dotBR(x, y, xC, yC), xN);
         return interpolate(iU, iD, yN);
     }
 
-    private double dot(int x, int y, int xV, int yV, int xC, int yC){
+    private double dot(double x, double y, int xV, int yV, double xC, double yC){
+        int j = yV % vec.length;
+        int i = xV % vec[0].length;
         //try{
-            return vec[yV][xV].v[0] * (x - xV) / xC + vec[yV][xV].v[1] * (y - yV) / yC;
+            return vec[j][i].v[0] * (x - (double)xV) / xC + vec[j][i].v[1] * (y - (double)yV) / yC;
         /*}catch(Exception e){
             System.out.println("vector: " + vec[yV][xV] + ", " + xV + ", " + yV);
             throw new IllegalStateException();
@@ -110,33 +121,33 @@ public class PerlinNoiseGenerator{
     }
 
     private double dotTR(int x, int y, int xC, int yC){
-        try{
+        //try{
             int xV = x - (x % xC) + xC;
             int yV = y - (y % yC);
             return dot(x, y, xV, yV, xC, yC);
-        }catch(ArrayIndexOutOfBoundsException e){
+        /*}catch(ArrayIndexOutOfBoundsException e){
             return 0;
-        }
+        }*/
     }
 
     private double dotBL(int x, int y, int xC, int yC){
-        try{
+        //try{
             int xV = x - (x % xC);
             int yV = y - (y % yC) + yC;
             return dot(x, y, xV, yV, xC, yC);
-        }catch(ArrayIndexOutOfBoundsException e){
+        /*}catch(ArrayIndexOutOfBoundsException e){
             return 0;
-        }
+        }*/
     }
 
     private double dotBR(int x, int y, int xC, int yC){
-        try{
+        //try{
             int xV = x - (x % xC) + xC;
             int yV = y - (y % yC) + yC;
             return dot(x, y, xV, yV, xC, yC);
-        }catch(ArrayIndexOutOfBoundsException e){
+        /*}catch(ArrayIndexOutOfBoundsException e){
             return 0;
-        }
+        }*/
     }
 
 }

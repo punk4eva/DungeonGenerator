@@ -2,6 +2,7 @@
 package materials;
 
 import biomes.Biome;
+import biomes.Society;
 import filterGeneration.DichromeFilter;
 import filterGeneration.Filter;
 import filterGeneration.ImageBuilder;
@@ -43,9 +44,10 @@ public abstract class Material{
     }
     
     
-    public boolean biomeCompatible(Biome b, int s){
+    public boolean biomeCompatible(Biome b, Society s){
         return b.temperature<=maxTemp && b.hostility<=resilience && 
-                minHeight <= b.height && b.height <= maxHeight && s>complexity;
+                minHeight <= b.height && b.height <= maxHeight && 
+                s.technology>complexity;
     }
     
     protected final void setDefaultFilter(String filePath, int numPngs){

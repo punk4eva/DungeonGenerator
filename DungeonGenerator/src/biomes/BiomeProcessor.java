@@ -59,12 +59,12 @@ public class BiomeProcessor{
     private final Distribution woodDist;
     public final RoomSelector roomSelector;
     public final Biome biome;
-    public final int societyTechnology;
+    public final Society society;
     
     
-    public BiomeProcessor(Biome b, int s){
+    public BiomeProcessor(Biome b, Society s){
         biome = b;
-        societyTechnology = s;
+        society = s;
         woodDist = selectWoods(b, s);
         roomSelector = genRoomSelector(b, s);
         enumerateMaterials(b, s);
@@ -75,7 +75,7 @@ public class BiomeProcessor{
         return woodPalette[woodDist.next()];
     }
     
-    private Distribution selectWoods(Biome b, int s){
+    private Distribution selectWoods(Biome b, Society s){
         Arrays.asList(WOODS).stream().filter(w -> w.wood.biomeCompatible(b, s)).forEach(w -> w.evaluateProbability(b, s));
         Arrays.sort(WOODS, (w1, w2) -> -Double.compare(w1.probability, w2.probability));
         
@@ -87,19 +87,19 @@ public class BiomeProcessor{
         return new Distribution(cha);
     }
     
-    private void enumerateMaterials(Biome b, int s){
+    private void enumerateMaterials(Biome b, Society s){
         for(MaterialConstructor mat : MATERIALS){
             mat.evaluateProbability(b, s);
         }
     }
     
-    private RoomSelector genRoomSelector(Biome b, int s){
+    private RoomSelector genRoomSelector(Biome b, Society s){
         for(RoomConstructor rc : ROOM_ALGORITHMS) rc.evaluateProbability(b, s);
         return new RoomSelector(ROOM_ALGORITHMS);
     }
     
     public Material getMaterial(Predicate<Material> filter){
-        List<MaterialConstructor> constructors = Arrays.asList(MATERIALS).stream().filter(mat -> filter.and(m -> m.biomeCompatible(biome, societyTechnology)).test(mat.material.apply(this))).collect(Collectors.toList());
+        List<MaterialConstructor> constructors = Arrays.asList(MATERIALS).stream().filter(mat -> filter.and(m -> m.biomeCompatible(biome, society)).test(mat.material.apply(this))).collect(Collectors.toList());
         double chance = R.nextDouble() * constructors.stream().mapToDouble(mat -> mat.probability).sum();
         double count = 0;
         for(MaterialConstructor mat : constructors){
@@ -153,12 +153,12 @@ public class BiomeProcessor{
         }
         
         
-        double evaluateProbability(Biome b, int s){
+        double evaluateProbability(Biome b, Society s){
             probability = probFunction(b.temperature, tempV, 80, temperature);
             probability += probFunction(b.accommodation, accV, 50, accommodation);
             probability += probFunction(b.hostility, hostV, 50, hostility);
             probability += probFunction(b.height, heightV, 100, height);
-            probability += probFunction(s, techV, 50, technology);
+            probability += probFunction(s.technology, techV, 50, technology);
             return probability;
         }
         

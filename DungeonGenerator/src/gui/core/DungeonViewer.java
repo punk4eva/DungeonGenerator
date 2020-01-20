@@ -44,6 +44,7 @@ public class DungeonViewer extends Canvas implements Runnable{
     protected MouseInterpreter mouse = new MouseInterpreter();
 
     public final static Animator ANIMATOR = new Animator();
+    private static Settings SETTINGS = new Settings();
     protected final GUI gui;
     protected volatile Area area;
     
@@ -133,7 +134,11 @@ public class DungeonViewer extends Canvas implements Runnable{
     
     
     public static Settings getSettings(){
-        return Window.VIEWER.area.info.settings;
+        return SETTINGS;
+    }
+    
+    public static void setSettings(Settings s){
+        SETTINGS = s;
     }
     
     public State getState(){

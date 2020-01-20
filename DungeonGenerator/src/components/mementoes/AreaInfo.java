@@ -8,6 +8,7 @@ import generation.noise.MidpointDisplacmentNoise;
 import components.tiles.Tile;
 import graph.Point.Type;
 import gui.core.Settings;
+import static gui.core.Window.VIEWER;
 import java.awt.Color;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -49,7 +50,7 @@ public class AreaInfo implements Serializable{
     public final Color grassColor, waterColor;
     
     public final ArchitectureInfo architecture;
-    public final Settings settings = new Settings();
+    private Settings settings;
     
     public transient double[][] wallNoise;
     public transient double[][] floorNoise;
@@ -135,10 +136,15 @@ public class AreaInfo implements Serializable{
         performanceLog.println(true, " -    octaves: " + octaves);
     }
     
+    public void setSettings(Settings s){
+        settings = s;
+    }
+    
     
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException{
         in.defaultReadObject();
         initializeNoise();
+        VIEWER.setSettings(settings);
     }
     
 }

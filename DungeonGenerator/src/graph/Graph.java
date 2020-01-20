@@ -109,4 +109,20 @@ public class Graph{
         ImageIO.write(img, "png", new File(filepath));
     }
     
+    @Unfinished("Debug")
+    public static void makeWrappingPNG(double[][] map, String filepath) throws IOException{
+        BufferedImage img = new BufferedImage(map[0].length*3, map.length*3, BufferedImage.TYPE_INT_RGB);
+        WritableRaster raster = img.getRaster();
+        int[] pixel = new int[3];
+        for(int y=0;y<map.length*3;y++){
+            for(int x=0;x<map[0].length*3;x++){
+                pixel[0] = (int)map[y%map.length][x%map[0].length];
+                pixel[1] = (int)map[y%map.length][x%map[0].length];
+                pixel[2] = (int)map[y%map.length][x%map[0].length];
+                raster.setPixel(x, y, pixel);
+            }
+        }
+        ImageIO.write(img, "png", new File(filepath));
+    }
+    
 }

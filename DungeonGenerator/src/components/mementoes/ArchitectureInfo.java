@@ -3,6 +3,7 @@ package components.mementoes;
 
 import biomes.Biome;
 import biomes.BiomeProcessor;
+import biomes.Society;
 import components.LevelFeeling;
 import filterGeneration.DoorIconGenerator;
 import filterGeneration.ImageBuilder;
@@ -26,7 +27,7 @@ public class ArchitectureInfo{
 
     public final DoorIconGenerator doorGenerator;
     
-    public final BiomeProcessor biome = new BiomeProcessor(Biome.PLAINS, 60);
+    public final BiomeProcessor biome = new BiomeProcessor(Biome.PLAINS, new Society(60));
     
     
     public ArchitectureInfo(AreaInfo info, LevelFeeling f){

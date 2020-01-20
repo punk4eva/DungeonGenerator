@@ -2,6 +2,7 @@
 package materials;
 
 import biomes.Biome;
+import biomes.Society;
 import java.awt.Color;
 
 /**
@@ -29,9 +30,10 @@ public abstract class Wood{
     }
     
     
-    public boolean biomeCompatible(Biome b, int s){
+    public boolean biomeCompatible(Biome b, Society s){
         return b.temperature<=maxTemp && b.hostility<=resilience && 
-                minHeight <= b.height && b.height <= maxHeight && s>20;
+                minHeight <= b.height && b.height <= maxHeight && 
+                s.technology>20;
     }
 
 }

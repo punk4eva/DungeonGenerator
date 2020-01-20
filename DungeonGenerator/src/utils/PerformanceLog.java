@@ -93,19 +93,19 @@ public class PerformanceLog extends PrintStream implements MouseListener, KeyLis
     }
     
     public void printZoom(double zoom){
-        if(PRINT_ZOOM) println("ZOOM: " + zoom);
+        if(PRINT_ZOOM) println(false, "ZOOM: " + zoom);
     }
     
     private void printClick(MouseEvent e){
         if(PRINT_CLICKS){
             Integer[] c = MouseInterpreter.pixelToTile(e.getX(), e.getY());
-            println("Mouse x, y, tile x, tile y: " + e.getX() + ", " + e.getY()
+            println(false, "Mouse x, y, tile x, tile y: " + e.getX() + ", " + e.getY()
                      + ", " + c[0] + ", " + c[1]);
         }
     }
     
     private void printKey(KeyEvent e){
-        if(PRINT_KEYS) println("Keypress: " + e.paramString());
+        if(PRINT_KEYS) println(false, "Keypress: " + e.paramString());
     }
 
     

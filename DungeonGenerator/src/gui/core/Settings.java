@@ -10,6 +10,7 @@ import animation.assets.FireParticle;
  */
 public class Settings{
 
+    
     public enum GraphicsQuality{
         STATIC(0, "Static", "No animations"), LOW(1, "Low", "Optimized for fast generation."),
         MEDIUM(2, "Medium", "Compromises graphics quality on less apparent features it decrease load time."),
@@ -29,6 +30,7 @@ public class Settings{
     
     
     public GraphicsQuality GRAPHICS = GraphicsQuality.MEDIUM;
+    public int WATER_DELAY = (4-GRAPHICS.value) * 80;
     
     
     public ParticleGenerator getTorchAnimation(int x, int y){
