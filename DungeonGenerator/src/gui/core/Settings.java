@@ -29,7 +29,7 @@ public class Settings{
     }
     
     
-    public GraphicsQuality GRAPHICS = GraphicsQuality.MEDIUM;
+    public GraphicsQuality GRAPHICS = GraphicsQuality.HIGH;
     public int WATER_DELAY = (4-GRAPHICS.value) * 80;
     
     
@@ -38,7 +38,7 @@ public class Settings{
             case STATIC: return new ParticleGenerator(FireParticle::getStaticGraphicsParticle, () -> x+6, () -> y+5, () -> Integer.MAX_VALUE);
             case LOW: return new ParticleGenerator(5, FireParticle::getLowGraphicsParticle, x+6, y+5, 4, 2);
             case MEDIUM: return new ParticleGenerator(2, FireParticle::getMediumGraphicsParticle, x+6, y+5, 4, 2);
-            case HIGH: return null;
+            case HIGH: return new ParticleGenerator(5, FireParticle::getHighGraphicsParticle, x+7, y+5, 2, 2);
             default: throw new IllegalStateException();
         }
     }

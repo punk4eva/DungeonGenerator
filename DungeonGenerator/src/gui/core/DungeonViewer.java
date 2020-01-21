@@ -17,7 +17,7 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import utils.Utils.ThreadUsed;
 import utils.Utils.Unfinished;
-import static utils.Utils.performanceLog;
+import static utils.Utils.PERFORMANCE_LOG;
 
 /**
  *
@@ -53,8 +53,8 @@ public class DungeonViewer extends Canvas implements Runnable{
      */
     public DungeonViewer(){
         window = new Window(WIDTH, HEIGHT, "Dungeon Generator", this);
-        addMouseListener(performanceLog);
-        addKeyListener(performanceLog);
+        addMouseListener(PERFORMANCE_LOG);
+        addKeyListener(PERFORMANCE_LOG);
         gui = new GUI(this);
     }
     
@@ -127,7 +127,7 @@ public class DungeonViewer extends Canvas implements Runnable{
             runThread.join();
             running = false;
         }catch(InterruptedException e){
-            performanceLog.log(e);
+            PERFORMANCE_LOG.log(e);
             System.err.println("Fail in stop() method of DungeonViewer");
         }
     }

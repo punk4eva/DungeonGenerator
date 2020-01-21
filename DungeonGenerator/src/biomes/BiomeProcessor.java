@@ -16,7 +16,7 @@ import materials.stone.*;
 import materials.wood.*;
 import utils.Distribution;
 import static utils.Utils.R;
-import static utils.Utils.performanceLog;
+import static utils.Utils.PERFORMANCE_LOG;
 
 /**
  *
@@ -124,8 +124,8 @@ public class BiomeProcessor{
     
     
     public void printInfo(){
-        performanceLog.println(true, "      ---- Biome information ----");
-        performanceLog.println(true, " -    Biome: " + biome.name());
+        PERFORMANCE_LOG.println(true, "      ---- Biome information ----");
+        PERFORMANCE_LOG.println(true, " -    Biome: " + biome.name());
     }
     
     

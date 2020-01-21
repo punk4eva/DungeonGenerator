@@ -15,7 +15,7 @@ import java.io.ObjectInputStream;
 import java.io.Serializable;
 import static utils.Utils.R;
 import utils.Utils.Unfinished;
-import static utils.Utils.performanceLog;
+import static utils.Utils.PERFORMANCE_LOG;
 
 /**
  *
@@ -126,14 +126,14 @@ public class AreaInfo implements Serializable{
     }
     
     public void printInfo(){
-        performanceLog.println(true, "      ---- Area ----");
-        performanceLog.println(true, " -    Area width, height: " + width + ", " + height);
-        performanceLog.println(true, " -    initialJitter: " + initialJitter);
-        performanceLog.println(true, " -    jitterJecay: " + jitterDecay);
-        performanceLog.println(true, " -    amlpitude: " + amplitude);
-        performanceLog.println(true, " -    lacunarity: " + lacunarity);
-        performanceLog.println(true, " -    persistence: " + persistence);
-        performanceLog.println(true, " -    octaves: " + octaves);
+        PERFORMANCE_LOG.println(true, "      ---- Area ----");
+        PERFORMANCE_LOG.println(true, " -    Area width, height: " + width + ", " + height);
+        PERFORMANCE_LOG.println(true, " -    initialJitter: " + initialJitter);
+        PERFORMANCE_LOG.println(true, " -    jitterJecay: " + jitterDecay);
+        PERFORMANCE_LOG.println(true, " -    amlpitude: " + amplitude);
+        PERFORMANCE_LOG.println(true, " -    lacunarity: " + lacunarity);
+        PERFORMANCE_LOG.println(true, " -    persistence: " + persistence);
+        PERFORMANCE_LOG.println(true, " -    octaves: " + octaves);
     }
     
     public void setSettings(Settings s){

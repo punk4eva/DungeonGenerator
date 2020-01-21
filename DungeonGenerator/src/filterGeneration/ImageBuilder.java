@@ -13,7 +13,7 @@ import javax.imageio.ImageIO;
 import static text.RegexParser.grabWord;
 import static utils.Utils.R;
 import static text.RegexParser.COLOR;
-import static utils.Utils.performanceLog;
+import static utils.Utils.PERFORMANCE_LOG;
 
 /**
  *
@@ -54,7 +54,7 @@ public class ImageBuilder{
             return img;
         }catch(IOException ex){
             ex.printStackTrace(System.err);
-            performanceLog.log(ex);
+            PERFORMANCE_LOG.log(ex);
             throw new IllegalStateException("Potentially invalid filepath: " + filepath);
         }
     }

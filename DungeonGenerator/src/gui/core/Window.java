@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 import javax.swing.JFrame;
 import static utils.Utils.R;
-import static utils.Utils.performanceLog;
+import static utils.Utils.PERFORMANCE_LOG;
 
 /**
  *
@@ -52,28 +52,33 @@ public class Window{
     
     
     public static void main(String... args) throws IOException{
-        DungeonViewer viewer = new DungeonViewer();
-        viewer.area = new Area(80, 80, LevelFeeling.DEFAULT_FEELING);
-        
-        LinkedList<Room> list = new LinkedList<>();
-        for(int n=0;n<20;n++) list.add(viewer.area.info.architecture.biome.roomSelector.select(7+2*R.nextInt(4), 7+2*R.nextInt(4)));
-        //BurrowCaveGrower grower = new BurrowCaveGrower(viewer.area, 0.3, 2, 9, 4, 5, 20, true);
-        new RandomRoomPlacer(viewer.area, list, r -> r.addDoorsSparcely(viewer.area)).generate();
-        viewer.area.refreshGraph();
-        //new SpiderCorridorBuilder(viewer.area, 3, 4, CorridorBuilder.gaussianKernel(new Point(40, 79), 120, 24)).build();
-        new OneToOneCorridorBuilder(viewer.area, 2, null).build();
-        //new DenseFractalRoomPlacer(viewer.area, 0).generate();
-        //CaveGrower grower = new CaveGrower(viewer.area, 0.48, 7);
-        //grower.build();
-        //viewer.area.refreshGraph();
-        //grower.buildCorridors();
-        
-        viewer.area.growGrass();
-        viewer.area.spillWater();
-        viewer.area.initializeImages();
-        //DungeonViewer.ANIMATOR.addGenerator(viewer.area.info.settings.getTorchAnimation(80, 80));
-        
-        viewer.start();
+        try{
+            DungeonViewer viewer = new DungeonViewer();
+            viewer.area = new Area(80, 80, LevelFeeling.DEFAULT_FEELING);
+
+            LinkedList<Room> list = new LinkedList<>();
+            for(int n=0;n<20;n++) list.add(viewer.area.info.architecture.biome.roomSelector.select(7+2*R.nextInt(4), 7+2*R.nextInt(4)));
+            //BurrowCaveGrower grower = new BurrowCaveGrower(viewer.area, 0.3, 2, 9, 4, 5, 20, true);
+            new RandomRoomPlacer(viewer.area, list, r -> r.addDoorsSparcely(viewer.area)).generate();
+            viewer.area.refreshGraph();
+            //new SpiderCorridorBuilder(viewer.area, 3, 4, CorridorBuilder.gaussianKernel(new Point(40, 79), 120, 24)).build();
+            new OneToOneCorridorBuilder(viewer.area, 2, null).build();
+            //new DenseFractalRoomPlacer(viewer.area, 0).generate();
+            //CaveGrower grower = new CaveGrower(viewer.area, 0.48, 7);
+            //grower.build();
+            //viewer.area.refreshGraph();
+            //grower.buildCorridors();
+
+            viewer.area.growGrass();
+            viewer.area.spillWater();
+            viewer.area.initializeImages();
+            //DungeonViewer.ANIMATOR.addGenerator(viewer.area.info.settings.getTorchAnimation(80, 80));
+
+            viewer.start();
+        }catch(Exception e){
+            PERFORMANCE_LOG.log(e);
+            throw e;
+        }
     }
     
 }

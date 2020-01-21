@@ -14,6 +14,7 @@ import java.util.Random;
 import static filterGeneration.Filter.rgbPixelEquals;
 import generation.noise.PerlinNoiseGenerator;
 import graph.Graph;
+import utils.test.SpeedTester;
 
 /**
  *
@@ -26,10 +27,11 @@ public final class Utils{
     
     
     public static final Random R = new Random();
-    public transient static PerformanceLog performanceLog;
+    public transient static PerformanceLog PERFORMANCE_LOG;
+    public static SpeedTester SPEED_TESTER = new SpeedTester();
     static{
         try{
-            performanceLog = new PerformanceLog();
+            PERFORMANCE_LOG = new PerformanceLog();
         }catch(FileNotFoundException e){
             System.err.println("PrintStream failed.");
         }

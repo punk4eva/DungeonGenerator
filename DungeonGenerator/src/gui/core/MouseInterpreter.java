@@ -6,7 +6,7 @@ import static gui.core.DungeonViewer.WIDTH;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
-import static utils.Utils.performanceLog;
+import static utils.Utils.PERFORMANCE_LOG;
 
 /**
  *
@@ -50,12 +50,12 @@ public class MouseInterpreter extends MouseAdapter{
         switch(me.getWheelRotation()){
             case -1: if(zoom<MAX_ZOOM){
                 zoom *= 1.25;
-                performanceLog.printZoom(zoom);
+                PERFORMANCE_LOG.printZoom(zoom);
             }
                 break;
             default: if(zoom>MIN_ZOOM){
                 zoom /= 1.25;
-                performanceLog.printZoom(zoom);
+                PERFORMANCE_LOG.printZoom(zoom);
             }
         }
         //setFocusBounds(Window.VIEWER.area);
