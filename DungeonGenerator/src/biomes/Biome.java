@@ -4,9 +4,14 @@ package biomes;
 /**
  *
  * @author Adam Whittaker
+ * This class contains the attributes of different climate zones.
  */
 public enum Biome{
     
+    
+    /**
+     * All the different possible biomes.
+     */
     PLAINS(20, 100, 10, 0, 0), SHALLOW_CAVE(10, 20, 30, -25, 35), MEDIUM_CAVE(-5, 20, 35, -50, 45),
     DEEP_CAVE(27, 27, 55, -75, 55), BURIED_OASIS(23, 35, 25, -60, 20), HELL(50, 40, 85, -100, 95),
     LOWLANDS(20, 80, 25, 10, 10), MIDLANDS(16, 65, 20, 20, 15), HIGHLANDS(10, 57, 28, 30, 30),
@@ -15,9 +20,15 @@ public enum Biome{
     TUNDRA(-15, 30, 30, 20, 30), LIGHT_SNOW(-25, 35, 38, 20, 30), HEAVY_SNOW(-35, 27, 45, 25, 39);
 
     
-    public final double temperature; //in celsius.
+    /**
+     * The average yearly temperature of the biome in celsius.
+     * Ranges roughly -80C to 80C.
+     */
+    public final double temperature;
     
     /**
+     * A scale for how high the food production capabilities of the biome are.
+     * Used proportional to the size of the society that can be accommodated.
      * 0: No food.
      * 10: Enough prey for small nomadic group (20 or less people).
      * 20: Enough prey for nomadic tribe (~100 people).
@@ -33,6 +44,7 @@ public enum Biome{
     public final double accommodation;
     
     /**
+     * The danger to societies trying to build here.
      * 0: No danger.
      * 20: Predators capable of hunting unprepared people.
      * 40: Occasional modest natural disaster capable of destroying basic settlements.
@@ -43,6 +55,7 @@ public enum Biome{
     public final double hostility;
     
     /**
+     * The altitude of the biome.
      * -100: hell
      * 0: surface
      * 100: very high
@@ -50,6 +63,7 @@ public enum Biome{
     public final double height;
     
     /**
+     * The minimum technology requirements to build here.
      * 0: No technological advancement required to build here.
      * 10: Moderate shelter construction skills required.
      * 20: Light hand-held tools required (to cut trees, hunt, etc).
@@ -65,6 +79,15 @@ public enum Biome{
     public final double technology;
     
     
+    /**
+     * Creates a new instance.
+     * @param temp The average yearly temperature in Celsius.
+     * @param a The accommodation level on the 0-100 scale (see above).
+     * @param ho The danger level on the 0-100 scale (see above).
+     * @param he The height on the -100 -> 100 scale (see above).
+     * @param tech The minimum technology level on the 0-100 scale (see above)
+     * required to build in this biome.
+     */
     private Biome(double temp, double a, double ho, double he, double tech){
         temperature = temp;
         accommodation = a;

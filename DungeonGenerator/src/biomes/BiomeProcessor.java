@@ -21,10 +21,17 @@ import static utils.Utils.PERFORMANCE_LOG;
 /**
  *
  * @author Adam Whittaker
+ * This class holds the biome and society information for the current project as
+ * well as processing this information into the material/room palette that the
+ * Area will use.
  */
 public class BiomeProcessor{
     
     
+    /**
+     * The lists of all possible woods, materials and room generation algorithms
+     * that are possible.
+     */
     //Wood has minimum complexity level 20
     private final WoodConstructor[] WOODS = new WoodConstructor[]{
         //                 temp       acco       host      height      tech
@@ -55,6 +62,15 @@ public class BiomeProcessor{
     };
     
     
+    /**
+     * woodPalette: The set of all woods to be used in the Area.
+     * woodDist: The relative distribution of the different woods throughout the
+     * area based on their relative compatibility with the biome.
+     * roomSelector: The algorithm which decides which rooms to generate.
+     * biome: The climate zone of the Area.
+     * society: The object capturing the characteristics of the society which
+     * built the Area.
+     */
     private final Wood woodPalette[] = new Wood[3];
     private final Distribution woodDist;
     public final RoomSelector roomSelector;
@@ -62,6 +78,11 @@ public class BiomeProcessor{
     public final Society society;
     
     
+    /**
+     * Creates a new instance.
+     * @param b The biome.
+     * @param s The society.
+     */
     public BiomeProcessor(Biome b, Society s){
         biome = b;
         society = s;
@@ -71,10 +92,18 @@ public class BiomeProcessor{
     }
     
     
+    /**
+     * Returns a random wood type based on the internal palette and 
+     * distribution.
+     * @return
+     */
     public Wood getRandomWood(){
         return woodPalette[woodDist.next()];
     }
     
+    /**
+     * Initializes the internal woodPalette and returns the woodDist.
+     */
     private Distribution selectWoods(Biome b, Society s){
         Arrays.asList(WOODS).stream().filter(w -> w.wood.biomeCompatible(b, s)).forEach(w -> w.evaluateProbability(b, s));
         Arrays.sort(WOODS, (w1, w2) -> -Double.compare(w1.probability, w2.probability));
@@ -87,17 +116,29 @@ public class BiomeProcessor{
         return new Distribution(cha);
     }
     
+    /**
+     * Initializes the internal relative material selection probabilities.
+     */
     private void enumerateMaterials(Biome b, Society s){
         for(MaterialConstructor mat : MATERIALS){
             mat.evaluateProbability(b, s);
         }
     }
     
+    /**
+     * Initializes the internal Room selection algorithm.
+     */
     private RoomSelector genRoomSelector(Biome b, Society s){
         for(RoomConstructor rc : ROOM_ALGORITHMS) rc.evaluateProbability(b, s);
         return new RoomSelector(ROOM_ALGORITHMS);
     }
     
+    /**
+     * Gets a random material based on the relative distributions.
+     * @param filter The predicate that the material has to pass to be 
+     * considered.
+     * @return
+     */
     public Material getMaterial(Predicate<Material> filter){
         List<MaterialConstructor> constructors = Arrays.asList(MATERIALS).stream().filter(mat -> filter.and(m -> m.biomeCompatible(biome, society)).test(mat.material.apply(this))).collect(Collectors.toList());
         double chance = R.nextDouble() * constructors.stream().mapToDouble(mat -> mat.probability).sum();
@@ -106,7 +147,8 @@ public class BiomeProcessor{
             count += mat.probability;
             if(chance<=count) return mat.material.apply(this);
         }
-        throw new IllegalStateException("Count: " + count + ", Chance: " + chance);
+        throw new IllegalStateException("Count: " + count + ", Chance: " + chance
+                + ", Predicate might be too strict.");
     }
     
     
@@ -123,6 +165,9 @@ public class BiomeProcessor{
     }
     
     
+    /**
+     * Prints out relevant information to the PerformanceLog for debugging.
+     */
     public void printInfo(){
         PERFORMANCE_LOG.println(true, "      ---- Biome information ----");
         PERFORMANCE_LOG.println(true, " -    Biome: " + biome.name());
