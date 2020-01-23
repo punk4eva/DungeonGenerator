@@ -87,6 +87,9 @@ public class Area{
         info.waterPainter.checkFrameUpdate();
     }
     
+    /**
+     * Paints a border on the outside edge of the Area.
+     */
     private void paintOutsideBorder(Graphics2D g, int focusX, int focusY){
         g.drawLine(focusX, focusY, 16*info.width+focusX - 1, focusY);
         g.drawLine(focusX, focusY, focusX, focusY + 16*info.height - 1);
@@ -94,6 +97,9 @@ public class Area{
         g.drawLine(focusX + 16*info.width - 1, focusY, focusX + 16*info.width - 1, focusY + 16*info.height-1);
     }
     
+    /**
+     * Paints an alpha border at the interface between walls and floors.
+     */
     private void paintInsideBorder(int tx, int ty, Graphics2D g, int focusX, int focusY){
         if(map[ty-1][tx].type.equals(Type.WALL)) g.fillRect(tx*16+focusX, ty*16+focusY-1, 16, 2);
         if(map[ty+1][tx].type.equals(Type.WALL)) g.fillRect(tx*16+focusX, ty*16+focusY+15, 16, 2);
@@ -154,6 +160,12 @@ public class Area{
         }
     }
     
+    /**
+     * Tests whether the given tile coordinates are within the Area's bounds.
+     * @param x
+     * @param y
+     * @return true if they are, false if not.
+     */
     public boolean withinBounds(int x, int y){
         return x>=0 && x<info.width && y>=0 && y<info.height;
     }
@@ -195,6 +207,14 @@ public class Area{
     }
     
     
+    /**
+     * Tests whether the tile at the given coordinates has a tile of the given
+     * class next to it.
+     * @param x
+     * @param y
+     * @param clazz
+     * @return
+     */
     public boolean hasAdjacentTile(int x, int y, Class clazz){
         if(y>0 && clazz.isInstance(map[y-1][x])) return true;
         else if(y<map.length-1 && clazz.isInstance(map[y+1][x])) return true;
@@ -202,6 +222,9 @@ public class Area{
         return x<map.length-1 && clazz.isInstance(map[y][x+1]);
     }
     
+    /**
+     * Fills the area with grass.
+     */
     public void growGrass(){
         for(int y=1;y<map.length-1;y++){
             for(int x=1;x<map[0].length-1;x++){
@@ -233,6 +256,9 @@ public class Area{
         }
     }
     
+    /**
+     * Fills the area with water.
+     */
     public void spillWater(){
         for(int y=1;y<map.length-1;y++){
             for(int x=1;x<map[0].length-1;x++){

@@ -17,7 +17,6 @@ public class Torch extends Decoration implements WallDecoration{
 
     
     private final int[][] palette;
-    //private final ParticleGenerator particles;
     
     private final static ImageRecolorer RECOLORER = new ImageRecolorer(10, new int[][]{
             {243, 115, 240},

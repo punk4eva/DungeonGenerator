@@ -9,8 +9,10 @@ import utils.Utils.Unfinished;
 /**
  *
  * @author Adam Whittaker
+ * This class contains the building algorithms for traps.
  */
 public final class TrapBuilder{    
+    
     
     private TrapBuilder(){}
 
