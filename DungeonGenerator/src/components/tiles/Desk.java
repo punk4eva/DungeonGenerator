@@ -10,20 +10,29 @@ import java.awt.image.WritableRaster;
 import materials.Material;
 
 /**
- *
+ * A table.
  * @author Adam Whittaker
  */
-public class Desk extends Tile{
+public class Desk extends OverFloorTile{
     
     
-    private final boolean specialFloor;
+    /**
+     * material: The material that this desk is built from.
+     * filterPath: The file path to the filter image.
+     */
     private final Material material;
     private final String filterPath;
 
     
-    public Desk(String name, String desc, AreaInfo info, boolean specFloor, int price){
-        super(name, desc, Type.FLOOR, null, null);
-        specialFloor = specFloor;
+    /**
+     * Creates a new instance.
+     * @param name The name of this desk.
+     * @param desc The description.
+     * @param info The information of the Area.
+     * @param specFloor Whether it is on a special floor.
+     */
+    public Desk(String name, String desc, AreaInfo info, boolean specFloor){
+        super(name, desc, Type.FLOOR, null, null, specFloor);
         material = info.architecture.furnitureMaterial;
         filterPath = "desks/desk0.png"; //@Unfinished placeholder
     }
@@ -31,14 +40,18 @@ public class Desk extends Tile{
     
     @Override
     public void buildImage(Area area, int x, int y){
-        if(specialFloor)
-            image = area.info.architecture.specFloorMaterial.filter.generateImage(x, y, area.info.floorNoise);
-        else generateFloorImage(area, x, y);
+        super.buildImage(area, x, y);
         
-        overlayTop(area, x, y);
+        overlayDeskTop(area, x, y);
     }
     
-    private void overlayTop(Area area, int _x, int _y){
+    /**
+     * Paints the top of this desk to the image.
+     * @param area The area.
+     * @param _x The x coordinate of the tile.
+     * @param _y The y coordinate of the tile.
+     */
+    private void overlayDeskTop(Area area, int _x, int _y){
         BufferedImage filter = ImageBuilder.getImageFromFile(filterPath);
         WritableRaster tableRaster = material.filter.generateImage(_x, _y, area.info.floorNoise).getRaster(),
                 filterRaster = filter.getRaster();

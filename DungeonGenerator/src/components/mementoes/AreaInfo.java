@@ -7,6 +7,7 @@ import generation.noise.PerlinNoiseGenerator;
 import generation.noise.MidpointDisplacmentNoise;
 import components.tiles.Tile;
 import graph.Point.Type;
+import gui.core.DungeonViewer;
 import gui.core.Settings;
 import static gui.core.Window.VIEWER;
 import java.awt.Color;
@@ -121,10 +122,17 @@ public class AreaInfo implements Serializable{
         else return floorNoise;
     }
     
+    /**
+     * Gets the Random seed used for generating the noise.
+     * @return
+     */
     public long getSeed(){
         return seed;
     }
     
+    /**
+     * Prints the relevant debug info to the PerformanceLog.
+     */
     public void printInfo(){
         PERFORMANCE_LOG.println(true, "      ---- Area ----");
         PERFORMANCE_LOG.println(true, " -    Area width, height: " + width + ", " + height);
@@ -136,6 +144,10 @@ public class AreaInfo implements Serializable{
         PERFORMANCE_LOG.println(true, " -    octaves: " + octaves);
     }
     
+    /**
+     * Sets the settings of this Area.
+     * @param s The Settings
+     */
     public void setSettings(Settings s){
         settings = s;
     }
@@ -144,7 +156,7 @@ public class AreaInfo implements Serializable{
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException{
         in.defaultReadObject();
         initializeNoise();
-        VIEWER.setSettings(settings);
+        DungeonViewer.setSettings(settings);
     }
     
 }

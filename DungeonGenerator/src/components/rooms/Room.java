@@ -15,6 +15,7 @@ import static utils.Utils.PERFORMANCE_LOG;
  * This class represents a room in the dungeon.
  */
 public abstract class Room{
+    
 
     /**
      * x, y: The x and y coordinates.
@@ -58,6 +59,11 @@ public abstract class Room{
         }
     }
     
+    /**
+     * Checks whether this Room has been populated with Items and populates it
+     * if it hasn't.
+     * @param area The Area that this Room belongs to.
+     */
     public void ensurePopulated(Area area){
         if(!itemsPlopped){
             plopItems(area);
@@ -71,26 +77,44 @@ public abstract class Room{
      */
     protected abstract void generate(Area area);
     
+    /**
+     * Populates this Room with Items.
+     * @param area
+     */
     protected abstract void plopItems(Area area);
     
     
+    /**
+     * Sets the coordinates of this Room relative to its Area.
+     * @param x1
+     * @param y1
+     */
     public final void setCoords(int x1, int y1){
         x = x1;
         y = y1;
     }
     
     /**
-     * Populates this Room with Doors.
+     * Populates this Room with a medium to high random number of Doors.
      * @param area The Area object that this Room is being created for.
      */
     public void addDoorsRandomly(Area area){
         addDoors(area, new Distribution(new double[]{3,4,6,4,2,1}).next()+1);
     }
     
+    /**
+     * Populates this Room with a small random number of Doors.
+     * @param area The Area object that this Room is being created for.
+     */
     public void addDoorsSparcely(Area area){
         addDoors(area, new Distribution(new double[]{3,3,1}).next()+1);
     }
     
+    /**
+     * Populates this Room with Doors randomly.
+     * @param area The Area object that this Room is being created for.
+     * @param numDoors The number of doors to add.
+     */
     protected void addDoors(Area area, int numDoors){
         ensureGenerated(area);
         int failed = 0;
@@ -121,6 +145,15 @@ public abstract class Room{
     }
     
     
+    /**
+     * Checks that the given width and height for the room meet the Room's 
+     * minimum requirements for generation. Throws an IllegalArgumentException
+     * if the dimensions are too small.
+     * @param w The proposed width.
+     * @param h The proposed height.
+     * @param minW The minimum width.
+     * @param minH The minimum height.
+     */
     public static void assertDimensions(int w, int h, int minW, int minH){
         if(w<minW || h<minH) throw new IllegalArgumentException("Dimensions " + w + ", " + h + " are to small.");
     }

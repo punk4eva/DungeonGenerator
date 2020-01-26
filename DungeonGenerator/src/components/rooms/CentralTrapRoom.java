@@ -6,7 +6,7 @@ import components.Area;
 import components.traps.FloorTrap;
 
 /**
- *
+ * A room with a ring of traps with a reward in the centre.
  * @author Adam Whittaker
  */
 public class CentralTrapRoom extends PlainRoom{
@@ -34,6 +34,8 @@ public class CentralTrapRoom extends PlainRoom{
     }
 
     @Override
-    protected void plopItems(Area area){}
+    protected void plopItems(Area area){
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
     
 }

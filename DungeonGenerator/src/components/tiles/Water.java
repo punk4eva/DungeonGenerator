@@ -7,18 +7,36 @@ import filterGeneration.ImageBuilder;
 import java.awt.Graphics2D;
 
 /**
- *
+ * A water tile.
  * @author Adam Whittaker
  */
 public class Water extends Tile{    
 
+    
+    /**
+     * info: The information of the Area.
+     * underTile: The tile underneath this water.
+     */
     private final AreaInfo info;
     private final Tile underTile;
     
+    
+    /**
+     * Creates a default instance.
+     * @param inf The information of the Area.
+     * @param tile The tile underneath this water.
+     */
     public Water(AreaInfo inf, Tile tile){
         this(inf, "water", "@Unfinished", tile);
     }
 
+    /**
+     * Creates an instance.
+     * @param inf The information of the Area.
+     * @param na The name.
+     * @param desc The description.
+     * @param tile The tile underneath this water.
+     */
     protected Water(AreaInfo inf, String na, String desc, Tile tile){
         super(na, desc, tile.type, null, tile.decoration);
         info = inf;
@@ -33,6 +51,14 @@ public class Water extends Tile{
                 underTile.image, genShaderCode(area, x/16, y/16));
     }
     
+    /**
+     * Gets the int code corresponding to the location of the adjacent water 
+     * tiles.
+     * @param area The area.
+     * @param x The tile x.
+     * @param y The tile y.
+     * @return
+     */
     private int genShaderCode(Area area, int x, int y){
         int c = 0;
         if(!(area.map[y-1][x] instanceof Wall) && !(area.map[y-1][x] instanceof Water)) c += 8;

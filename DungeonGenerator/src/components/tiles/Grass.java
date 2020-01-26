@@ -7,15 +7,25 @@ import java.awt.Graphics2D;
 import static utils.Utils.R;
 
 /**
- *
+ * A patch of vegetation.
  * @author Adam Whittaker
  */
 public class Grass extends Tile{
 
+    
+    /**
+     * tall: Whether this grass is high or not.
+     * underTile: The tile underneath this grass.
+     */
     private final boolean tall;
     private final Tile underTile;
 
     
+    /**
+     * Creates a new grass object.
+     * @param t Whether it is tall.
+     * @param tile The tile underneath.
+     */
     public Grass(boolean t, Tile tile){
         super(t ? "high grass" : "low grass", "@Unfinished", tile.type, null, tile.decoration);
         tall = t;
@@ -27,18 +37,23 @@ public class Grass extends Tile{
     public void buildImage(Area area, int x, int y){
         if(underTile.image==null) underTile.buildImage(area, x, y);
         image = underTile.image;
-        if(tall) constructTallGrass(area.info.grassColor, 
+        if(tall) constructTallGrassImage(area.info.grassColor, 
                 (Graphics2D) image.getGraphics());
         else{
             Graphics2D g = (Graphics2D) image.getGraphics();
-            constructLowGrass(area.info.grassColor, g);
+            constructLowGrassImage(area.info.grassColor, g);
             if(underTile.decoration!=null && underTile.decoration.aboveWater){
                 underTile.decoration.drawImage((Graphics2D) image.getGraphics(), 0, 0);
             }
         }
     }
     
-    private void constructTallGrass(Color col, Graphics2D g){
+    /**
+     * Constructs the image of tall grass.
+     * @param col The color.
+     * @param g The graphics.
+     */
+    private void constructTallGrassImage(Color col, Graphics2D g){
         g.setColor(col.darker());
         for(int n=0;n<23;n++)
             g.fillRect(R.nextInt(15), R.nextInt(15), 2, 2);
@@ -50,7 +65,12 @@ public class Grass extends Tile{
             g.fillRect(R.nextInt(16), R.nextInt(16), 1, 1);
     }
     
-    private void constructLowGrass(Color col, Graphics2D g){
+    /**
+     * Constructs the image of short grass.
+     * @param col The color.
+     * @param g The graphics.
+     */
+    private void constructLowGrassImage(Color col, Graphics2D g){
         g.setColor(col.darker());
         for(int n=0;n<15;n++)
             g.fillRect(R.nextInt(16), R.nextInt(16), 1, 1);

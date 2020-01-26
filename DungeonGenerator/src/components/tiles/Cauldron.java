@@ -6,26 +6,26 @@ import filterGeneration.ImageBuilder;
 import graph.Point.Type;
 
 /**
- *
+ * A cauldron.
  * @author Adam Whittaker
  */
-public class Cauldron extends Tile{
+public class Cauldron extends OverFloorTile{
     
     
-    private final boolean specialFloor;
-    
-    
+    /**
+     * Creates a new instance.
+     * @param name The name of the cauldron.
+     * @param desc The description.
+     * @param specFloor Whether it is located on a special floor.
+     */
     public Cauldron(String name, String desc, boolean specFloor){
-        super(name, desc, Type.FLOOR, null, null);
-        specialFloor = specFloor;
+        super(name, desc, Type.FLOOR, null, null, specFloor);
     }
 
     
     @Override
     public void buildImage(Area area, int x, int y){
-        if(specialFloor)
-            image = area.info.architecture.specFloorMaterial.filter.generateImage(x, y, area.info.floorNoise);
-        else generateFloorImage(area, x, y);
+        super.buildImage(area, x, y);
         
         image.getGraphics().drawImage(ImageBuilder.getImageFromFile("cauldrons/cauldron0.png"), 0, 0, null);
     }

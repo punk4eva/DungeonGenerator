@@ -109,7 +109,7 @@ public class DenseFractalRoomPlacer implements RoomPlacer{
             r = selector.select(coords[2], coords[3]);
             
             r.ensureGenerated(area);
-            r.map[0][0] = new Embers();
+            r.map[0][0] = new Embers(false);
             
             area.blitRoom(r, coords[0], coords[1]);
         }

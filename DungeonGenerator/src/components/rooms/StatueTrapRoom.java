@@ -12,12 +12,17 @@ import static utils.Utils.R;
 import utils.Utils.Unfinished;
 
 /**
- *
+ * A Room full of traps with a statue and reward at one end.
  * @author Adam Whittaker
  */
 public class StatueTrapRoom extends PlainLockedRoom{
     
     
+    /**
+     * Creates a new instance.
+     * @param w
+     * @param h
+     */
     public StatueTrapRoom(int w, int h){
         super("Statue trap room", w, h);
         assertDimensions(w, h, 7, 9);
@@ -34,7 +39,7 @@ public class StatueTrapRoom extends PlainLockedRoom{
         buildWalls(area);
         
         map[1][width/2-1] = new SpecialFloor("floor");
-        map[1][width/2] = new Desk("pedestal", "A place-holder of some high value item.", area.info, true, 2);
+        map[1][width/2] = new Desk("pedestal", "A place-holder of some high value item.", area.info, true);
         map[1][width/2+1] = new SpecialFloor("floor");
         
         map[2][width/2] = new Statue(true);

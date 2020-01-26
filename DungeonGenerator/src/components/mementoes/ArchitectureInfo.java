@@ -30,6 +30,11 @@ public class ArchitectureInfo{
     public final BiomeProcessor biome = new BiomeProcessor(Biome.PLAINS, new Society(60));
     
     
+    /**
+     * Creates a new instance.
+     * @param info The information of the Area.
+     * @param f The general ethos of the level.
+     */
     public ArchitectureInfo(AreaInfo info, LevelFeeling f){
         doorGenerator = new DoorIconGenerator(info, () -> ImageBuilder.getImageFromFile("rectDoor.png"));
         doorMaterial = biome.getMaterial(m -> m.door);

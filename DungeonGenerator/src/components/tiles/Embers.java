@@ -8,18 +8,25 @@ import java.awt.Graphics2D;
 import static utils.Utils.R;
 
 /**
- *
+ * The residue of a fire.
  * @author Adam Whittaker
  */
-public class Embers extends Tile{
+public class Embers extends OverFloorTile{
     
-    public Embers(){
-        super("embers", "@Unfinished", Type.FLOOR, null, null);
+    
+    /**
+     * Creates a new instance.
+     * @param specFloor Whether these embers are on a special tile.
+     */
+    public Embers(boolean specFloor){
+        super("embers", "@Unfinished", Type.FLOOR, null, null, specFloor);
     }
+    
     
     @Override
     public void buildImage(Area area, int x, int y){
-        generateFloorImage(area, x, y);
+        super.buildImage(area, x, y);
+        
         Graphics2D g = (Graphics2D) image.getGraphics();
         g.setColor(Color.BLACK);
         for(int n=0;n<23;n++)

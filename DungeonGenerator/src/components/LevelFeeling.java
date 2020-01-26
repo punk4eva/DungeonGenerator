@@ -2,13 +2,10 @@
 package components;
 
 import components.rooms.Room;
-import components.traps.FloorTrap;
 import java.util.LinkedList;
 import java.util.List;
 import utils.Distribution;
 import utils.GaussProbability;
-import static utils.Utils.R;
-import utils.Utils.Unfinished;
 
 /**
  *

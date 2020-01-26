@@ -10,15 +10,21 @@ import static text.RegexParser.generateDescription;
 import static utils.Utils.R;
 
 /**
- *
+ * A wooden, flammable obstruction.
  * @author Adam Whittaker
  */
-public class Barricade extends Passage{
+public class Barricade extends PassageTile{
 
+    
+    /**
+     * Creates a new instance.
+     * @param p Whether the pathfinding algorithm should consider this barricade.
+     */
     public Barricade(boolean p){
         super("Wooden logs", generateDescription("An impregnable <pile> of old logs stacked high enough to be unliftable. They smell <smell>."), Type.WALL, null, null, p);
     }
 
+    
     @Override
     public void buildImage(Area area, int x, int y){
         generateFloorImage(area, x, y);
@@ -38,6 +44,11 @@ public class Barricade extends Passage{
             g.fillRect(R.nextInt(13), R.nextInt(15), 4+R.nextInt(3), 1);
     }
     
+    /**
+     * Creates a random rotation transform anchored at the (8,8) centre of the 
+     * tile image.
+     * @return
+     */
     private static AffineTransform getRandomRotation(){
         return AffineTransform.getRotateInstance(R.nextDouble()*2D*Math.PI/9D - Math.PI/9D, 8, 8);
     }

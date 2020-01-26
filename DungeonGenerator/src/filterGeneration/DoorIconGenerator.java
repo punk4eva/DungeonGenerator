@@ -7,7 +7,6 @@ import filterGeneration.ImageBuilder.SerSupplier;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
-import utils.Utils;
 import utils.Utils.Unfinished;
 
 /**
@@ -30,7 +29,7 @@ public class DoorIconGenerator{
     public void generateAllImages(Door door, int x, int y){
         door.setClosedImage(generateClosed(x, y));
         door.setOpenImage(generateOpen(x, y));
-        door.setLockedImage(generateLocked(door.closedImage));
+        door.setLockedImage(generateLocked(door.getClosedImage()));
     }
     
     private BufferedImage generateOpen(int tx, int ty){

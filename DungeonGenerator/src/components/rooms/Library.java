@@ -6,19 +6,23 @@ import components.tiles.Bookshelf;
 import components.tiles.SpecialFloor;
 
 /**
- *
+ * A room filled with bookshelves.
  * @author Adam Whittaker
  */
 public class Library extends PlainRoom{
     
-    public final static int MIN_WIDTH = 7, MIN_HEIGHT = 7;
     
-
+    /**
+     * Creates a new instance.
+     * @param w
+     * @param h
+     */
     public Library(int w, int h){
         super("Library", w, h);
         assertDimensions(w, h, 7, 7);
     }
 
+    
     @Override
     public void generate(Area area){
         buildWalls(area);
@@ -31,7 +35,7 @@ public class Library extends PlainRoom{
         for(int y=1;y<height-1;y++){
             for(int x=1;x<width-1;x++){
                 if(y>1&&y<height-2&&y%2==0&&x%mod!=0&&
-                        x>1&&x<width-2) map[y][x] = new Bookshelf(null, null, false);
+                        x>1&&x<width-2) map[y][x] = new Bookshelf(null, false);
                 else map[y][x] = new SpecialFloor("library floor");
             }
         }

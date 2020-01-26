@@ -12,12 +12,15 @@ import static utils.Utils.R;
 import utils.Utils.Unfinished;
 
 /**
- *
+ * A flammable bookshelf.
  * @author Adam Whittaker
  */
-public class Bookshelf extends Passage{
+public class Bookshelf extends PassageTile{
     
     
+    /**
+     * The color replacement algorithm to recolour the books in the bookshelf.
+     */
     private static final ImageRecolorer RECOLORER = new ImageRecolorer(13, new int[][]{
         {88, 60, 40, 255}, {120, 88, 48, 255}, {128, 100, 64, 255}, 
         {112, 56, 112, 255}, {48,  56, 136, 255}, {160, 92, 32, 255}, 
@@ -27,12 +30,21 @@ public class Bookshelf extends Passage{
     });
 
     
-    public Bookshelf(Tile al, Trap tr, final boolean p){
+    /**
+     * Creates a new instance.
+     * @param tr
+     * @param p
+     */
+    public Bookshelf(Trap tr, final boolean p){
         super("bookshelf", generateDescription("An old, dry, wooden bookshelf with a <color> finish and volumes of even older <shapeMod> books,"
-                + " some in forgotten languages. One of the books is titled \""+getBookName()+"\"."), Type.WALL, al, tr, p);
+                + " some in forgotten languages. One of the books is titled \""+getBookName()+"\"."), Type.WALL, null, tr, p);
     }
     
     
+    /**
+     * Generates a random book name.
+     * @return
+     */
     private static String getBookName(){
         String ret = "$<book> of ";
         switch(R.nextInt(6)){
@@ -62,6 +74,10 @@ public class Bookshelf extends Passage{
         }
     }
     
+    /**
+     * Generates an image in one of the alternate styles.
+     * @param area
+     */
     private void generateStyle1(Area area){
         image = ImageBuilder.getImageFromFile("bookshelf0.png");
         RECOLORER.recolor(image, new int[][]{

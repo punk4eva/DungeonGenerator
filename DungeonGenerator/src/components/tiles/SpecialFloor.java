@@ -4,11 +4,16 @@ package components.tiles;
 import components.Area;
 
 /**
- *
+ * An alternative to normal floor.
  * @author Adam Whittaker
  */
 public class SpecialFloor extends Floor{
 
+    
+    /**
+     * Creates a new instance.
+     * @param name The name.
+     */
     public SpecialFloor(String name){
         super(name, "@Unfinished", null);
     }
