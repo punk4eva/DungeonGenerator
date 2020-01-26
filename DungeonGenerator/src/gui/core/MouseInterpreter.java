@@ -7,6 +7,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import static utils.Utils.PERFORMANCE_LOG;
+import utils.Utils.Unfinished;
 
 /**
  *
@@ -22,10 +23,11 @@ public class MouseInterpreter extends MouseAdapter{
     public static final double MAX_ZOOM = 8.0, MIN_ZOOM = 0.512;
     
     @Override
+    @Unfinished("Complete (might remove entire class)")
     public void mouseClicked(MouseEvent me){
         if(me.isConsumed()) return;
-        Integer[] p = pixelToTile(me.getX(), me.getY());
-        Window.VIEWER.click(p[0], p[1]);
+        //Integer[] p = pixelToTile(me.getX(), me.getY());
+        //Window.VIEWER.click(p[0], p[1]);
     }
     
     @Override

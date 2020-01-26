@@ -6,6 +6,8 @@ import components.Area;
 import static gui.core.MouseInterpreter.focusX;
 import static gui.core.MouseInterpreter.focusY;
 import static gui.core.MouseInterpreter.zoom;
+import gui.pages.LoadingScreen;
+import gui.pages.Screen;
 import gui.userInterface.GUI;
 import java.awt.Canvas;
 import java.awt.Color;
@@ -23,11 +25,15 @@ import static utils.Utils.PERFORMANCE_LOG;
  *
  * @author Adam Whittaker
  */
-public class DungeonViewer extends Canvas implements Runnable{
+public class DungeonViewer extends Canvas implements Runnable, Screen{
+
     
     public enum State{
         CHOOSING, LOADING, VIEWING;
     }
+    
+    
+    private static final long serialVersionUID = 1653987L;
 
     public static final int WIDTH, HEIGHT;
     public static final Color BACKGROUND_COLOR = new Color(20,20,20);
@@ -38,7 +44,7 @@ public class DungeonViewer extends Canvas implements Runnable{
     }
 
     protected volatile boolean running = false;
-    private State state = State.VIEWING;
+    private State state = State.LOADING;
     protected Thread runThread;
     protected Window window;
     protected MouseInterpreter mouse = new MouseInterpreter();
@@ -47,6 +53,8 @@ public class DungeonViewer extends Canvas implements Runnable{
     private static Settings SETTINGS = new Settings();
     protected final GUI gui;
     protected volatile Area area;
+    private final static LoadingScreen LOADING_SCREEN = new LoadingScreen();
+    
     
     /**
      * Creates an instance.
@@ -85,16 +93,20 @@ public class DungeonViewer extends Canvas implements Runnable{
         bsg.fillRect(0, 0, WIDTH, HEIGHT);
         
         switch(state){
-            case CHOOSING: break;
-            case LOADING: break;
-            case VIEWING: paintArea(bsg, frames); break;
+            case CHOOSING: 
+                break;
+            case LOADING: LOADING_SCREEN.paint(bsg, frames); 
+                break;
+            case VIEWING: paint(bsg, frames);
+                break;
         }
         
         bsg.dispose();
         bs.show();
     }
     
-    public void paintArea(Graphics2D bsg, int frames){
+    @Override
+    public void paint(Graphics2D bsg, int frames){
         BufferedImage buffer = new BufferedImage((int)(WIDTH/zoom), (int)(HEIGHT/zoom), BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = (Graphics2D) buffer.getGraphics();
         
@@ -105,9 +117,7 @@ public class DungeonViewer extends Canvas implements Runnable{
         gui.render(bsg);
         g.dispose();
     }
-    
-    @Unfinished("Need to complete")
-    public void click(int x, int y){}
+
     
     /**
      * Starts the game.
@@ -143,6 +153,10 @@ public class DungeonViewer extends Canvas implements Runnable{
     
     public State getState(){
         return state;
+    }
+    
+    public void setState(State s){
+        state = s;
     }
     
     public String getCalibrationPanelName(){
