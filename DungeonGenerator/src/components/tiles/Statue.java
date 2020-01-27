@@ -49,9 +49,9 @@ public class Statue extends OverFloorTile{
         
         Graphics2D g = (Graphics2D) image.getGraphics();
         if(isHead(area, x/16, y/16)){
-            g.drawImage(ImageBuilder.getImageFromFile("statues/head/head"+headCode+".png"), 0, 0, null);
+            g.drawImage(ImageBuilder.getImageFromFile("tiles/statues/head/head"+headCode+".png"), 0, 0, null);
         }else{
-            g.drawImage(ImageBuilder.getImageFromFile("statues/body/body"+bodyCode+".png"), 0, 0, null);
+            g.drawImage(ImageBuilder.getImageFromFile("tiles/statues/body/body"+bodyCode+".png"), 0, 0, null);
         }
     }
     

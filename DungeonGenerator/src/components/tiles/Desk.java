@@ -34,7 +34,7 @@ public class Desk extends OverFloorTile{
     public Desk(String name, String desc, AreaInfo info, boolean specFloor){
         super(name, desc, Type.FLOOR, null, null, specFloor);
         material = info.architecture.furnitureMaterial;
-        filterPath = "desks/desk0.png"; //@Unfinished placeholder
+        filterPath = "tiles/desks/desk0.png"; //@Unfinished placeholder
     }
 
     

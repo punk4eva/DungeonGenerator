@@ -7,15 +7,17 @@ import static filterGeneration.Filter.rgbPixelEquals;
 import static utils.Utils.R;
 
 /**
- *
- * @author Adam Whittaker
- * 
  * This class is designed to replace all instances of specified placeholder 
  * colors in an image with given replacement colors.
+ * @author Adam Whittaker
  */
 public class ImageRecolorer{
 
     
+    /**
+     * reject: The array of colors (represented as int arrays) to be replaced.
+     * jitter: The 0-255 scale for random adjustment of the injected pixel.
+     */
     private final int[][] reject;
     private final int jitter;
     

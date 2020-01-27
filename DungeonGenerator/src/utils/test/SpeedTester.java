@@ -12,7 +12,7 @@ import static utils.Utils.PERFORMANCE_LOG;
 public class SpeedTester{
 
     
-    private final static int PRECISION = 4;
+    private final static int PRECISION = 4; //Maximum 16 which is double precision.
     
     private long now;
     private final LinkedList<SimpleEntry<Long, String>> records = new LinkedList<>();
@@ -36,7 +36,7 @@ public class SpeedTester{
         dualPrint("Total time: " + total + " millis");
         records.forEach((e) -> { 
             String time = ("" + (100D*e.getKey())/total);
-            if(time.length()<PRECISION) time += "00000000";
+            if(time.length()<PRECISION) time += "00000000000000000"; //Over double precision so no error thrown.
             time = time.substring(0,PRECISION);
             dualPrint(e.getValue() + ": " + time + "%");
         });
@@ -44,7 +44,7 @@ public class SpeedTester{
     
     private void dualPrint(String message){
         System.out.println(message);
-        PERFORMANCE_LOG.println(false, message);
+        PERFORMANCE_LOG.println(message);
     }
     
 }

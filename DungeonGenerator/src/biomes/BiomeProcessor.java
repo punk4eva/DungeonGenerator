@@ -169,8 +169,8 @@ public class BiomeProcessor{
      * Prints out relevant information to the PerformanceLog for debugging.
      */
     public void printInfo(){
-        PERFORMANCE_LOG.println(true, "      ---- Biome information ----");
-        PERFORMANCE_LOG.println(true, " -    Biome: " + biome.name());
+        PERFORMANCE_LOG.println("      ---- Biome information ----");
+        PERFORMANCE_LOG.println(" -    Biome: " + biome.name());
     }
     
     

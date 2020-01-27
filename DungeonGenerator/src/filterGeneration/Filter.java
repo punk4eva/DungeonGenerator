@@ -10,11 +10,18 @@ import java.io.Serializable;
 import java.util.LinkedList;
 
 /**
- *
+ * This class represents a list of commands to generate an image.
  * @author Adam Whittaker
  */
 public abstract class Filter implements Serializable{
     
+    
+    /**
+     * filterImage: The image that is used to recolour all relevant tile images. 
+     * supplier: The supplier of the initial filterImage.
+     * instructions: The instructions to transform the initial filterImage to
+     * its final form. These instructions are added post-instantiation.
+     */
     private static final long serialVersionUID = 427675489602L;
     
     protected transient BufferedImage filterImage;
@@ -22,25 +29,49 @@ public abstract class Filter implements Serializable{
     private final SerSupplier supplier;
     private final LinkedList<SerInstruction> instructions = new LinkedList<>();
     
+    
+    /**
+     * Creates an instance.
+     * @param s The supplier of the initial image.
+     */
     public Filter(SerSupplier s){
         supplier = s;
     }
     
     
+    /**
+     * Generates the tile image from the internal filter image.
+     * @param _x The pixel x of the top left of the tile. (tile x * 16)
+     * @param _y The pixel y of the top left of the tile. (tile y * 16)
+     * @param map The noise map.
+     * @return
+     */
     public abstract BufferedImage generateImage(int _x, int _y, double[][] map);
     
-    public void buildFilter(){
+    /**
+     * Builds the filter image using the supplier and then performing the
+     * instructions.
+     */
+    public void buildFilterImage(){
         filterImage = supplier.get();
         instructions.forEach((i) -> {
             i.accept(filterImage);
         });
     }
     
+    /**
+     * Adds an filter building instruction to the instruction list.
+     * @param inst The instruction.
+     */
     public void addInstruction(SerInstruction inst){
         instructions.add(inst);
     }
     
     
+    /**
+     * A default method to act as the supplier for the filter.
+     * @return A blank 16x16 ARGB buffered image.
+     */
     public static BufferedImage defaultSupplier(){
         return new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
     }
@@ -49,7 +80,7 @@ public abstract class Filter implements Serializable{
      * Overlays the color of the target pixel with the color of the "col" pixel.
      * @param target The target pixel (RGB)
      * @param col The color to overlay onto the target (ARGB).
-     * @return
+     * @return The modified target array.
      */
     public static int[] overlayColor(int[] target, int[] col){
         target[0] = getChannelAverage(target[0], col[1], (double)col[0]/255D);
@@ -58,6 +89,15 @@ public abstract class Filter implements Serializable{
         return target;
     }
     
+    /**
+     * Averages two colors based on a given weight (RGB only).
+     * @param pixel The int array for the color to be stored in.
+     * @param c1 The first color.
+     * @param c2 The second color.
+     * @param weight The relative weight of the colors 
+     * (0 = color 1, 255 = color 2)
+     * @return The pixel int array representing the averaged color.
+     */
     public static int[] getColorAverage(int[] pixel, Color c1, Color c2, double weight){
         pixel[0] = getChannelAverage(c1.getRed(), c2.getRed(), weight/255);
         pixel[1] = getChannelAverage(c1.getGreen(), c2.getGreen(), weight/255);
@@ -102,7 +142,7 @@ public abstract class Filter implements Serializable{
     
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException{
         in.defaultReadObject();
-        buildFilter();
+        buildFilterImage();
     }
 
 }

@@ -79,7 +79,7 @@ public class Bookshelf extends PassageTile{
      * @param area
      */
     private void generateStyle1(Area area){
-        image = ImageBuilder.getImageFromFile("bookshelf0.png");
+        image = ImageBuilder.getImageFromFile("tiles/bookshelf0.png");
         RECOLORER.recolor(image, new int[][]{
             colorToPixelArray(area.info.architecture.furnitureMaterial.color.darker(), true),
             colorToPixelArray(area.info.architecture.furnitureMaterial.color, true),

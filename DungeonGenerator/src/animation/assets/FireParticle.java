@@ -16,6 +16,10 @@ import static utils.Utils.R;
 public class FireParticle extends Particle{
     
     
+    /**
+     * A factor inversely proportional to the probability that a 
+     * particle will expire in a given tick.
+     */
     private final double decayFactor;
 
     

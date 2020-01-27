@@ -7,7 +7,6 @@ import filterGeneration.DichromeFilter;
 import filterGeneration.Filter;
 import filterGeneration.ImageBuilder;
 import java.awt.Color;
-import static utils.Utils.R;
 
 /**
  *
@@ -50,10 +49,10 @@ public abstract class Material{
                 s.technology>complexity;
     }
     
-    protected final void setDefaultFilter(String filePath, int numPngs){
-        filter = new DichromeFilter(() -> ImageBuilder.getImageFromFile(filePath + "/" + filePath + R.nextInt(numPngs) + ".png"), color);
+    protected final void setDefaultFilter(String filePath, int num){
+        filter = new DichromeFilter(() -> ImageBuilder.getImageFromFile("tiles/" +filePath + "/" + filePath + num + ".png"), color);
         filter.addInstruction(img -> ImageBuilder.applyAlphaNoise(img, 10, 4));
-        filter.buildFilter();
+        filter.buildFilterImage();
     }
     
 }

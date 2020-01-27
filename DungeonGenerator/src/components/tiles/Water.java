@@ -47,7 +47,7 @@ public class Water extends Tile{
     @Override
     public void buildImage(Area area, int x, int y){
         if(underTile.image==null) underTile.buildImage(area, x, y);
-        image = ImageBuilder.generateWaterShader(
+        image = ImageBuilder.applyWaterShader(
                 underTile.image, genShaderCode(area, x/16, y/16));
     }
     

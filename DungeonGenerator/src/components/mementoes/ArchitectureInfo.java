@@ -27,7 +27,7 @@ public class ArchitectureInfo{
 
     public final DoorIconGenerator doorGenerator;
     
-    public final BiomeProcessor biome = new BiomeProcessor(Biome.PLAINS, new Society(60));
+    public final BiomeProcessor biome = new BiomeProcessor(Biome.PLAINS, new Society(50));
     
     
     /**
@@ -36,7 +36,7 @@ public class ArchitectureInfo{
      * @param f The general ethos of the level.
      */
     public ArchitectureInfo(AreaInfo info, LevelFeeling f){
-        doorGenerator = new DoorIconGenerator(info, () -> ImageBuilder.getImageFromFile("rectDoor.png"));
+        doorGenerator = new DoorIconGenerator(info, () -> ImageBuilder.getImageFromFile("tiles/rectDoor.png"));
         doorMaterial = biome.getMaterial(m -> m.door);
         floorMaterial = biome.getMaterial(m -> m.floor);
         wallMaterial = biome.getMaterial(m -> m.wall);

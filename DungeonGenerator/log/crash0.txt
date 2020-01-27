@@ -1,0 +1,28 @@
+01-27 22:07:00:086: $ javax.imageio.IIOException: Can't read input file!
+javax.imageio.IIOException: Can't read input file!
+	at javax.imageio.ImageIO.read(ImageIO.java:1301)
+	at filterGeneration.ImageBuilder.getImageFromFile(ImageBuilder.java:79)
+	at components.tiles.Desk.overlayDeskTop(Desk.java:55)
+	at components.tiles.Desk.buildImage(Desk.java:45)
+	at components.Area.initializeImages(Area.java:155)
+	at gui.core.Window.main(Window.java:85)
+01-27 22:07:00:087:      ---- CRASH DATA ----
+01-27 22:07:00:087:  -   Current state: LOADING
+01-27 22:07:00:087:  -   Dimensions: 1920, 1080
+01-27 22:07:00:087:  -   Animations: 1
+01-27 22:07:00:087:  -   Particles: 0
+01-27 22:07:00:087:  -   sfxVolume: 0.0
+01-27 22:07:00:087:  -   musicVolume: 0.0
+01-27 22:07:00:087:  -   Calibration panel: null
+01-27 22:07:00:087:       ---- Area ----
+01-27 22:07:00:087:  -    Area width, height: 80, 80
+01-27 22:07:00:087:  -    initialJitter: 54.3320673547211
+01-27 22:07:00:087:  -    jitterJecay: 0.8404917016661893
+01-27 22:07:00:087:  -    amlpitude: 99.78760304104192
+01-27 22:07:00:087:  -    lacunarity: 0.3484518410679415
+01-27 22:07:00:087:  -    persistence: 0.5775497296551714
+01-27 22:07:00:087:  -    octaves: 4
+01-27 22:07:00:087:  -    seed: 3931791622511125603
+01-27 22:07:00:087:       ---- Biome information ----
+01-27 22:07:00:087:  -    Biome: PLAINS
+01-27 22:07:00:087: $    ---- END OF CRASH DATA ----

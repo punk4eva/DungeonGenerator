@@ -9,7 +9,6 @@ import components.tiles.Tile;
 import graph.Point.Type;
 import gui.core.DungeonViewer;
 import gui.core.Settings;
-import static gui.core.Window.VIEWER;
 import java.awt.Color;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -134,14 +133,15 @@ public class AreaInfo implements Serializable{
      * Prints the relevant debug info to the PerformanceLog.
      */
     public void printInfo(){
-        PERFORMANCE_LOG.println(true, "      ---- Area ----");
-        PERFORMANCE_LOG.println(true, " -    Area width, height: " + width + ", " + height);
-        PERFORMANCE_LOG.println(true, " -    initialJitter: " + initialJitter);
-        PERFORMANCE_LOG.println(true, " -    jitterJecay: " + jitterDecay);
-        PERFORMANCE_LOG.println(true, " -    amlpitude: " + amplitude);
-        PERFORMANCE_LOG.println(true, " -    lacunarity: " + lacunarity);
-        PERFORMANCE_LOG.println(true, " -    persistence: " + persistence);
-        PERFORMANCE_LOG.println(true, " -    octaves: " + octaves);
+        PERFORMANCE_LOG.println("      ---- Area ----");
+        PERFORMANCE_LOG.println(" -    Area width, height: " + width + ", " + height);
+        PERFORMANCE_LOG.println(" -    initialJitter: " + initialJitter);
+        PERFORMANCE_LOG.println(" -    jitterJecay: " + jitterDecay);
+        PERFORMANCE_LOG.println(" -    amlpitude: " + amplitude);
+        PERFORMANCE_LOG.println(" -    lacunarity: " + lacunarity);
+        PERFORMANCE_LOG.println(" -    persistence: " + persistence);
+        PERFORMANCE_LOG.println(" -    octaves: " + octaves);
+        PERFORMANCE_LOG.println(" -    seed: " + seed);
     }
     
     /**

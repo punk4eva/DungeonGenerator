@@ -16,20 +16,41 @@ import static text.RegexParser.COLOR;
 import static utils.Utils.PERFORMANCE_LOG;
 
 /**
- *
+ * A static convenience class containing various image generation functions.
  * @author Adam Whittaker
  */
-public class ImageBuilder{
-    
-    private final static BufferedImage WATER_SHADERS = getImageFromFile("waterShaders.png");
-    private final static int WATER_SHADE_LEVEL = 80; //out of 255
+public final class ImageBuilder{
     
     
+    private ImageBuilder(){}
+    
+    
+    /**
+     * WATER_SHADERS: The spritesheet of the water shading images.
+     * WATER_SHADE_LEVEL: The level of visibility of tiles underneath the water.
+     * (0 = tiles not visible, 255 = water not visible)
+     */
+    private final static BufferedImage WATER_SHADERS = getImageFromFile("tiles/waterShaders.png");
+    private final static int WATER_SHADE_LEVEL = 120; //out of 255
+    
+    
+    /**
+     * An interface to mark image suppliers as Serializable automatically.
+     */
     public static interface SerSupplier extends Supplier<BufferedImage>, Serializable{}
     
+    /**
+     * An interface to mark image instructions as Serializable automatically.
+     */
     public static interface SerInstruction extends Serializable, Consumer<BufferedImage>{}
     
     
+    /**
+     * Applies a random noise bitmap to the alpha channel of the given image.
+     * @param img The image.
+     * @param midPoint The average noise (0-255).
+     * @param jitter The maximum displacement in either direction.
+     */
     public static void applyAlphaNoise(BufferedImage img, int midPoint, int jitter){
         WritableRaster raster = img.getAlphaRaster();
         int[] pixel = new int[4];
@@ -48,9 +69,14 @@ public class ImageBuilder{
         }
     }
     
+    /**
+     * Retrieves an image from the specified filepath.
+     * @param filepath The filepath of the image ("graphics/" is auto-added).
+     * @return The image.
+     */
     public static BufferedImage getImageFromFile(String filepath){
         try{
-            BufferedImage img = ImageIO.read(new File("graphics/tiles/" + filepath));
+            BufferedImage img = ImageIO.read(new File("graphics/" + filepath));
             return img;
         }catch(IOException ex){
             ex.printStackTrace(System.err);
@@ -59,15 +85,31 @@ public class ImageBuilder{
         }
     }
     
-    public static int[] colorToPixelArray(Color c, boolean four){
-        return four ? new int[]{c.getRed(), c.getGreen(), c.getBlue(), 255} 
+    /**
+     * Converts the given color to an int array.
+     * @param c The color.
+     * @param alpha Whether the alpha is to be included.
+     * @return
+     */
+    public static int[] colorToPixelArray(Color c, boolean alpha){
+        return alpha ? new int[]{c.getRed(), c.getGreen(), c.getBlue(), 255} 
                 : new int[]{c.getRed(), c.getGreen(), c.getBlue()};
     }
     
+    /**
+     * Converts the given color to an int array, ignoring any alpha.
+     * @param c The color.
+     * @return
+     */
     public static int[] colorToPixelArray(Color c){
         return colorToPixelArray(c, false);
     }
     
+    /**
+     * Converts the given image to RGB-only format by redrawing it.
+     * @param img The image.
+     * @return
+     */
     public static BufferedImage convertToRGB(BufferedImage img){
         BufferedImage ret = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_RGB);
         ret.getGraphics().drawImage(img, 0, 0, null);
@@ -75,6 +117,11 @@ public class ImageBuilder{
     }
 
     
+    /**
+     * Gets the color with the given name.
+     * @param name The name.
+     * @return
+     */
     public static Color getColor(String name){
         switch(name){
             //General colors
@@ -179,12 +226,23 @@ public class ImageBuilder{
         }
     }
     
+    /**
+     * Gets a random color from the library of colors in text.RegexParser.
+     * @return
+     */
     public static Color getRandomColor(){
         return getColor(grabWord(COLOR));
     }
     
     
-    public static BufferedImage generateWaterShader(BufferedImage tile, int shaderCode){
+    /**
+     * Applies the water shader for a given tile.
+     * @param tile The tile.
+     * @param shaderCode The integer representation of which of the NESW 
+     * adjacent tiles are water.
+     * @return
+     */
+    public static BufferedImage applyWaterShader(BufferedImage tile, int shaderCode){
         BufferedImage img = new BufferedImage(tile.getWidth(), tile.getHeight(), BufferedImage.TYPE_INT_ARGB);
         WritableRaster readRaster = tile.getRaster(), shadeRaster = WATER_SHADERS.getRaster(),
                 writeRaster = img.getRaster();

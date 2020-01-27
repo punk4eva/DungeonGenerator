@@ -7,14 +7,26 @@ import java.awt.Graphics2D;
 import static utils.Utils.R;
 
 /**
- *
+ * A trap located on the floor.
  * @author Adam Whittaker
  */
 public class FloorTrap extends Trap implements FloorDecoration{
     
+    
+    /**
+     * randomly initialized booleans to determine whether to paint each aspect
+     * of the trap.
+     */
     private boolean horizontalOuter, verticalOuter, diagonal, innerLeft, 
             innerRight;
 
+    
+    /**
+     * Creates an instance by forwarding the arguments.
+     * @param n
+     * @param desc
+     * @param rev
+     */
     public FloorTrap(String n, String desc, boolean rev){
         super(n, desc, rev);
         horizontalOuter = R.nextDouble()<0.5;
@@ -24,6 +36,7 @@ public class FloorTrap extends Trap implements FloorDecoration{
         innerRight = R.nextDouble()<0.5;
     }
 
+    
     @Override
     public void drawImage(Graphics2D g, int x, int y){
         if(!revealed) return;
@@ -72,6 +85,10 @@ public class FloorTrap extends Trap implements FloorDecoration{
     }
     
     
+    /**
+     * Creates a copy of this floor trap.
+     * @return
+     */
     public final FloorTrap copy(){
         FloorTrap trap = new FloorTrap(name, description, revealed);
         trap.color = color;

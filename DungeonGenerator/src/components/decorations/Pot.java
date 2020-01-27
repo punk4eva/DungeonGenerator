@@ -45,7 +45,7 @@ public class Pot extends Decoration implements FloorDecoration{
     
     @Override
     public void drawImage(Graphics2D g, int _x, int _y){
-        BufferedImage img = ImageBuilder.getImageFromFile("pots/pot0.png");
+        BufferedImage img = ImageBuilder.getImageFromFile("tiles/pots/pot0.png");
         WritableRaster raster = img.getRaster();
         int[] pixel = new int[4];
         

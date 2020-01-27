@@ -21,6 +21,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -42,28 +43,31 @@ public class PerformanceLog extends PrintStream implements MouseListener, KeyLis
     }
     
     
-    public void println(boolean crash, String str){
-        super.println((crash ? "$ " : "") + dateFormat.format(new Date()) + str);
+    public void println(String str){
+        super.println(dateFormat.format(new Date()) + str);
     }
     
     public void log(Exception e){
-        println(true, e.getClass().getName() + 
+        println("$ " + e.getClass().getName() + 
                 ": " + e.getMessage());
         e.printStackTrace(this);
         printCrashData();
     }
     
     public void printCrashData(){
-        println(true, "     ---- CRASH DATA ----");
-        println(true, " -   Current state: " + VIEWER.getState());
-        println(true, " -   Dimensions: " + WIDTH + ", " + HEIGHT);
-        println(true, " -   Animations: " + ANIMATOR.getAnimationNum());
-        println(true, " -   Particles: " + ANIMATOR.getParticleNum());
-        println(true, " -   sfxVolume: " + Window.sfxVolume);
-        println(true, " -   musicVolume: " + Window.musicVolume);
-        println(true, " -   Calibration panel: " + VIEWER.getCalibrationPanelName());
-        VIEWER.getArea().info.printInfo();
-        VIEWER.getArea().info.architecture.biome.printInfo();
+        println("     ---- CRASH DATA ----");
+        println(" -   Current state: " + VIEWER.getState());
+        println(" -   Dimensions: " + WIDTH + ", " + HEIGHT);
+        println(" -   Animations: " + ANIMATOR.getAnimationNum());
+        println(" -   Particles: " + ANIMATOR.getParticleNum());
+        println(" -   sfxVolume: " + Window.sfxVolume);
+        println(" -   musicVolume: " + Window.musicVolume);
+        println(" -   Calibration panel: " + VIEWER.getCalibrationPanelName());
+        if(VIEWER.getArea()!=null){
+            VIEWER.getArea().info.printInfo();
+            VIEWER.getArea().info.architecture.biome.printInfo();
+        }
+        println("$    ---- END OF CRASH DATA ----");
         if(FILE_CRASH_REPORT) copyPerformanceFile(getCrashFileName());
     }
     
@@ -83,9 +87,17 @@ public class PerformanceLog extends PrintStream implements MouseListener, KeyLis
             BufferedReader in = new BufferedReader(
                 new FileReader(new File("log/performance.txt")));
             PrintStream out = new PrintStream(new File(fileName))){
-            in.lines().filter(str -> str.contains("$")).forEach(str -> {
-                out.println(str);
-            });
+            
+            boolean printing = false;
+            for(String line : in.lines().collect(Collectors.toList())){
+                if(printing){
+                    out.println(line);
+                    if(line.contains("$")) return;
+                }else if(line.contains("$")){
+                    printing = true;
+                    out.println(line);
+                }
+            }
         }catch(IOException ex){
             System.err.println("Failed to copy file.");
             ex.printStackTrace(System.err);
@@ -93,19 +105,19 @@ public class PerformanceLog extends PrintStream implements MouseListener, KeyLis
     }
     
     public void printZoom(double zoom){
-        if(PRINT_ZOOM) println(false, "ZOOM: " + zoom);
+        if(PRINT_ZOOM) println("ZOOM: " + zoom);
     }
     
     private void printClick(MouseEvent e){
         if(PRINT_CLICKS){
             Integer[] c = MouseInterpreter.pixelToTile(e.getX(), e.getY());
-            println(false, "Mouse x, y, tile x, tile y: " + e.getX() + ", " + e.getY()
+            println("Mouse x, y, tile x, tile y: " + e.getX() + ", " + e.getY()
                      + ", " + c[0] + ", " + c[1]);
         }
     }
     
     private void printKey(KeyEvent e){
-        if(PRINT_KEYS) println(false, "Keypress: " + e.paramString());
+        if(PRINT_KEYS) println("Keypress: " + e.paramString());
     }
 
     

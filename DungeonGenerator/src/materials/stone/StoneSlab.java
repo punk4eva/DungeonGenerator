@@ -28,7 +28,7 @@ public class StoneSlab extends Material{
         super("@Unfinished", new Color(130, 130, 130), 55, 30, 400, -30, 60, true, false, true, true);
         filter = new DichromeFilter(Filter::defaultSupplier, color);
         filter.addInstruction(img -> paintSlabs(img, 12));
-        filter.buildFilter();
+        filter.buildFilterImage();
     }
     
     

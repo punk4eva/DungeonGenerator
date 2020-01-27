@@ -27,7 +27,7 @@ public class Cauldron extends OverFloorTile{
     public void buildImage(Area area, int x, int y){
         super.buildImage(area, x, y);
         
-        image.getGraphics().drawImage(ImageBuilder.getImageFromFile("cauldrons/cauldron0.png"), 0, 0, null);
+        image.getGraphics().drawImage(ImageBuilder.getImageFromFile("tiles/cauldrons/cauldron0.png"), 0, 0, null);
     }
 
 }
