@@ -5,7 +5,7 @@ import gui.core.DungeonViewer;
 import static gui.core.Window.VIEWER;
 import gui.tools.CalibrationPanel;
 import gui.tools.ControlPanel;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 /**
  *
@@ -24,7 +24,7 @@ public class GUI{
     }
     
     
-    public void render(Graphics g){
+    public void render(Graphics2D g){
         control.render(g);
         //calibration.render(g);
     }

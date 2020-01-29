@@ -3,7 +3,7 @@ package gui.tools;
 
 import static gui.core.DungeonViewer.HEIGHT;
 import gui.userInterface.*;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 /**
  *
@@ -38,12 +38,12 @@ public class ControlPanel extends UIPanel{
         return new Button(x, y, w, h){
             
             @Override
-            public void click(){
+            public void click(int mx, int my){
                 gui.setCalibrationPanel(p);
             }
 
             @Override
-            public void paint(Graphics g){
+            public void paint(Graphics2D g){
                 paintText(g, name);
             }
         

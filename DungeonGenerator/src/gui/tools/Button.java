@@ -3,30 +3,21 @@ package gui.tools;
 
 import animation.Animation;
 import static gui.core.DungeonViewer.ANIMATOR;
-import static gui.tools.UIPanel.BUTTON_TEXT_COLOR;
-import static gui.tools.UIPanel.BUTTON_TEXT_FONT;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 /**
  *
  * @author Adam Whittaker
  */
-public abstract class Button{
+public abstract class Button extends InputBox{
     
     
-    private static final int BUTTON_DURATION = 50;
-    
-    protected int x, y, width, height;
+    private static final int BUTTON_DURATION = 50;   
     private boolean selected = false; //for aesthetic purposes only.
     
     
     public Button(int _x, int _y, int w, int h){
-        x = _x;
-        y = _y;
-        width = w;
-        height = h;
+        super(_x, _y, w, h);
     }
     
     
@@ -35,7 +26,7 @@ public abstract class Button{
      * been set.
      * @param g
      */
-    public void render(Graphics g){
+    public void render(Graphics2D g){
         g.setColor(UIPanel.BUTTON_COLOR);
         g.fill3DRect(x, y, width, height, !selected);
         paint(g);
@@ -48,16 +39,13 @@ public abstract class Button{
      * @param my the mouse y
      */
     public void testClick(int mx, int my){
-        if(x<mx && mx<x+width && y<my && my<y+height){
+        if(withinBounds(mx, my)){
             selected = true;
             registerClickAnimation();
-            click();
+            click(mx, my);
         }
     }
-    
-    public abstract void click();
-    
-    public abstract void paint(Graphics g);
+
     
     public void setSelected(boolean s){
         selected = s;
@@ -78,23 +66,6 @@ public abstract class Button{
             }
             
         });
-    }
-    
-    protected void setXY(int _x, int _y){
-        x = _x;
-        y = _y;
-    }
-    
-    protected void resize(int w, int h){
-        width = w;
-        height = h;
-    }
-    
-    protected void paintText(Graphics g, String str){
-        g.setFont(BUTTON_TEXT_FONT);
-        g.setColor(BUTTON_TEXT_COLOR);
-        FontMetrics f = g.getFontMetrics();
-        g.drawString(str, x+(width - f.stringWidth(str))/2, y + width/2 + f.getDescent());
     }
     
 }

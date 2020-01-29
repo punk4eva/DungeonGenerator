@@ -9,16 +9,32 @@ import graph.Point.Direction;
 import static utils.Utils.R;
 
 /**
- *
+ * This class uses cellular automata to grow caves in the shape of burrows.
  * @author Adam Whittaker
  */
 public class BurrowCaveGrower extends ConwayCaveGrower{
     
-    private final boolean paths;
+    
+    /**
+     * Whether or not to use special floor for the paths.
+     */
+    private final boolean specialFloorPaths;
 
+    
+    /**
+     * Creates an instance by forwarding parameters.
+     * @param a
+     * @param sC
+     * @param miL
+     * @param maL
+     * @param bMi
+     * @param bMa
+     * @param it
+     * @param p Whether or not to use special floor for the paths.
+     */
     public BurrowCaveGrower(Area a, double sC, int miL, int maL, int bMi, int bMa, int it, boolean p){
         super(a, sC, miL, maL, bMi, bMa, it);
-        paths = p;
+        specialFloorPaths = p;
     }
     
     
@@ -32,6 +48,11 @@ public class BurrowCaveGrower extends ConwayCaveGrower{
         pavePaths();
     }
     
+    /**
+     * Returns a free point in the Area which is not part of a room.
+     * Assumptions: a point which is not part of a room has a roomNum of -1.
+     * @return
+     */
     private Point getFreePoint(){
         while(true){
             Integer[] c = new Integer[]{3+R.nextInt(area.info.width-12),
@@ -40,17 +61,25 @@ public class BurrowCaveGrower extends ConwayCaveGrower{
         }
     }
 
+    /**
+     * Creates a pathway from each pathfinding valid door to the free point.
+     * This ensures that all rooms are connected.
+     */
     private void pavePaths(){
-        System.out.println("Doors: " + area.graph.doors);
         area.graph.doors.forEach((p) -> {
             while(p.cameFrom!=p && p.cameFrom!=null){
                 p = p.cameFrom;
-                if(paths) area.map[p.y][p.x] = new SpecialFloor("pathway");
+                if(specialFloorPaths) area.map[p.y][p.x] = new SpecialFloor("pathway");
                 else area.map[p.y][p.x] = Tile.genFloor(area);
             }
         });
     }
     
+    /**
+     * Flood fills all the corridors from the given free point until all doors
+     * are reached.
+     * @param start The free point.
+     */
     private void corridorFloodFill(Point start){
         area.graph.reset();
         frontier.clear();

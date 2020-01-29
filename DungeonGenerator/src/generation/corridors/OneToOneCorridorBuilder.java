@@ -66,7 +66,7 @@ public class OneToOneCorridorBuilder extends CorridorBuilder{
                 nx = p.x+dir.x;
                 ny = p.y+dir.y;
                 if(area.withinBounds(nx-1, ny-1)&&area.withinBounds(nx+1, ny+1)){
-                    if(addCheck.apply(p, area.graph.map[ny][nx])){
+                    if(addCheck.test(p, area.graph.map[ny][nx])){
                         area.graph.map[ny][nx].cameFrom = p;
                         frontier.add(area.graph.map[ny][nx]);
                     }else if(nx==end.x && ny==end.y){

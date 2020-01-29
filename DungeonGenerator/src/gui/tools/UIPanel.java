@@ -7,7 +7,6 @@ import static gui.core.DungeonViewer.HEIGHT;
 import static gui.core.DungeonViewer.WIDTH;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -35,7 +34,7 @@ public class UIPanel extends MouseAdapter{
     }
     
     
-    public void render(Graphics g){
+    public void render(Graphics2D g){
         g.setColor(UI_COLOR);
         g.fillRect(x, 0, width, HEIGHT);
         for(Button b : buttons) b.render(g);
@@ -66,7 +65,7 @@ public class UIPanel extends MouseAdapter{
 
         
         @Override
-        public void click(){
+        public void click(int mx, int my){
             if(!moving){
                 moving = true;
                 if(minimized){
@@ -100,7 +99,7 @@ public class UIPanel extends MouseAdapter{
         }
 
         @Override
-        public void paint(Graphics g){
+        public void paint(Graphics2D g){
             if(minimized) paintText(g, "+");
             else paintText(g, "-");
         }

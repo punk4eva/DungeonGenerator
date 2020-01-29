@@ -124,7 +124,7 @@ public class SpiderCorridorBuilder extends CorridorBuilder{
                 area.graph.map[ny][nx].currentCost = p.currentCost + 1;
                 
                 if(area.withinBounds(nx-1, ny-1)&&area.withinBounds(nx+1, ny+1)){
-                    if(addCheck.apply(p, area.graph.map[ny][nx])){
+                    if(addCheck.test(p, area.graph.map[ny][nx])){
                         area.graph.map[ny][nx].checked = true;
                         area.graph.map[ny][nx].cameFrom = p;
                         frontier.add(area.graph.map[ny][nx]);
