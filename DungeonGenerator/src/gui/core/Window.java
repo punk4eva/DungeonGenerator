@@ -71,13 +71,15 @@ public class Window{
             viewer.area.refreshGraph();
             SPEED_TESTER.test("Rooms placed");
             //new SpiderCorridorBuilder(viewer.area, 3, 4, CorridorBuilder.gaussianKernel(new Point(40, 79), 120, 24)).build();
-            new OneToOneCorridorBuilder(viewer.area, 2, null).build();
-            SPEED_TESTER.test("Corridors built");
+            //new OneToOneCorridorBuilder(viewer.area, 2, null).build();
+            //SPEED_TESTER.test("Corridors built");
             //new DenseFractalRoomPlacer(viewer.area, 0).generate();
-            //CaveGrower grower = new CaveGrower(viewer.area, 0.48, 7);
-            //grower.build();
-            //viewer.area.refreshGraph();
-            //grower.buildCorridors();
+            //CaveGrower grower = new RadialCaveGrower(viewer.area, 0.48, 8);
+            //CaveGrower grower = new ConwayCaveGrower(viewer.area, 0.42, 8,  2, 9,  5, 8);
+            WormholeCaveGrower grower = new WormholeCaveGrower(viewer.area, 7, 3, 1.0);
+            grower.build();
+            viewer.area.refreshGraph();
+            grower.buildCorridors();
 
             viewer.area.growGrass();
             viewer.area.spillWater();

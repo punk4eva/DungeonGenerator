@@ -5,7 +5,6 @@ import components.Area;
 import graph.Point;
 import graph.Point.Direction;
 import java.io.Serializable;
-import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
 import utils.PriorityQueue;

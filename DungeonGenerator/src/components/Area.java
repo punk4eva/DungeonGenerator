@@ -76,8 +76,8 @@ public class Area{
         }
         g.setColor(BORDER_COLOR);
         paintOutsideBorder(g, focusX, focusY);
-        for(tileY=0;tileY<info.height;tileY++){
-            for(tileX=0;tileX<info.width;tileX++){
+        for(tileY=1;tileY<info.height-1;tileY++){
+            for(tileX=1;tileX<info.width-1;tileX++){
                 if(map[tileY][tileX] != null && map[tileY][tileX].type.equals(Type.FLOOR)){
                     paintInsideBorder(tileX, tileY, g, focusX, focusY);
                 }
@@ -210,12 +210,13 @@ public class Area{
     /**
      * Tests whether the tile at the given coordinates has a tile of the given
      * class next to it.
+     * @param <T> The type of the class.
      * @param x
      * @param y
-     * @param clazz
+     * @param clazz The class.
      * @return
      */
-    public boolean hasAdjacentTile(int x, int y, Class clazz){
+    public <T extends Tile> boolean hasAdjacentTile(int x, int y, Class<T> clazz){
         if(y>0 && clazz.isInstance(map[y-1][x])) return true;
         else if(y<map.length-1 && clazz.isInstance(map[y+1][x])) return true;
         else if(x>0 && clazz.isInstance(map[y][x-1])) return true;

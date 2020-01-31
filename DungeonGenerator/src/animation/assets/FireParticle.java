@@ -50,7 +50,7 @@ public class FireParticle extends Particle{
     public FireParticle(int w, int h, double decay, int intensity, double trailFade, Function<Particle, TrailSpeck> tr){
         super(w, h, 240, 50, 0, intensity, trailFade, tr);
         decayFactor = decay;
-        vely = -(R.nextDouble()*0.1+0.05)*1.2D;
+        vely = -(R.nextDouble()*0.1+0.05);
         velx = 0;
     }
 
@@ -123,11 +123,11 @@ public class FireParticle extends Particle{
      * @return
      */
     public static FireParticle getHighGraphicsParticle(){
-        return new FireParticle(1, 1, 0.05,   3, 3.0, p -> new TrailSpeck(p){
+        return new FireParticle(1, 1, -1,   1, 3.0, p -> new TrailSpeck(p){
             
             @Override
             public void update(double frames){
-                if(b<150) b+=2;
+                if(b<150) b+=1;
             }
         
         }){
@@ -137,12 +137,12 @@ public class FireParticle extends Particle{
                 motor(frames);
         
                 double c = R.nextDouble();
-                if(c<0.05) x--;
-                else if(c<0.1) x++;
+                if(c<0.03) x--;
+                else if(c<0.06) x++;
 
                 if(g<120) g+=5;
-                if(alpha>10) alpha-=2;
-                expired = R.nextDouble() < (1.0 - (double)alpha/255.0)*0.1;
+                if(alpha>10) alpha-=6;
+                else expired = R.nextDouble() < 0.1;
             }
             
         };

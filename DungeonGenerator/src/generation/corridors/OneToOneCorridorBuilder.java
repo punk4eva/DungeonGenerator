@@ -9,20 +9,29 @@ import java.util.function.Function;
 import static utils.Utils.R;
 
 /**
- *
- * @author Adam Whittaker
- * 
  * This is an algorithm which connects rooms with corridors in a closed loop.
  * This is achieved by connecting the first door to the second, the second to 
  * third etc.
+ * @author Adam Whittaker
  */
 public class OneToOneCorridorBuilder extends CorridorBuilder{
 
     
+    /**
+     * windyness: How curvy the paths are.
+     * prioritySkewer: A function that adjusts the priority of elements in the
+     * priority search queue.
+     */
     private final double windyness;
     private final Function<Point, Double> prioritySkewer;
     
     
+    /**
+     * Creates an instance.
+     * @param a The Area.
+     * @param w How windy the paths are.
+     * @param priority The priority skew function.
+     */
     public OneToOneCorridorBuilder(Area a, double w, Function<Point, Double> priority){
         super(a);
         addCheck = (from, to) -> /*to.currentCost > from.currentCost + to.movementCost &&*/ to.cameFrom==null && !to.type.equals(Point.Type.DOOR) && to.roomNum==-1;
@@ -42,6 +51,11 @@ public class OneToOneCorridorBuilder extends CorridorBuilder{
         generateCorridor(area.graph.doors.get(area.graph.doors.size()-1), area.graph.doors.get(0));
     }
     
+    /**
+     * Generates a corridor between two given points.
+     * @param a The first Point.
+     * @param b The second Point.
+     */
     private void generateCorridor(Point a, Point b){
         corridorFloodFill(a, b);
         buildCorridor(b);

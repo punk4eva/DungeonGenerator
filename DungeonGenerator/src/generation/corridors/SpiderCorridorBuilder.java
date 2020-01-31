@@ -23,16 +23,24 @@ import java.util.function.Function;
 import static utils.Utils.R;
 
 /**
- *
+ * Builds corridors using the spider corridor algorithm:
+ * 1) Choose a random door as the "hub" and flood-fill to all other doors from 
+ * it.
+ * 2) Build all the corridors.
+ * 3) Decay some walls into floors to widen the corridors.
  * @author Adam Whittaker
- * 
- * Builds corridors using the spider corridor algorithm.
  */
 public class SpiderCorridorBuilder extends CorridorBuilder{
     
     
-    private final int decayFactor;
+    /**
+     * decayLimit: The minimum number number of adjacent floors needed for a 
+     * wall to be able to decay into a floor. Set to 9 if no decay is wanted.
+     * windyness: How windy the corridors are.
+     */
+    private final int decayLimit;
     private final int windyness;
+    
     
     /**
      * Creates a new instance.
@@ -48,18 +56,28 @@ public class SpiderCorridorBuilder extends CorridorBuilder{
     public SpiderCorridorBuilder(Area a, int w, int decay, Function<Point, Double> prioritySkew){
         super(a);
         windyness = w;
-        decayFactor = decay;
+        decayLimit = decay;
         addCheck = (from, to) -> to.cameFrom==null && (to.checked==null||!to.checked) && to.roomNum==-1;
         if(prioritySkew!=null) frontier.setFunction(p -> R.nextDouble()*2D*windyness - windyness + p.currentCost + prioritySkew.apply(p));
         else frontier.setFunction(p -> R.nextDouble()*2D*windyness - windyness + p.currentCost);
     }
     
     
+    /**
+     * Iterates through the map and decays walls into floors if they are 
+     * eligible for decay.
+     */
     private void growCavities(){
         for(int x=1;x<area.info.width-1;x++) for(int y=1;y<area.info.height-1;y++)
             if(canDecayWall(x, y)) area.map[y][x] = Tile.genFloor(area);
     }
     
+    /**
+     * Checks whether a wall at the given coordinates can decay into a floor.
+     * @param _x
+     * @param _y
+     * @return
+     */
     private boolean canDecayWall(int _x, int _y){
         if(area.map[_y][_x] == null || !area.map[_y][_x].equals(Type.WALL) 
                 || !area.graph.map[_y][_x].isCorridor) return false;
@@ -69,7 +87,7 @@ public class SpiderCorridorBuilder extends CorridorBuilder{
             if(area.map[y][x]==null) return false;
             else if(area.map[y][x].isTraversable()) floors++;
         }
-        return floors>=decayFactor;
+        return floors>=decayLimit;
     }
     
     @Override
@@ -83,18 +101,21 @@ public class SpiderCorridorBuilder extends CorridorBuilder{
         area.graph.doors.forEach((door) -> {
             buildCorridor(door);
         });
-        if(decayFactor<9) growCavities();
+        if(decayLimit<9) growCavities();
     }
     
+    /**
+     * Gets a random free point adjacent to a door to serve as a starting point 
+     * for the pathfinding.
+     * @return
+     */
     private Point getFreePoint(){
         int x, y;
         for(Point p : area.graph.doors){
             for(Direction dir : Direction.values()){
                 x = p.x+dir.x;
                 y = p.y+dir.y;
-                try{
-                    if(area.map[y][x] == null) return area.graph.map[y][x];
-                }catch(ArrayIndexOutOfBoundsException e){}
+                if(area.map[y][x] == null) return area.graph.map[y][x];
             }
         }
         throw new IllegalStateException("No point found!");
