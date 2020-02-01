@@ -7,12 +7,14 @@ package gui.core;
  */
 public class Pacemaker implements Runnable{
 
+    
     private final DungeonViewer viewer;
     private final Thread renderThread;
     private long now;
     
     private final static int BUFFER_NUM = 4;
     private final static long DELAY = 1000L/60L;
+    
     
     /**
      * Creates a new instance.
@@ -22,6 +24,7 @@ public class Pacemaker implements Runnable{
         viewer = v;
         renderThread = new Thread(this, "Render Thread");
     }
+    
     
     /**
      * Starts rendering.

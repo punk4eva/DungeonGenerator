@@ -2,6 +2,7 @@
 package generation.corridors;
 
 import components.Area;
+import generation.PostCorridorPlacer;
 import graph.Point;
 import graph.Point.Direction;
 import java.util.Collections;
@@ -14,7 +15,7 @@ import static utils.Utils.R;
  * third etc.
  * @author Adam Whittaker
  */
-public class OneToOneCorridorBuilder extends CorridorBuilder{
+public class OneToOneCorridorBuilder extends CorridorBuilder implements PostCorridorPlacer{
 
     
     /**
@@ -41,7 +42,7 @@ public class OneToOneCorridorBuilder extends CorridorBuilder{
 
     
     @Override
-    public void build(){
+    public void generate(){
         //Shuffles the list of doors.
         Collections.shuffle(area.graph.doors);
         //Connects the first door to the second and so on.

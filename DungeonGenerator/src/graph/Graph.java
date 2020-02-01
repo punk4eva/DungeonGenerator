@@ -63,6 +63,17 @@ public class Graph{
     }
     
     /**
+     * Resets all room numbers of all points to the default -1.
+     */
+    public void flushRoomNumbers(){
+        for(Point[] row : map){
+            for(Point p : row){
+                p.roomNum = -1;
+            }
+        }
+    }
+    
+    /**
      * Recreates the "doors" list in case new doors have been added. This is the
      * method to call for first-time initialization as well.
      * @param area The Area owning this Graph.

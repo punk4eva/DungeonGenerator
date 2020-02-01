@@ -5,6 +5,7 @@ import components.Area;
 import components.rooms.Room;
 import components.tiles.Embers;
 import components.tiles.Tile;
+import generation.MultiPlacer;
 import java.util.LinkedList;
 import static utils.Utils.R;
 
@@ -12,7 +13,7 @@ import static utils.Utils.R;
  *
  * @author Adam Whittaker
  */
-public class DenseFractalRoomPlacer implements RoomPlacer{
+public class DenseFractalRoomPlacer implements MultiPlacer{
 
     private final Area area;
     private final double splitChance;

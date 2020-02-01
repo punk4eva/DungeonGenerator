@@ -144,6 +144,29 @@ public abstract class Room{
                     "Number of doors remaining: " + numDoors);
     }
     
+    /**
+     * Returns the effective width of the room given its orientation.
+     * @return
+     */
+    public int getOrientedWidth(){
+        return orientation%2==0 ? width : height;
+    }
+    
+    /**
+     * Returns the effective height of the room given its orientation.
+     * @return
+     */
+    public int getOrientedHeight(){
+        return orientation%2==0 ? height : width;
+    }
+    
+    /**
+     * Sets the room to a random orientation.
+     */
+    public void randomizeOrientation(){
+        orientation = R.nextInt(4);
+    }
+    
     
     /**
      * Checks that the given width and height for the room meet the Room's 

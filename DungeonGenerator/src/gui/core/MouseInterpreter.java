@@ -17,9 +17,9 @@ import utils.Utils.Unfinished;
  */
 public class MouseInterpreter extends MouseAdapter{
     
-    public volatile static int focusX=16, focusY=16;
+    public volatile static int focusX, focusY;
     private int xOfDrag=-1, yOfDrag=-1;
-    public static double zoom = 1.0;
+    public volatile static double zoom = 1.0;
     public static final double MAX_ZOOM = 8.0, MIN_ZOOM = 0.512;
     
     @Override
@@ -49,14 +49,21 @@ public class MouseInterpreter extends MouseAdapter{
     
     @Override
     public void mouseWheelMoved(MouseWheelEvent me){
+        double x = focusX-me.getX()/zoom, y = focusY-me.getY()/zoom;
         switch(me.getWheelRotation()){
             case -1: if(zoom<MAX_ZOOM){
-                zoom *= 1.25;
+                synchronized(this){
+                    zoom *= 1.25;
+                    setFocusDirectly((int)(x+me.getX()/zoom), (int)(y+me.getY()/zoom));
+                }
                 PERFORMANCE_LOG.printZoom(zoom);
             }
                 break;
             default: if(zoom>MIN_ZOOM){
-                zoom /= 1.25;
+                synchronized(this){
+                    zoom /= 1.25;
+                    setFocusDirectly((int)(x+me.getX()/zoom), (int)(y+me.getY()/zoom));
+                }
                 PERFORMANCE_LOG.printZoom(zoom);
             }
         }

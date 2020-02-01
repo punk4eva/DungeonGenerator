@@ -1,6 +1,7 @@
 
 package generation.corridors;
 
+import generation.PostCorridorPlacer;
 import components.Area;
 import components.tiles.Tile;
 import generation.Searcher;
@@ -11,7 +12,7 @@ import java.util.function.Function;
  * This class builds corridors along a given path.
  * @author Adam Whittaker
  */
-public abstract class CorridorBuilder extends Searcher{
+public abstract class CorridorBuilder extends Searcher implements PostCorridorPlacer{
     
     
     /**
@@ -22,11 +23,6 @@ public abstract class CorridorBuilder extends Searcher{
         super(a);
     }
     
-    
-    /**
-     * Generates and builds all corridors in the Area.
-     */
-    public abstract void build();
     
     /**
      * Creates a 3x3 section of corridor around the given points.

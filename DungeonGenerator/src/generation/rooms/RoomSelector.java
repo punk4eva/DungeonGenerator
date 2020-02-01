@@ -11,31 +11,25 @@ import static utils.Utils.R;
 import utils.Utils.Unfinished;
 
 /**
- *
+ * Stores a probability distribution selecting possible Room generation 
+ * algorithms.
  * @author Adam Whittaker
  */
 public class RoomSelector{
     
+    
     /**
-     * 0: Plain room
-     * 1: Central trap room
-     * 2: Statue trap room
-     * 3: Library
+     * rooms: A HashMap pairing a Room-generation algorithm with a relative 
+     * probability of being selected.
      */
     private final HashMap<BiFunction<Integer, Integer, Room>, Double> rooms;
     
     
-    @Unfinished("Delete once unused")
-    public RoomSelector(double[] prob){
-        rooms = new HashMap<>();
-        rooms.put((w, h) -> new PlainRoom(w, h), prob[0]);
-        rooms.put((w, h) -> new CentralTrapRoom(w, h), prob[1]);
-        rooms.put((w, h) -> new StatueTrapRoom(w, h), prob[2]);
-        rooms.put((w, h) -> new Library(w, h), prob[3]);
-        rooms.put((w, h) -> new ChasmVault(w, h), prob[4]);
-        rooms.put((w, h) -> new Laboratory(w, h), prob[5]);
-    }
-    
+    /**
+     * Creates an instance.
+     * @param cons The array of room construction algorithms and their relative
+     * probabilities.
+     */
     public RoomSelector(RoomConstructor[] cons){
         rooms = new HashMap<>();
         for(RoomConstructor con : cons){
@@ -44,6 +38,13 @@ public class RoomSelector{
     }
     
     
+    /**
+     * Selects and generates a random Room based on their respective 
+     * probabilities.
+     * @param w The width of the room.
+     * @param h The height of the room.
+     * @return
+     */
     public Room select(int w, int h){
         HashMap<BiFunction<Integer, Integer, Room>, Double> map = 
                 (HashMap<BiFunction<Integer, Integer, Room>, Double>) rooms.clone();

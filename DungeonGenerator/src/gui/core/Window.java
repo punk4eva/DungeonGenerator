@@ -61,10 +61,11 @@ public class Window{
             viewer.start();
             SPEED_TESTER.test("Viewer started");
             viewer.area = new Area(80, 80, LevelFeeling.DEFAULT_FEELING);
+            viewer.setTileFocus(viewer.area.info.width/2, viewer.area.info.height/2);
             SPEED_TESTER.test("Area instanciated");
 
             LinkedList<Room> list = new LinkedList<>();
-            for(int n=0;n<20;n++) list.add(viewer.area.info.architecture.biome.roomSelector.select(7+2*R.nextInt(4), 7+2*R.nextInt(4)));
+            for(int n=0;n<30;n++) list.add(viewer.area.info.architecture.biome.roomSelector.select(7+2*R.nextInt(4), 7+2*R.nextInt(4)));
             SPEED_TESTER.test("Rooms selected");
             //BurrowCaveGrower grower = new BurrowCaveGrower(viewer.area, 0.3, 2, 9, 4, 5, 20, true);
             new RandomRoomPlacer(viewer.area, list, r -> r.addDoorsSparcely(viewer.area)).generate();
@@ -77,9 +78,7 @@ public class Window{
             //CaveGrower grower = new RadialCaveGrower(viewer.area, 0.48, 8);
             //CaveGrower grower = new ConwayCaveGrower(viewer.area, 0.42, 8,  2, 9,  5, 8);
             WormholeCaveGrower grower = new WormholeCaveGrower(viewer.area, 7, 3, 1.0);
-            grower.build();
-            viewer.area.refreshGraph();
-            grower.buildCorridors();
+            grower.generate();
 
             viewer.area.growGrass();
             viewer.area.spillWater();

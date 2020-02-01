@@ -1,96 +1,179 @@
 
 package generation.rooms;
 
+import generation.RoomPlacer;
 import components.Area;
 import components.rooms.Room;
+import static utils.Utils.copy2DArray;
 import java.util.LinkedList;
 import java.util.function.Consumer;
+import static utils.Utils.PERFORMANCE_LOG;
 import static utils.Utils.R;
 
 /**
- *
+ * Places Rooms randomly in an Area. If the Area is too small to support the 
+ * Rooms, the generator tries to find a better solutions
  * @author Adam Whittaker
  */
 public class RandomRoomPlacer implements RoomPlacer{
 
+    
+    /**
+     * rooms: The list of Rooms that needs to be placed.
+     * area: The target area.
+     * doorGenerator: The function that adds doors to a room.
+     */
     private final LinkedList<Room> rooms;
     private final Area area;
     private final Consumer<Room> doorGenerator;
     
-    private static final int ATTEMPT_LIMIT = 15;
+    /**
+     * Internal limits on how many attempts can be made for (a) finding a space
+     * to generate a Room (b) backtracking to find a better solution with more
+     * Rooms.
+     */
+    private static final int PLACEMENT_ATTEMPT_LIMIT = 15, BACKTRACK_LIMIT = 600;
     
+    
+    /**
+     * Creates an instance.
+     * @param a The Area.
+     * @param r The list of Rooms to be placed in the Area.
+     * @param doorGen The function that adds doors to a room.
+     */
     public RandomRoomPlacer(Area a, LinkedList<Room> r, Consumer<Room> doorGen){
         area = a;
         rooms = r;
         doorGenerator = doorGen;
     }
     
+    
     @Override
     public void generate(){
         //sorts rooms based on area
         rooms.sort((r, r1) -> new Integer(r1.width*r1.height).compareTo(r.width*r.height));
         //Chooses a random orientation for each room.
-        rooms.stream().forEach(r -> {
-            r.orientation = R.nextInt(4);
-        });
+        rooms.stream().forEach(r -> r.randomizeOrientation());
         
-        Integer n = 0; //the index of the room
-        int i, width, height; //incrementing variable
-        Integer[][] coords = new Integer[rooms.size()][2];
-        Integer[] pastDim = new Integer[2];
+        int n = 0, bestRoomNum = -1; //the index of the room
+        int i, width, height, placementFailCounter = 0; //incrementing variable
+        int[][] coords = new int[rooms.size()][4], bestSolution = null;
         while(n<rooms.size()){
-            width = rooms.get(n).orientation%2==0 ? rooms.get(n).width : rooms.get(n).height;
-            height = rooms.get(n).orientation%2!=0 ? rooms.get(n).width : rooms.get(n).height;
-            for(i=0;i<ATTEMPT_LIMIT;i++){
-                Integer[] point = generatePoint(width, height);
+            width = rooms.get(n).getOrientedWidth();
+            height = rooms.get(n).getOrientedHeight();
+            
+            for(i=0;i<PLACEMENT_ATTEMPT_LIMIT;i++){
+                int[] point = generatePoint(width, height);
                 if(spaceFree(point, width, height)){
                     mark(point, width, height, n, coords);
-                    pastDim = new Integer[]{width, height};
                     n++;
                     break;
                 }
             }
-            if(i==ATTEMPT_LIMIT){
-                //System.out.println("Unmark: " + n);
-                n--;
-                unmark(coords[n], pastDim[0], pastDim[1], n, coords);
+            if(i==PLACEMENT_ATTEMPT_LIMIT){
+                placementFailCounter++;
+                if(bestRoomNum<n){
+                    bestRoomNum = n;
+                    bestSolution = copy2DArray(coords, n);
+                }
+                if(placementFailCounter>=BACKTRACK_LIMIT){
+                    System.out.println("RandomRoomPlacer cannot place this "
+                            + "many rooms! " + bestRoomNum + "/" + rooms.size() + 
+                            " rooms have been placed.");
+                    PERFORMANCE_LOG.println("RandomRoomPlacer cannot place this "
+                            + "many rooms! " + bestRoomNum + "/" + rooms.size() + 
+                            " rooms have been placed.");
+                    coords = bestSolution;
+                    remarkFromPreviousSolution(coords);
+                    break;
+                }
+                for(int j=0;j<Math.min(placementFailCounter, n);j++){
+                    n--;
+                    unmark(coords[n], coords[n][2], coords[n][3], n, coords);
+                }
             }
         }
         Room r;
-        for(i=0;i<rooms.size();i++){
+        for(i=0;i<coords.length;i++){
             r = rooms.get(i);
             doorGenerator.accept(r);
             area.blitRoom(r, coords[i][0], coords[i][1]);
         }
     }
-
-    protected Integer[] generatePoint(int width, int height){
-        return new Integer[]{R.nextInt((area.graph.map[0].length-width-4)/2)*2+2,
-            R.nextInt((area.graph.map.length-height-4)/2)*2+2};
+    
+    /**
+     * Remarks the positions of all Rooms from a previous solution.
+     * @param c The solution.
+     */
+    private void remarkFromPreviousSolution(int[][] c){
+        area.graph.flushRoomNumbers();
+        for(int n=0;n<c.length;n++){
+            for(int x=c[n][0];x<c[n][0]+c[n][2];x++)
+                for(int y=c[n][1];y<c[n][1]+c[n][3];y++)
+                    area.graph.map[y][x].roomNum = n;
+        }
     }
 
-    protected boolean spaceFree(Integer[] c, int width, int height){
-        for(int x=c[0];x<c[0]+width;x++)
-            if(area.graph.map[c[1]][x].roomNum!=-1||area.graph.map[c[1]+height][x].roomNum!=-1) return false;
-        for(int y=c[1];y<c[1]+height;y++)
-            if(area.graph.map[y][c[0]].roomNum!=-1||area.graph.map[y][c[0]+width].roomNum!=-1) return false;
+    /**
+     * Generates a coordinate for the top left corner of a Room so that it may
+     * fit in the Area.
+     * @param width The width of the Room.
+     * @param height The height of the Room.
+     * @return an int array representing the (x, y) coordinates.
+     */
+    protected int[] generatePoint(int width, int height){
+        return new int[]{
+            R.nextInt((area.graph.map[0].length-width-3)/2)*2+2,
+            R.nextInt((area.graph.map.length-height-3)/2)*2+2};
+    }
+
+    /**
+     * Checks whether the given coordinate can fit in the Area given the 
+     * positions of existing rooms (i.e: checks for room overlap).
+     * @param c The x, y coordinates of the top left of the room.
+     * @param width The width of the Room.
+     * @param height The height of the Room.
+     * @return
+     */
+    protected boolean spaceFree(int[] c, int width, int height){
+        for(int y=c[1];y<c[1]+height;y++){
+            for(int x=c[0];x<c[0]+width;x++){
+                if(area.graph.map[y][x].roomNum!=-1) return false;
+            }
+        }
         return true;
     }
 
-    protected void mark(Integer[] c, int width, int height, Integer n, Integer[][] coords){
-        System.out.println("Marking: " + n + ", " + width + ", " + height);
-        coords[n] = c;
+    /**
+     * Marks the Area's graph with the position of a given Room.
+     * @param c The x, y coordinates of the top left of the room.
+     * @param width The width of the Room.
+     * @param height The height of the Room.
+     * @param n The room number.
+     * @param coords The current coordinates of all Rooms.
+     */
+    protected void mark(int[] c, int width, int height, int n, int[][] coords){
+        //System.out.println("Marking: " + n + ", " + width + ", " + height);
+        coords[n] = new int[]{c[0], c[1], width, height};
         for(int x=c[0];x<c[0]+width;x++)
             for(int y=c[1];y<c[1]+height;y++)
                 area.graph.map[y][x].roomNum = n;
     }
 
-    protected void unmark(Integer[] c, int width, int height, Integer n, Integer[][] coords){
-        System.out.println("Unmarking: " + n + ", " + width + ", " + height);
+    /**
+     * Removes a mark from the Area's graph of the position of a given Room.
+     * @param c The x, y coordinates of the top left of the room.
+     * @param width The width of the Room.
+     * @param height The height of the Room.
+     * @param n The room number.
+     * @param coords The current coordinates of all Rooms.
+     */
+    protected void unmark(int[] c, int width, int height, int n, int[][] coords){
+        //System.out.println("Unmarking: " + n + ", " + width + ", " + height);
         for(int x=c[0];x<c[0]+width;x++)
             for(int y=c[1];y<c[1]+height;y++)
                 area.graph.map[y][x].roomNum = -1;
-        coords[n] = null;
+        coords[n][0] = -1;
     }
     
 }

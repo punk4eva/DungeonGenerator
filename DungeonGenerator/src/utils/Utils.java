@@ -65,6 +65,15 @@ public final class Utils{
         }
     }
     
+    public static int[][] copy2DArray(int[][] ary, int upto){
+        int[][] clone = new int[Math.min(upto, ary.length)][];
+        for(int n=0;n<clone.length;n++){
+            clone[n] = new int[ary[n].length];
+            System.arraycopy(ary[n], 0, clone[n], 0, ary[n].length);
+        }
+        return clone;
+    }
+    
     public static <T> boolean mapContainsArray(List<SimpleEntry<int[], T>> map, int[] ary){
         return map.stream().anyMatch((e) -> (rgbPixelEquals(e.getKey(), ary)));
     }

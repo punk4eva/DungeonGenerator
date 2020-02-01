@@ -1,0 +1,24 @@
+02-01 19:19:43:190: $ java.lang.ArrayIndexOutOfBoundsException: 23
+java.lang.ArrayIndexOutOfBoundsException: 23
+	at generation.rooms.RandomRoomPlacer.generate(RandomRoomPlacer.java:79)
+	at gui.core.Window.main(Window.java:70)
+02-01 19:19:43:190:      ---- CRASH DATA ----
+02-01 19:19:43:190:  -   Current state: LOADING
+02-01 19:19:43:190:  -   Dimensions: 1920, 1080
+02-01 19:19:43:190:  -   Animations: 1
+02-01 19:19:43:190:  -   Particles: 0
+02-01 19:19:43:190:  -   sfxVolume: 0.0
+02-01 19:19:43:190:  -   musicVolume: 0.0
+02-01 19:19:43:190:  -   Calibration panel: null
+02-01 19:19:43:190:       ---- Area ----
+02-01 19:19:43:190:  -    Area width, height: 80, 80
+02-01 19:19:43:190:  -    initialJitter: 71.28850014150765
+02-01 19:19:43:190:  -    jitterJecay: 0.7583833021303067
+02-01 19:19:43:190:  -    amlpitude: 91.24464746615149
+02-01 19:19:43:190:  -    lacunarity: 0.5579968258741222
+02-01 19:19:43:191:  -    persistence: 0.6437010778356055
+02-01 19:19:43:191:  -    octaves: 4
+02-01 19:19:43:191:  -    seed: 5918125625701568315
+02-01 19:19:43:191:       ---- Biome information ----
+02-01 19:19:43:191:  -    Biome: PLAINS
+02-01 19:19:43:191: $    ---- END OF CRASH DATA ----

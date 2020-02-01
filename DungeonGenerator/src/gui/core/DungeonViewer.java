@@ -47,7 +47,7 @@ public class DungeonViewer extends Canvas implements Runnable, Screen{
     private State state = State.LOADING;
     protected Thread runThread;
     protected Window window;
-    protected MouseInterpreter mouse = new MouseInterpreter();
+    protected final MouseInterpreter mouse = new MouseInterpreter();
 
     public final static Animator ANIMATOR = new Animator();
     private static Settings SETTINGS = new Settings();
@@ -106,14 +106,17 @@ public class DungeonViewer extends Canvas implements Runnable, Screen{
     }
     
     @Override
+    @Unfinished("Synchronized block might affect framerate.")
     public void paint(Graphics2D bsg, int frames){
         BufferedImage buffer = new BufferedImage((int)(WIDTH/zoom), (int)(HEIGHT/zoom), BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = (Graphics2D) buffer.getGraphics();
         
-        area.paint(g, focusX, focusY);
-        ANIMATOR.animate(g, focusX, focusY, frames);
-        AffineTransform at = AffineTransform.getScaleInstance(zoom, zoom);
-        bsg.drawRenderedImage(buffer, at);
+        synchronized(mouse){
+            area.paint(g, focusX, focusY);
+            ANIMATOR.animate(g, focusX, focusY, frames);
+            AffineTransform at = AffineTransform.getScaleInstance(zoom, zoom);
+            bsg.drawRenderedImage(buffer, at);
+        }
         gui.render(bsg);
         g.dispose();
     }
@@ -165,6 +168,10 @@ public class DungeonViewer extends Canvas implements Runnable, Screen{
     
     public Area getArea(){
         return area;
+    }
+    
+    public void setTileFocus(int x, int y){
+        mouse.setTileFocus(x, y);
     }
     
 }

@@ -1,0 +1,25 @@
+01-30 20:14:39:706: $ java.lang.NullPointerException: null
+java.lang.NullPointerException
+	at generation.corridors.ConwayCaveGrower.iterate(ConwayCaveGrower.java:80)
+	at generation.corridors.CaveGrower.build(CaveGrower.java:108)
+	at gui.core.Window.main(Window.java:78)
+01-30 20:14:39:706:      ---- CRASH DATA ----
+01-30 20:14:39:706:  -   Current state: LOADING
+01-30 20:14:39:706:  -   Dimensions: 1920, 1080
+01-30 20:14:39:706:  -   Animations: 1
+01-30 20:14:39:706:  -   Particles: 0
+01-30 20:14:39:706:  -   sfxVolume: 0.0
+01-30 20:14:39:707:  -   musicVolume: 0.0
+01-30 20:14:39:707:  -   Calibration panel: null
+01-30 20:14:39:707:       ---- Area ----
+01-30 20:14:39:707:  -    Area width, height: 80, 80
+01-30 20:14:39:707:  -    initialJitter: 65.48156493983254
+01-30 20:14:39:707:  -    jitterJecay: 0.7633861172039956
+01-30 20:14:39:707:  -    amlpitude: 55.165969691490425
+01-30 20:14:39:707:  -    lacunarity: 0.49442760076832165
+01-30 20:14:39:707:  -    persistence: 0.871428933992486
+01-30 20:14:39:707:  -    octaves: 5
+01-30 20:14:39:707:  -    seed: -3891485183198836604
+01-30 20:14:39:707:       ---- Biome information ----
+01-30 20:14:39:707:  -    Biome: PLAINS
+01-30 20:14:39:707: $    ---- END OF CRASH DATA ----

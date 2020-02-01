@@ -17,10 +17,12 @@ package generation.corridors;
 
 import components.Area;
 import components.tiles.Tile;
+import generation.PostCorridorPlacer;
 import graph.Point;
 import graph.Point.*;
 import java.util.function.Function;
 import static utils.Utils.R;
+import utils.Utils.Unfinished;
 
 /**
  * Builds corridors using the spider corridor algorithm:
@@ -30,7 +32,8 @@ import static utils.Utils.R;
  * 3) Decay some walls into floors to widen the corridors.
  * @author Adam Whittaker
  */
-public class SpiderCorridorBuilder extends CorridorBuilder{
+@Unfinished("Perhaps use multiple starting points?")
+public class SpiderCorridorBuilder extends CorridorBuilder implements PostCorridorPlacer{
     
     
     /**
@@ -91,7 +94,7 @@ public class SpiderCorridorBuilder extends CorridorBuilder{
     }
     
     @Override
-    public void build(){
+    public void generate(){
         Point p = getFreePoint();
         floodfill(p);
         if(area.map[p.y-1][p.x-1]==null) area.map[p.y-1][p.x-1] = Tile.genWall(area);

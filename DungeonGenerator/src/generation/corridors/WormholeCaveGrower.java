@@ -2,13 +2,14 @@
 package generation.corridors;
 
 import components.Area;
+import generation.PostCorridorPlacer;
 
 /**
  * This cellular automata fills all of the Area with wall and then erodes
  * connections between the rooms.
  * @author Adam Whittaker
  */
-public class WormholeCaveGrower extends PavedCaveGrower{
+public class WormholeCaveGrower extends PavedCaveGrower implements PostCorridorPlacer{
 
     
     /**
@@ -26,14 +27,8 @@ public class WormholeCaveGrower extends PavedCaveGrower{
 
     
     @Override
-    public void build(){
+    public void generate(){
         initialize();
-    }
-    
-    /**
-     * Builds the corridors and initializes the Area from the graph.
-     */
-    public void buildCorridors(){
         corridorFloodFill(getFreePoint());
         pavePaths();
         for(;iterNum>0;iterNum--) iterate();

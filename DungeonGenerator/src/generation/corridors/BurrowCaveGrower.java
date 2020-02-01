@@ -4,15 +4,14 @@ package generation.corridors;
 import components.Area;
 import components.tiles.SpecialFloor;
 import components.tiles.Tile;
-import graph.Point;
-import graph.Point.Direction;
-import static utils.Utils.R;
+import generation.PostCorridorPlacer;
 
 /**
- * This class uses cellular automata to grow caves in the shape of burrows.
+ * This class uses cellular automata to grow caves in the shape of burrows after
+ * rooms have been placed.
  * @author Adam Whittaker
  */
-public class BurrowCaveGrower extends PavedCaveGrower{
+public class BurrowCaveGrower extends PavedCaveGrower implements PostCorridorPlacer{
     
     
     /**
@@ -40,11 +39,13 @@ public class BurrowCaveGrower extends PavedCaveGrower{
     
     
     /**
-     * Ensures all doors are connected via a pathway.
+     * Runs the algorithm and builds the paths.
      * Assumptions:
-     *      A tile is not part of a room if its roomNum is -1. (1)
+     *      A tile is not part of a room if its roomNum is -1.
      */
-    public void buildCorridors(){
+    @Override
+    public void generate(){
+        super.generate();
         corridorFloodFill(getFreePoint());
         pavePaths();
     }

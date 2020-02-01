@@ -43,6 +43,7 @@ public class PerformanceLog extends PrintStream implements MouseListener, KeyLis
     }
     
     
+    @Override
     public void println(String str){
         super.println(dateFormat.format(new Date()) + str);
     }

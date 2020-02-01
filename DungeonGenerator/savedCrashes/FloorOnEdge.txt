@@ -1,0 +1,26 @@
+01-31 21:13:47:011: $ java.lang.ArrayIndexOutOfBoundsException: 80
+java.lang.ArrayIndexOutOfBoundsException: 80
+	at components.tiles.Water.genShaderCode(Water.java:66)
+	at components.tiles.Water.buildImage(Water.java:51)
+	at components.Area.initializeImages(Area.java:155)
+	at gui.core.Window.main(Window.java:87)
+01-31 21:13:47:012:      ---- CRASH DATA ----
+01-31 21:13:47:012:  -   Current state: LOADING
+01-31 21:13:47:012:  -   Dimensions: 1920, 1080
+01-31 21:13:47:012:  -   Animations: 1
+01-31 21:13:47:012:  -   Particles: 0
+01-31 21:13:47:012:  -   sfxVolume: 0.0
+01-31 21:13:47:012:  -   musicVolume: 0.0
+01-31 21:13:47:012:  -   Calibration panel: null
+01-31 21:13:47:012:       ---- Area ----
+01-31 21:13:47:012:  -    Area width, height: 80, 80
+01-31 21:13:47:012:  -    initialJitter: 65.33916956090737
+01-31 21:13:47:012:  -    jitterJecay: 0.9061034914223396
+01-31 21:13:47:012:  -    amlpitude: 85.34159349871027
+01-31 21:13:47:012:  -    lacunarity: 0.47206080789694893
+01-31 21:13:47:012:  -    persistence: 0.6394303143793652
+01-31 21:13:47:012:  -    octaves: 6
+01-31 21:13:47:012:  -    seed: -5566346405895187024
+01-31 21:13:47:012:       ---- Biome information ----
+01-31 21:13:47:012:  -    Biome: PLAINS
+01-31 21:13:47:012: $    ---- END OF CRASH DATA ----

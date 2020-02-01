@@ -2,6 +2,7 @@
 package generation.corridors;
 
 import components.Area;
+import generation.PostCorridorPlacer;
 import utils.Utils.Unfinished;
 
 /**
@@ -10,7 +11,7 @@ import utils.Utils.Unfinished;
  * @author Adam Whittaker
  */
 @Unfinished("Flesh out with variable search radius.")
-public class RadialCaveGrower extends CaveGrower{
+public class RadialCaveGrower extends CaveGrower implements PostCorridorPlacer{
 
     
     /**

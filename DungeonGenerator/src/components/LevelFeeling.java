@@ -42,7 +42,6 @@ public class LevelFeeling{
      * WallNoise: The noise to use when building a wall image.
      * FloorNoise: The noise to use when building a floor image.
      * WaterBeforeGrass: Whether to generate water before grass.
-     * AlternateTiles: Whether to preserve artefacts for the tile noise.
      * InitialJitter: The distribution for initial jitter for midpoint noise.
      * JitterDecay: The distribution for jitter decay for midpoint noise.
      * Amplitude: The distribution for amplitude for Perlin noise.
@@ -56,7 +55,7 @@ public class LevelFeeling{
             doorTrapChance, floorTrapChance, wallTrapChance;
     public final List<Room> forcedRooms;
     public final NoiseType wallNoiseType, floorNoiseType;
-    public final boolean waterBeforeGrass, alternateWallTiles, alternateFloorTiles;
+    public final boolean waterBeforeGrass;
     public final GaussProbability initialJitter, jitterDecay, amplitude, 
             lacunarity, persistence;
     
@@ -81,8 +80,6 @@ public class LevelFeeling{
      * @param wNoise
      * @param fNoise
      * @param wBeforeG
-     * @param altWT
-     * @param altFT
      * @param iJ
      * @param jD
      * @param amp
@@ -95,7 +92,7 @@ public class LevelFeeling{
             double wC, double gC, double guc, double wallCh, 
             double floorCh, double dhc, double doorTrap, double floorTrap, 
             double wallTrap, NoiseType wNoise, NoiseType fNoise, 
-            boolean wBeforeG, boolean altWT, boolean altFT, GaussProbability iJ, GaussProbability jD,
+            boolean wBeforeG, GaussProbability iJ, GaussProbability jD,
             GaussProbability amp, GaussProbability lac, GaussProbability per, 
             List<Room>... fRooms){
         description = desc;
@@ -106,8 +103,6 @@ public class LevelFeeling{
         initialJitter = iJ;
         jitterDecay = jD;
         amplitude = amp;
-        alternateWallTiles = altWT;
-        alternateFloorTiles = altFT;
         octaves = oct;
         wallDecoChance = wallCh;
         floorDecoChance = floorCh;
@@ -128,11 +123,11 @@ public class LevelFeeling{
     
     
     public static final LevelFeeling DEFAULT_FEELING = new LevelFeeling("Default", null, null, null, new Distribution(new int[]{2,3,4,5,6}, new double[]{1,3,5,3,2}), 
-            0.1, 0.05, 0.5, 0.03, 0.03, 0.5, 0.04, 0.03, 0.01, NoiseType.MIDPOINT, NoiseType.PERLIN, true, false, false,
+            0.1, 0.05, 0.5, 0.03, 0.03, 0.5, 0.04, 0.03, 0.01, NoiseType.PERLIN, NoiseType.TILE, true, 
             new GaussProbability(80, 25), new GaussProbability(0.65, 0.25), new GaussProbability(80, 25), new GaussProbability(0.5, 0.2), new GaussProbability(0.8, 0.2));
     
     public static final LevelFeeling CAVE_FEELING = new LevelFeeling("Cave", null, null, null, new Distribution(new int[]{2,3,4,5,6}, new double[]{1,3,5,3,2}), 
-            0.1, 0.05, 0.5, 0.03, 0.03, 0.5, 0.04, 0.03, 0.01, NoiseType.MIDPOINT, NoiseType.MIDPOINT, true, true, true,
+            0.1, 0.05, 0.5, 0.03, 0.03, 0.5, 0.04, 0.03, 0.01, NoiseType.MIDPOINT, NoiseType.MIDPOINT, true, 
             new GaussProbability(90, 25), new GaussProbability(0.8, 0.1), new GaussProbability(80, 25), new GaussProbability(0.5, 0.2), new GaussProbability(0.8, 0.2));
     
 }

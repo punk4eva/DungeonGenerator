@@ -89,21 +89,21 @@ public class AreaInfo implements Serializable{
         wallNoise = new double[height*16][width*16];
         floorNoise = new double[height*16][width*16];
         System.out.println("Amp: " + amplitude + " Oc: " + octaves + "  L: " + lacunarity + 
-                " P: " + persistence + "\niJ: " + initialJitter + " jD: " + jitterDecay + " alt: " + feeling.alternateWallTiles);
+                " P: " + persistence + "\niJ: " + initialJitter + " jD: " + jitterDecay);
         switch(feeling.wallNoiseType){
-            case MIDPOINT: new MidpointDisplacmentNoise(125, initialJitter, jitterDecay, 255, false, false).apply(wallNoise);
+            case MIDPOINT: new MidpointDisplacmentNoise(125, initialJitter, jitterDecay, 255, false).apply(wallNoise);
                 break;
             case PERLIN: new PerlinNoiseGenerator(width*16, height*16, amplitude, octaves, lacunarity, persistence).apply(wallNoise);
                 break;
-            case TILE: new MidpointDisplacmentNoise(125, initialJitter, jitterDecay, 255, feeling.alternateWallTiles, true).apply(wallNoise);
+            case TILE: new MidpointDisplacmentNoise(125, initialJitter, jitterDecay, 255, true).apply(wallNoise);
                 break;
         }
         switch(feeling.floorNoiseType){
-            case MIDPOINT: new MidpointDisplacmentNoise(125, initialJitter, jitterDecay, 255, false, false).apply(floorNoise);
+            case MIDPOINT: new MidpointDisplacmentNoise(125, initialJitter, jitterDecay, 255, false).apply(floorNoise);
                 break;
             case PERLIN: new PerlinNoiseGenerator(width*16, height*16, amplitude, octaves, lacunarity, persistence).apply(floorNoise);
                 break;
-            case TILE: new MidpointDisplacmentNoise(125, initialJitter, jitterDecay, 255, feeling.alternateFloorTiles, true).apply(floorNoise);
+            case TILE: new MidpointDisplacmentNoise(125, initialJitter, jitterDecay, 255, true).apply(floorNoise);
                 break;
         }
         

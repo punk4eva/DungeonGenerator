@@ -1,0 +1,24 @@
+02-01 18:40:25:403: $ java.lang.NullPointerException: null
+java.lang.NullPointerException
+	at generation.rooms.RandomRoomPlacer.generate(RandomRoomPlacer.java:73)
+	at gui.core.Window.main(Window.java:70)
+02-01 18:40:25:403:      ---- CRASH DATA ----
+02-01 18:40:25:403:  -   Current state: LOADING
+02-01 18:40:25:403:  -   Dimensions: 1920, 1080
+02-01 18:40:25:403:  -   Animations: 1
+02-01 18:40:25:403:  -   Particles: 0
+02-01 18:40:25:404:  -   sfxVolume: 0.0
+02-01 18:40:25:404:  -   musicVolume: 0.0
+02-01 18:40:25:404:  -   Calibration panel: null
+02-01 18:40:25:404:       ---- Area ----
+02-01 18:40:25:404:  -    Area width, height: 80, 80
+02-01 18:40:25:404:  -    initialJitter: 118.32937712034743
+02-01 18:40:25:404:  -    jitterJecay: 0.7520990850927334
+02-01 18:40:25:404:  -    amlpitude: 88.95061830393821
+02-01 18:40:25:404:  -    lacunarity: 0.3832307499400926
+02-01 18:40:25:404:  -    persistence: 0.9861046919642895
+02-01 18:40:25:404:  -    octaves: 4
+02-01 18:40:25:404:  -    seed: -7120577786436116888
+02-01 18:40:25:404:       ---- Biome information ----
+02-01 18:40:25:404:  -    Biome: PLAINS
+02-01 18:40:25:404: $    ---- END OF CRASH DATA ----

@@ -15,6 +15,7 @@
  */
 package generation.corridors;
 
+import generation.PreCorridorPlacer;
 import components.Area;
 
 /**
@@ -23,7 +24,7 @@ import components.Area;
  * and that rooms will be generated after the cave (if they will at all).
  * @author punk4eva
  */
-public class ConwayCaveGrower extends CaveGrower{
+public class ConwayCaveGrower extends CaveGrower implements PreCorridorPlacer{
     
     
     /**

@@ -37,8 +37,9 @@ public abstract class CaveGrower extends Searcher{
     
     
     /**
-     * Iterates through every cell in the Area and initializes them to "dead" or
+     * Iterates through every non-room cell in the Area and initializes them to "dead" or
      * "alive" based on the startAliveChance.
+     * Assumptions: A tile's roomNum is -1 if it is not part of a room.
      */
     protected void initialize(){
         for(int x=1;x<area.info.width-1;x++) 
@@ -103,7 +104,7 @@ public abstract class CaveGrower extends Searcher{
     /**
      * Runs the cellular automata and generates an Area.
      */
-    public void build(){
+    public void generate(){
         initialize();
         for(;iterNum>0;iterNum--) iterate();
         convertGraphToArea();
