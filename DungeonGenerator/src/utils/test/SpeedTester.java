@@ -1,6 +1,7 @@
 
 package utils.test;
 
+import static gui.core.Window.VIEWER;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.LinkedList;
 import static utils.Utils.PERFORMANCE_LOG;
@@ -45,6 +46,7 @@ public class SpeedTester{
     private void dualPrint(String message){
         System.out.println(message);
         PERFORMANCE_LOG.println(message);
+        VIEWER.setLoadingMessage(message);
     }
     
 }

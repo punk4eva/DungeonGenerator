@@ -148,4 +148,12 @@ public class DungeonViewer extends Canvas implements Runnable{
         return DUNGEON_SCREEN.getArea();
     }
     
+    /**
+     * Sets the loading screen message.
+     * @param str
+     */
+    public void setLoadingMessage(String str){
+        LOADING_SCREEN.setMessage(str);
+    }
+    
 }

@@ -4,6 +4,8 @@ package gui.pages;
 import static gui.core.DungeonViewer.HEIGHT;
 import static gui.core.DungeonViewer.WIDTH;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
@@ -19,6 +21,7 @@ public class LoadingScreen implements Screen{
      * CIRCLE_DIAMETER: The diameter of the loading circle.
      * CIRCLE_WIDTH: The width of the loading circle's line.
      * CIRCLE_COLOR: The color of the loading circle.
+     * LOADING_TEXT_FONT: The font of the loading message.
      * ANGULAR_VELOCITY: The angular velocity of the negative space within the
      * loading circle.
      * RECTANGLE_HEIGHT: The height of the negative space rectangle.
@@ -29,6 +32,7 @@ public class LoadingScreen implements Screen{
     private final static int CIRCLE_DIAMETER = 112, CIRCLE_WIDTH = 8;
     private final static Color BACKGROUND_COLOR = Color.BLACK, 
             CIRCLE_COLOR = Color.WHITE;
+    private final static Font LOADING_TEXT_FONT = new Font(Font.MONOSPACED, Font.BOLD, 36);
     
     private final static double ANGULAR_VELOCITY = 0.04;
     private final static int RECTANGLE_HEIGHT = CIRCLE_WIDTH*3;
@@ -37,6 +41,7 @@ public class LoadingScreen implements Screen{
             CIRCLE_DIAMETER, RECTANGLE_HEIGHT);
     
     private final AffineTransform rotation = new AffineTransform();
+    private String message = "Loading";
 
     
     @Override
@@ -54,6 +59,11 @@ public class LoadingScreen implements Screen{
                 CIRCLE_DIAMETER - 2*CIRCLE_WIDTH, 
                 CIRCLE_DIAMETER - 2*CIRCLE_WIDTH);
         g.fill(rotation.createTransformedShape(RECTANGLE));
+        
+        g.setFont(LOADING_TEXT_FONT);
+        g.setColor(CIRCLE_COLOR);
+        FontMetrics f = g.getFontMetrics();
+        g.drawString(message, (WIDTH - f.stringWidth(message))/2, 5*HEIGHT/6 + f.getDescent());
     }
     
     /**
@@ -62,6 +72,14 @@ public class LoadingScreen implements Screen{
      */
     private void updateAngle(int frames){
         rotation.rotate(ANGULAR_VELOCITY * frames, WIDTH/2, HEIGHT/2);
+    }
+    
+    /**
+     * Sets the message currently being displayed on the loading screen.
+     * @param str The message.
+     */
+    public void setMessage(String str){
+        message = str;
     }
 
 }
