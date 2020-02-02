@@ -3,6 +3,7 @@ package components.rooms;
 
 import components.Area;
 import components.tiles.Door;
+import components.tiles.PassageTile;
 import utils.Utils.Unfinished;
 
 /**
@@ -18,18 +19,19 @@ public class PlainLockedRoom extends PlainRoom{
      * @param h The height
      */
     public PlainLockedRoom(int w, int h){
-        this("Plain locked room", w, h);
+        this(DoorStyle.ONE, "Plain locked room", w, h);
         assertDimensions(w, h, 5, 5);
     }
     
     /**
      * Creates a new instance.
+     * @param ds The type of door placement.
      * @param name The name of the Room.
      * @param w The width
      * @param h The height
      */
-    public PlainLockedRoom(String name, int w, int h){
-        super(name, w, h);
+    public PlainLockedRoom(DoorStyle ds, String name, int w, int h){
+        super(ds, name, w, h);
     }
     
     
@@ -51,9 +53,8 @@ public class PlainLockedRoom extends PlainRoom{
     }
     
     @Override
-    protected void addDoors(Area area, int numDoors){
-        ensureGenerated(area);
-        map[height-1][width/2] = new Door(null, null, true, true);
+    public PassageTile getEntrance(Area area){
+        return new Door(null, null, true, true);
     }
 
 }

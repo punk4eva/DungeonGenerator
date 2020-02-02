@@ -1,0 +1,25 @@
+02-02 18:14:35:493: $ java.lang.NullPointerException: null
+java.lang.NullPointerException
+	at generation.rooms.GreedyGoblinPlacer.placeRoom(GreedyGoblinPlacer.java:185)
+	at generation.rooms.GreedyGoblinPlacer.generate(GreedyGoblinPlacer.java:63)
+	at gui.core.Window.main(Window.java:73)
+02-02 18:14:35:493:      ---- CRASH DATA ----
+02-02 18:14:35:493:  -   Current state: LOADING
+02-02 18:14:35:493:  -   Dimensions: 1920, 1080
+02-02 18:14:35:493:  -   Animations: 0
+02-02 18:14:35:493:  -   Particles: 0
+02-02 18:14:35:493:  -   sfxVolume: 0.0
+02-02 18:14:35:493:  -   musicVolume: 0.0
+02-02 18:14:35:493:  -   Calibration panel: null
+02-02 18:14:35:493:       ---- Area ----
+02-02 18:14:35:493:  -    Area width, height: 80, 80
+02-02 18:14:35:494:  -    initialJitter: 27.925328501016537
+02-02 18:14:35:494:  -    jitterJecay: 0.7282291347592413
+02-02 18:14:35:494:  -    amlpitude: 102.63750775563972
+02-02 18:14:35:494:  -    lacunarity: 0.4188336019636311
+02-02 18:14:35:494:  -    persistence: 0.8913619932108903
+02-02 18:14:35:494:  -    octaves: 5
+02-02 18:14:35:494:  -    seed: 4754523926089412224
+02-02 18:14:35:494:       ---- Biome information ----
+02-02 18:14:35:494:  -    Biome: PLAINS
+02-02 18:14:35:494: $    ---- END OF CRASH DATA ----

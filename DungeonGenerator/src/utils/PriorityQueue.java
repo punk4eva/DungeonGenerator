@@ -15,8 +15,12 @@ import java.util.function.Function;
  * Auto-sorts elements as they are added using itself as a comparator.
  */
 public class PriorityQueue<T extends Object> extends LinkedList<T> implements Comparator<T>{
+
+    
+    private static final long serialVersionUID = 1543L;
     
     private Function<T, Double> enumerator;
+    
     
     /**
      * Creates a new instance.
@@ -37,6 +41,7 @@ public class PriorityQueue<T extends Object> extends LinkedList<T> implements Co
         enumerator = en;
         sort();
     }
+    
     
     /**
      * Creates an instance.

@@ -2,6 +2,7 @@
 package components.rooms;
 
 import components.Area;
+import components.tiles.PassageTile;
 import components.tiles.Tile;
 import utils.Utils.Unfinished;
 
@@ -14,22 +15,23 @@ public class PlainRoom extends Room{
     
     /**
      * Creates a new instance with a default name.
-     * @param w
-     * @param h
+     * @param w The width.
+     * @param h The height.
      */
     public PlainRoom(int w, int h){
-        super("Plain Room", w, h);
+        super(DoorStyle.ANY, "Plain Room", w, h);
         assertDimensions(w, h, 5, 5);
     }
     
     /**
      * Creates a new instance.
+     * @param ds The style of door placement.
      * @param name The name of the Room.
-     * @param w
-     * @param h
+     * @param w The width.
+     * @param h The height.
      */
-    protected PlainRoom(String name, int w, int h){
-        super(name, w, h);
+    protected PlainRoom(DoorStyle ds, String name, int w, int h){
+        super(ds, name, w, h);
     }
     
     
@@ -68,6 +70,11 @@ public class PlainRoom extends Room{
     @Unfinished
     protected void plopItems(Area area){
         throw new UnsupportedOperationException("@Unfinished");
+    }
+
+    @Override
+    public PassageTile getEntrance(Area area){
+        return Tile.genDoor(area, true);
     }
 
 }

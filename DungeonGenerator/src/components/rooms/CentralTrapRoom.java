@@ -13,7 +13,7 @@ public class CentralTrapRoom extends PlainRoom{
     
     
     public CentralTrapRoom(int w, int h){
-        super("central trap room", w, h);
+        super(DoorStyle.ANY, "central trap room", w, h);
         assertDimensions(w, h, 7, 7);
     }
     

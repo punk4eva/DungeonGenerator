@@ -19,7 +19,7 @@ public class Laboratory extends PlainLockedRoom{
      * @param h
      */
     public Laboratory(int w, int h){
-        super("Laboratory", w, h);
+        super(DoorStyle.SOUTH, "Laboratory", w, h);
         assertDimensions(w, h, 6, 6);
     }
     

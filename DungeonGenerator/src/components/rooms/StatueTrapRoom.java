@@ -24,7 +24,7 @@ public class StatueTrapRoom extends PlainLockedRoom{
      * @param h
      */
     public StatueTrapRoom(int w, int h){
-        super("Statue trap room", w, h);
+        super(DoorStyle.SOUTH, "Statue trap room", w, h);
         assertDimensions(w, h, 7, 9);
     }
     

@@ -69,7 +69,8 @@ public class Window{
             LinkedList<Room> list = new LinkedList<>();
             for(int n=0;n<30;n++) list.add(SCREEN.getArea().info.architecture.biome.roomSelector.select(7+2*R.nextInt(4), 7+2*R.nextInt(4)));
             //BurrowCaveGrower grower = new BurrowCaveGrower(viewer.area, 0.3, 2, 9, 4, 5, 20, true);
-            new RandomRoomPlacer(SCREEN.getArea(), list, r -> r.addDoorsSparcely(SCREEN.getArea())).generate();
+            //new RandomRoomPlacer(SCREEN.getArea(), list, r -> r.addDoorsSparcely(SCREEN.getArea())).generate();
+            new GreedyGoblinPlacer(SCREEN.getArea(), 5, list, wall -> R.nextDouble(), AbstractRoomPlacer::roomSizeComparator).generate();
             SCREEN.getArea().refreshGraph();
             SPEED_TESTER.test("Rooms placed");
             //new SpiderCorridorBuilder(viewer.area, 3, 4, CorridorBuilder.gaussianKernel(new Point(40, 79), 120, 24)).build();
@@ -78,8 +79,8 @@ public class Window{
             //new DenseFractalRoomPlacer(viewer.area, 0).generate();
             //CaveGrower grower = new RadialCaveGrower(viewer.area, 0.48, 8);
             //CaveGrower grower = new ConwayCaveGrower(viewer.area, 0.42, 8,  2, 9,  5, 8);
-            WormholeCaveGrower grower = new WormholeCaveGrower(SCREEN.getArea(), 7, 3, 1.0);
-            grower.generate();
+            //WormholeCaveGrower grower = new WormholeCaveGrower(SCREEN.getArea(), 7, 3, 1.0);
+            //grower.generate();
 
             SCREEN.getArea().growGrass();
             SCREEN.getArea().spillWater();

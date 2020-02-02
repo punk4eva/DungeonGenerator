@@ -18,7 +18,7 @@ public class Library extends PlainRoom{
      * @param h
      */
     public Library(int w, int h){
-        super("Library", w, h);
+        super(DoorStyle.ANY, "Library", w, h);
         assertDimensions(w, h, 7, 7);
     }
 

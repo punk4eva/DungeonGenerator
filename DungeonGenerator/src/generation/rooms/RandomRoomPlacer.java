@@ -1,7 +1,6 @@
 
 package generation.rooms;
 
-import generation.RoomPlacer;
 import components.Area;
 import components.rooms.Room;
 import static utils.Utils.copy2DArray;
@@ -15,16 +14,14 @@ import static utils.Utils.R;
  * Rooms, the generator tries to find a better solutions
  * @author Adam Whittaker
  */
-public class RandomRoomPlacer implements RoomPlacer{
+public class RandomRoomPlacer extends AbstractRoomPlacer{
 
     
     /**
      * rooms: The list of Rooms that needs to be placed.
-     * area: The target area.
      * doorGenerator: The function that adds doors to a room.
      */
     private final LinkedList<Room> rooms;
-    private final Area area;
     private final Consumer<Room> doorGenerator;
     
     /**
@@ -42,7 +39,7 @@ public class RandomRoomPlacer implements RoomPlacer{
      * @param doorGen The function that adds doors to a room.
      */
     public RandomRoomPlacer(Area a, LinkedList<Room> r, Consumer<Room> doorGen){
-        area = a;
+        super(a);
         rooms = r;
         doorGenerator = doorGen;
     }
@@ -50,21 +47,21 @@ public class RandomRoomPlacer implements RoomPlacer{
     
     @Override
     public void generate(){
-        //sorts rooms based on area
-        rooms.sort((r, r1) -> new Integer(r1.width*r1.height).compareTo(r.width*r.height));
         //Chooses a random orientation for each room.
         rooms.stream().forEach(r -> r.randomizeOrientation());
+        //sorts rooms based on area
+        rooms.sort(AbstractRoomPlacer::roomSizeComparator);
         
         int n = 0, bestRoomNum = -1; //the index of the room
         int i, width, height, placementFailCounter = 0; //incrementing variable
         int[][] coords = new int[rooms.size()][4], bestSolution = null;
         while(n<rooms.size()){
-            width = rooms.get(n).getOrientedWidth();
-            height = rooms.get(n).getOrientedHeight();
+            width = rooms.get(n).getWidth();
+            height = rooms.get(n).getHeight();
             
             for(i=0;i<PLACEMENT_ATTEMPT_LIMIT;i++){
                 int[] point = generatePoint(width, height);
-                if(spaceFree(point, width, height)){
+                if(spaceFree(point[0], point[1], width, height)){
                     mark(point, width, height, n, coords);
                     n++;
                     break;
@@ -128,23 +125,6 @@ public class RandomRoomPlacer implements RoomPlacer{
     }
 
     /**
-     * Checks whether the given coordinate can fit in the Area given the 
-     * positions of existing rooms (i.e: checks for room overlap).
-     * @param c The x, y coordinates of the top left of the room.
-     * @param width The width of the Room.
-     * @param height The height of the Room.
-     * @return
-     */
-    protected boolean spaceFree(int[] c, int width, int height){
-        for(int y=c[1];y<c[1]+height;y++){
-            for(int x=c[0];x<c[0]+width;x++){
-                if(area.graph.map[y][x].roomNum!=-1) return false;
-            }
-        }
-        return true;
-    }
-
-    /**
      * Marks the Area's graph with the position of a given Room.
      * @param c The x, y coordinates of the top left of the room.
      * @param width The width of the Room.
@@ -153,11 +133,8 @@ public class RandomRoomPlacer implements RoomPlacer{
      * @param coords The current coordinates of all Rooms.
      */
     protected void mark(int[] c, int width, int height, int n, int[][] coords){
-        //System.out.println("Marking: " + n + ", " + width + ", " + height);
         coords[n] = new int[]{c[0], c[1], width, height};
-        for(int x=c[0];x<c[0]+width;x++)
-            for(int y=c[1];y<c[1]+height;y++)
-                area.graph.map[y][x].roomNum = n;
+        mark(c[0], c[1], width, height, n);
     }
 
     /**
@@ -169,7 +146,6 @@ public class RandomRoomPlacer implements RoomPlacer{
      * @param coords The current coordinates of all Rooms.
      */
     protected void unmark(int[] c, int width, int height, int n, int[][] coords){
-        //System.out.println("Unmarking: " + n + ", " + width + ", " + height);
         for(int x=c[0];x<c[0]+width;x++)
             for(int y=c[1];y<c[1]+height;y++)
                 area.graph.map[y][x].roomNum = -1;

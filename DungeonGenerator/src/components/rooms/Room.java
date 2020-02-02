@@ -2,6 +2,7 @@
 package components.rooms;
 
 import components.Area;
+import components.tiles.PassageTile;
 import components.tiles.Tile;
 import graph.Point.Type;
 import utils.Distribution;
@@ -9,12 +10,18 @@ import static utils.Utils.R;
 import static utils.Utils.PERFORMANCE_LOG;
 
 /**
- *
- * @author Adam Whittaker
- * 
  * This class represents a room in the dungeon.
+ * @author Adam Whittaker
  */
 public abstract class Room{
+    
+    
+    /**
+     * The possible styles of door placement.
+     */
+    public enum DoorStyle{
+        ANY, ONE, SOUTH;
+    }
     
 
     /**
@@ -28,20 +35,23 @@ public abstract class Room{
     public int x, y;
     public final String name;
     public String description;
-    public final int width, height;
+    protected final int width, height;
     public int orientation;
     private boolean generated = false, itemsPlopped = false;
     public final Tile[][] map;
+    public final DoorStyle doorStyle;
     
     
     /**
      * Creates a new instance.
-     * @param n
-     * @param w
-     * @param h
+     * @param dS The style of doors.
+     * @param n The name
+     * @param w The width
+     * @param h The height
      */
-    public Room(String n, int w, int h){
+    public Room(DoorStyle dS, String n, int w, int h){
         name = n;
+        doorStyle = dS;
         width = w;
         height = h;
         map = new Tile[height][width];
@@ -82,6 +92,8 @@ public abstract class Room{
      * @param area
      */
     protected abstract void plopItems(Area area);
+    
+    public abstract PassageTile getEntrance(Area area);
     
     
     /**
@@ -134,7 +146,7 @@ public abstract class Room{
                         ((x!=0&&x!=width-1)||(!map[y+1][x].equals(Type.DOOR)&&!map[y-1][x].equals(Type.DOOR)))
                 ){
                     numDoors--;
-                    map[y][x] = Tile.genDoor(area, true);
+                    map[y][x] = getEntrance(area);
                 }else failed++;
             }
         }
@@ -148,7 +160,7 @@ public abstract class Room{
      * Returns the effective width of the room given its orientation.
      * @return
      */
-    public int getOrientedWidth(){
+    public int getWidth(){
         return orientation%2==0 ? width : height;
     }
     
@@ -156,7 +168,7 @@ public abstract class Room{
      * Returns the effective height of the room given its orientation.
      * @return
      */
-    public int getOrientedHeight(){
+    public int getHeight(){
         return orientation%2==0 ? height : width;
     }
     

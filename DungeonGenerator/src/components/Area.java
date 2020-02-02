@@ -17,7 +17,6 @@ import static gui.core.MouseInterpreter.zoom;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import static utils.Utils.R;
-import static utils.Utils.SPEED_TESTER;
 import utils.Utils.ThreadUsed;
 
 /**
@@ -118,7 +117,12 @@ public class Area{
     public void blitRoom(Room r, int x1, int y1){
         r.setCoords(x1, y1);
         r.ensureGenerated(this);
-        int o = getApparentOrientation(r), w = r.width, h = r.height;
+        int o = getApparentOrientation(r), w = r.getWidth(), h = r.getHeight();
+        if(r.orientation%2!=0){
+            int temp = w;
+            w = h;
+            h = temp;
+        }
         for(int y=0;y<h;y++) for(int x=0;x<w;x++)
             map[yOrient(o,x,y,w,h)+y1][xOrient(o,x,y,w,h)+x1] = r.map[y][x];
     }
