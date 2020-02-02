@@ -6,6 +6,7 @@
 
 package utils;
 
+import utils.test.PerformanceLog;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.AbstractMap.SimpleEntry;
@@ -95,10 +96,6 @@ public final class Utils{
         LinkedList<Room> list = new LinkedList<>();
         for(int n=0;n<20;n++) list.add(getRandomRoom());
         new RoomPlacer(area, list).generate();*/
-        
-        double map[][] = new double[528][528];
-        new PerlinNoiseGenerator(528, 528,  60, 8,  0.5, 0.5).apply(map);
-        Graph.makeWrappingPNG(map, "saves/map.png");
         
     }
     

@@ -1,12 +1,13 @@
 
-package utils;
+package utils.test;
 
-import static gui.core.DungeonViewer.ANIMATOR;
 import static gui.core.DungeonViewer.HEIGHT;
 import static gui.core.DungeonViewer.WIDTH;
 import gui.core.MouseInterpreter;
 import gui.core.Window;
+import static gui.core.Window.SCREEN;
 import static gui.core.Window.VIEWER;
+import static gui.pages.DungeonScreen.ANIMATOR;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -63,7 +64,7 @@ public class PerformanceLog extends PrintStream implements MouseListener, KeyLis
         println(" -   Particles: " + ANIMATOR.getParticleNum());
         println(" -   sfxVolume: " + Window.sfxVolume);
         println(" -   musicVolume: " + Window.musicVolume);
-        println(" -   Calibration panel: " + VIEWER.getCalibrationPanelName());
+        println(" -   Calibration panel: " + SCREEN.getCalibrationPanelName());
         if(VIEWER.getArea()!=null){
             VIEWER.getArea().info.printInfo();
             VIEWER.getArea().info.architecture.biome.printInfo();
@@ -87,16 +88,16 @@ public class PerformanceLog extends PrintStream implements MouseListener, KeyLis
         try (
             BufferedReader in = new BufferedReader(
                 new FileReader(new File("log/performance.txt")));
-            PrintStream out = new PrintStream(new File(fileName))){
+            PrintStream outStream = new PrintStream(new File(fileName))){
             
             boolean printing = false;
             for(String line : in.lines().collect(Collectors.toList())){
                 if(printing){
-                    out.println(line);
+                    outStream.println(line);
                     if(line.contains("$")) return;
                 }else if(line.contains("$")){
                     printing = true;
-                    out.println(line);
+                    outStream.println(line);
                 }
             }
         }catch(IOException ex){

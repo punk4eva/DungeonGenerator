@@ -5,12 +5,10 @@ import java.awt.Graphics2D;
 import java.util.LinkedList;
 
 /**
- *
- * @author Adam Whittaker
- * 
  * A simple hub class which encapsulates the list of all current Animations and
  * protects them from thread concurrency issues, as well as animating them from
  * a central point.
+ * @author Adam Whittaker
  */
 public class Animator{
     
@@ -25,6 +23,7 @@ public class Animator{
     private volatile boolean animatingParticles = true;
     {
         animations.add(particles);
+        setAnimatingParticles(false);
     }
 
     

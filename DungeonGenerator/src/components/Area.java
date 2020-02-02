@@ -10,13 +10,14 @@ import components.tiles.Water;
 import graph.Graph;
 import graph.Point;
 import graph.Point.Type;
-import static gui.core.DungeonViewer.ANIMATOR;
+import static gui.pages.DungeonScreen.ANIMATOR;
 import static gui.core.DungeonViewer.HEIGHT;
 import static gui.core.DungeonViewer.WIDTH;
 import static gui.core.MouseInterpreter.zoom;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import static utils.Utils.R;
+import static utils.Utils.SPEED_TESTER;
 import utils.Utils.ThreadUsed;
 
 /**

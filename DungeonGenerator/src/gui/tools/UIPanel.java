@@ -2,9 +2,9 @@
 package gui.tools;
 
 import animation.Animation;
-import static gui.core.DungeonViewer.ANIMATOR;
 import static gui.core.DungeonViewer.HEIGHT;
 import static gui.core.DungeonViewer.WIDTH;
+import static gui.pages.DungeonScreen.ANIMATOR;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -45,6 +45,16 @@ public class UIPanel extends MouseAdapter{
         for(Button b : buttons) b.setXY(b.x + plus, b.y);
     }
     
+    private void snap(int _x){
+        int change = _x - x;
+        x = _x;
+        for(Button b : buttons) b.setXY(b.x + change, b.y);
+    }
+    
+    private int getX(){
+        return x;
+    }
+    
     @Override
     public void mouseClicked(MouseEvent me){
         for(Button b : buttons) b.testClick(me.getX(), me.getY());
@@ -82,16 +92,18 @@ public class UIPanel extends MouseAdapter{
             ANIMATOR.add(new Animation(){
                     
                 int duration = dur;
+                int target = getX() + (int)(Math.signum(plus))*dur;
 
                 @Override
                 public void animate(Graphics2D g, int focusX, int focusY, int frames){
                     if(duration>0){
                         duration-=frames*MINIMIZE_SPEED;
                         if(duration>0) moveX(plus*frames);
-                        else moveX(plus*(frames+duration));
+                        //else moveX(-(int)(duration*Math.signum(plus)));
                     }else{
                         done = true;
                         moving = false;
+                        snap(target);
                     }
                 }
 

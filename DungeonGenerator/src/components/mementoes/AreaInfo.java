@@ -7,8 +7,8 @@ import generation.noise.PerlinNoiseGenerator;
 import generation.noise.MidpointDisplacmentNoise;
 import components.tiles.Tile;
 import graph.Point.Type;
-import gui.core.DungeonViewer;
 import gui.core.Settings;
+import gui.pages.DungeonScreen;
 import java.awt.Color;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -16,6 +16,7 @@ import java.io.Serializable;
 import static utils.Utils.R;
 import utils.Utils.Unfinished;
 import static utils.Utils.PERFORMANCE_LOG;
+import static utils.Utils.SPEED_TESTER;
 
 /**
  *
@@ -27,10 +28,10 @@ public class AreaInfo implements Serializable{
     
     private static final long serialVersionUID = 42748394236345L;
 
-    private final long seed;
     
     /**
      * The elemental fields that need to be retained upon saving on the Area.
+     * seed: The seed of the randomizer.
      * width, height: The dimensions of the Area.
      * initialJitter: The initial noise amplitude for midpoint displacement.
      * jitterDecay: The persistence of noise amplitude for midpoint displacement.
@@ -42,6 +43,8 @@ public class AreaInfo implements Serializable{
      * grassColor, waterColor: The average color of grass and water.
      * architecture: The information about which material tiles are made of.
      */
+    private final long seed;
+    
     public final int width, height;
     private final double initialJitter, jitterDecay, 
             amplitude, lacunarity, persistence;
@@ -78,7 +81,9 @@ public class AreaInfo implements Serializable{
         grassColor = Color.decode("#16560d");
         waterColor = Color.decode("#0f7e9c").darker();
         initializeNoise();
+        SPEED_TESTER.test("Water image created");
         architecture = new ArchitectureInfo(this, f);
+        SPEED_TESTER.test("Architechture created");
     }
     
     /**
@@ -88,8 +93,9 @@ public class AreaInfo implements Serializable{
         R.setSeed(seed);
         wallNoise = new double[height*16][width*16];
         floorNoise = new double[height*16][width*16];
-        System.out.println("Amp: " + amplitude + " Oc: " + octaves + "  L: " + lacunarity + 
-                " P: " + persistence + "\niJ: " + initialJitter + " jD: " + jitterDecay);
+        /*System.out.println("Amp: " + amplitude + " Oc: " + octaves + "  L: " + lacunarity + 
+                " P: " + persistence + "\niJ: " + initialJitter + " jD: " + jitterDecay);*/
+        SPEED_TESTER.test("Area information initialized");
         switch(feeling.wallNoiseType){
             case MIDPOINT: new MidpointDisplacmentNoise(125, initialJitter, jitterDecay, 255, false).apply(wallNoise);
                 break;
@@ -98,6 +104,7 @@ public class AreaInfo implements Serializable{
             case TILE: new MidpointDisplacmentNoise(125, initialJitter, jitterDecay, 255, true).apply(wallNoise);
                 break;
         }
+        SPEED_TESTER.test("Wall noise created");
         switch(feeling.floorNoiseType){
             case MIDPOINT: new MidpointDisplacmentNoise(125, initialJitter, jitterDecay, 255, false).apply(floorNoise);
                 break;
@@ -106,7 +113,7 @@ public class AreaInfo implements Serializable{
             case TILE: new MidpointDisplacmentNoise(125, initialJitter, jitterDecay, 255, true).apply(floorNoise);
                 break;
         }
-        
+        SPEED_TESTER.test("Floor noise created");
         waterPainter = new WaterPainter(waterColor, width, height);
     }
             
@@ -156,7 +163,7 @@ public class AreaInfo implements Serializable{
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException{
         in.defaultReadObject();
         initializeNoise();
-        DungeonViewer.setSettings(settings);
+        DungeonScreen.setSettings(settings);
     }
     
 }

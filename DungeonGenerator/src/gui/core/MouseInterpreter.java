@@ -10,11 +10,10 @@ import static utils.Utils.PERFORMANCE_LOG;
 import utils.Utils.Unfinished;
 
 /**
- *
- * @author Adam Whittaker
- * 
  * Handles Mouse input.
+ * @author Adam Whittaker
  */
+@Unfinished("Might remove class after GUI completion.")
 public class MouseInterpreter extends MouseAdapter{
     
     public volatile static int focusX, focusY;

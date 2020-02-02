@@ -9,12 +9,23 @@ import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 
 /**
- *
+ * A loading screen.
  * @author Adam Whittaker
  */
 public class LoadingScreen implements Screen{
     
     
+    /**
+     * CIRCLE_DIAMETER: The diameter of the loading circle.
+     * CIRCLE_WIDTH: The width of the loading circle's line.
+     * CIRCLE_COLOR: The color of the loading circle.
+     * ANGULAR_VELOCITY: The angular velocity of the negative space within the
+     * loading circle.
+     * RECTANGLE_HEIGHT: The height of the negative space rectangle.
+     * RECTANGLE: The negative space rectangle.
+     * rotation: The transform representing the current orientation of the 
+     * negative space rectangle.
+     */
     private final static int CIRCLE_DIAMETER = 112, CIRCLE_WIDTH = 8;
     private final static Color BACKGROUND_COLOR = Color.BLACK, 
             CIRCLE_COLOR = Color.WHITE;
@@ -45,6 +56,10 @@ public class LoadingScreen implements Screen{
         g.fill(rotation.createTransformedShape(RECTANGLE));
     }
     
+    /**
+     * Updates the rotation angle of the negative space rectangle.
+     * @param frames The number of frames since the last render tick.
+     */
     private void updateAngle(int frames){
         rotation.rotate(ANGULAR_VELOCITY * frames, WIDTH/2, HEIGHT/2);
     }

@@ -2,7 +2,9 @@
 package graph;
 
 /**
- *
+ * A node in the Graph, corresponds to a Tile in the Area. It contains all path-
+ * finding information that a tile has so that it can easily be discarded during
+ * serialization.
  * @author Adam Whittaker
  */
 public class Point{

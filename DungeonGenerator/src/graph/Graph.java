@@ -8,7 +8,6 @@ package graph;
 
 import components.Area;
 import components.tiles.PassageTile;
-import graph.Point.Type;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
 import java.io.File;
@@ -20,13 +19,11 @@ import javax.imageio.ImageIO;
 import utils.Utils.Unfinished;
 
 /**
- *
- * @author Adam Whittaker
- * 
  * A representation of a dungeon floor optimized for path-finding. This class
  * contains all the attributes of the floor needed for generation but not for
  * deserialization. This class is not Serializable and is transient to save
  * reduce file sizes of serialized dungeons.
+ * @author Adam Whittaker
  */
 public class Graph{
 
@@ -114,22 +111,6 @@ public class Graph{
                 pixel[0] = (int)map[y][x];
                 pixel[1] = (int)map[y][x];
                 pixel[2] = (int)map[y][x];
-                raster.setPixel(x, y, pixel);
-            }
-        }
-        ImageIO.write(img, "png", new File(filepath));
-    }
-    
-    @Unfinished("Debug")
-    public static void makeWrappingPNG(double[][] map, String filepath) throws IOException{
-        BufferedImage img = new BufferedImage(map[0].length*3, map.length*3, BufferedImage.TYPE_INT_RGB);
-        WritableRaster raster = img.getRaster();
-        int[] pixel = new int[3];
-        for(int y=0;y<map.length*3;y++){
-            for(int x=0;x<map[0].length*3;x++){
-                pixel[0] = (int)map[y%map.length][x%map[0].length];
-                pixel[1] = (int)map[y%map.length][x%map[0].length];
-                pixel[2] = (int)map[y%map.length][x%map[0].length];
                 raster.setPixel(x, y, pixel);
             }
         }

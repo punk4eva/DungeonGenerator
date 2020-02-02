@@ -2,7 +2,7 @@
 package filterGeneration;
 
 import filterGeneration.ImageBuilder.SerSupplier;
-import static gui.core.DungeonViewer.getSettings;
+import static gui.pages.DungeonScreen.getSettings;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
@@ -48,7 +48,7 @@ public class DichromeFilter extends Filter{
     @Override
     public BufferedImage generateImage(int _x, int _y, double[][] map){
         BufferedImage img = new BufferedImage(16, 16, BufferedImage.TYPE_INT_RGB);
-        if(getSettings().GRAPHICS.value>=3) buildFilterImage();
+        if(getSettings().GRAPHICS.code>=3) buildFilterImage();
         WritableRaster raster = img.getRaster(), filterRaster = filterImage.getAlphaRaster();
         int[] pixel = new int[3], filterPixel = new int[4];
         for(int y=0;y<img.getHeight();y++){

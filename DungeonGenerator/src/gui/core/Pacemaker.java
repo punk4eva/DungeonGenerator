@@ -2,12 +2,19 @@
 package gui.core;
 
 /**
- *
+ * This class manages the render thread and controls the frame rate.
  * @author Adam Whittaker
  */
 public class Pacemaker implements Runnable{
 
     
+    /**
+     * viewer: The dungeon viewer.
+     * renderThread: The thread responsible for rendering the program.
+     * now: The time of the last render tick.
+     * BUFFER_NUM: The number of buffers in the buffer strategy of this thread.
+     * DELAY: The millisecond delay between two frames.
+     */
     private final DungeonViewer viewer;
     private final Thread renderThread;
     private long now;

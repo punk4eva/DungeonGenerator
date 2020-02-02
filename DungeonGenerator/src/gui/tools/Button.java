@@ -2,7 +2,7 @@
 package gui.tools;
 
 import animation.Animation;
-import static gui.core.DungeonViewer.ANIMATOR;
+import static gui.pages.DungeonScreen.ANIMATOR;
 import java.awt.Graphics2D;
 
 /**

@@ -7,6 +7,7 @@ import generation.Searcher;
 import graph.Point;
 import graph.Point.Type;
 import static utils.Utils.R;
+import static utils.Utils.SPEED_TESTER;
 
 /**
  * Blueprint for cellular automata based cave generation algorithms.
@@ -119,6 +120,7 @@ public abstract class CaveGrower extends Searcher{
                 if(area.graph.map[y][x].isCorridor) area.map[y][x] = Tile.genWall(area);
                 else area.map[y][x] = Tile.genFloor(area);
         }
+        SPEED_TESTER.test("Caves grown");
     }
     
     /**

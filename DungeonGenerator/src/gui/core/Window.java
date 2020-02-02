@@ -6,6 +6,7 @@ import components.rooms.Room;
 import generation.corridors.*;
 import generation.rooms.*;
 import gui.core.DungeonViewer.State;
+import gui.pages.DungeonScreen;
 import java.awt.Dimension;
 import java.io.IOException;
 import java.util.LinkedList;
@@ -22,6 +23,7 @@ public class Window{
     
     
     public static DungeonViewer VIEWER;
+    public static DungeonScreen SCREEN;
     protected JFrame frame;
     //public static final SoundSystem soundSystem = new SoundSystem();
     public Pacemaker pacemaker;
@@ -49,6 +51,7 @@ public class Window{
         frame.add(dV);
         frame.setVisible(true);
         VIEWER = dV;
+        SCREEN = dV.DUNGEON_SCREEN;
         pacemaker = new Pacemaker(VIEWER);
     }
     
@@ -57,19 +60,17 @@ public class Window{
         try{
             SPEED_TESTER.start();
             DungeonViewer viewer = new DungeonViewer();
-            SPEED_TESTER.test("Viewer instanciated");
             viewer.start();
-            SPEED_TESTER.test("Viewer started");
-            viewer.area = new Area(80, 80, LevelFeeling.DEFAULT_FEELING);
-            viewer.setTileFocus(viewer.area.info.width/2, viewer.area.info.height/2);
-            SPEED_TESTER.test("Area instanciated");
+            SPEED_TESTER.test("Viewer instanciated");
+            
+            SCREEN.setArea(new Area(80, 80, LevelFeeling.DEFAULT_FEELING));
+            SCREEN.setTileFocus(SCREEN.getArea().info.width/2, SCREEN.getArea().info.height/2);
 
             LinkedList<Room> list = new LinkedList<>();
-            for(int n=0;n<30;n++) list.add(viewer.area.info.architecture.biome.roomSelector.select(7+2*R.nextInt(4), 7+2*R.nextInt(4)));
-            SPEED_TESTER.test("Rooms selected");
+            for(int n=0;n<30;n++) list.add(SCREEN.getArea().info.architecture.biome.roomSelector.select(7+2*R.nextInt(4), 7+2*R.nextInt(4)));
             //BurrowCaveGrower grower = new BurrowCaveGrower(viewer.area, 0.3, 2, 9, 4, 5, 20, true);
-            new RandomRoomPlacer(viewer.area, list, r -> r.addDoorsSparcely(viewer.area)).generate();
-            viewer.area.refreshGraph();
+            new RandomRoomPlacer(SCREEN.getArea(), list, r -> r.addDoorsSparcely(SCREEN.getArea())).generate();
+            SCREEN.getArea().refreshGraph();
             SPEED_TESTER.test("Rooms placed");
             //new SpiderCorridorBuilder(viewer.area, 3, 4, CorridorBuilder.gaussianKernel(new Point(40, 79), 120, 24)).build();
             //new OneToOneCorridorBuilder(viewer.area, 2, null).build();
@@ -77,13 +78,13 @@ public class Window{
             //new DenseFractalRoomPlacer(viewer.area, 0).generate();
             //CaveGrower grower = new RadialCaveGrower(viewer.area, 0.48, 8);
             //CaveGrower grower = new ConwayCaveGrower(viewer.area, 0.42, 8,  2, 9,  5, 8);
-            WormholeCaveGrower grower = new WormholeCaveGrower(viewer.area, 7, 3, 1.0);
+            WormholeCaveGrower grower = new WormholeCaveGrower(SCREEN.getArea(), 7, 3, 1.0);
             grower.generate();
 
-            viewer.area.growGrass();
-            viewer.area.spillWater();
+            SCREEN.getArea().growGrass();
+            SCREEN.getArea().spillWater();
             SPEED_TESTER.test("Decorations added");
-            viewer.area.initializeImages();
+            SCREEN.getArea().initializeImages();
             SPEED_TESTER.test("Images initialized");
             SPEED_TESTER.report();
             viewer.setState(State.VIEWING);

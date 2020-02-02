@@ -3,7 +3,7 @@ package animation.assets;
 
 import filterGeneration.Filter;
 import generation.noise.PerlinNoiseGenerator;
-import static gui.core.DungeonViewer.getSettings;
+import static gui.pages.DungeonScreen.getSettings;
 import static gui.core.MouseInterpreter.focusX;
 import static gui.core.MouseInterpreter.focusY;
 import java.awt.Color;
@@ -54,7 +54,7 @@ public class WaterPainter{
      */
     private void generateWaterImage(Color waterColor, int width, int height){
         double[][] waterNoise = new double[height][width];
-        new PerlinNoiseGenerator(width, height,  100, 5*getSettings().GRAPHICS.value+1,  0.5, 0.9).apply(waterNoise);
+        new PerlinNoiseGenerator(width, height,  100, 5*getSettings().GRAPHICS.code+1,  0.5, 0.9).apply(waterNoise);
         WritableRaster raster = waterImage.getRaster();
         Color br = waterColor.brighter(), da = waterColor.darker();
         int[] pixel = new int[3];

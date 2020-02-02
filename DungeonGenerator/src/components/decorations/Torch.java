@@ -5,7 +5,7 @@ import components.mementoes.AreaInfo;
 import filterGeneration.ImageBuilder;
 import static filterGeneration.ImageBuilder.colorToPixelArray;
 import filterGeneration.ImageRecolorer;
-import static gui.core.DungeonViewer.getSettings;
+import static gui.pages.DungeonScreen.getSettings;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
