@@ -87,6 +87,10 @@ public class Window{
             SPEED_TESTER.test("Decorations added");
             SCREEN.getArea().initializeImages();
             SPEED_TESTER.test("Images initialized");
+            
+            /*SCREEN.getArea().savePNG("saves/area.png");
+            SPEED_TESTER.test("Area saved");*/
+            
             SPEED_TESTER.report();
             viewer.setState(State.VIEWING);
         }catch(Exception e){

@@ -16,6 +16,7 @@ import utils.Utils.Unfinished;
 @Unfinished("Might remove class after GUI completion.")
 public class MouseInterpreter extends MouseAdapter{
     
+    
     public volatile static int focusX, focusY;
     private int xOfDrag=-1, yOfDrag=-1;
     public volatile static double zoom = 1.0;
@@ -51,7 +52,7 @@ public class MouseInterpreter extends MouseAdapter{
         double x = focusX-me.getX()/zoom, y = focusY-me.getY()/zoom;
         switch(me.getWheelRotation()){
             case -1: if(zoom<MAX_ZOOM){
-                synchronized(this){
+                synchronized(Window.VIEWER){
                     zoom *= 1.25;
                     setFocusDirectly((int)(x+me.getX()/zoom), (int)(y+me.getY()/zoom));
                 }
@@ -59,7 +60,7 @@ public class MouseInterpreter extends MouseAdapter{
             }
                 break;
             default: if(zoom>MIN_ZOOM){
-                synchronized(this){
+                synchronized(Window.VIEWER){
                     zoom /= 1.25;
                     setFocusDirectly((int)(x+me.getX()/zoom), (int)(y+me.getY()/zoom));
                 }

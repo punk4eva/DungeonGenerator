@@ -11,6 +11,7 @@ import static gui.core.MouseInterpreter.focusX;
 import static gui.core.MouseInterpreter.focusY;
 import static gui.core.MouseInterpreter.zoom;
 import gui.core.Settings;
+import gui.core.Window;
 import gui.userInterface.GUI;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
@@ -59,7 +60,7 @@ public class DungeonScreen implements Screen{
         BufferedImage buffer = new BufferedImage((int)(WIDTH/zoom), (int)(HEIGHT/zoom), BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = (Graphics2D) buffer.getGraphics();
         
-        synchronized(mouse){
+        synchronized(Window.VIEWER){
             area.paint(g, focusX, focusY);
             ANIMATOR.animate(g, focusX, focusY, frames);
             AffineTransform at = AffineTransform.getScaleInstance(zoom, zoom);

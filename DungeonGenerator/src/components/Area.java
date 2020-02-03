@@ -13,9 +13,17 @@ import graph.Point.Type;
 import static gui.pages.DungeonScreen.ANIMATOR;
 import static gui.core.DungeonViewer.HEIGHT;
 import static gui.core.DungeonViewer.WIDTH;
+import static gui.core.MouseInterpreter.focusX;
+import static gui.core.MouseInterpreter.focusY;
 import static gui.core.MouseInterpreter.zoom;
+import gui.core.Window;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import static utils.Utils.PERFORMANCE_LOG;
 import static utils.Utils.R;
 import utils.Utils.ThreadUsed;
 
@@ -105,6 +113,40 @@ public class Area{
         if(map[ty+1][tx].type.equals(Type.WALL)) g.fillRect(tx*16+focusX, ty*16+focusY+15, 16, 2);
         if(map[ty][tx-1].type.equals(Type.WALL)) g.fillRect(tx*16+focusX-1, ty*16+focusY, 2, 16);
         if(map[ty][tx+1].type.equals(Type.WALL)) g.fillRect(tx*16+focusX+15, ty*16+focusY, 2, 16);
+    }
+    
+    public void savePNG(String filepath){
+        BufferedImage img = new BufferedImage(info.width*16, info.height*16, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g = (Graphics2D) img.getGraphics();
+        synchronized(Window.VIEWER){
+            int fx=focusX, fy=focusY;
+            focusX = 0;
+            focusY = 0;
+            for(int y=0;y<info.height;y++){
+                for(int x=0;x<info.width;x++){
+                    if(map[y][x]!=null){
+                        map[y][x].draw(g, x*16, y*16);
+                    }
+                }
+            }
+            g.setColor(BORDER_COLOR);
+            paintOutsideBorder(g, 0, 0);
+            for(int y=1;y<info.height-1;y++){
+                for(int x=1;x<info.width-1;x++){
+                    if(map[y][x] != null && map[y][x].type.equals(Type.FLOOR)){
+                        paintInsideBorder(x, y, g, 0, 0);
+                    }
+                }
+            }
+            focusX = fx;
+            focusY = fy;
+        }
+        
+        try{
+            ImageIO.write(img, "png", new File(filepath));
+        }catch(IOException e){
+            PERFORMANCE_LOG.log(e);
+        }
     }
     
     

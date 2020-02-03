@@ -3,9 +3,9 @@ package animation.assets;
 
 import filterGeneration.Filter;
 import generation.noise.PerlinNoiseGenerator;
-import static gui.pages.DungeonScreen.getSettings;
 import static gui.core.MouseInterpreter.focusX;
 import static gui.core.MouseInterpreter.focusY;
+import static gui.pages.DungeonScreen.getSettings;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;

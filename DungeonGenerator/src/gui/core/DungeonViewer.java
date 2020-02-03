@@ -11,7 +11,6 @@ import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 import utils.Utils.ThreadUsed;
 import static utils.Utils.PERFORMANCE_LOG;
-import static utils.Utils.SPEED_TESTER;
 
 /**
  * The main hub class of the project. It manages the different states and 
