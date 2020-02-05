@@ -11,6 +11,11 @@ public enum Biome{
     
     /**
      * All the different possible biomes.
+     * temperature
+     * accommodation
+     * hostility
+     * height
+     * technology
      */
     PLAINS(20, 100, 10, 0, 0), SHALLOW_CAVE(10, 20, 30, -25, 35), MEDIUM_CAVE(-5, 20, 35, -50, 45),
     DEEP_CAVE(27, 27, 55, -75, 55), BURIED_OASIS(23, 35, 25, -60, 20), HELL(50, 40, 85, -100, 95),

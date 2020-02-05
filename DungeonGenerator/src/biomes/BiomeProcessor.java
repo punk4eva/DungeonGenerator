@@ -58,7 +58,9 @@ public class BiomeProcessor{
         new RoomConstructor(30, 0.00,  65, 0.30,  55, 0.15,  0, 0.00,  60, 0.20,  StatueTrapRoom::new),
         new RoomConstructor(20, 0.00,  50, 0.03,  00, 0.02,  0, 0.10,  42, 0.03,  ChasmVault::new),
         new RoomConstructor(20, 0.06,  70, 0.35,  50, 0.03,  0, 0.00,  85, 0.25,  Laboratory::new),
-        new RoomConstructor(15, 0.35,  80, 0.15,  05, 0.50,  0, 0.01,  78, 0.21,  Library::new)
+        new RoomConstructor(15, 0.35,  80, 0.15,  05, 0.50,  0, 0.01,  78, 0.21,  Library::new),
+        new RoomConstructor(20, 0.00,  00, 0.02,  70, 0.02,  -35, 0.15, 0, 0.03,  StalagmiteRoom::new),  
+        new RoomConstructor(-30, 0.07, 10, 0.05,  20, 0.02,  0, 0.00,  10, 0.01,  CampfireRoom::new),
     };
     
     

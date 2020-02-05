@@ -27,7 +27,7 @@ public class Wall extends Tile{
      * @param desc The description.
      * @param deco The decoration.
      */
-    protected Wall(String na, String desc, Decoration deco){
+    public Wall(String na, String desc, Decoration deco){
         super(na, desc, Type.WALL, null, deco);
     }
     
