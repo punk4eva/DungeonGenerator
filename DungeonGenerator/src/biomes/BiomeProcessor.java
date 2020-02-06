@@ -142,7 +142,9 @@ public class BiomeProcessor{
      * @return
      */
     public Material getMaterial(Predicate<Material> filter){
-        List<MaterialConstructor> constructors = Arrays.asList(MATERIALS).stream().filter(mat -> filter.and(m -> m.biomeCompatible(biome, society)).test(mat.material.apply(this))).collect(Collectors.toList());
+        List<MaterialConstructor> constructors = Arrays.asList(MATERIALS).stream()
+            .filter(mat -> filter.and(m -> m.biomeCompatible(biome, society))
+                    .test(mat.material.apply(this))).collect(Collectors.toList());
         double chance = R.nextDouble() * constructors.stream().mapToDouble(mat -> mat.probability).sum();
         double count = 0;
         for(MaterialConstructor mat : constructors){
