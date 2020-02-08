@@ -11,7 +11,7 @@ import java.awt.image.WritableRaster;
  * A filter that combines two colors together based on the underlying noise.
  * @author Adam Whittaker
  */
-public class DichromeFilter extends Texture{
+public class DichromeTexture extends Texture{
 
     
     private static final long serialVersionUID = 15389L;
@@ -29,7 +29,7 @@ public class DichromeFilter extends Texture{
      * @param c1 The one color.
      * @param c2 The second color.
      */
-    public DichromeFilter(SerSupplier s, Color c1, Color c2){
+    public DichromeTexture(SerSupplier s, Color c1, Color c2){
         super(s);
         col1 = c1;
         col2 = c2;
@@ -40,7 +40,7 @@ public class DichromeFilter extends Texture{
      * @param s The image supplier of the filter.
      * @param color The color.
      */
-    public DichromeFilter(SerSupplier s, Color color){
+    public DichromeTexture(SerSupplier s, Color color){
         this(s, color.brighter(), color.darker());
     }
     

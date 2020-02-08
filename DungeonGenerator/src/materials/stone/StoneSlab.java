@@ -1,7 +1,7 @@
 
 package materials.stone;
 
-import textureGeneration.DichromeFilter;
+import textureGeneration.DichromeTexture;
 import textureGeneration.Texture;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
@@ -26,7 +26,7 @@ public class StoneSlab extends Material{
     
     public StoneSlab(){
         super("@Unfinished", new Color(130, 130, 130), 55, 30, 400, -30, 60, true, false, true, true);
-        texture = new DichromeFilter(Texture::defaultSupplier, color);
+        texture = new DichromeTexture(Texture::defaultSupplier, color);
         texture.addInstruction(img -> paintSlabs(img, 12));
         texture.buildFilterImage();
     }

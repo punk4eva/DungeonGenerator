@@ -3,7 +3,7 @@ package materials;
 
 import biomes.Biome;
 import biomes.Society;
-import textureGeneration.DichromeFilter;
+import textureGeneration.DichromeTexture;
 import textureGeneration.Texture;
 import textureGeneration.ImageBuilder;
 import java.awt.Color;
@@ -55,7 +55,9 @@ public abstract class Material{
      * @param fl
      * @param wa
      */
-    public Material(String desc, Color col, double res, double comp, double mTemp, double minH, double maxH, boolean furn, boolean d, boolean fl, boolean wa){
+    public Material(String desc, Color col, double res, double comp, 
+            double mTemp, double minH, double maxH, boolean furn, boolean d, 
+            boolean fl, boolean wa){
         description = desc;
         color = col;
         furniture = furn;
@@ -89,7 +91,7 @@ public abstract class Material{
      * @param num The number of alternate textures.
      */
     protected final void setDefaultTexture(String filePath, int num){
-        texture = new DichromeFilter(() -> ImageBuilder.getImageFromFile("tiles/" +filePath + "/" + filePath + num + ".png"), color);
+        texture = new DichromeTexture(() -> ImageBuilder.getImageFromFile("tiles/" +filePath + "/" + filePath + num + ".png"), color);
         texture.addInstruction(img -> ImageBuilder.applyAlphaNoise(img, 10, 4));
         texture.buildFilterImage();
     }
