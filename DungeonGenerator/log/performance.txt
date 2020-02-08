@@ -1,11 +1,40 @@
-01-20 13:37:45:905: ZOOM: 1.25
-01-20 13:37:45:935: ZOOM: 1.5625
-01-20 13:37:45:971: ZOOM: 1.953125
-01-20 13:37:46:027: ZOOM: 2.44140625
-01-20 13:37:47:983: ZOOM: 3.0517578125
-01-20 13:37:48:001: ZOOM: 3.814697265625
-01-20 13:37:48:035: ZOOM: 4.76837158203125
-01-20 13:37:59:936: Mouse x, y, tile x, tile y: 1343, 635, 16, 7
-01-20 13:38:00:359: Mouse x, y, tile x, tile y: 1063, 609, 16, 7
-01-20 13:38:01:077: Mouse x, y, tile x, tile y: 1750, 515, 25, 6
-01-20 13:38:01:377: Mouse x, y, tile x, tile y: 1670, 540, 25, 6
+02-08 14:10:58:460: 196 millis: Viewer instanciated
+02-08 14:10:58:472: 12 millis: Area information initialized
+02-08 14:10:58:728: 256 millis: Wall noise created
+02-08 14:10:58:779: 51 millis: Floor noise created
+02-08 14:10:59:689: 910 millis: Water image created
+02-08 14:10:59:702: Mouse x, y, tile x, tile y: 1242, 370, 77, 23
+02-08 14:10:59:744: 55 millis: Architechture created
+02-08 14:10:59:769: 25 millis: Goblin rooms placed
+02-08 14:10:59:770: 1 millis: Rooms placed
+02-08 14:10:59:773: 3 millis: Decorations added
+02-08 14:10:59:796: Mouse x, y, tile x, tile y: 1242, 370, 57, 29
+02-08 14:10:59:796: Mouse x, y, tile x, tile y: 1242, 370, 57, 29
+02-08 14:11:00:258: Mouse x, y, tile x, tile y: 1249, 383, 58, 30
+02-08 14:11:00:344: Mouse x, y, tile x, tile y: 1249, 383, 58, 30
+02-08 14:11:00:344: Mouse x, y, tile x, tile y: 1249, 383, 58, 30
+02-08 14:11:00:375: 602 millis: Images initialized
+02-08 14:11:00:377:      ---- Speed Report ----
+02-08 14:11:00:377: Total time: 2111 millis
+02-08 14:11:00:378: Viewer instanciated: 9.28%
+02-08 14:11:00:378: Area information initialized: 0.56%
+02-08 14:11:00:378: Wall noise created: 12.1%
+02-08 14:11:00:378: Floor noise created: 2.41%
+02-08 14:11:00:379: Water image created: 43.1%
+02-08 14:11:00:379: Architechture created: 2.60%
+02-08 14:11:00:379: Goblin rooms placed: 1.18%
+02-08 14:11:00:379: Rooms placed: 0.04%
+02-08 14:11:00:379: Decorations added: 0.14%
+02-08 14:11:00:379: Images initialized: 28.5%
+02-08 14:11:00:598: Mouse x, y, tile x, tile y: 1249, 383, 58, 30
+02-08 14:11:00:702: Mouse x, y, tile x, tile y: 1249, 383, 58, 30
+02-08 14:11:00:702: Mouse x, y, tile x, tile y: 1249, 383, 58, 30
+02-08 14:11:01:400: Mouse x, y, tile x, tile y: 1249, 383, 58, 30
+02-08 14:11:01:524: Mouse x, y, tile x, tile y: 1249, 383, 58, 30
+02-08 14:11:01:524: Mouse x, y, tile x, tile y: 1249, 383, 58, 30
+02-08 14:11:02:308: Mouse x, y, tile x, tile y: 1249, 383, 58, 30
+02-08 14:11:02:418: Mouse x, y, tile x, tile y: 1249, 383, 58, 30
+02-08 14:11:02:418: Mouse x, y, tile x, tile y: 1249, 383, 58, 30
+02-08 14:11:02:691: Mouse x, y, tile x, tile y: 1249, 383, 58, 30
+02-08 14:11:02:794: Mouse x, y, tile x, tile y: 1249, 383, 58, 30
+02-08 14:11:02:794: Mouse x, y, tile x, tile y: 1249, 383, 58, 30
