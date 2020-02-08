@@ -3,7 +3,7 @@ package components.tiles;
 
 import components.Area;
 import components.mementoes.AreaInfo;
-import filterGeneration.ImageBuilder;
+import textureGeneration.ImageBuilder;
 import java.awt.Graphics2D;
 
 /**

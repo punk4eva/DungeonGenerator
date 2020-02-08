@@ -23,7 +23,7 @@ public class Animator{
     private volatile boolean animatingParticles = true;
     {
         animations.add(particles);
-        setAnimatingParticles(false);
+        //setAnimatingParticles(false);
     }
 
     

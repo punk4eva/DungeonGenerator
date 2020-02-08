@@ -3,18 +3,30 @@ package materials;
 
 import biomes.Biome;
 import biomes.Society;
-import filterGeneration.DichromeFilter;
-import filterGeneration.Filter;
-import filterGeneration.ImageBuilder;
+import textureGeneration.DichromeFilter;
+import textureGeneration.Texture;
+import textureGeneration.ImageBuilder;
 import java.awt.Color;
 
 /**
- *
+ * This class represents a real world material with a unique texture.
  * @author Adam Whittaker
  */
 public abstract class Material{
     
     
+    /**
+     * description: The description of the material.
+     * color: The general color of the material.
+     * resilience: The maximum hostility that can be withstood by the material.
+     * complexity: The minimum technology level required to make this material.
+     * maxTemp: The maximum average daily temperature that the material can 
+     * tolerate.
+     * minHeight, maxHeight: The altitude boundaries where the material spawns.
+     * furniture, door, floor, wall: Whether the material can be used to make
+     * the respective tile types.
+     * filter: The texture of the material.
+     */
     public final String description;
     public final Color color;
     
@@ -25,9 +37,24 @@ public abstract class Material{
     
     public final boolean furniture, door, floor, wall;
     
-    public Filter filter;
+    public Texture texture;
     
     
+    /**
+     * Creates a new instance by initializing the fields in the order of their
+     * declaration.
+     * @param desc
+     * @param col
+     * @param res
+     * @param comp
+     * @param mTemp
+     * @param minH
+     * @param maxH
+     * @param furn
+     * @param d
+     * @param fl
+     * @param wa
+     */
     public Material(String desc, Color col, double res, double comp, double mTemp, double minH, double maxH, boolean furn, boolean d, boolean fl, boolean wa){
         description = desc;
         color = col;
@@ -43,16 +70,28 @@ public abstract class Material{
     }
     
     
+    /**
+     * Checks whether the given biome and society satisfy the material's 
+     * internal requirements.
+     * @param b The Biome.
+     * @param s The Society.
+     * @return True if they satisfy the requirements.
+     */
     public boolean biomeCompatible(Biome b, Society s){
         return b.temperature<=maxTemp && b.hostility<=resilience && 
                 minHeight <= b.height && b.height <= maxHeight && 
                 s.technology>complexity;
     }
     
-    protected final void setDefaultFilter(String filePath, int num){
-        filter = new DichromeFilter(() -> ImageBuilder.getImageFromFile("tiles/" +filePath + "/" + filePath + num + ".png"), color);
-        filter.addInstruction(img -> ImageBuilder.applyAlphaNoise(img, 10, 4));
-        filter.buildFilterImage();
+    /**
+     * Sets a default texture for the material.
+     * @param filePath The filepath to the texture image.
+     * @param num The number of alternate textures.
+     */
+    protected final void setDefaultTexture(String filePath, int num){
+        texture = new DichromeFilter(() -> ImageBuilder.getImageFromFile("tiles/" +filePath + "/" + filePath + num + ".png"), color);
+        texture.addInstruction(img -> ImageBuilder.applyAlphaNoise(img, 10, 4));
+        texture.buildFilterImage();
     }
     
 }

@@ -2,7 +2,7 @@
 package components.decorations;
 
 import components.mementoes.AreaInfo;
-import filterGeneration.ImageBuilder;
+import textureGeneration.ImageBuilder;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;

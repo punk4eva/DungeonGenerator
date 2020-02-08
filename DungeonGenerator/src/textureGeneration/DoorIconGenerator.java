@@ -1,9 +1,9 @@
 
-package filterGeneration;
+package textureGeneration;
 
 import components.mementoes.AreaInfo;
 import components.tiles.Door;
-import filterGeneration.ImageBuilder.SerSupplier;
+import textureGeneration.ImageBuilder.SerSupplier;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
@@ -99,14 +99,14 @@ public class DoorIconGenerator{
      */
     private void fillWall(BufferedImage img, int tx, int ty){
         //Construct a full wall image
-        BufferedImage wall = info.architecture.wallMaterial.filter.generateImage(tx, ty, info.wallNoise);
+        BufferedImage wall = info.architecture.wallMaterial.texture.generateImage(tx, ty, info.wallNoise);
         //Initialize raster and pixel objects.
         WritableRaster raster = img.getRaster(), wallRaster = wall.getRaster();
         int[] pixel = new int[4];
         //Loop through all pixels.
         for(int y=0;y<img.getHeight();y++){
             for(int x=0;x<img.getWidth();x++){
-                if(Filter.rgbPixelEquals(WALL_REGEX, raster.getPixel(x, y, pixel)))
+                if(Texture.rgbPixelEquals(WALL_REGEX, raster.getPixel(x, y, pixel)))
                     raster.setPixel(x, y, wallRaster.getPixel(x, y, pixel));
             }
         }
@@ -119,7 +119,7 @@ public class DoorIconGenerator{
      * @param ty The tile y.
      */
     private void fillFloor(BufferedImage img, int tx, int ty){
-        BufferedImage floor = info.architecture.floorMaterial.filter.generateImage(tx, ty, info.floorNoise);
+        BufferedImage floor = info.architecture.floorMaterial.texture.generateImage(tx, ty, info.floorNoise);
         WritableRaster raster = img.getRaster(), floorRaster = floor.getRaster();
         int[] pixel = new int[4];
         int temp;
@@ -143,7 +143,7 @@ public class DoorIconGenerator{
      * @param ty The tile y.
      */
     private void fillDoor(BufferedImage img, int tx, int ty){
-        BufferedImage door = info.architecture.doorMaterial.filter.generateImage(tx, ty, info.wallNoise);
+        BufferedImage door = info.architecture.doorMaterial.texture.generateImage(tx, ty, info.wallNoise);
         WritableRaster raster = img.getRaster(), doorRaster = door.getRaster();
         int[] pixel = new int[4];
         int temp;

@@ -2,7 +2,7 @@
 package components.tiles;
 
 import components.Area;
-import filterGeneration.ImageBuilder;
+import textureGeneration.ImageBuilder;
 import graph.Point.Type;
 
 /**

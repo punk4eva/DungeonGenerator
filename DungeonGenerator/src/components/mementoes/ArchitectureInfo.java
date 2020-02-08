@@ -5,8 +5,8 @@ import biomes.Biome;
 import biomes.BiomeProcessor;
 import biomes.Society;
 import components.LevelFeeling;
-import filterGeneration.DoorIconGenerator;
-import filterGeneration.ImageBuilder;
+import textureGeneration.DoorIconGenerator;
+import textureGeneration.ImageBuilder;
 import materials.Material;
 
 /**

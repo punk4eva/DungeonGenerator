@@ -1,7 +1,7 @@
 
-package filterGeneration;
+package textureGeneration;
 
-import filterGeneration.ImageBuilder.SerSupplier;
+import textureGeneration.ImageBuilder.SerSupplier;
 import static gui.pages.DungeonScreen.getSettings;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
@@ -11,7 +11,7 @@ import java.awt.image.WritableRaster;
  * A filter that combines two colors together based on the underlying noise.
  * @author Adam Whittaker
  */
-public class DichromeFilter extends Filter{
+public class DichromeFilter extends Texture{
 
     
     private static final long serialVersionUID = 15389L;

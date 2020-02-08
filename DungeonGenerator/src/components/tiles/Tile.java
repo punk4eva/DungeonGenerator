@@ -160,7 +160,7 @@ public abstract class Tile{
      * @param y The tile y.
      */
     protected void generateWallImage(Area area, int x, int y){
-        image = area.info.architecture.wallMaterial.filter.generateImage(x, y, area.info.wallNoise);
+        image = area.info.architecture.wallMaterial.texture.generateImage(x, y, area.info.wallNoise);
     }
     
     /**
@@ -170,7 +170,7 @@ public abstract class Tile{
      * @param y The tile y.
      */
     protected void generateFloorImage(Area area, int x, int y){
-        image = area.info.architecture.floorMaterial.filter.generateImage(x, y, area.info.floorNoise);
+        image = area.info.architecture.floorMaterial.texture.generateImage(x, y, area.info.floorNoise);
     }
     
     /**
@@ -180,7 +180,7 @@ public abstract class Tile{
      * @param y The tile y.
      */
     protected void generateSpecFloorImage(Area area, int x, int y){
-        image = area.info.architecture.specFloorMaterial.filter.generateImage(x, y, area.info.floorNoise);
+        image = area.info.architecture.specFloorMaterial.texture.generateImage(x, y, area.info.floorNoise);
     }
     
 }

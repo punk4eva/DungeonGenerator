@@ -3,6 +3,7 @@ package gui.core;
 
 import components.Area;
 import gui.pages.*;
+import gui.tools.assets.CorridorDropDownMenu;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -43,12 +44,13 @@ public class DungeonViewer extends Canvas implements Runnable{
     }
 
     protected volatile boolean running = false;
-    private State state = State.LOADING;
+    private State state = State.CHOOSING;
     protected Thread runThread;
     protected Window window;
 
     protected final DungeonScreen DUNGEON_SCREEN;
     private final LoadingScreen LOADING_SCREEN = new LoadingScreen();
+    private final SelectionScreen SELECTION_SCREEN;
     
     
     /**
@@ -59,6 +61,9 @@ public class DungeonViewer extends Canvas implements Runnable{
         window = new Window(WIDTH, HEIGHT, "Dungeon Generator", this);
         addMouseListener(PERFORMANCE_LOG);
         addKeyListener(PERFORMANCE_LOG);
+        
+        SELECTION_SCREEN = new SelectionScreen(this);
+        SELECTION_SCREEN.setInputBox(new CorridorDropDownMenu(p -> true, SELECTION_SCREEN));
     }
     
     
@@ -86,7 +91,7 @@ public class DungeonViewer extends Canvas implements Runnable{
         bsg.fillRect(0, 0, WIDTH, HEIGHT);
         
         switch(state){
-            case CHOOSING: 
+            case CHOOSING: SELECTION_SCREEN.paint(bsg, frames);
                 break;
             case LOADING: LOADING_SCREEN.paint(bsg, frames); 
                 break;

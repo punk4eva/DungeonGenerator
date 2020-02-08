@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.List;
 import java.util.Random;
-import static filterGeneration.Filter.rgbPixelEquals;
+import static textureGeneration.Texture.rgbPixelEquals;
 import generation.noise.PerlinNoiseGenerator;
 import graph.Graph;
 import utils.test.SpeedTester;

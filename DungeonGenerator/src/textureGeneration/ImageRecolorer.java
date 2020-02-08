@@ -1,9 +1,9 @@
 
-package filterGeneration;
+package textureGeneration;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
-import static filterGeneration.Filter.rgbPixelEquals;
+import static textureGeneration.Texture.rgbPixelEquals;
 import static utils.Utils.R;
 
 /**

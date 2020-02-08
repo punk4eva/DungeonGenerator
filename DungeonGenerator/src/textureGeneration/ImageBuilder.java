@@ -1,5 +1,5 @@
 
-package filterGeneration;
+package textureGeneration;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;

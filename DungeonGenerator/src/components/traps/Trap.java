@@ -2,7 +2,7 @@
 package components.traps;
 
 import components.decorations.Decoration;
-import filterGeneration.ImageBuilder;
+import textureGeneration.ImageBuilder;
 import java.awt.Color;
 
 

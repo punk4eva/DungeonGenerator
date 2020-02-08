@@ -77,8 +77,8 @@ public class Window{
             //new OneToOneCorridorBuilder(viewer.area, 2, null).build();
             //SPEED_TESTER.test("Corridors built");
             //new DenseFractalRoomPlacer(viewer.area, 0).generate();
-            //CaveGrower grower = new RadialCaveGrower(viewer.area, 0.48, 8);
-            //CaveGrower grower = new ConwayCaveGrower(viewer.area, 0.42, 8,  2, 9,  5, 8);
+            //CaveGrower grower = new RadialCaveGrower(SCREEN.getArea(), 0.48, 8);
+            //CaveGrower grower = new ConwayCaveGrower(SCREEN.getArea(), 0.42, 8,  2, 9,  5, 8);
             //WormholeCaveGrower grower = new WormholeCaveGrower(SCREEN.getArea(), 7, 3, 1.0);
             //grower.generate();
 
@@ -92,7 +92,7 @@ public class Window{
             SPEED_TESTER.test("Area saved");*/
             
             SPEED_TESTER.report();
-            viewer.setState(State.VIEWING);
+            //viewer.setState(State.VIEWING);
         }catch(Exception e){
             PERFORMANCE_LOG.log(e);
             throw e;

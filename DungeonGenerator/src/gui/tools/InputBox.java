@@ -3,6 +3,8 @@ package gui.tools;
 
 import static gui.tools.UIPanel.BUTTON_TEXT_COLOR;
 import static gui.tools.UIPanel.BUTTON_TEXT_FONT;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 
@@ -40,14 +42,24 @@ public abstract class InputBox{
     }
     
     protected void paintText(Graphics2D g, String str){
-        g.setFont(BUTTON_TEXT_FONT);
-        g.setColor(BUTTON_TEXT_COLOR);
+        paintText(g, str, x, y, width, height, 
+                BUTTON_TEXT_FONT, BUTTON_TEXT_COLOR);
+    }
+    
+    protected void paintText(Graphics2D g, String str, int x, int y, 
+            int width, int height, Font font, Color col){
+        g.setFont(font);
+        g.setColor(col);
         FontMetrics f = g.getFontMetrics();
-        g.drawString(str, x+(width - f.stringWidth(str))/2, y + width/2 + f.getDescent());
+        g.drawString(str, x+(width - f.stringWidth(str))/2, y + height/2 + f.getDescent());
+    }
+    
+    protected boolean withinBounds(int x, int y, int width, int height, int mx, int my){
+        return x<mx && mx<x+width && y<my && my<y+height;
     }
     
     protected boolean withinBounds(int mx, int my){
-        return x<mx && mx<x+width && y<my && my<y+height;
+        return withinBounds(x, y, width, height, mx, my);
     }
     
 }

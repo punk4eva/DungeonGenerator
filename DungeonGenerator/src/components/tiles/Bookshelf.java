@@ -3,9 +3,9 @@ package components.tiles;
 
 import components.Area;
 import components.traps.Trap;
-import filterGeneration.ImageBuilder;
-import static filterGeneration.ImageBuilder.colorToPixelArray;
-import filterGeneration.ImageRecolorer;
+import textureGeneration.ImageBuilder;
+import static textureGeneration.ImageBuilder.colorToPixelArray;
+import textureGeneration.ImageRecolorer;
 import graph.Point.Type;
 import static text.RegexParser.generateDescription;
 import static utils.Utils.R;

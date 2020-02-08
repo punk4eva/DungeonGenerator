@@ -21,7 +21,7 @@ public class SpecialFloor extends Floor{
     
     @Override
     public void buildImage(Area area, int x, int y){
-        image = area.info.architecture.specFloorMaterial.filter.generateImage(x, y, area.info.floorNoise);
+        image = area.info.architecture.specFloorMaterial.texture.generateImage(x, y, area.info.floorNoise);
     }
     
 }

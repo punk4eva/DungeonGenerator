@@ -1,7 +1,7 @@
 
-package filterGeneration;
+package textureGeneration;
 
-import filterGeneration.ImageBuilder.*;
+import textureGeneration.ImageBuilder.*;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -13,7 +13,7 @@ import java.util.LinkedList;
  * This class represents a list of commands to generate an image.
  * @author Adam Whittaker
  */
-public abstract class Filter implements Serializable{
+public abstract class Texture implements Serializable{
     
     
     /**
@@ -34,7 +34,7 @@ public abstract class Filter implements Serializable{
      * Creates an instance.
      * @param s The supplier of the initial image.
      */
-    public Filter(SerSupplier s){
+    public Texture(SerSupplier s){
         supplier = s;
     }
     

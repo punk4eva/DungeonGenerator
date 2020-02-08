@@ -3,7 +3,7 @@ package components.tiles;
 
 import components.Area;
 import components.mementoes.AreaInfo;
-import filterGeneration.ImageBuilder;
+import textureGeneration.ImageBuilder;
 import graph.Point.Type;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
@@ -53,7 +53,7 @@ public class Desk extends OverFloorTile{
      */
     private void overlayDeskTop(Area area, int _x, int _y){
         BufferedImage filter = ImageBuilder.getImageFromFile(filterPath);
-        WritableRaster tableRaster = material.filter.generateImage(_x, _y, area.info.floorNoise).getRaster(),
+        WritableRaster tableRaster = material.texture.generateImage(_x, _y, area.info.floorNoise).getRaster(),
                 filterRaster = filter.getRaster();
         int pixel[] = new int[4];
         

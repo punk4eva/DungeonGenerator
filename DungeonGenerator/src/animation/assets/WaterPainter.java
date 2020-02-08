@@ -1,7 +1,7 @@
 
 package animation.assets;
 
-import filterGeneration.Filter;
+import textureGeneration.Texture;
 import generation.noise.PerlinNoiseGenerator;
 import static gui.core.MouseInterpreter.focusX;
 import static gui.core.MouseInterpreter.focusY;
@@ -62,7 +62,7 @@ public class WaterPainter{
         int y;
         for(int x=0;x<waterImage.getWidth();x++){
             for(y=0;y<height;y++){
-                pixel = Filter.getColorAverage(pixel, br, da, waterNoise[y][x]);
+                pixel = Texture.getColorAverage(pixel, br, da, waterNoise[y][x]);
                 raster.setPixel(x, y, pixel);
             }
             for(;y<height+16;y++) raster.setPixel(x, y, raster.getPixel(x, y-height, pixel));

@@ -2,7 +2,7 @@
 package materials;
 
 import materials.Wood;
-import filterGeneration.ImageBuilder;
+import textureGeneration.ImageBuilder;
 
 /**
  *
