@@ -58,8 +58,6 @@ public abstract class Material{
     public Material(String desc, Color col, double res, double comp, 
             double mTemp, double minH, double maxH, boolean furn, boolean d, 
             boolean fl, boolean wa){
-    public Material(String desc, Color col, double res, double comp, double mTemp, double minH, double maxH, 
-                    boolean furn, boolean d, boolean fl, boolean wa){
         description = desc;
         color = col;
         furniture = furn;
