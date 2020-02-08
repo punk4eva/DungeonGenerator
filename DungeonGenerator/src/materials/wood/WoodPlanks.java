@@ -8,12 +8,16 @@ import materials.Wood;
 import static utils.Utils.R;
 
 /**
- *
+ * Represents a wooden plank material.
  * @author Adam Whittaker
  */
 public class WoodPlanks extends Material{
 
     
+    /**
+     * Creates an instance.
+     * @param wood The wood that the planks are made from.
+     */
     public WoodPlanks(Wood wood){
         super(combineDescriptions("This surface is made of standard wooden planks.", wood.description),
                 wood.color, wood.resilience, 20, wood.maxTemp, wood.minHeight, wood.maxHeight, true, true, true, true);
@@ -24,6 +28,12 @@ public class WoodPlanks extends Material{
     }
     
     
+    /**
+     * Combines the description of the planks with that of the wood.
+     * @param plankDesc The description of the planks.
+     * @param woodDesc The description of the wood.
+     * @return
+     */
     private static String combineDescriptions(String plankDesc, String woodDesc){
         return plankDesc + "\nThe wood itself is " + woodDesc;
     }

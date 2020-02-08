@@ -1,9 +1,13 @@
 
-package utils;
+package utils.test;
 
 import graph.Point;
 import java.util.function.BiFunction;
 
+/**
+ * A debug class to convert a given point into a color for output to an image.
+ * @author Adam Whittaker
+ */
 public class DungeonColorer implements BiFunction<Point, int[], int[]>{
 
     //Colors for perlin noise.

@@ -4,20 +4,52 @@ package text;
 import java.util.HashMap;
 import java.util.function.Supplier;
 import static utils.Utils.R;
+import static utils.Utils.getRandomItem;
 import utils.Utils.Unfinished;
 
 /**
- *
+ * Parses a given well-formed regular expression String into a procedurally
+ * generated description for materials/biomes/etc.
  * @author Adam Whittaker
  */
 public final class RegexParser{
     
     
+    /**
+     * Prevents this static class from being instantiated erroneously.
+     */
     private RegexParser(){}
     
     
+    /**
+     * Maps from regular expressions to replacement String generators.
+     */
     private static final HashMap<String, Supplier<String>> EXPRESSIONS = new HashMap<>();
     
+    /**
+     * Dictionary of possible replacement Strings.
+     * RUNE_DESC: Adjectives for mysterious things.
+     * COLOR: Colors
+     * RED_COLORS: Red colors
+     * COLOR_MOD: meta-adjectives for colors.
+     * TEMPERATURE: temperature adjectives.
+     * WOODS: fantasy wood types.
+     * SHAPE_MOD: meta-adjectives for shape.
+     * SHAPE: Adjectives for shape.
+     * CONTAINER: Types of container.
+     * CONTAINER_STOPPER: Materials for the stopper for a container.
+     * TEXTURE: texture adjectives.
+     * SMELLS_LIKE: similes for smell.
+     * FOOD: food items.
+     * TASTE: taste adjectives.
+     * SMELL: smell adjectives.
+     * VISCOSITY: viscosity adjectives.
+     * APPEARANCE: General appearance adjectives.
+     * SCRIPT: A type of sacred text.
+     * PILE: synonyms for the word "pile".
+     * BOOK: Types of book.
+     * CRITTER: Types of insect / other vermin.
+     */
     public static final String[] RUNE_DESC = {"strange", "mysterious", "wierd", 
         "curious", "enigmatic", "perplexing", "magical", "mystical", "arcane"};
     public static final String[] COLOR = {"apple green", "aquamarine", "apricot",
@@ -31,7 +63,8 @@ public final class RegexParser{
         "purple", "boysenberry", "ochre", "maroon", "lavender", 
         "lilac", "sugar brown", "coffee", "scarlet", "crimson", "salmon", 
         "metallic", "mint", "saffron", "eggplant", "firebrick", "flame", "white wine"};
-    public static final String[] RED_COLORS = {"black", "ruby", "amaranth red", "rusty", "maroon", "cherry", "scarlet", "crimson", "firy"};
+    public static final String[] RED_COLORS = {"black", "ruby", "amaranth red", 
+        "rusty", "maroon", "cherry", "scarlet", "crimson", "firy"};
     public static final String[] COLOR_MOD = {"dark ", "bright ", "clear ", "",
         "crystal clear ", "dull ", "vibrant ", "glowing ", "murderous ", "curious "};
     public static final String[] TEMPERATURE = {"warm", "cold", "hot", "lukewarm",
@@ -50,7 +83,8 @@ public final class RegexParser{
     public static final String[] CONTAINER_STOPPER = {"cork", "rubber", "wooden", "glass"};
     public static final String[] TEXTURE = {"frothy", "bubbly", "gelatinous",
         "thick", "effervescent", "creamy"};
-    public static final String[] SMELLS_LIKE = {"perfume", "rotten eggs", "freshly cut grass", "burnt plastic", "ash", "a corpse", "some exotic plant",
+    public static final String[] SMELLS_LIKE = {"perfume", "rotten eggs", 
+        "freshly cut grass", "burnt plastic", "ash", "a corpse", "some exotic plant",
         "some eccentric plant", "petrichor"};
     @Unfinished("Redesign")
     public static final String[] FOOD = {"chocolate", "a strawberry", "an orange",
@@ -64,59 +98,64 @@ public final class RegexParser{
         "fragrant", "foul", "healthy", "unhealthy", "putrid", "hideous"};
     public static final String[] VISCOSITY = {"viscous", "runny", "thick", "syrupy",
         "slimy", "gooey", "watery", "thin"};
-    public static final String[] APPEARANCE = {"hideous", "beautiful", "bleak", "pathetic", "wonderful", "dumb", "cute", "curious", "dreamy",
+    public static final String[] APPEARANCE = {"hideous", "beautiful", "bleak", 
+        "pathetic", "wonderful", "dumb", "cute", "curious", "dreamy",
         "radiant", "dazzling", "mischievous"};
-    public static final String[] SCRIPT = {"sacred text", "spell", "mantra", "curse", "text", "charm", "conjuration", "hex"};
+    public static final String[] SCRIPT = {"sacred text", "spell", "mantra", 
+        "curse", "text", "charm", "conjuration", "hex"};
     public static final String[] PILE = {"pile", "heap", "mound", "tower", "agglomerate"};
-    public static final String[] BOOK = {"book", "encyclopedia", "review", "analysis", "anthology", "collection", "poem", "prose", "composition"};
-    public static final String[] CRITTER = {"caterpillar", "parasite", "cockroach", "slug", "worm", "wasp", "moth"};
+    public static final String[] BOOK = {"book", "encyclopedia", "review", 
+        "analysis", "anthology", "collection", "poem", "prose", "composition"};
+    public static final String[] CRITTER = {"caterpillar", "parasite", 
+        "cockroach", "slug", "worm", "wasp", "moth"};
     
     static{
-        EXPRESSIONS.put("<rune>", () -> grabWord(RUNE_DESC));
-        EXPRESSIONS.put("<color>", () -> grabWord(COLOR));
-        EXPRESSIONS.put("<red>", () -> grabWord(RED_COLORS));
-        EXPRESSIONS.put("<colorMod>", () -> grabWord(COLOR_MOD));
-        EXPRESSIONS.put("<temperature>", () -> grabWord(TEMPERATURE));
-        EXPRESSIONS.put("<wood>", () -> grabWord(WOODS));
-        EXPRESSIONS.put("<shapeMod>", () -> grabWord(SHAPE_MOD));
-        EXPRESSIONS.put("<shape>", () -> grabWord(SHAPE));
-        EXPRESSIONS.put("<container>", () -> grabWord(CONTAINER));
-        EXPRESSIONS.put("<contStopper>", () -> grabWord(CONTAINER_STOPPER));
-        EXPRESSIONS.put("<smellsLike>", () -> grabWord(SMELLS_LIKE));
-        EXPRESSIONS.put("<food>", () -> grabWord(FOOD));
-        EXPRESSIONS.put("<viscosity>", () -> grabWord(VISCOSITY));
-        EXPRESSIONS.put("<appearance>", () -> grabWord(APPEARANCE));
-        EXPRESSIONS.put("<script>", () -> grabWord(SCRIPT));
-        EXPRESSIONS.put("<pile>", () -> grabWord(PILE));
-        EXPRESSIONS.put("<book>", () -> grabWord(BOOK));
-        EXPRESSIONS.put("<critter>", () -> grabWord(CRITTER));        
+        EXPRESSIONS.put("<rune>", () -> getRandomItem(RUNE_DESC));
+        EXPRESSIONS.put("<color>", () -> getRandomItem(COLOR));
+        EXPRESSIONS.put("<red>", () -> getRandomItem(RED_COLORS));
+        EXPRESSIONS.put("<colorMod>", () -> getRandomItem(COLOR_MOD));
+        EXPRESSIONS.put("<temperature>", () -> getRandomItem(TEMPERATURE));
+        EXPRESSIONS.put("<wood>", () -> getRandomItem(WOODS));
+        EXPRESSIONS.put("<shapeMod>", () -> getRandomItem(SHAPE_MOD));
+        EXPRESSIONS.put("<shape>", () -> getRandomItem(SHAPE));
+        EXPRESSIONS.put("<container>", () -> getRandomItem(CONTAINER));
+        EXPRESSIONS.put("<contStopper>", () -> getRandomItem(CONTAINER_STOPPER));
+        EXPRESSIONS.put("<smellsLike>", () -> getRandomItem(SMELLS_LIKE));
+        EXPRESSIONS.put("<food>", () -> getRandomItem(FOOD));
+        EXPRESSIONS.put("<viscosity>", () -> getRandomItem(VISCOSITY));
+        EXPRESSIONS.put("<appearance>", () -> getRandomItem(APPEARANCE));
+        EXPRESSIONS.put("<script>", () -> getRandomItem(SCRIPT));
+        EXPRESSIONS.put("<pile>", () -> getRandomItem(PILE));
+        EXPRESSIONS.put("<book>", () -> getRandomItem(BOOK));
+        EXPRESSIONS.put("<critter>", () -> getRandomItem(CRITTER));        
         
         EXPRESSIONS.put("<texture>", () -> {
             switch(R.nextInt(5)){
-                case 0: case 1: case 2: return grabWord(TEXTURE);
-                case 3: return "full of " + grabWord(COLOR_MOD) + grabWord(COLOR) + " coloured " + grabWord(SHAPE_MOD) + " "
-                    + grabWord(SHAPE) + " fragments";
-                default: return "speckled with " + grabWord(APPEARANCE) + " " + grabWord(COLOR) + " "
-                    + grabWord(SHAPE) + " " + grabWord(new String[]{"particulates", "flakes", "particles", "residue"});
+                case 0: case 1: case 2: return getRandomItem(TEXTURE);
+                case 3: return "full of " + getRandomItem(COLOR_MOD) + getRandomItem(COLOR) + " coloured " + getRandomItem(SHAPE_MOD) + " "
+                    + getRandomItem(SHAPE) + " fragments";
+                default: return "speckled with " + getRandomItem(APPEARANCE) + " " + getRandomItem(COLOR) + " "
+                    + getRandomItem(SHAPE) + " " + getRandomItem(new String[]{"particulates", "flakes", "particles", "residue"});
             }
         });
-        EXPRESSIONS.put("<taste>", () -> R.nextDouble()<0.5 ? grabWord(TASTE) : "like " + grabWord(FOOD));
+        EXPRESSIONS.put("<taste>", () -> R.nextDouble()<0.5 ? getRandomItem(TASTE) : "like " + getRandomItem(FOOD));
         EXPRESSIONS.put("<smell>", () -> {
             switch(R.nextInt(6)){
-                case 0: case 1: case 2: return grabWord(SMELL);
-                case 3: return "like " + grabWord(FOOD);
-                case 4: return "like " + grabWord(WOODS);
-                default: return "like " + grabWord(SMELLS_LIKE);
+                case 0: case 1: case 2: return getRandomItem(SMELL);
+                case 3: return "like " + getRandomItem(FOOD);
+                case 4: return "like " + getRandomItem(WOODS);
+                default: return "like " + getRandomItem(SMELLS_LIKE);
             }
         });
         
     }
     
     
-    public static String grabWord(String[] ary){
-        return ary[R.nextInt(ary.length)];
-    }
-    
+    /**
+     * Converts the given regular expression String into a description.
+     * @param blueprint The regex String.
+     * @return A randomized description.
+     */
     public static String generateDescription(String blueprint){
         String text = "", exp = "";
         boolean inExpression = false, capital = false;

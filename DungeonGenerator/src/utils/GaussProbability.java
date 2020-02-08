@@ -10,9 +10,15 @@ import static utils.Utils.R;
  */
 public class GaussProbability implements Serializable{
 
+    
     private static final long serialVersionUID = 56734892217432L;
 
-    public double mean, sDev;
+    
+    /**
+     * mean: The mean.
+     * standardDeviation: The standard deviation.
+     */
+    public double mean, standardDeviation;
 
     /**
      * Constructs a normal distribution with the given mean and standard
@@ -22,7 +28,7 @@ public class GaussProbability implements Serializable{
      */
     public GaussProbability(double m, double s){
         mean = m;
-        sDev = s;
+        standardDeviation = s;
     }
 
     /**
@@ -32,7 +38,7 @@ public class GaussProbability implements Serializable{
      * @return
      */
     public double nextAboveZero(){
-        return getGaussianAboveZero(mean, sDev);
+        return getGaussianAboveZero(mean, standardDeviation);
     }
 
     /**
@@ -40,7 +46,7 @@ public class GaussProbability implements Serializable{
      * @return
      */
     public double next(){
-        return getGaussian(mean, sDev);
+        return getGaussian(mean, standardDeviation);
     }
     
     /**
@@ -50,7 +56,7 @@ public class GaussProbability implements Serializable{
      * @return
      */
     public double next(double from, double to){
-        return getGaussianBetween(mean, sDev, from, to);
+        return getGaussianBetween(mean, standardDeviation, from, to);
     }
 
     /**
@@ -58,7 +64,7 @@ public class GaussProbability implements Serializable{
      * @return
      */
     public boolean check(){
-        return getGaussian(mean, sDev)>0;
+        return getGaussian(mean, standardDeviation)>0;
     }
     
     /**

@@ -5,17 +5,23 @@ import java.io.Serializable;
 import static utils.Utils.R;
 
 /**
- *
+ * Models a discrete, finite distribution of integer outputs with distinct
+ * possibilities.
  * @author Adam Whittaker
- * 
- * Handles probability.
  */
 public class Distribution implements Serializable{
     
+    
     private final static long serialVersionUID = -1416387932;
     
+    /**
+     * outputs: The possible outputs of the distributions.
+     * chances: The relative chances of each of the above outputs being 
+     * selected.
+     */
     protected int[] outputs;
     protected double[] chances;
+    
     
     /**
      * Creates a new instance.
@@ -38,6 +44,7 @@ public class Distribution implements Serializable{
         chances = convertToCumulative(cha);
     }
     
+    
     /**
      * Gives a random output from this Distribution's output array based on its
      * chances.
@@ -46,6 +53,7 @@ public class Distribution implements Serializable{
     public int next(){
         return outputs[chanceToInt(R.nextDouble()*chances[chances.length-1])];
     }
+    
     
     /**
      * Converts an array of normal chances to an array of cumulative chances. 

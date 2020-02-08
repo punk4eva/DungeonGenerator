@@ -19,6 +19,10 @@ public class PriorityQueue<T extends Object> extends LinkedList<T> implements Co
     
     private static final long serialVersionUID = 1543L;
     
+    /**
+     * An enumeration function: Maps an Object into a double based on its 
+     * priority.
+     */
     private Function<T, Double> enumerator;
     
     
@@ -69,7 +73,7 @@ public class PriorityQueue<T extends Object> extends LinkedList<T> implements Co
     }
     
     /**
-     * Enumerates an object with the Comparator's
+     * Enumerates an object using the internal enumeration function.
      * @param t The object to be enumerated.
      * @return The enumeration of that object.
      */
@@ -89,6 +93,10 @@ public class PriorityQueue<T extends Object> extends LinkedList<T> implements Co
         return true;
     }
     
+    /**
+     * Sets the enumeration function of this PriorityQueue.
+     * @param func
+     */
     public void setFunction(Function<T, Double> func){
         enumerator = func;
     }

@@ -43,7 +43,7 @@ public class BiomeProcessor{
     private final MaterialConstructor[] MATERIALS = new MaterialConstructor[]{
         //                     temp       acco       host      height      tech     minTech
         new MaterialConstructor(20, 0.03,  40, 0.02,  00, 0.02,  05, 0.20,  65, 0.01,  22,  b -> new WoodPlanks(b.getRandomWood())),
-        new MaterialConstructor(25, 0.02,  50, 0.04,  10, 0.02,  00, 0.01,  75, 0.01,  30,  b -> new Brick()),
+        new MaterialConstructor(25, 0.02,  50, 0.04,  10, 0.02,  00, 0.01,  75, 0.01,  30,  b -> new Bricks()),
         new MaterialConstructor(20, 0.07,  18, 0.10,  00, 0.20,  00, 0.10,  12, 0.15,  05,  b -> new Thatch(b.getRandomWood())),
         new MaterialConstructor(20, 0.00,  00, 0.08,  00, 0.00,  -10, 0.2,  10, 0.02,  00,  b -> new CaveStone()),
         new MaterialConstructor(20, 0.01,  75, 0.06,  10, 0.02,  00, 0.01,  70, 0.07,  50,  b -> new Marble()),

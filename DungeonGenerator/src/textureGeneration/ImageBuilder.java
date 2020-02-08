@@ -10,10 +10,10 @@ import java.io.Serializable;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import javax.imageio.ImageIO;
-import static text.RegexParser.grabWord;
 import static utils.Utils.R;
 import static text.RegexParser.COLOR;
 import static utils.Utils.PERFORMANCE_LOG;
+import static utils.Utils.getRandomItem;
 
 /**
  * A static convenience class containing various image generation functions.
@@ -22,6 +22,9 @@ import static utils.Utils.PERFORMANCE_LOG;
 public final class ImageBuilder{
     
     
+    /**
+     * Prevents this static class from being instantiated erroneously.
+     */
     private ImageBuilder(){}
     
     
@@ -231,7 +234,7 @@ public final class ImageBuilder{
      * @return
      */
     public static Color getRandomColor(){
-        return getColor(grabWord(COLOR));
+        return getColor(getRandomItem(COLOR));
     }
     
     
