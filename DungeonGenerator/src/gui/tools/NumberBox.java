@@ -6,45 +6,40 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import static java.lang.Character.isDigit;
 
 /**
  *
  * @author Adam Whittaker
  */
-public class NumberBox extends InputBox implements KeyListener{
+public abstract class NumberBox extends InputBox implements KeyListener{
     
     
-    private static final int BORDER = 4, PRECISION = 6;
+    protected static final int BORDER = 4, PRECISION = 6;
     
-    private final double minimum, maximum;
-    private double value;
+    protected final double minimum, maximum;
     private boolean typing = false;
-    private String string;
+    protected String string;
     
     
     public NumberBox(int x, int y, int w, int h, double min, double max){
         super(x, y, w, h);
         minimum = min;
         maximum = max;
-        setDefaultValue();
     }
     
     
     @Override
     public void keyTyped(KeyEvent ke){
-        if(typing && string.length() < PRECISION){
-            char c = ke.getKeyChar();
-            if(isDigit(c) || c == '.') string += c;
-        }
+        if(typing && string.length() < PRECISION)
+            type(ke.getKeyChar());
     }
 
     @Override
     public void click(int mx, int my){
         if(withinBounds(mx, my)){
             typing = true;
-        }else{
-            if(typing) validate();
+        }else if(typing){
+            validate();
             typing = false;
         }
     }
@@ -59,23 +54,18 @@ public class NumberBox extends InputBox implements KeyListener{
         paintText(g, string);
     }
     
-    private void validate(){
-        while(string.endsWith(".")) 
-            string = string.substring(0, string.length()-1);
-        while(string.startsWith("."))
-            string = string.substring(1);
-        if(string.isEmpty()) setDefaultValue();
-        else value = Double.parseDouble(string);
-    }
+    protected abstract void validate();    
     
-    private void setDefaultValue(){
-        value = (maximum+minimum)/2D;
-        string = ("" + value).substring(0, PRECISION);
-    }
+    protected abstract void setDefaultValue();
+    
+    protected abstract void type(char c);
     
     
     @Override
-    public void keyPressed(KeyEvent e){/*Ignore*/}
+    public void keyPressed(KeyEvent e){
+        if(typing && e.getKeyCode()==KeyEvent.VK_BACK_SPACE && !string.isEmpty())
+            string = string.substring(0, string.length()-1);
+    }
 
     @Override
     public void keyReleased(KeyEvent e){/*Ignore*/}

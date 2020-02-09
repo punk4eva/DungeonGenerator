@@ -4,11 +4,13 @@ package gui.tools;
 import animation.Animation;
 import static gui.pages.DungeonScreen.ANIMATOR;
 import java.awt.Graphics2D;
+import utils.Utils.Unfinished;
 
 /**
  *
  * @author Adam Whittaker
  */
+@Unfinished("Rework to make more similar to other input boxes and think about getValue()")
 public abstract class Button extends InputBox{
     
     
@@ -66,6 +68,11 @@ public abstract class Button extends InputBox{
             }
             
         });
+    }
+    
+    @Override
+    public Object getValue(){
+        throw new IllegalStateException();
     }
     
 }

@@ -4,8 +4,6 @@ package gui.tools;
 import static gui.core.DungeonViewer.HEIGHT;
 import static gui.core.DungeonViewer.WIDTH;
 import static gui.tools.UIPanel.BUTTON_TEXT_FONT;
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics2D;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -20,14 +18,6 @@ import utils.Utils.Unfinished;
  */
 @Unfinished("Might not need the predicate")
 public abstract class DropDownMenu<T extends Object> extends InputBox{
-    
-    
-    private static final int MENU_HEIGHT = 64;
-    private static final int PADDING = 6;
-    private static final Color TITLE_COLOR = Color.YELLOW,
-            HIGHLIGHT_COLOR = new Color(98, 96, 147),
-            TEXT_COLOR = Color.YELLOW.darker();
-    private static final Font TITLE_FONT = new Font(Font.MONOSPACED, Font.BOLD, 36);
     
     
     protected final String title;
@@ -64,17 +54,10 @@ public abstract class DropDownMenu<T extends Object> extends InputBox{
     public void paint(Graphics2D g){
         paintBox(g, x, y, PADDING);
         paintTriangle(g);
-        paintName(g);
+        paintTitle(g);
         if(selection!=null) paintText(g, selection.getKey().toString(), x, y, 
                 width, height, TITLE_FONT, HIGHLIGHT_COLOR.brighter());
         if(open) paintOptions(g);
-    }
-    
-    private void paintBox(Graphics2D g, int x, int y, int padding){
-        g.setColor(UIPanel.BUTTON_COLOR);
-        g.fill3DRect(x-padding/2, y-padding/2, width+padding, height+padding, true);
-        g.setColor(UIPanel.UI_COLOR);
-        g.fill3DRect(x+padding/2, y+padding/2, width-padding, height-padding, false);
     }
     
     private void paintTriangle(Graphics2D g){
@@ -87,7 +70,7 @@ public abstract class DropDownMenu<T extends Object> extends InputBox{
                 new int[]{y+height/3, y+2*height/3, y+height/2}, 3);
     }
     
-    private void paintName(Graphics2D g){
+    private void paintTitle(Graphics2D g){
         paintText(g, title, x, y-height, width, height, TITLE_FONT, TITLE_COLOR);
     }
     
