@@ -70,9 +70,4 @@ public abstract class Button extends InputBox{
         });
     }
     
-    @Override
-    public Object getValue(){
-        throw new IllegalStateException();
-    }
-    
 }

@@ -1,5 +1,5 @@
 
-package gui.tools.assets;
+package gui.tools;
 
 import components.Area;
 import gui.core.DungeonViewer;
@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import static utils.Utils.spaceCamelCase;
+import gui.tools.ValueInputBox;
 
 /**
  *
@@ -34,7 +35,7 @@ public class AlgorithmSpecifier<T extends Object> extends InputBox{
     
     private final String title;
     private final String algorithmName;
-    protected final HashMap<String, InputBox> boxes = new HashMap<>();
+    protected final HashMap<String, ValueInputBox> boxes = new HashMap<>();
     private final Constructor<T> construct;
     
     
@@ -145,11 +146,6 @@ public class AlgorithmSpecifier<T extends Object> extends InputBox{
                     new DoubleBox(BOX_X, y, MENU_HEIGHT, MENU_HEIGHT, bounds[0], bounds[1]));
         }else throw new IllegalStateException("Unrecognized parameter: " + 
                 param.getName() + " of type " + param.getType());
-    }
-    
-    @Override
-    public Object getValue(){
-        throw new IllegalStateException("Not to be callsed in algorithm specifier.");
     }
 
 }

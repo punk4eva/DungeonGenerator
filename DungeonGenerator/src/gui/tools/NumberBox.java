@@ -11,7 +11,7 @@ import java.awt.event.KeyListener;
  *
  * @author Adam Whittaker
  */
-public abstract class NumberBox extends InputBox implements KeyListener{
+public abstract class NumberBox extends InputBox implements KeyListener, ValueInputBox{
     
     
     protected static final int BORDER = 4, PRECISION = 6;

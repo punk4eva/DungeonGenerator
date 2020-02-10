@@ -7,7 +7,7 @@ import java.awt.Graphics2D;
  *
  * @author Adam Whittaker
  */
-public class Toggle extends InputBox{
+public class Toggle extends InputBox implements ValueInputBox{
 
     
     private boolean active;

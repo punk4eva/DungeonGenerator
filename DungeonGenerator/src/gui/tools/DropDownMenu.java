@@ -85,5 +85,14 @@ public abstract class DropDownMenu<T extends Object> extends InputBox{
             }
         }
     }
+    
+    
+    public T get(){
+        return selection.getKey();
+    }
+    
+    public void executeRunnable(){
+        selection.getValue().run();
+    }
 
 }

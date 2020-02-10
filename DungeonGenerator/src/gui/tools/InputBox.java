@@ -39,8 +39,6 @@ public abstract class InputBox{
     
     public abstract void paint(Graphics2D g);
     
-    public abstract Object getValue();
-    
     
     public int getX(){
         return x;
