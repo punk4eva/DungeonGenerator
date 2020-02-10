@@ -9,6 +9,10 @@ package utils;
 import utils.test.PerformanceLog;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import static java.lang.Character.isDigit;
+import static java.lang.Character.isUpperCase;
+import static java.lang.Character.toUpperCase;
+import java.lang.reflect.Parameter;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.List;
 import java.util.Random;
@@ -116,6 +120,52 @@ public final class Utils{
     }
     
     /**
+     * Checks if the given string can be parsed into a double.
+     * @param str
+     * @return
+     */
+    public static boolean isDouble(String str){
+        if(str.startsWith("-")) str = str.substring(1);
+        if(str.isEmpty() || str.startsWith(".") || str.endsWith(".")) return false;
+        boolean dot = false; //If a decimal point has been found in the string.
+        for(char c : str.toCharArray()){
+            if(!isDigit(c)){
+                if(c=='.'){
+                    if(dot) return false;
+                    else dot = true;
+                }else return false;
+            }
+        }
+        return true;
+    }
+    
+    /**
+     * Checks if the given string can be parsed into an int.
+     * @param str
+     * @return
+     */
+    public static boolean isInteger(String str){
+        if(str.startsWith("-")) str = str.substring(1);
+        if(str.isEmpty()) return false;
+        for(char c : str.toCharArray()) if(!isDigit(c)) return false;
+        return true;
+    }
+    
+    public static String capitalize(String str){
+        return toUpperCase(str.charAt(0)) + str.substring(1);
+    }
+    
+    public static String spaceCamelCase(String str){
+        for(int n=0;n<str.length();n++){
+            if(isUpperCase(str.charAt(n))){
+                str = str.substring(0, n) + " " + str.charAt(n) + str.substring(n+1);
+                n++;
+            }
+        }
+        return capitalize(str);
+    }
+    
+    /**
      * Checks whether the given map contains the given RGB pixel array as a key.
      * @param <T> The type of the values of the entries in the map.
      * @param map The map.
@@ -146,7 +196,7 @@ public final class Utils{
      * @param args The arguments.
      * @throws IOException
      */
-    public static void main(String... args) throws IOException{
+    public static void main(String... args) throws Exception{
         System.out.println("Running...");
         
         //Graph graph = new Graph(80, 80);
@@ -156,6 +206,11 @@ public final class Utils{
         for(int n=0;n<20;n++) list.add(getRandomRoom());
         new RoomPlacer(area, list).generate();*/
         
+        //Constructor<BurrowCaveGrower> construct = (Constructor<BurrowCaveGrower>) BurrowCaveGrower.class.getConstructors()[0];
+        //System.out.println(construct.getName());
+        /*for(Parameter param : construct.getParameters()){
+            System.out.println(param.getName() + ", " + param.getType());
+        }*/
     }
     
 }

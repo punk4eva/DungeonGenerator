@@ -23,18 +23,21 @@ public class BurrowCaveGrower extends PavedCaveGrower implements PostCorridorPla
     /**
      * Creates an instance by forwarding parameters.
      * @param a
-     * @param sC
-     * @param miL
-     * @param maL
-     * @param bMi
-     * @param bMa
-     * @param it
-     * @param p Whether or not to use special floor for the paths.
+     * @param startChance
+     * @param iterationNumber
+     * @param starvationLimit
+     * @param overpopulationLimit
+     * @param birthMinimum
+     * @param birthMaximum
+     * @param specialPaths Whether or not to use special floor for the paths.
      * @param windyness How curvy the paths are.
      */
-    public BurrowCaveGrower(Area a, double sC, int miL, int maL, int bMi, int bMa, int it, boolean p, double windyness){
-        super(a, sC, miL, maL, bMi, bMa, it, windyness);
-        specialFloorPaths = p;
+    public BurrowCaveGrower(Area a, double startChance, int iterationNumber, 
+            int starvationLimit, int overpopulationLimit, int birthMinimum, 
+            int birthMaximum, double windyness, boolean specialPaths){
+        super(a, startChance, iterationNumber, starvationLimit, 
+                overpopulationLimit, birthMinimum, birthMaximum, windyness);
+        specialFloorPaths = specialPaths;
     }
     
     

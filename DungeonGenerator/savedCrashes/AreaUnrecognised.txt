@@ -1,0 +1,15 @@
+02-10 19:33:16:940: $ java.lang.IllegalStateException: Unrecognized parameter: a of type class components.Area
+java.lang.IllegalStateException: Unrecognized parameter: a of type class components.Area
+	at gui.tools.assets.AlgorithmSpecifier.addToMap(AlgorithmSpecifier.java:145)
+	at gui.tools.assets.AlgorithmSpecifier.<init>(AlgorithmSpecifier.java:50)
+	at gui.core.DungeonViewer.<init>(DungeonViewer.java:70)
+	at gui.core.Window.main(Window.java:62)
+02-10 19:33:16:940:      ---- CRASH DATA ----
+02-10 19:33:16:940:  -   Current state: CHOOSING
+02-10 19:33:16:940:  -   Dimensions: 1920, 1080
+02-10 19:33:16:941:  -   Animations: 1
+02-10 19:33:16:941:  -   Particles: 0
+02-10 19:33:16:941:  -   sfxVolume: 0.0
+02-10 19:33:16:941:  -   musicVolume: 0.0
+02-10 19:33:16:941:  -   Calibration panel: null
+02-10 19:33:16:941: $    ---- END OF CRASH DATA ----

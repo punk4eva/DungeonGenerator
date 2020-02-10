@@ -16,16 +16,19 @@ public abstract class PavedCaveGrower extends ConwayCaveGrower{
     /**
      * Creates an instance by forwarding the arguments to the super-constructor.
      * @param a
-     * @param sC
-     * @param it
-     * @param miL
-     * @param maL
-     * @param bMi
-     * @param bMa
+     * @param startChance
+     * @param iterationNumber
+     * @param starvationLimit
+     * @param overpopulationLimit
+     * @param birthMinimum
+     * @param birthMaximum
      * @param windyness How windy the paths are.
      */
-    public PavedCaveGrower(Area a, double sC, int it, int miL, int maL, int bMi, int bMa, double windyness){
-        super(a, sC, it, miL, maL, bMi, bMa);
+    public PavedCaveGrower(Area a, double startChance, int iterationNumber, 
+            int starvationLimit, int overpopulationLimit, int birthMinimum, 
+            int birthMaximum, double windyness){
+        super(a, startChance, iterationNumber, starvationLimit, 
+                overpopulationLimit, birthMinimum, birthMaximum);
         frontier.setFunction(point -> R.nextDouble()*windyness);
     }
     
@@ -58,6 +61,5 @@ public abstract class PavedCaveGrower extends ConwayCaveGrower{
             }
         }
     }
-    
 
 }

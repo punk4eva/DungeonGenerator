@@ -1,0 +1,18 @@
+02-09 13:05:37:902: $ java.lang.StringIndexOutOfBoundsException: String index out of range: 6
+java.lang.StringIndexOutOfBoundsException: String index out of range: 6
+	at java.lang.String.substring(String.java:1963)
+	at gui.tools.DoubleBox.setDefaultValue(DoubleBox.java:26)
+	at gui.tools.DoubleBox.<init>(DoubleBox.java:19)
+	at gui.tools.assets.BurrowCaveSpecifier.<init>(BurrowCaveSpecifier.java:33)
+	at gui.tools.assets.CorridorDropDownMenu.<init>(CorridorDropDownMenu.java:19)
+	at gui.core.DungeonViewer.<init>(DungeonViewer.java:66)
+	at gui.core.Window.main(Window.java:62)
+02-09 13:05:37:903:      ---- CRASH DATA ----
+02-09 13:05:37:903:  -   Current state: CHOOSING
+02-09 13:05:37:903:  -   Dimensions: 1920, 1080
+02-09 13:05:37:903:  -   Animations: 1
+02-09 13:05:37:903:  -   Particles: 0
+02-09 13:05:37:903:  -   sfxVolume: 0.0
+02-09 13:05:37:903:  -   musicVolume: 0.0
+02-09 13:05:37:903:  -   Calibration panel: null
+02-09 13:05:37:903: $    ---- END OF CRASH DATA ----

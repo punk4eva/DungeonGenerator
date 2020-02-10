@@ -15,13 +15,13 @@ public class WormholeCaveGrower extends PavedCaveGrower implements PostCorridorP
     /**
      * Creates a new instance.
      * @param a The Area.
-     * @param it The number of iterations.
-     * @param starveLimit The minimum number of adjacent living cells needed 
+     * @param iterationNumber The number of iterations.
+     * @param starvationLimit The minimum number of adjacent living cells needed 
      * before the cell "starves".
      * @param windyness How windy the paths are.
      */
-    public WormholeCaveGrower(Area a, int it, int starveLimit, double windyness){
-        super(a, 1.00, it,  starveLimit, 9,  9, -1, windyness);
+    public WormholeCaveGrower(Area a, int iterationNumber, int starvationLimit, double windyness){
+        super(a, 1.00, iterationNumber,  starvationLimit, 9,  9, -1, windyness);
         addCheck = (from, to) -> to.isCorridor;
     }
 

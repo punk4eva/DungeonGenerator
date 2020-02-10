@@ -42,19 +42,21 @@ public class ConwayCaveGrower extends CaveGrower implements PreCorridorPlacer{
     /**
      * Creates a new instance.
      * @param a The Area.
-     * @param sC The chance for a tile to start alive.
-     * @param miL The starvation limit (inclusive).
-     * @param maL The overpopulation limit (inclusive).
-     * @param bMi The lower birth limit (inclusive).
-     * @param bMa The upper birth limit (inclusive).
-     * @param it The amount of iterations.
+     * @param startChance The chance for a tile to start alive.
+     * @param starvationLimit The starvation limit (inclusive).
+     * @param overpopulationLimit The overpopulation limit (inclusive).
+     * @param birthMinimum The lower birth limit (inclusive).
+     * @param birthMaximum The upper birth limit (inclusive).
+     * @param iterationNumber The amount of iterations.
      */
-    public ConwayCaveGrower(Area a, double sC, int it, int miL, int maL, int bMi, int bMa){
-        super(a, sC, it);
-        starveLimit = miL;
-        overpopulationLimit = maL;
-        birthMax = bMa;
-        birthMin = bMi;
+    public ConwayCaveGrower(Area a, double startChance, int iterationNumber, 
+            int starvationLimit, int overpopulationLimit, int birthMinimum, 
+            int birthMaximum){
+        super(a, startChance, iterationNumber);
+        starveLimit = starvationLimit;
+        this.overpopulationLimit = overpopulationLimit;
+        birthMax = birthMaximum;
+        birthMin = birthMinimum;
     }
     
     

@@ -1,40 +1,24 @@
-02-08 14:10:58:460: 196 millis: Viewer instanciated
-02-08 14:10:58:472: 12 millis: Area information initialized
-02-08 14:10:58:728: 256 millis: Wall noise created
-02-08 14:10:58:779: 51 millis: Floor noise created
-02-08 14:10:59:689: 910 millis: Water image created
-02-08 14:10:59:702: Mouse x, y, tile x, tile y: 1242, 370, 77, 23
-02-08 14:10:59:744: 55 millis: Architechture created
-02-08 14:10:59:769: 25 millis: Goblin rooms placed
-02-08 14:10:59:770: 1 millis: Rooms placed
-02-08 14:10:59:773: 3 millis: Decorations added
-02-08 14:10:59:796: Mouse x, y, tile x, tile y: 1242, 370, 57, 29
-02-08 14:10:59:796: Mouse x, y, tile x, tile y: 1242, 370, 57, 29
-02-08 14:11:00:258: Mouse x, y, tile x, tile y: 1249, 383, 58, 30
-02-08 14:11:00:344: Mouse x, y, tile x, tile y: 1249, 383, 58, 30
-02-08 14:11:00:344: Mouse x, y, tile x, tile y: 1249, 383, 58, 30
-02-08 14:11:00:375: 602 millis: Images initialized
-02-08 14:11:00:377:      ---- Speed Report ----
-02-08 14:11:00:377: Total time: 2111 millis
-02-08 14:11:00:378: Viewer instanciated: 9.28%
-02-08 14:11:00:378: Area information initialized: 0.56%
-02-08 14:11:00:378: Wall noise created: 12.1%
-02-08 14:11:00:378: Floor noise created: 2.41%
-02-08 14:11:00:379: Water image created: 43.1%
-02-08 14:11:00:379: Architechture created: 2.60%
-02-08 14:11:00:379: Goblin rooms placed: 1.18%
-02-08 14:11:00:379: Rooms placed: 0.04%
-02-08 14:11:00:379: Decorations added: 0.14%
-02-08 14:11:00:379: Images initialized: 28.5%
-02-08 14:11:00:598: Mouse x, y, tile x, tile y: 1249, 383, 58, 30
-02-08 14:11:00:702: Mouse x, y, tile x, tile y: 1249, 383, 58, 30
-02-08 14:11:00:702: Mouse x, y, tile x, tile y: 1249, 383, 58, 30
-02-08 14:11:01:400: Mouse x, y, tile x, tile y: 1249, 383, 58, 30
-02-08 14:11:01:524: Mouse x, y, tile x, tile y: 1249, 383, 58, 30
-02-08 14:11:01:524: Mouse x, y, tile x, tile y: 1249, 383, 58, 30
-02-08 14:11:02:308: Mouse x, y, tile x, tile y: 1249, 383, 58, 30
-02-08 14:11:02:418: Mouse x, y, tile x, tile y: 1249, 383, 58, 30
-02-08 14:11:02:418: Mouse x, y, tile x, tile y: 1249, 383, 58, 30
-02-08 14:11:02:691: Mouse x, y, tile x, tile y: 1249, 383, 58, 30
-02-08 14:11:02:794: Mouse x, y, tile x, tile y: 1249, 383, 58, 30
-02-08 14:11:02:794: Mouse x, y, tile x, tile y: 1249, 383, 58, 30
+02-10 19:38:50:876: 198 millis: Viewer instanciated
+02-10 19:38:50:887: 11 millis: Area information initialized
+02-10 19:38:51:244: 356 millis: Wall noise created
+02-10 19:38:51:315: 71 millis: Floor noise created
+02-10 19:38:52:239: 924 millis: Water image created
+02-10 19:38:52:302: 63 millis: Architechture created
+02-10 19:38:52:327: 25 millis: Goblin rooms placed
+02-10 19:38:52:328: 1 millis: Rooms placed
+02-10 19:38:52:332: 4 millis: Decorations added
+02-10 19:38:52:980: 648 millis: Images initialized
+02-10 19:38:52:983:      ---- Speed Report ----
+02-10 19:38:52:983: Total time: 2301 millis
+02-10 19:38:52:984: Viewer instanciated: 8.60%
+02-10 19:38:52:984: Area information initialized: 0.47%
+02-10 19:38:52:984: Wall noise created: 15.4%
+02-10 19:38:52:984: Floor noise created: 3.08%
+02-10 19:38:52:984: Water image created: 40.1%
+02-10 19:38:52:984: Architechture created: 2.73%
+02-10 19:38:52:984: Goblin rooms placed: 1.08%
+02-10 19:38:52:984: Rooms placed: 0.04%
+02-10 19:38:52:984: Decorations added: 0.17%
+02-10 19:38:52:984: Images initialized: 28.1%
+02-10 19:39:11:669: Keypress: KEY_PRESSED,keyCode=524,keyText=Windows,keyChar=Undefined keyChar,keyLocation=KEY_LOCATION_LEFT,rawCode=91,primaryLevelUnicode=0,scancode=91,extendedKeyCode=0x20c
+02-10 19:39:11:772: Keypress: KEY_PRESSED,keyCode=16,keyText=Shift,keyChar=Undefined keyChar,modifiers=Shift,extModifiers=Shift,keyLocation=KEY_LOCATION_LEFT,rawCode=16,primaryLevelUnicode=0,scancode=42,extendedKeyCode=0x10

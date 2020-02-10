@@ -27,13 +27,13 @@ public abstract class CaveGrower extends Searcher{
     /**
      * Creates a new instance.
      * @param a The Area.
-     * @param sC The chance for a cell to start alive.
-     * @param it The number of iterations.
+     * @param startChance The chance for a cell to start alive.
+     * @param iterationNumber The number of iterations.
      */
-    public CaveGrower(Area a, double sC, int it){
+    public CaveGrower(Area a, double startChance, int iterationNumber){
         super(a);
-        startAliveChance = sC;
-        iterNum = it;
+        startAliveChance = startChance;
+        iterNum = iterationNumber;
     }
     
     
