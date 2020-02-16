@@ -48,6 +48,14 @@ public abstract class InputBox{
         return y;
     }
     
+    public int getWidth(){
+        return width;
+    }
+    
+    public int getHeight(){
+        return height;
+    }
+    
     protected void setXY(int _x, int _y){
         x = _x;
         y = _y;

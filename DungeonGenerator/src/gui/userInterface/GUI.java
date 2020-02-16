@@ -3,6 +3,7 @@ package gui.userInterface;
 
 import gui.core.DungeonViewer;
 import static gui.core.Window.VIEWER;
+import gui.tools.Button;
 import gui.tools.CalibrationPanel;
 import gui.tools.ControlPanel;
 import java.awt.Graphics2D;
@@ -37,6 +38,10 @@ public class GUI{
     
     public String getCalibrationPanelName(){
         return calibration == null ? "null" : calibration.getClass().getSimpleName();
+    }
+    
+    public Button[] getControlPanelButtons(){
+        return control.getButtons();
     }
     
 }

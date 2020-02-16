@@ -6,6 +6,7 @@
 
 package utils;
 
+import java.awt.AWTException;
 import utils.test.PerformanceLog;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -17,7 +18,9 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.List;
 import java.util.Random;
 import static textureGeneration.Texture.rgbPixelEquals;
+import utils.test.AutoClicker;
 import utils.test.SpeedTester;
+import utils.test.StressTester;
 
 /**
  * A static library of miscellaneous functions, utilities and a main method for 
@@ -39,13 +42,20 @@ public final class Utils{
      * SPEED_TESTER: The speed tester.
      */
     public static final Random R = new Random();
-    public transient static PerformanceLog PERFORMANCE_LOG;
-    public static SpeedTester SPEED_TESTER = new SpeedTester();
+    public static PerformanceLog PERFORMANCE_LOG;
+    public final static SpeedTester SPEED_TESTER = new SpeedTester();
+    public final static StressTester STRESS_TESTER = new StressTester();
+    public static AutoClicker ROBOT;
     static{
         try{
             PERFORMANCE_LOG = new PerformanceLog();
         }catch(FileNotFoundException e){
             System.err.println("PrintStream failed.");
+        }
+        try{
+            ROBOT = new AutoClicker();
+        }catch(AWTException e){
+            System.err.println("Robot failed.");
         }
     }
     

@@ -64,13 +64,19 @@ public class PerformanceLog extends PrintStream implements MouseListener, KeyLis
         println(" -   Particles: " + ANIMATOR.getParticleNum());
         println(" -   sfxVolume: " + Window.sfxVolume);
         println(" -   musicVolume: " + Window.musicVolume);
-        println(" -   Calibration panel: " + SCREEN.getCalibrationPanelName());
+        println(" -   Calibration panel: " + SCREEN.getGUI()
+                .getCalibrationPanelName());
         if(VIEWER.getArea()!=null){
             VIEWER.getArea().info.printInfo();
             VIEWER.getArea().info.architecture.biome.printInfo();
         }
         println("$    ---- END OF CRASH DATA ----");
         if(FILE_CRASH_REPORT) copyPerformanceFile(getCrashFileName());
+    }
+    
+    public void dualPrint(String message){
+        System.out.println(message);
+        println(message);
     }
     
     private String getCrashFileName(){

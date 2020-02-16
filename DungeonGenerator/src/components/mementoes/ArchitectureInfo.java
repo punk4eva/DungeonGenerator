@@ -6,8 +6,8 @@ import biomes.BiomeProcessor;
 import biomes.Society;
 import components.LevelFeeling;
 import textureGeneration.DoorIconGenerator;
-import textureGeneration.ImageBuilder;
 import materials.Material;
+import utils.Distribution;
 
 /**
  *
@@ -36,7 +36,9 @@ public class ArchitectureInfo{
      * @param f The general ethos of the level.
      */
     public ArchitectureInfo(AreaInfo info, LevelFeeling f){
-        doorGenerator = new DoorIconGenerator(info, () -> ImageBuilder.getImageFromFile("tiles/rectDoor.png"));
+        doorGenerator = new DoorIconGenerator(info, () -> 
+                DoorIconGenerator.getRandomDoorBackground(
+                        new Distribution(new double[]{1, 1})));
         doorMaterial = biome.getMaterial(m -> m.door);
         floorMaterial = biome.getMaterial(m -> m.floor);
         wallMaterial = biome.getMaterial(m -> m.wall);

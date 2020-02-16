@@ -88,11 +88,11 @@ public class DungeonScreen implements Screen{
     }
     
     /**
-     * Retrieves the name of the calibration panel for debugging purposes.
+     * Retrieves the GUI manager.
      * @return
      */
-    public String getCalibrationPanelName(){
-        return gui.getCalibrationPanelName();
+    public GUI getGUI(){
+        return gui;
     }
     
     /**

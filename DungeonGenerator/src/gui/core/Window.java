@@ -8,11 +8,16 @@ import generation.rooms.*;
 import gui.core.DungeonViewer.State;
 import gui.pages.DungeonScreen;
 import java.awt.Dimension;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.io.IOException;
 import java.util.LinkedList;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import static textureGeneration.ImageBuilder.getRandomIcon;
 import static utils.Utils.R;
 import static utils.Utils.PERFORMANCE_LOG;
+import static utils.Utils.ROBOT;
 import static utils.Utils.SPEED_TESTER;
 
 /**
@@ -45,6 +50,10 @@ public class Window{
         frame.setMinimumSize(new Dimension(width, height));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
+        frame.setIconImage(getRandomIcon().getImage());
+        frame.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
+            new ImageIcon("graphics/gui/cursor.png").getImage(),
+            new Point(0,0), "Blue Cursor"));
         //@Unfinished uncomment
         //frame.setUndecorated(true);
         frame.setLocationRelativeTo(null);
@@ -92,7 +101,9 @@ public class Window{
             SPEED_TESTER.test("Area saved");*/
             
             SPEED_TESTER.report();
-            //viewer.setState(State.VIEWING);
+            viewer.setState(State.VIEWING);
+            
+            //ROBOT.spamButton(SCREEN.getGUI().getControlPanelButtons()[0], 150, 5);
         }catch(Exception e){
             PERFORMANCE_LOG.log(e);
             throw e;

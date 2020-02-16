@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import static utils.Utils.R;
 import static text.RegexParser.COLOR;
 import static utils.Utils.PERFORMANCE_LOG;
@@ -106,6 +107,13 @@ public final class ImageBuilder{
      */
     public static int[] colorToPixelArray(Color c){
         return colorToPixelArray(c, false);
+    }
+    
+    public static ImageIcon getRandomIcon(){
+        switch(R.nextInt(1)){
+            case 0: return new ImageIcon("graphics/gui/icon64.png");
+        }
+        throw new IllegalStateException();
     }
     
     /**

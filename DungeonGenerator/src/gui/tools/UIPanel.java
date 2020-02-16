@@ -34,6 +34,11 @@ public class UIPanel extends MouseAdapter{
     }
     
     
+    public Button[] getButtons(){
+        return buttons;
+    }
+    
+    
     public void render(Graphics2D g){
         g.setColor(UI_COLOR);
         g.fillRect(x, 0, width, HEIGHT);
@@ -92,7 +97,7 @@ public class UIPanel extends MouseAdapter{
             ANIMATOR.add(new Animation(){
                     
                 int duration = dur;
-                int target = getX() + (int)(Math.signum(plus))*dur;
+                int target = UIPanel.this.getX() + (int)(Math.signum(plus))*dur;
 
                 @Override
                 public void animate(Graphics2D g, int focusX, int focusY, int frames){

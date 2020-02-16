@@ -46,7 +46,7 @@ public class DungeonViewer extends Canvas implements Runnable{
     }
 
     protected volatile boolean running = false;
-    private State state = State.CHOOSING;
+    private State state = State.LOADING;
     protected Thread runThread;
     protected Window window;
 
@@ -64,10 +64,10 @@ public class DungeonViewer extends Canvas implements Runnable{
         addMouseListener(PERFORMANCE_LOG);
         addKeyListener(PERFORMANCE_LOG);
         
-        SELECTION_SCREEN = new SelectionScreen(this);
-        //SELECTION_SCREEN.setInputBox(new CorridorDropDownMenu(p -> true, SELECTION_SCREEN));
+        /*SELECTION_SCREEN = new SelectionScreen(this);
         SELECTION_SCREEN.setInputBox(new AlgorithmSpecifier<BurrowCaveGrower>(this, ((Constructor<BurrowCaveGrower>)BurrowCaveGrower.class.getConstructors()[0]), 
-                "Burrow Cave Grower", "Design the burrows", WIDTH/3, HEIGHT/3));
+                "Burrow Cave Grower", "Design the burrows", WIDTH/3, HEIGHT/3));*/
+        SELECTION_SCREEN = null;
     }
     
     
@@ -162,6 +162,10 @@ public class DungeonViewer extends Canvas implements Runnable{
      */
     public void setLoadingMessage(String str){
         LOADING_SCREEN.setMessage(str);
+    }
+    
+    public int getTitleBarSize(){
+        return window.frame.getInsets().top;
     }
     
 }

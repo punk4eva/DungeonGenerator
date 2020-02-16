@@ -5,11 +5,6 @@ import components.Area;
 import gui.core.DungeonViewer;
 import static gui.core.DungeonViewer.HEIGHT;
 import static gui.core.DungeonViewer.WIDTH;
-import gui.tools.DoubleBox;
-import gui.tools.InputBox;
-import gui.tools.IntegerBox;
-import gui.tools.Toggle;
-import gui.tools.UIPanel;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyListener;
@@ -20,7 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import static utils.Utils.spaceCamelCase;
-import gui.tools.ValueInputBox;
 
 /**
  *

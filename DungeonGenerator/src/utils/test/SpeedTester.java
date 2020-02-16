@@ -44,8 +44,7 @@ public class SpeedTester{
     }
     
     private void dualPrint(String message){
-        System.out.println(message);
-        PERFORMANCE_LOG.println(message);
+        PERFORMANCE_LOG.dualPrint(message);
         VIEWER.setLoadingMessage(message);
     }
     

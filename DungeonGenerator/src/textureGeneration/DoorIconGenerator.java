@@ -7,6 +7,7 @@ import textureGeneration.ImageBuilder.SerSupplier;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
+import utils.Distribution;
 
 /**
  * Generates the image for a door.
@@ -160,6 +161,15 @@ public class DoorIconGenerator{
         }
         
         img.getGraphics().drawImage(ImageBuilder.getImageFromFile("tiles/handle.png"), 0, 0, null);
+    }
+    
+    
+    public static BufferedImage getRandomDoorBackground(Distribution doorDistrib){
+        switch(doorDistrib.next()){
+            case 0: return ImageBuilder.getImageFromFile("tiles/doors/rectDoor.png");
+            case 1: return ImageBuilder.getImageFromFile("tiles/doors/archDoor.png");
+        }
+        throw new IllegalStateException();
     }
     
 }
