@@ -1,10 +1,16 @@
 
-package gui.tools;
+package gui.questions;
 
 import components.Area;
 import gui.core.DungeonViewer;
 import static gui.core.DungeonViewer.HEIGHT;
 import static gui.core.DungeonViewer.WIDTH;
+import gui.pages.SelectionScreen;
+import gui.tools.DoubleBox;
+import gui.tools.IntegerBox;
+import gui.tools.Toggle;
+import gui.tools.UIPanel;
+import gui.tools.ValueInputBox;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyListener;
@@ -21,7 +27,7 @@ import static utils.Utils.spaceCamelCase;
  * @author Adam Whittaker
  * @param <T>
  */
-public class AlgorithmSpecifier<T extends Object> extends InputBox{
+public class AlgorithmSpecifier<T extends Object> extends QuestionBox{
     
     
     protected final static int INPUT_NAME_X = WIDTH/4, BOX_X = 5*WIDTH/8,
@@ -47,8 +53,6 @@ public class AlgorithmSpecifier<T extends Object> extends InputBox{
                 _y += yInc;
             }
         }
-        
-        registerKeys(v);
     }
     
     
@@ -82,6 +86,7 @@ public class AlgorithmSpecifier<T extends Object> extends InputBox{
                 y-f.getHeight()-PADDING + f.getDescent());
     }
     
+    @Override
     public final void registerKeys(DungeonViewer v){
         boxes.entrySet().stream().map(entry -> entry.getValue())
                 .filter(inp -> inp instanceof KeyListener).forEach(key -> {
@@ -89,6 +94,7 @@ public class AlgorithmSpecifier<T extends Object> extends InputBox{
                 });
     }
     
+    @Override
     public final void deregisterKeys(DungeonViewer v){
         boxes.entrySet().stream().map(entry -> entry.getValue())
                 .filter(inp -> inp instanceof KeyListener).forEach(key -> {
@@ -140,6 +146,12 @@ public class AlgorithmSpecifier<T extends Object> extends InputBox{
                     new DoubleBox(BOX_X, y, MENU_HEIGHT, MENU_HEIGHT, bounds[0], bounds[1]));
         }else throw new IllegalStateException("Unrecognized parameter: " + 
                 param.getName() + " of type " + param.getType());
+    }
+
+    
+    @Override
+    public QuestionBox processAndNext(SelectionScreen sc){
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

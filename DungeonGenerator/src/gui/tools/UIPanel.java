@@ -42,7 +42,7 @@ public class UIPanel extends MouseAdapter{
     public void render(Graphics2D g){
         g.setColor(UI_COLOR);
         g.fillRect(x, 0, width, HEIGHT);
-        for(Button b : buttons) b.render(g);
+        for(Button b : buttons) b.paint(g);
     }
     
     private void moveX(int plus){

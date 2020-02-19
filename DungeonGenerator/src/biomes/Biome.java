@@ -17,12 +17,33 @@ public enum Biome{
      * height
      * technology
      */
-    PLAINS(20, 100, 10, 0, 0), SHALLOW_CAVE(10, 20, 30, -25, 35), MEDIUM_CAVE(-5, 20, 35, -50, 45),
-    DEEP_CAVE(27, 27, 55, -75, 55), BURIED_OASIS(23, 35, 25, -60, 20), HELL(50, 40, 85, -100, 95),
-    LOWLANDS(20, 80, 25, 10, 10), MIDLANDS(16, 65, 20, 20, 15), HIGHLANDS(10, 57, 28, 30, 30),
-    MOUNTAIN(-10, 25, 43, 50, 43), FLOATING_ISLAND(-5, 45, 15, 40, 20), SUMMIT(-25, 5, 50, 60, 90),
-    MARSH(20, 0, 20, 0, 40), DESERT(40, 9, 39, 0, 15), JUNGLE(30, 45, 45, 0, 50),
-    TUNDRA(-15, 30, 30, 20, 30), LIGHT_SNOW(-25, 35, 38, 20, 30), HEAVY_SNOW(-35, 27, 45, 25, 39);
+    //Underground
+    SHALLOW_CAVE(10, 20, 30, -25, 35), MEDIUM_CAVE(-5, 20, 35, -50, 45),
+    DEEP_CAVE(27, 27, 55, -75, 55), BURIED_OASIS(23, 35, 25, -60, 20), 
+    HELL(60, 40, 85, -100, 95), THE_DEEP(37, 32, 70, -85, 75),
+    
+    //Plain
+    PLAINS(16, 100, 10, 0, 0), LOWLANDS(12, 80, 25, 10, 10), 
+    MIDLANDS(8, 65, 20, 20, 15), HIGHLANDS(5, 57, 28, 30, 30), 
+    TEMPERATE_FOREST(13, 75, 32, 5, 20), MARSH(20, 0, 45, 0, 35),
+    
+    //High altitude
+    MOUNTAIN(-10, 25, 43, 50, 43), FLOATING_ISLAND(-5, 45, 15, 40, 20), 
+    SUMMIT(-25, 5, 50, 60, 90), CLIFF(0, 30, 41, 35, 30), 
+    BASALTIC_VOLCANO(8, 30, 41, 28, 20), RHYOLITIC_VOLCANO(15, 40, 65, 38, 30), 
+    SPRING(3, 45, 35, 38, 22),
+    
+    //High temp, humid
+    JUNGLE(30, 45, 45, 0, 34), MANGROVE_SWAMP(25, 27, 38, 0, 35), 
+    TROPICAL_RAINFOREST(30, 48, 36, 0, 36),
+    
+    //High temp, arid
+    DESERT(40, 9, 39, 0, 15), SAVANNA(30, 28, 46, 3, 32), 
+    BEACH(27, 52, 40, 0, 35),
+    
+    //Low temp
+    TUNDRA(-15, 30, 30, 20, 30), LIGHT_SNOW(-25, 35, 38, 20, 30), 
+    HEAVY_SNOW(-35, 27, 45, 25, 39), BADLAND(-15, 0, 30, 32, 52);
 
     
     /**

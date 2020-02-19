@@ -1,5 +1,5 @@
 
-package gui.tools;
+package gui.questions;
 
 import generation.*;
 

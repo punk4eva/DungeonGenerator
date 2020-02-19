@@ -24,14 +24,12 @@ public abstract class Button extends InputBox{
     
     
     /**
-     * Renders the background of this Button. Assumes that the color has already
-     * been set.
+     * Renders the background of this Button.
      * @param g
      */
-    public void render(Graphics2D g){
+    public void paintButtonBox(Graphics2D g){
         g.setColor(UIPanel.BUTTON_COLOR);
         g.fill3DRect(x, y, width, height, !selected);
-        paint(g);
     }
     
     /**

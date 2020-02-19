@@ -44,6 +44,7 @@ public class ControlPanel extends UIPanel{
 
             @Override
             public void paint(Graphics2D g){
+                paintButtonBox(g);
                 paintText(g, name);
             }
         

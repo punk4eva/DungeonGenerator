@@ -4,7 +4,7 @@ package gui.core;
 import components.Area;
 import generation.corridors.BurrowCaveGrower;
 import gui.pages.*;
-import gui.tools.AlgorithmSpecifier;
+import gui.questions.AlgorithmSpecifier;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -46,7 +46,7 @@ public class DungeonViewer extends Canvas implements Runnable{
     }
 
     protected volatile boolean running = false;
-    private State state = State.LOADING;
+    private State state;
     protected Thread runThread;
     protected Window window;
 
@@ -64,10 +64,9 @@ public class DungeonViewer extends Canvas implements Runnable{
         addMouseListener(PERFORMANCE_LOG);
         addKeyListener(PERFORMANCE_LOG);
         
-        /*SELECTION_SCREEN = new SelectionScreen(this);
-        SELECTION_SCREEN.setInputBox(new AlgorithmSpecifier<BurrowCaveGrower>(this, ((Constructor<BurrowCaveGrower>)BurrowCaveGrower.class.getConstructors()[0]), 
-                "Burrow Cave Grower", "Design the burrows", WIDTH/3, HEIGHT/3));*/
-        SELECTION_SCREEN = null;
+        SELECTION_SCREEN = new SelectionScreen(this);
+        SELECTION_SCREEN.setQuestionBox(new AlgorithmSpecifier<BurrowCaveGrower>(this, ((Constructor<BurrowCaveGrower>)BurrowCaveGrower.class.getConstructors()[0]), 
+                "Burrow Cave Grower", "Design the burrows", WIDTH/3, HEIGHT/3));
     }
     
     
