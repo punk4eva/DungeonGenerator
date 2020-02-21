@@ -66,11 +66,15 @@ public abstract class InputBox{
         height = h;
     }
     
-    protected void paintBox(Graphics2D g, int x, int y, int padding){
+    protected void paintBox(Graphics2D g, int x, int y, int width, int height, int padding){
         g.setColor(UIPanel.BUTTON_COLOR);
         g.fill3DRect(x-padding/2, y-padding/2, width+padding, height+padding, true);
         g.setColor(UIPanel.UI_COLOR);
         g.fill3DRect(x+padding/2, y+padding/2, width-padding, height-padding, false);
+    }
+    
+    protected void paintBox(Graphics2D g, int x, int y, int padding){
+        paintBox(g, x, y, width, height, padding);
     }
     
     protected void paintText(Graphics2D g, String str){

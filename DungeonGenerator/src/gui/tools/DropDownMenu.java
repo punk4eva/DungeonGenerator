@@ -1,8 +1,11 @@
 
 package gui.tools;
 
+import gui.core.DungeonViewer;
 import static gui.core.DungeonViewer.HEIGHT;
 import static gui.core.DungeonViewer.WIDTH;
+import gui.pages.SelectionScreen;
+import gui.questions.QuestionBox;
 import static gui.tools.UIPanel.BUTTON_TEXT_FONT;
 import java.awt.Graphics2D;
 import java.util.HashMap;
@@ -17,7 +20,7 @@ import utils.Utils.Unfinished;
  * toString() method).
  */
 @Unfinished("Might not need the predicate")
-public abstract class DropDownMenu<T extends Object> extends InputBox{
+public abstract class DropDownMenu<T extends Object> extends QuestionBox{
     
     
     protected final String title;
@@ -25,7 +28,7 @@ public abstract class DropDownMenu<T extends Object> extends InputBox{
     protected final Predicate<T> predicate;
     
     protected Entry<T, Runnable> selection;
-    private boolean open = false;
+    protected boolean open = false;
     
     
     public DropDownMenu(String na, Predicate<T> p, int width){
@@ -60,7 +63,7 @@ public abstract class DropDownMenu<T extends Object> extends InputBox{
         if(open) paintOptions(g);
     }
     
-    private void paintTriangle(Graphics2D g){
+    protected void paintTriangle(Graphics2D g){
         g.setColor(UIPanel.BUTTON_TEXT_COLOR);
         if(open) g.fillPolygon(
                 new int[]{x+width-2*height/3, x+width-height/3, x+width-height/2},
@@ -70,11 +73,11 @@ public abstract class DropDownMenu<T extends Object> extends InputBox{
                 new int[]{y+height/3, y+2*height/3, y+height/2}, 3);
     }
     
-    private void paintTitle(Graphics2D g){
+    protected void paintTitle(Graphics2D g){
         paintText(g, title, x, y-height, width, height, TITLE_FONT, TITLE_COLOR);
     }
     
-    private void paintOptions(Graphics2D g){
+    protected void paintOptions(Graphics2D g){
         int pos = y+height;
         for(Entry<T, Runnable> entry : map.entrySet()){
             if(predicate.test(entry.getKey())){
@@ -94,5 +97,17 @@ public abstract class DropDownMenu<T extends Object> extends InputBox{
     public void executeRunnable(){
         selection.getValue().run();
     }
+    
+    
+    @Override
+    public QuestionBox processAndNext(SelectionScreen sc){
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void registerKeys(DungeonViewer v){}
+
+    @Override
+    public void deregisterKeys(DungeonViewer v){}
 
 }

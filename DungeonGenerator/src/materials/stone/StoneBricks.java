@@ -9,13 +9,13 @@ import static utils.Utils.R;
  * Represents bricks made from stone.
  * @author Adam Whittaker
  */
-public class StoneBrick extends Material{
+public class StoneBricks extends Material{
 
     
     /**
      * Creates an instance.
      */
-    public StoneBrick(){
+    public StoneBricks(){
         super("@Unfinished", new Color(80, 80, 80), 65, 40, 400, -50, 60, false, false, true, true);
         setDefaultTexture("stoneBricks", R.nextInt(6));
     }

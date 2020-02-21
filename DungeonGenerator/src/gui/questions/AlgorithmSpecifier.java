@@ -5,6 +5,7 @@ import components.Area;
 import gui.core.DungeonViewer;
 import static gui.core.DungeonViewer.HEIGHT;
 import static gui.core.DungeonViewer.WIDTH;
+import static gui.core.Window.VIEWER;
 import gui.pages.SelectionScreen;
 import gui.tools.DoubleBox;
 import gui.tools.IntegerBox;
@@ -53,6 +54,10 @@ public class AlgorithmSpecifier<T extends Object> extends QuestionBox{
                 _y += yInc;
             }
         }
+    }
+    
+    public AlgorithmSpecifier(Constructor<T> con, String algName, String ti){
+        this(VIEWER, con, algName, ti, WIDTH/3, HEIGHT/3);
     }
     
     
@@ -125,7 +130,10 @@ public class AlgorithmSpecifier<T extends Object> extends QuestionBox{
             case "overpopulationLimit": 
             case "birthMinimum":
             case "birthMaximum": return new int[]{-1,9};
-            case "iterationNumber": return new int[]{0,100};
+            case "iterationNumber":
+            case "warMongering":
+            case "technologyLevel":
+            case "ruinationLevel": return new int[]{0,100};
         }
         throw new IllegalStateException("Unrecognised parameter: " + name);
     }

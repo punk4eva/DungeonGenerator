@@ -1,6 +1,8 @@
 
 package gui.core;
 
+import static biomes.Biome.BIOME_MENU;
+import static biomes.Society.SOCIETY_SPECIFIER;
 import components.Area;
 import generation.corridors.BurrowCaveGrower;
 import gui.pages.*;
@@ -65,8 +67,9 @@ public class DungeonViewer extends Canvas implements Runnable{
         addKeyListener(PERFORMANCE_LOG);
         
         SELECTION_SCREEN = new SelectionScreen(this);
-        SELECTION_SCREEN.setQuestionBox(new AlgorithmSpecifier<BurrowCaveGrower>(this, ((Constructor<BurrowCaveGrower>)BurrowCaveGrower.class.getConstructors()[0]), 
-                "Burrow Cave Grower", "Design the burrows", WIDTH/3, HEIGHT/3));
+        /*SELECTION_SCREEN.setQuestionBox(new AlgorithmSpecifier<BurrowCaveGrower>(this, ((Constructor<BurrowCaveGrower>)BurrowCaveGrower.class.getConstructors()[0]), 
+                "Burrow Cave Grower", "Design the burrows", WIDTH/3, HEIGHT/3));*/
+        SELECTION_SCREEN.setQuestionBox(BIOME_MENU);
     }
     
     

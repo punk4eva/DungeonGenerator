@@ -126,6 +126,39 @@ public final class ImageBuilder{
         ret.getGraphics().drawImage(img, 0, 0, null);
         return ret;
     }
+    
+    public static Color makeBluer(Color col, double factor, boolean preserveBrightness){
+        Color c = new Color(col.getRed(), col.getGreen(), 
+                col.getBlue() + (int)((255D - col.getBlue())*factor));
+        if(preserveBrightness) return setBrightness(c, getBrightness(col));
+        else return c;
+    }
+    
+    public static Color makeGreener(Color col, double factor, boolean preserveBrightness){
+        Color c = new Color(col.getRed(), 
+                col.getGreen() + (int)((255D - col.getGreen())*factor), 
+                col.getBlue());
+        if(preserveBrightness) return setBrightness(c, getBrightness(col));
+        else return c;
+    }
+    
+    public static Color makeRedder(Color col, double factor, boolean preserveBrightness){
+        Color c = new Color(col.getRed() + (int)((255D - col.getRed())*factor),
+                col.getGreen(), col.getBlue());
+        if(preserveBrightness) return setBrightness(c, getBrightness(col));
+        else return c;
+    }
+    
+    public static int getBrightness(Color col){
+        return (col.getBlue() + col.getGreen() + col.getRed())/3;
+    }
+    
+    public static Color setBrightness(Color col, double brightness){
+       double factor = brightness / getBrightness(col);
+       return new Color((int)(col.getRed()*factor), 
+                (int)(col.getGreen()*factor),
+                (int)(col.getBlue()*factor));
+    }
 
     
     /**

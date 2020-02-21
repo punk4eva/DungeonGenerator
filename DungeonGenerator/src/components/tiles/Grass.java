@@ -1,6 +1,7 @@
 
 package components.tiles;
 
+import static biomes.GrassColorer.getGrassColor;
 import components.Area;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -35,13 +36,14 @@ public class Grass extends Tile{
     
     @Override
     public void buildImage(Area area, int x, int y){
+        Color color = getGrassColor(area.info.architecture.biome.biome);
         if(underTile.image==null) underTile.buildImage(area, x, y);
         image = underTile.image;
-        if(tall) constructTallGrassImage(area.info.grassColor, 
+        if(tall) constructTallGrassImage(color, 
                 (Graphics2D) image.getGraphics());
         else{
             Graphics2D g = (Graphics2D) image.getGraphics();
-            constructLowGrassImage(area.info.grassColor, g);
+            constructLowGrassImage(color, g);
             if(underTile.decoration!=null && underTile.decoration.aboveWater){
                 underTile.decoration.drawImage((Graphics2D) image.getGraphics(), 0, 0);
             }

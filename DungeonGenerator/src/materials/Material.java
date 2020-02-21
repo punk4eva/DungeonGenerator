@@ -96,4 +96,8 @@ public abstract class Material{
         texture.buildFilterImage();
     }
     
+    public boolean equals(Material mat){
+        return mat.getClass().isInstance(this);
+    }
+    
 }

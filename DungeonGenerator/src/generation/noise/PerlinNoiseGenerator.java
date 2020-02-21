@@ -1,5 +1,7 @@
 package generation.noise;
 
+import static utils.Utils.fade;
+import static utils.Utils.interpolate;
 import utils.Vector;
 
 /**
@@ -84,27 +86,6 @@ public class PerlinNoiseGenerator{
                 map[y][x] += mean;
             }
         }
-    }
-
-    /**
-     * Hermit's smoothing cumulative distribution function.
-     * @param x A number between 0 and 1
-     * @return A smoother version of the number (closer to 0.5).
-     */
-    private double fade(double x){
-        return x * x * x * (x * (x * 6 - 15) + 10);
-    }
-
-    /**
-     * Interpolates the value between the two given points based on the given 
-     * weight.
-     * @param a The first value.
-     * @param b The second value.
-     * @param x The relative weight of the second value (0: a, 0: b).
-     * @return
-     */
-    private double interpolate(double a, double b, double x){
-        return (1D - x) * a + x * b;
     }
 
     /**

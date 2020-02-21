@@ -1,0 +1,16 @@
+02-21 20:44:56:780: $ java.lang.UnsupportedOperationException: Not supported yet.
+java.lang.UnsupportedOperationException: Not supported yet.
+	at gui.tools.DropDownMenu.registerKeys(DropDownMenu.java:109)
+	at gui.pages.SelectionScreen.setQuestionBox(SelectionScreen.java:48)
+	at gui.core.DungeonViewer.<init>(DungeonViewer.java:72)
+	at gui.core.Window.start(Window.java:114)
+	at gui.core.Window.main(Window.java:124)
+02-21 20:44:56:780:      ---- CRASH DATA ----
+02-21 20:44:56:781:  -   Current state: null
+02-21 20:44:56:781:  -   Dimensions: 1920, 1080
+02-21 20:44:56:781:  -   Animations: 1
+02-21 20:44:56:781:  -   Particles: 0
+02-21 20:44:56:781:  -   sfxVolume: 0.0
+02-21 20:44:56:781:  -   musicVolume: 0.0
+02-21 20:44:56:781:  -   Calibration panel: null
+02-21 20:44:56:781: $    ---- END OF CRASH DATA ----

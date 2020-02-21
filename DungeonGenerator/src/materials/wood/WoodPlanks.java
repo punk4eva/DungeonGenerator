@@ -37,5 +37,11 @@ public class WoodPlanks extends Material{
     private static String combineDescriptions(String plankDesc, String woodDesc){
         return plankDesc + "\nThe wood itself is " + woodDesc;
     }
+    
+    @Override
+    public boolean equals(Material mat){
+        if(mat instanceof WoodPlanks) return color.equals(mat.color);
+        else return false;
+    }
 
 }

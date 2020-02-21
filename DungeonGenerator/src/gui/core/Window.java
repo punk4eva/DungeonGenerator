@@ -36,7 +36,7 @@ public class Window{
     
     
     @Unfinished("For debugging only")
-    private final static boolean QUICK_START = true;
+    private final static boolean QUICK_START = false;
     
     
     /**
@@ -105,7 +105,7 @@ public class Window{
         SPEED_TESTER.test("Area saved");*/
 
         SPEED_TESTER.report();
-        //viewer.setState(State.VIEWING);
+        viewer.setState(State.VIEWING);
 
         //ROBOT.spamButton(SCREEN.getGUI().getControlPanelButtons()[0], 150, 5);
     }

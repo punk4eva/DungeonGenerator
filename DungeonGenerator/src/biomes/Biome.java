@@ -1,6 +1,9 @@
 
 package biomes;
 
+import gui.questions.BiomeMenu;
+import static utils.Utils.convertUnderscoreCase;
+
 /**
  *
  * @author Adam Whittaker
@@ -28,8 +31,8 @@ public enum Biome{
     TEMPERATE_FOREST(13, 75, 32, 5, 20), MARSH(20, 0, 45, 0, 35),
     
     //High altitude
-    MOUNTAIN(-10, 25, 43, 50, 43), FLOATING_ISLAND(-5, 45, 15, 40, 20), 
-    SUMMIT(-25, 5, 50, 60, 90), CLIFF(0, 30, 41, 35, 30), 
+    MOUNTAIN(-15, 25, 43, 50, 43), FLOATING_ISLAND(-5, 45, 15, 40, 20), 
+    SUMMIT(-32, 5, 50, 60, 90), CLIFF(0, 30, 41, 35, 30), 
     BASALTIC_VOLCANO(8, 30, 41, 28, 20), RHYOLITIC_VOLCANO(15, 40, 65, 38, 30), 
     SPRING(3, 45, 35, 38, 22),
     
@@ -121,5 +124,14 @@ public enum Biome{
         height = he;
         technology = tech;
     }
+    
+    
+    @Override
+    public String toString(){
+        return convertUnderscoreCase(super.toString());
+    }
+    
+    
+    public final static BiomeMenu BIOME_MENU = new BiomeMenu();
     
 }

@@ -12,6 +12,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import static java.lang.Character.isDigit;
 import static java.lang.Character.isUpperCase;
+import static java.lang.Character.toLowerCase;
 import static java.lang.Character.toUpperCase;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.List;
@@ -160,6 +161,44 @@ public final class Utils{
         return true;
     }
     
+    /**
+     * Hermit's smoothing cumulative distribution function.
+     * @param x A number between 0 and 1
+     * @return A smoother version of the number (closer to 0.5).
+     */
+    public static double fade(double x){
+        return x * x * x * (x * (x * 6 - 15) + 10);
+    }
+
+    /**
+     * Interpolates the value between the two given points based on the given 
+     * weight.
+     * @param a The first value.
+     * @param b The second value.
+     * @param x The relative weight of the second value (0: a, 0: b).
+     * @return
+     */
+    public static double interpolate(double a, double b, double x){
+        return (1D - x) * a + x * b;
+    }
+    
+    public static double triangulate(double input, double x0, double x1, double x2,
+            double y0, double y1, double y2){
+        if(input<x1) return gradient(x0, y0, x1, y1)*(input-x1) + y1;
+        else return gradient(x1, y1, x2, y2)*(input-x1) + y1;
+    }
+    
+    public static double gradient(double x0, double y0, double x1, double y1){
+        return (y1-y0)/(x1-x0);
+    }
+    
+    public static int indexAverage(int n, int[]... arrays){
+        int total = 0;
+        for(int[] ary : arrays)
+            total += ary[n];
+        return total/arrays.length;
+    }
+    
     public static String capitalize(String str){
         return toUpperCase(str.charAt(0)) + str.substring(1);
     }
@@ -172,6 +211,25 @@ public final class Utils{
             }
         }
         return capitalize(str);
+    }
+    
+    public static String convertUnderscoreCase(String str){
+        boolean allowCapital = true;
+        for(int n=0;n<str.length();n++){
+            if(isUpperCase(str.charAt(n))){
+                if(!allowCapital){
+                    str = substitute(str, n, toLowerCase(str.charAt(n)));
+                }else allowCapital = false;
+            }else if(str.charAt(n) == '_'){
+                str = substitute(str, n, ' ');
+                allowCapital = true;
+            }
+        }
+        return str;
+    }
+    
+    public static String substitute(String str, int n, char sub){
+        return str.substring(0, n) + sub + str.substring(n+1);
     }
     
     /**
@@ -208,18 +266,7 @@ public final class Utils{
     public static void main(String... args) throws Exception{
         System.out.println("Running...");
         
-        //Graph graph = new Graph(80, 80);
-        /*Area area = new Area(80, 80, LevelFeeling.DEFAULT_FEELING);
-        
-        LinkedList<Room> list = new LinkedList<>();
-        for(int n=0;n<20;n++) list.add(getRandomRoom());
-        new RoomPlacer(area, list).generate();*/
-        
-        //Constructor<BurrowCaveGrower> construct = (Constructor<BurrowCaveGrower>) BurrowCaveGrower.class.getConstructors()[0];
-        //System.out.println(construct.getName());
-        /*for(Parameter param : construct.getParameters()){
-            System.out.println(param.getName() + ", " + param.getType());
-        }*/
+        //System.out.println(new WoodPlanks(new Ebony()).equals(new WoodPlanks(new Birch())));
     }
     
 }

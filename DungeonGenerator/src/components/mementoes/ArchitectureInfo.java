@@ -5,6 +5,7 @@ import biomes.Biome;
 import biomes.BiomeProcessor;
 import biomes.Society;
 import components.LevelFeeling;
+import java.util.LinkedList;
 import textureGeneration.DoorIconGenerator;
 import materials.Material;
 import utils.Distribution;
@@ -27,7 +28,7 @@ public class ArchitectureInfo{
 
     public final DoorIconGenerator doorGenerator;
     
-    public final BiomeProcessor biome = new BiomeProcessor(Biome.PLAINS, new Society(50));
+    public final BiomeProcessor biome = new BiomeProcessor(Biome.PLAINS, new Society(50, 50, 50));
     
     
     /**
@@ -39,11 +40,20 @@ public class ArchitectureInfo{
         doorGenerator = new DoorIconGenerator(info, () -> 
                 DoorIconGenerator.getRandomDoorBackground(
                         new Distribution(new double[]{1, 1})));
+        
+        LinkedList<Material> banned = new LinkedList<>();
+        
         doorMaterial = biome.getMaterial(m -> m.door);
-        floorMaterial = biome.getMaterial(m -> m.floor);
-        wallMaterial = biome.getMaterial(m -> m.wall);
-        specFloorMaterial = biome.getMaterial(m -> m.floor);
-        furnitureMaterial = biome.getMaterial(m -> m.furniture);
+        banned.add(doorMaterial);
+        
+        floorMaterial = biome.getMaterial(m -> m.floor && !banned.contains(m));
+        banned.add(floorMaterial);
+        
+        wallMaterial = biome.getMaterial(m -> m.wall && !banned.contains(m));
+        banned.add(wallMaterial);
+        
+        specFloorMaterial = biome.getMaterial(m -> m.floor && !banned.contains(m));
+        furnitureMaterial = biome.getMaterial(m -> m.furniture && !banned.contains(m));
     }
     
 }

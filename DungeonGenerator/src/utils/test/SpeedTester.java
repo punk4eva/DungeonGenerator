@@ -33,13 +33,13 @@ public class SpeedTester{
     
     public void report(){
         long total = records.stream().mapToLong(entry -> entry.getKey()).sum();
-        dualPrint("     ---- Speed Report ----");
-        dualPrint("Total time: " + total + " millis");
+        PERFORMANCE_LOG.dualPrint("     ---- Speed Report ----");
+        PERFORMANCE_LOG.dualPrint("Total time: " + total + " millis");
         records.forEach((e) -> { 
             String time = ("" + (100D*e.getKey())/total);
             if(time.length()<PRECISION) time += "00000000000000000"; //Over double precision so no error thrown.
             time = time.substring(0,PRECISION);
-            dualPrint(e.getValue() + ": " + time + "%");
+            PERFORMANCE_LOG.dualPrint(e.getValue() + ": " + time + "%");
         });
     }
     

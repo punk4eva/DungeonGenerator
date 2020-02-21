@@ -1,0 +1,17 @@
+02-20 16:47:42:380: $ java.lang.IllegalStateException: Count: 0.0, Chance: 0.0, Predicate might be too strict.
+java.lang.IllegalStateException: Count: 0.0, Chance: 0.0, Predicate might be too strict.
+	at biomes.BiomeProcessor.getMaterial(BiomeProcessor.java:154)
+	at components.mementoes.ArchitectureInfo.<init>(ArchitectureInfo.java:42)
+	at components.mementoes.AreaInfo.<init>(AreaInfo.java:84)
+	at components.Area.<init>(Area.java:59)
+	at gui.core.Window.quickStart(Window.java:79)
+	at gui.core.Window.main(Window.java:123)
+02-20 16:47:42:380:      ---- CRASH DATA ----
+02-20 16:47:42:380:  -   Current state: LOADING
+02-20 16:47:42:380:  -   Dimensions: 1920, 1080
+02-20 16:47:42:380:  -   Animations: 1
+02-20 16:47:42:380:  -   Particles: 0
+02-20 16:47:42:380:  -   sfxVolume: 0.0
+02-20 16:47:42:380:  -   musicVolume: 0.0
+02-20 16:47:42:380:  -   Calibration panel: null
+02-20 16:47:42:380: $    ---- END OF CRASH DATA ----

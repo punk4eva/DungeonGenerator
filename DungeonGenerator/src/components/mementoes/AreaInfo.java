@@ -50,7 +50,7 @@ public class AreaInfo implements Serializable{
             amplitude, lacunarity, persistence;
     private final int octaves;
     public final LevelFeeling feeling;
-    public final Color grassColor, waterColor;
+    public final Color waterColor;
     
     public final ArchitectureInfo architecture;
     private Settings settings;
@@ -78,7 +78,6 @@ public class AreaInfo implements Serializable{
         lacunarity = f.lacunarity.next(0.3, 1.0);
         persistence = f.persistence.next(0.3, 1.0);
         feeling = f;
-        grassColor = Color.decode("#16560d");
         waterColor = Color.decode("#0f7e9c").darker();
         initializeNoise();
         SPEED_TESTER.test("Water image created");
