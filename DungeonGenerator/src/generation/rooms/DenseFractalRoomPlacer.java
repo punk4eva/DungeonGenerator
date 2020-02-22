@@ -32,7 +32,7 @@ public class DenseFractalRoomPlacer implements MultiPlacer{
     public void generate(){
         //buildOuterWall();
         fractalSplit(0, 0, area.info.width, area.info.height);
-        generateRooms(area.info.architecture.biome.roomSelector);
+        generateRooms(area.info.architecture.biomeProcessor.roomSelector);
         //fillFloor();
     }
     

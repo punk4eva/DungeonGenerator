@@ -6,7 +6,7 @@ import static biomes.Society.SOCIETY_SPECIFIER;
 import components.Area;
 import generation.corridors.BurrowCaveGrower;
 import gui.pages.*;
-import gui.questions.AlgorithmSpecifier;
+import gui.questions.ClassSpecifier;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;

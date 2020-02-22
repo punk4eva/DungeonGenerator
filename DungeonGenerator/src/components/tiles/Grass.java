@@ -36,7 +36,7 @@ public class Grass extends Tile{
     
     @Override
     public void buildImage(Area area, int x, int y){
-        Color color = getGrassColor(area.info.architecture.biome.biome);
+        Color color = getGrassColor(area.info.architecture.biomeProcessor.biome);
         if(underTile.image==null) underTile.buildImage(area, x, y);
         image = underTile.image;
         if(tall) constructTallGrassImage(color, 

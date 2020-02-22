@@ -14,17 +14,24 @@ public class IntegerBox extends NumberBox{
     
     
     private int value;
+    private final int defaultValue;
     
 
-    public IntegerBox(int x, int y, int w, int h, double min, double max){
+    public IntegerBox(int x, int y, int w, int h, double min, double max, 
+            int defaultVal){
         super(x, y, w, h, min, max);
+        defaultValue = defaultVal;
         setDefaultValue();
+    }
+    
+    public IntegerBox(int x, int y, int w, int h, double min, double max){
+        this(x, y, w, h, min, max, (int)((min+max)/2D));
     }
     
     
     @Override
     protected final void setDefaultValue(){
-        value = (int)((maximum+minimum)/2D);
+        value = defaultValue;
         String str = "" + value;
         string = str.substring(0, min(PRECISION, str.length()));
     }

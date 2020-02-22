@@ -13,17 +13,24 @@ public class DoubleBox extends NumberBox{
     
     
     private double value;
+    private final double defaultValue;
     
 
-    public DoubleBox(int x, int y, int w, int h, double min, double max){
+    public DoubleBox(int x, int y, int w, int h, double min, double max, 
+            double defaultVal){
         super(x, y, w, h, min, max);
+        defaultValue = defaultVal;
         setDefaultValue();
+    }
+    
+    public DoubleBox(int x, int y, int w, int h, double min, double max){
+        this(x, y, w, h, min, max, (min+max)/2D);
     }
     
     
     @Override
     protected final void setDefaultValue(){
-        value = (maximum+minimum)/2D;
+        value = defaultValue;
         String str = "" + value;
         string = str.substring(0, min(PRECISION, str.length()));
     }

@@ -1,10 +1,15 @@
 
 package gui.pages;
 
+import static biomes.Biome.BIOME_MENU;
+import static biomes.Society.SOCIETY_SPECIFIER;
 import gui.core.DungeonViewer;
 import gui.core.DungeonViewer.State;
 import static gui.core.DungeonViewer.WIDTH;
+import static gui.core.Window.SCREEN;
 import static gui.core.Window.VIEWER;
+import static gui.pages.DungeonScreen.ANIMATOR;
+import static gui.questions.DimensionSpecifier.DIMENSION_SPECIFIER;
 import gui.tools.Button;
 import gui.questions.InputCollector;
 import gui.tools.NavigationButton;
@@ -24,12 +29,16 @@ public class SelectionScreen extends MouseAdapter implements Screen{
     private QuestionBox input;
     private final InputCollector collector = new InputCollector();
     private final LinkedList<QuestionBox> boxList = new LinkedList<>();
+    private int currentIndex = 0;
     private final Button nextButton = new NextButton(), 
             prevButton = new BackButton();
     
     
     public SelectionScreen(DungeonViewer v){
         v.addMouseListener(this);
+        boxList.add(BIOME_MENU);
+        boxList.add(SOCIETY_SPECIFIER);
+        boxList.add(DIMENSION_SPECIFIER);
     }
 
     
@@ -38,12 +47,12 @@ public class SelectionScreen extends MouseAdapter implements Screen{
         g.setColor(DungeonViewer.BACKGROUND_COLOR);
         input.paint(g);
         nextButton.paint(g);
-        if(boxList.size() != 1) prevButton.paint(g);
+        if(currentIndex>0) prevButton.paint(g);
+        ANIMATOR.animate(g, 0, 0, frames);
     }
     
     public final void setQuestionBox(QuestionBox box){
         if(input != null) input.deregisterKeys(VIEWER);
-        boxList.add(box);
         input = box;
         input.registerKeys(VIEWER);
     }
@@ -53,10 +62,21 @@ public class SelectionScreen extends MouseAdapter implements Screen{
     }
     
     public void previousQuestion(){
-        input.deregisterKeys(VIEWER);
-        boxList.removeLast();
-        input = boxList.getLast();
-        input.registerKeys(VIEWER);
+        currentIndex--;
+        setQuestionBox(boxList.get(currentIndex));
+    }
+    
+    public void nextQuestion(){
+        if(currentIndex<boxList.size()-1){
+            currentIndex++;
+            setQuestionBox(boxList.get(currentIndex));
+        }else finish();
+    }
+    
+    public void finish(){
+        VIEWER.setState(State.LOADING);
+        SCREEN.setArea(collector.createArea());
+        VIEWER.setState(State.VIEWING);
     }
     
     
@@ -65,7 +85,7 @@ public class SelectionScreen extends MouseAdapter implements Screen{
         if(VIEWER.getState().equals(State.CHOOSING)){
             input.click(me.getX(), me.getY());
             nextButton.testClick(me.getX(), me.getY());
-            prevButton.testClick(me.getX(), me.getY());
+            if(currentIndex>0) prevButton.testClick(me.getX(), me.getY());
         }
     }
     
@@ -80,9 +100,8 @@ public class SelectionScreen extends MouseAdapter implements Screen{
         
         @Override
         public void click(int mx, int my){
-            QuestionBox qBox = input.processAndNext(SelectionScreen.this);
-            if(qBox == null) ;
-            else setQuestionBox(qBox);
+            input.process(SelectionScreen.this);
+            nextQuestion();
         }
         
     }

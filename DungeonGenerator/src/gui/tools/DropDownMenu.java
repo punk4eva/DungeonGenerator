@@ -8,6 +8,8 @@ import gui.pages.SelectionScreen;
 import gui.questions.QuestionBox;
 import static gui.tools.UIPanel.BUTTON_TEXT_FONT;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import java.util.function.Predicate;
@@ -20,7 +22,7 @@ import utils.Utils.Unfinished;
  * toString() method).
  */
 @Unfinished("Might not need the predicate")
-public abstract class DropDownMenu<T extends Object> extends QuestionBox{
+public abstract class DropDownMenu<T extends Object> extends QuestionBox implements KeyListener{
     
     
     protected final String title;
@@ -100,14 +102,28 @@ public abstract class DropDownMenu<T extends Object> extends QuestionBox{
     
     
     @Override
-    public QuestionBox processAndNext(SelectionScreen sc){
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void process(SelectionScreen sc){
+        sc.getInputCollector().collect(get());
     }
 
     @Override
-    public void registerKeys(DungeonViewer v){}
+    public void registerKeys(DungeonViewer v){
+        v.addKeyListener(this);
+    }
 
     @Override
-    public void deregisterKeys(DungeonViewer v){}
+    public void deregisterKeys(DungeonViewer v){
+        v.removeKeyListener(this);
+    }
+    
+    
+    @Override
+    public void keyTyped(KeyEvent e){}
+
+    @Override
+    public void keyPressed(KeyEvent e){}
+
+    @Override
+    public void keyReleased(KeyEvent e){}
 
 }

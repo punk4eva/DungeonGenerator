@@ -2,6 +2,8 @@
 package components.mementoes;
 
 import animation.assets.WaterPainter;
+import biomes.Biome;
+import biomes.Society;
 import components.LevelFeeling;
 import generation.noise.PerlinNoiseGenerator;
 import generation.noise.MidpointDisplacmentNoise;
@@ -65,9 +67,11 @@ public class AreaInfo implements Serializable{
      * @param w The width.
      * @param h The height.
      * @param f The ethos of the level.
+     * @param b The biome.
+     * @param s The society.
      */
     @Unfinished("Remove temporary declarations")
-    public AreaInfo(int w, int h, LevelFeeling f){
+    public AreaInfo(int w, int h, LevelFeeling f, Biome b, Society s){
         width = w;
         height = h;
         seed = R.nextLong();
@@ -81,7 +85,7 @@ public class AreaInfo implements Serializable{
         waterColor = Color.decode("#0f7e9c").darker();
         initializeNoise();
         SPEED_TESTER.test("Water image created");
-        architecture = new ArchitectureInfo(this, f);
+        architecture = new ArchitectureInfo(this, f, b, s);
         SPEED_TESTER.test("Architechture created");
     }
     
@@ -92,8 +96,6 @@ public class AreaInfo implements Serializable{
         R.setSeed(seed);
         wallNoise = new double[height*16][width*16];
         floorNoise = new double[height*16][width*16];
-        /*System.out.println("Amp: " + amplitude + " Oc: " + octaves + "  L: " + lacunarity + 
-                " P: " + persistence + "\niJ: " + initialJitter + " jD: " + jitterDecay);*/
         SPEED_TESTER.test("Area information initialized");
         switch(feeling.wallNoiseType){
             case MIDPOINT: new MidpointDisplacmentNoise(125, initialJitter, jitterDecay, 255, false).apply(wallNoise);
@@ -157,6 +159,11 @@ public class AreaInfo implements Serializable{
     public void setSettings(Settings s){
         settings = s;
     }
+    
+    
+    public static final AreaInfo DEFAULT_AREA_INFO = new AreaInfo(80, 80, 
+            LevelFeeling.DEFAULT_FEELING, Biome.DEFAULT_BIOME, 
+            Society.DEFAULT_SOCIETY);
     
     
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException{

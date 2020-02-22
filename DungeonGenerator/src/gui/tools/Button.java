@@ -45,11 +45,7 @@ public abstract class Button extends InputBox{
             click(mx, my);
         }
     }
-
     
-    public void setSelected(boolean s){
-        selected = s;
-    }
     
     private void registerClickAnimation(){
         ANIMATOR.add(new Animation(){
@@ -60,7 +56,7 @@ public abstract class Button extends InputBox{
             public void animate(Graphics2D g, int focusX, int focusY, int frames){
                 duration -= frames;
                 if(duration<=0){
-                    setSelected(false);
+                    selected = false;
                     done = true;
                 }
             }

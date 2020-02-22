@@ -117,6 +117,7 @@ public class UIPanel extends MouseAdapter{
 
         @Override
         public void paint(Graphics2D g){
+            paintButtonBox(g);
             if(minimized) paintText(g, "+");
             else paintText(g, "-");
         }

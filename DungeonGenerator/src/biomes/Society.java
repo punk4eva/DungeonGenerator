@@ -1,7 +1,7 @@
 
 package biomes;
 
-import gui.questions.AlgorithmSpecifier;
+import gui.questions.ClassSpecifier;
 
 /**
  *
@@ -65,12 +65,15 @@ public class Society{
     }
     
     
-    public final static AlgorithmSpecifier<Society> SOCIETY_SPECIFIER;
+    public static final Society DEFAULT_SOCIETY = new Society(90, 40, 50);
+    
+    
+    public final static ClassSpecifier<Society> SOCIETY_SPECIFIER;
     static{
         try{
-            SOCIETY_SPECIFIER = new AlgorithmSpecifier<>(
+            SOCIETY_SPECIFIER = new ClassSpecifier<>(
                     Society.class.getConstructor(int.class, int.class, int.class), 
-                    "Society", "Design the society");
+                    Society.class, "Society", "Design the society");
         }catch(NoSuchMethodException e){
             throw new IllegalStateException(e);
         }

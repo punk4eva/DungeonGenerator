@@ -17,7 +17,7 @@ public abstract class QuestionBox extends InputBox{
     }
     
     
-    public abstract QuestionBox processAndNext(SelectionScreen sc);
+    public abstract void process(SelectionScreen sc);
     
     public abstract void registerKeys(DungeonViewer v);
     

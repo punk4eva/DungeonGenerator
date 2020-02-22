@@ -29,7 +29,7 @@ public class Barricade extends PassageTile{
     public void buildImage(Area area, int x, int y){
         generateFloorImage(area, x, y);
         Graphics2D g = (Graphics2D) image.getGraphics();
-        Color wood = area.info.architecture.biome.getRandomWood().color.darker();
+        Color wood = area.info.architecture.biomeProcessor.getRandomWood().color.darker();
         g.setTransform(getRandomRotation());
         g.setColor(wood.darker());
         for(int n=0;n<20;n++)

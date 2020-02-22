@@ -69,7 +69,7 @@ public class PerformanceLog extends PrintStream implements MouseListener, KeyLis
                 .getCalibrationPanelName());
         if(VIEWER.getArea()!=null){
             VIEWER.getArea().info.printInfo();
-            VIEWER.getArea().info.architecture.biome.printInfo();
+            VIEWER.getArea().info.architecture.biomeProcessor.printInfo();
         }
         println("$    ---- END OF CRASH DATA ----");
         if(FILE_CRASH_REPORT) copyPerformanceFile(getCrashFileName());

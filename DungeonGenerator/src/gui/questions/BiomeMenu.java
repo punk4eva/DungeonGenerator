@@ -2,9 +2,7 @@
 package gui.questions;
 
 import biomes.Biome;
-import gui.core.DungeonViewer;
 import static gui.core.DungeonViewer.WIDTH;
-import gui.pages.SelectionScreen;
 import gui.tools.DropDownMenu;
 import static gui.tools.UIPanel.BUTTON_TEXT_FONT;
 import java.awt.Graphics2D;

@@ -1,9 +1,8 @@
 package gui.core;
 
 import components.Area;
-import components.LevelFeeling;
+import components.mementoes.AreaInfo;
 import components.rooms.Room;
-import generation.corridors.*;
 import generation.rooms.*;
 import gui.core.DungeonViewer.State;
 import gui.pages.DungeonScreen;
@@ -76,11 +75,11 @@ public class Window{
         viewer.start();
         SPEED_TESTER.test("Viewer instanciated");
 
-        SCREEN.setArea(new Area(80, 80, LevelFeeling.DEFAULT_FEELING));
+        SCREEN.setArea(new Area(AreaInfo.DEFAULT_AREA_INFO));
         SCREEN.setTileFocus(SCREEN.getArea().info.width/2, SCREEN.getArea().info.height/2);
 
         LinkedList<Room> list = new LinkedList<>();
-        for(int n=0;n<30;n++) list.add(SCREEN.getArea().info.architecture.biome.roomSelector.select(7+2*R.nextInt(4), 7+2*R.nextInt(4)));
+        for(int n=0;n<30;n++) list.add(SCREEN.getArea().info.architecture.biomeProcessor.roomSelector.select(7+2*R.nextInt(4), 7+2*R.nextInt(4)));
         //BurrowCaveGrower grower = new BurrowCaveGrower(viewer.area, 0.3, 2, 9, 4, 5, 20, true);
         //new RandomRoomPlacer(SCREEN.getArea(), list, r -> r.addDoorsSparcely(SCREEN.getArea())).generate();
         new GreedyGoblinPlacer(SCREEN.getArea(), 5, list, wall -> R.nextDouble(), AbstractRoomPlacer::roomSizeComparator).generate();

@@ -132,6 +132,9 @@ public enum Biome{
     }
     
     
+    public static final Biome DEFAULT_BIOME = Biome.PLAINS;
+    
+    
     public final static BiomeMenu BIOME_MENU = new BiomeMenu();
     
 }

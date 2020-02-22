@@ -50,14 +50,12 @@ public class Area{
     
     /**
      * Creates a new instance.
-     * @param w The width
-     * @param h The height
-     * @param f The general feeling of the Area.
+     * @param i The information about the Area.
      */
-    public Area(int w, int h, LevelFeeling f){
-        map = new Tile[h][w];
-        info = new AreaInfo(w, h, f);
-        graph = new Graph(w, h);
+    public Area(AreaInfo i){
+        info = i;
+        map = new Tile[i.height][i.width];
+        graph = new Graph(i.width, i.height);
     }
     
     
