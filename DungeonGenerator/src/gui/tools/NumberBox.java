@@ -38,6 +38,7 @@ public abstract class NumberBox extends InputBox implements KeyListener, ValueIn
     public void click(int mx, int my){
         if(withinBounds(mx, my)){
             typing = true;
+            string = "";
         }else if(typing){
             validate();
             typing = false;

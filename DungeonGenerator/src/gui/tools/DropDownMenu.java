@@ -27,6 +27,7 @@ public abstract class DropDownMenu<T extends Object> extends QuestionBox impleme
     protected final LinkedList<T> items = new LinkedList<>();
     
     protected T selection;
+    protected int selectionNum = 0;
     protected boolean open = false;
     
     
@@ -41,9 +42,9 @@ public abstract class DropDownMenu<T extends Object> extends QuestionBox impleme
         if(withinBounds(mx, my)) open = !open;
         else if(x<=mx && mx<=x+width){
             int pos = y + height;
-            for(T item : items){
+            for(int n=0;n<items.size();n++){
                 if(pos<=my && my<pos+height){
-                    selection = item;
+                    setSelection(n);
                     return;
                 }else pos += height;
             }
@@ -85,6 +86,11 @@ public abstract class DropDownMenu<T extends Object> extends QuestionBox impleme
         }
     }
     
+    protected void setSelection(int n){
+        selectionNum = n;
+        selection = items.get(n);
+    }
+    
     
     public T get(){
         return selection;
@@ -111,7 +117,12 @@ public abstract class DropDownMenu<T extends Object> extends QuestionBox impleme
     public void keyTyped(KeyEvent e){}
 
     @Override
-    public void keyPressed(KeyEvent e){}
+    public void keyPressed(KeyEvent e){
+        if(e.getKeyCode() == KeyEvent.VK_UP) 
+            setSelection((selectionNum + items.size() - 1) % items.size());
+        else if(e.getKeyCode() == KeyEvent.VK_DOWN)
+            setSelection((selectionNum + 1) % items.size());
+    }
 
     @Override
     public void keyReleased(KeyEvent e){}

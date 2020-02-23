@@ -85,7 +85,6 @@ public class GreedyGoblinPlacer extends AbstractRoomPlacer implements MultiPlace
                 System.out.println(r.name + " is too big to be placed!");
             }
         }
-        SPEED_TESTER.test("Goblin rooms placed");
     }
     
     private Room popStartingRoom(){

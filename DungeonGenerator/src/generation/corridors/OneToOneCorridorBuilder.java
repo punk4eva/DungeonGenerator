@@ -85,7 +85,7 @@ public class OneToOneCorridorBuilder extends CorridorBuilder implements PostCorr
         frontier.add(start);
         start.cameFrom = start;
         int nx, ny;
-        System.out.println("Starting point: " + start.x + ", " + start.y);
+        //System.out.println("Starting point: " + start.x + ", " + start.y);
         while(!frontier.isEmpty()){
             Point p = frontier.removeFirst();
             for(Direction dir : Direction.values()){
