@@ -14,7 +14,6 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Parameter;
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 import static utils.Utils.spaceCamelCase;
 
@@ -23,43 +22,36 @@ import static utils.Utils.spaceCamelCase;
  * @author Adam Whittaker
  * @param <T>
  */
-public class ClassSpecifier<T extends Object> extends Specifier implements Function<Area, T>{
+public class ClassSpecifier<T extends Object> extends Specifier{
     
     
     private final Constructor<T> construct;
-    public final Class<T> type;
     private final String algorithmName;
     
     
-    public ClassSpecifier(DungeonViewer v, Constructor<T> con, Class<T> typ, String algName, String ti, int width, int height){
+    public ClassSpecifier(DungeonViewer v, Constructor<T> con, String algName, String ti, int width, int height){
         super(v, ti, width, height);
         construct = con;
-        type = typ;
         algorithmName = algName;
         
         int yInc = MENU_HEIGHT + PADDING, _y = y;
-        
         for(Parameter param : construct.getParameters()){
-            if(!param.getType().equals(Area.class)){
+            if(!Area.class.isAssignableFrom(param.getType()) 
+                    && !List.class.isAssignableFrom(param.getType())){
                 addToMap(param, _y);
                 _y += yInc;
             }
         }
     }
     
-    public ClassSpecifier(Constructor<T> con, Class<T> typ, String algName, String ti){
-        this(VIEWER, con, typ, algName, ti, WIDTH/3, HEIGHT/3);
+    public ClassSpecifier(Constructor<T> con, String algName, String ti){
+        this(VIEWER, con, algName, ti, WIDTH/3, HEIGHT/3);
     }
 
     
-    @Override
-    public final T apply(Area area){
-        List<Object> params = boxes.entrySet().stream()
-                .map(entry -> entry.getValue().getValue())
-                .collect(Collectors.toList());
-        params.add(0, area);
+    protected T construct(List<Object> params){
         try{
-            return construct.newInstance();
+            return construct.newInstance(params.toArray());
         }catch(InstantiationException e){
             System.out.println("Invalid parameters for " + algorithmName +": " + params);
             throw new IllegalStateException(e);
@@ -85,6 +77,8 @@ public class ClassSpecifier<T extends Object> extends Specifier implements Funct
             case "warMongering":
             case "technologyLevel":
             case "ruinationLevel": return new int[]{0,100};
+            case "maxCorridorLength": return new int[]{0,10};
+            case "decayLimit": return new int[]{0,9};
         }
         throw new IllegalStateException("Unrecognised parameter: " + name);
     }
@@ -110,7 +104,10 @@ public class ClassSpecifier<T extends Object> extends Specifier implements Funct
     
     @Override
     public void process(SelectionScreen sc){
-        sc.getInputCollector().collect(this);
+        List<Object> params = boxes.entrySet().stream()
+                .map(entry -> entry.getValue().getValue())
+                .collect(Collectors.toList());
+        sc.getInputCollector().collect(construct(params));
     }
 
 }

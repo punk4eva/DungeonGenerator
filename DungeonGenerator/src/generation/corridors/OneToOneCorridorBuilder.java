@@ -5,6 +5,7 @@ import components.Area;
 import generation.PostCorridorPlacer;
 import graph.Point;
 import graph.Point.Direction;
+import gui.questions.CorridorSpecifier;
 import java.util.Collections;
 import java.util.function.Function;
 import static utils.Utils.R;
@@ -26,17 +27,27 @@ public class OneToOneCorridorBuilder extends CorridorBuilder implements PostCorr
     private final double windyness;
     private final Function<Point, Double> prioritySkewer;
     
+    /**
+     * Creates an instance with no priority skew function.
+     * @param a The Area.
+     * @param windyness How windy the paths are.
+     */
+    public OneToOneCorridorBuilder(Area a, double windyness){
+        this(a, windyness, null);
+    }
     
     /**
      * Creates an instance.
      * @param a The Area.
-     * @param w How windy the paths are.
+     * @param windyness How windy the paths are.
      * @param priority The priority skew function.
      */
-    public OneToOneCorridorBuilder(Area a, double w, Function<Point, Double> priority){
+    public OneToOneCorridorBuilder(Area a, double windyness, 
+            Function<Point, Double> priority){
         super(a);
-        addCheck = (from, to) -> to.cameFrom==null && !to.type.equals(Point.Type.DOOR) && to.roomNum==-1;
-        windyness = w;
+        addCheck = (from, to) -> to.cameFrom==null && 
+                !to.type.equals(Point.Type.DOOR) && to.roomNum==-1;
+        this.windyness = windyness;
         prioritySkewer = priority!=null ? priority : (p -> 0D);
     }
 
@@ -91,6 +102,20 @@ public class OneToOneCorridorBuilder extends CorridorBuilder implements PostCorr
                     }
                 }
             }
+        }
+    }
+    
+    
+    public static final CorridorSpecifier<OneToOneCorridorBuilder> ONE_TO_ONE_SPECIFIER;
+    static{
+        try{
+            ONE_TO_ONE_SPECIFIER = new CorridorSpecifier<>(
+                    OneToOneCorridorBuilder.class.getConstructor(Area.class, 
+                            double.class),
+                    "One to One Corridor Builder", 
+                    "Design the corridor generation algorithm");
+        }catch(NoSuchMethodException e){
+            throw new IllegalStateException(e);
         }
     }
 

@@ -3,6 +3,7 @@ package generation.corridors;
 
 import components.Area;
 import generation.PostCorridorPlacer;
+import gui.questions.CorridorSpecifier;
 
 /**
  * This cellular automata fills all of the Area with wall and then erodes
@@ -48,5 +49,18 @@ public class WormholeCaveGrower extends PavedCaveGrower implements PostCorridorP
         });
     }
     
+    
+    public static final CorridorSpecifier<WormholeCaveGrower> WORMHOLE_CAVE_SPECIFIER;
+    static{
+        try{
+            WORMHOLE_CAVE_SPECIFIER = new CorridorSpecifier<>(
+                    WormholeCaveGrower.class.getConstructor(Area.class, 
+                            int.class, int.class, double.class),
+                    "Wormhole Cave Grower", 
+                    "Design the wormhole growing algorithm");
+        }catch(NoSuchMethodException e){
+            throw new IllegalStateException(e);
+        }
+    }
     
 }

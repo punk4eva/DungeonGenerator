@@ -3,8 +3,9 @@ package generation.rooms;
 
 import components.Area;
 import components.rooms.Room;
+import gui.questions.RoomPlacerSpecifier;
 import static utils.Utils.copy2DArray;
-import java.util.LinkedList;
+import java.util.List;
 import java.util.function.Consumer;
 import static utils.Utils.PERFORMANCE_LOG;
 import static utils.Utils.R;
@@ -21,7 +22,7 @@ public class RandomRoomPlacer extends AbstractRoomPlacer{
      * rooms: The list of Rooms that needs to be placed.
      * doorGenerator: The function that adds doors to a room.
      */
-    private final LinkedList<Room> rooms;
+    private final List<Room> rooms;
     private final Consumer<Room> doorGenerator;
     
     /**
@@ -33,12 +34,21 @@ public class RandomRoomPlacer extends AbstractRoomPlacer{
     
     
     /**
+     * Creates an instance with a default door generation algorithm.
+     * @param area The Area.
+     * @param rooms The list of Rooms to be placed in the Area.
+     */
+    public RandomRoomPlacer(Area area, List<Room> rooms){
+        this(area, rooms, room -> room.addDoorsSparcely(area));
+    }
+    
+    /**
      * Creates an instance.
      * @param a The Area.
      * @param r The list of Rooms to be placed in the Area.
      * @param doorGen The function that adds doors to a room.
      */
-    public RandomRoomPlacer(Area a, LinkedList<Room> r, Consumer<Room> doorGen){
+    public RandomRoomPlacer(Area a, List<Room> r, Consumer<Room> doorGen){
         super(a);
         rooms = r;
         doorGenerator = doorGen;
@@ -74,10 +84,7 @@ public class RandomRoomPlacer extends AbstractRoomPlacer{
                     bestSolution = copy2DArray(coords, n);
                 }
                 if(placementFailCounter>=BACKTRACK_LIMIT){
-                    System.out.println("RandomRoomPlacer cannot place this "
-                            + "many rooms! " + bestRoomNum + "/" + rooms.size() + 
-                            " rooms have been placed.");
-                    PERFORMANCE_LOG.println("RandomRoomPlacer cannot place this "
+                    PERFORMANCE_LOG.dualPrint("RandomRoomPlacer cannot place this "
                             + "many rooms! " + bestRoomNum + "/" + rooms.size() + 
                             " rooms have been placed.");
                     coords = bestSolution;
@@ -150,6 +157,19 @@ public class RandomRoomPlacer extends AbstractRoomPlacer{
             for(int y=c[1];y<c[1]+height;y++)
                 area.graph.map[y][x].roomNum = -1;
         coords[n][0] = -1;
+    }
+    
+    
+    public static final RoomPlacerSpecifier<RandomRoomPlacer> RANDOM_ROOM_SPECIFIER;
+    static{
+        try{
+            RANDOM_ROOM_SPECIFIER = new RoomPlacerSpecifier<>(
+                    RandomRoomPlacer.class.getConstructor(Area.class, List.class),
+                    RandomRoomPlacer.class, "Random Room Placer", 
+                    "Design the random room placement algorithm");
+        }catch(NoSuchMethodException e){
+            throw new IllegalStateException(e);
+        }
     }
     
 }

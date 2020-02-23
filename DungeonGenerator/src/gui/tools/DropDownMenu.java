@@ -10,9 +10,7 @@ import static gui.tools.UIPanel.BUTTON_TEXT_FONT;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.HashMap;
-import java.util.Map.Entry;
-import java.util.function.Predicate;
+import java.util.LinkedList;
 import utils.Utils.Unfinished;
 
 /**
@@ -26,16 +24,14 @@ public abstract class DropDownMenu<T extends Object> extends QuestionBox impleme
     
     
     protected final String title;
-    protected final HashMap<T, Runnable> map = new HashMap<>();
-    protected final Predicate<T> predicate;
+    protected final LinkedList<T> items = new LinkedList<>();
     
-    protected Entry<T, Runnable> selection;
+    protected T selection;
     protected boolean open = false;
     
     
-    public DropDownMenu(String na, Predicate<T> p, int width){
+    public DropDownMenu(String na, int width){
         super((WIDTH-width)/2, (HEIGHT-MENU_HEIGHT)/3, width, MENU_HEIGHT);
-        predicate = p;
         title = na;
     }
     
@@ -45,9 +41,9 @@ public abstract class DropDownMenu<T extends Object> extends QuestionBox impleme
         if(withinBounds(mx, my)) open = !open;
         else if(x<=mx && mx<=x+width){
             int pos = y + height;
-            for(Entry<T, Runnable> entry : map.entrySet()){
+            for(T item : items){
                 if(pos<=my && my<pos+height){
-                    selection = entry;
+                    selection = item;
                     return;
                 }else pos += height;
             }
@@ -60,7 +56,7 @@ public abstract class DropDownMenu<T extends Object> extends QuestionBox impleme
         paintBox(g, x, y, PADDING);
         paintTriangle(g);
         paintTitle(g);
-        if(selection!=null) paintText(g, selection.getKey().toString(), x, y, 
+        if(selection!=null) paintText(g, selection.toString(), x, y, 
                 width, height, TITLE_FONT, HIGHLIGHT_COLOR.brighter());
         if(open) paintOptions(g);
     }
@@ -81,23 +77,17 @@ public abstract class DropDownMenu<T extends Object> extends QuestionBox impleme
     
     protected void paintOptions(Graphics2D g){
         int pos = y+height;
-        for(Entry<T, Runnable> entry : map.entrySet()){
-            if(predicate.test(entry.getKey())){
-                paintBox(g, x, pos, PADDING/2);
-                paintText(g, entry.getKey().toString(), x, pos, width, height, 
-                    BUTTON_TEXT_FONT, entry.equals(selection) ? HIGHLIGHT_COLOR : TEXT_COLOR);
-                pos += height;
-            }
+        for(T item : items){
+            paintBox(g, x, pos, PADDING/2);
+            paintText(g, item.toString(), x, pos, width, height, 
+                BUTTON_TEXT_FONT, item.equals(selection) ? HIGHLIGHT_COLOR : TEXT_COLOR);
+            pos += height;
         }
     }
     
     
     public T get(){
-        return selection.getKey();
-    }
-    
-    public void executeRunnable(){
-        selection.getValue().run();
+        return selection;
     }
     
     

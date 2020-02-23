@@ -3,6 +3,7 @@ package generation.corridors;
 
 import components.Area;
 import generation.PostCorridorPlacer;
+import gui.questions.CorridorSpecifier;
 import utils.Utils.Unfinished;
 
 /**
@@ -18,11 +19,11 @@ public class RadialCaveGrower extends CaveGrower implements PostCorridorPlacer{
      * Creates an instance by passing through the arguments to the 
      * super-constructor.
      * @param a
-     * @param sC
-     * @param it
+     * @param startChance
+     * @param iterationNumber
      */
-    public RadialCaveGrower(Area a, double sC, int it){
-        super(a, sC, it);
+    public RadialCaveGrower(Area a, double startChance, int iterationNumber){
+        super(a, startChance, iterationNumber);
     }
 
     
@@ -36,6 +37,20 @@ public class RadialCaveGrower extends CaveGrower implements PostCorridorPlacer{
             }
         }
         flashChecked();
+    }
+    
+    
+    public static final CorridorSpecifier<RadialCaveGrower> RADIAL_CAVE_SPECIFIER;
+    static{
+        try{
+            RADIAL_CAVE_SPECIFIER = new CorridorSpecifier<>(
+                    RadialCaveGrower.class.getConstructor(Area.class, 
+                            double.class, int.class),
+                    "Radial Cave Grower", 
+                    "Design the cave growing algorithm");
+        }catch(NoSuchMethodException e){
+            throw new IllegalStateException(e);
+        }
     }
 
 }

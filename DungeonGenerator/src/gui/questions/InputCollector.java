@@ -8,6 +8,8 @@ import components.LevelFeeling;
 import components.mementoes.AreaInfo;
 import generation.*;
 import java.util.function.Function;
+import static generation.rooms.RoomSelector.getDefaultRoomList;
+import static utils.Utils.SPEED_TESTER;
 
 /**
  *
@@ -21,32 +23,54 @@ public class InputCollector{
     private Function<Area, RoomPlacer> roomPlacer;
     private Biome biome = Biome.DEFAULT_BIOME;
     private Society society = Society.DEFAULT_SOCIETY;
-    private int[] dimensions = new int[]{80, 80};
+    private int[] dimensions = DimensionSpecifier.DEFAULT_DIMENSIONS;
     private LevelFeeling feeling = LevelFeeling.DEFAULT_FEELING;
     
     
     public void collect(Object obj){
-        if(obj instanceof ClassSpecifier){
-            if(MultiPlacer.class.isAssignableFrom(((ClassSpecifier) obj).type))
-                multiPlacer = (area) -> (MultiPlacer)((ClassSpecifier) obj).apply(area);
-            else if(PostCorridorPlacer.class.isAssignableFrom(((ClassSpecifier) obj).type))
-                postCorridorPlacer = (area) -> (PostCorridorPlacer)((ClassSpecifier) obj).apply(area);
-            else if(RoomPlacer.class.isAssignableFrom(((ClassSpecifier) obj).type))
-                roomPlacer = (area) -> (RoomPlacer)((ClassSpecifier) obj).apply(area);
+        if(obj instanceof CorridorSpecifier){
+            postCorridorPlacer = (area) -> ((CorridorSpecifier) obj).apply(area);
+        }else if(obj instanceof RoomPlacerSpecifier){
+            
+            if(MultiPlacer.class.isAssignableFrom(((RoomPlacerSpecifier) obj).type)){
+                multiPlacer = (area) -> (MultiPlacer)((RoomPlacerSpecifier) obj)
+                        .apply(area, getDefaultRoomList(dimensions[2], area));
+            }else{
+                roomPlacer = (area) -> ((RoomPlacerSpecifier) obj)
+                        .apply(area, getDefaultRoomList(dimensions[2], area));
+            }
+            
         }else if(obj instanceof Biome) biome = (Biome) obj;
         else if(obj instanceof Society) society = (Society) obj;
         else if(obj instanceof int[]) dimensions = (int[]) obj;
     }
     
     public Area createArea(){
+        SPEED_TESTER.start();
+        
         AreaInfo info = new AreaInfo(dimensions[0], dimensions[1], feeling, biome, society);
         Area area = new Area(info);
         
-        if(multiPlacer != null) multiPlacer.apply(area).generate();
-        else{
+        if(multiPlacer != null){
+            multiPlacer.apply(area).generate();
+            area.refreshGraph();
+            SPEED_TESTER.test("Rooms placed");
+        }else{
             roomPlacer.apply(area).generate();
+            area.refreshGraph();
+            SPEED_TESTER.test("Rooms placed");
             postCorridorPlacer.apply(area).generate();
+            SPEED_TESTER.test("Corridors built");
         }
+        
+        area.growGrass();
+        area.spillWater();
+        SPEED_TESTER.test("Decorations added");
+        area.initializeImages();
+        SPEED_TESTER.test("Images initialized");
+
+        SPEED_TESTER.report();
+        
         return area;
     }
 

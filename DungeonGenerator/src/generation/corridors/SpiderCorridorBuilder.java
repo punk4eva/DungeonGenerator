@@ -20,6 +20,7 @@ import components.tiles.Tile;
 import generation.PostCorridorPlacer;
 import graph.Point;
 import graph.Point.*;
+import gui.questions.CorridorSpecifier;
 import java.util.function.Function;
 import static utils.Utils.R;
 import utils.Utils.Unfinished;
@@ -32,7 +33,7 @@ import utils.Utils.Unfinished;
  * 3) Decay some walls into floors to widen the corridors.
  * @author Adam Whittaker
  */
-@Unfinished("Perhaps use multiple starting points?")
+@Unfinished("Perhaps use multiple starting points? Also figure out whether to serialize windyness")
 public class SpiderCorridorBuilder extends CorridorBuilder implements PostCorridorPlacer{
     
     
@@ -42,24 +43,36 @@ public class SpiderCorridorBuilder extends CorridorBuilder implements PostCorrid
      * windyness: How windy the corridors are.
      */
     private final int decayLimit;
-    private final int windyness;
+    //private final double windyness;
     
     
     /**
      * Creates a new instance.
      * @param a The Area.
-     * @param w The windyness factor of the corridors.
-     * @param decay The minimum number of adjacent floor tiles needed for a wall
+     * @param windyness The windyness factor of the corridors.
+     * @param decayLimit The minimum number of adjacent floor tiles needed for a wall
+     * to decay into a floor. 0 corresponds to maximum decay and 9 corresponds
+     * to no decay.
+     */
+    public SpiderCorridorBuilder(Area a, double windyness, int decayLimit){
+        this(a, windyness, decayLimit, null);
+    }
+    
+    /**
+     * Creates a new instance.
+     * @param a The Area.
+     * @param windyness The windyness factor of the corridors.
+     * @param decayLimit The minimum number of adjacent floor tiles needed for a wall
      * to decay into a floor. 0 corresponds to maximum decay and 9 corresponds
      * to no decay.
      * @param prioritySkew A user-specified function used to skew the priority
      * queue of the corridor flood fill algorithm in order to get paths with
      * desirable characteristics.
      */
-    public SpiderCorridorBuilder(Area a, int w, int decay, Function<Point, Double> prioritySkew){
+    public SpiderCorridorBuilder(Area a, double windyness, int decayLimit, Function<Point, Double> prioritySkew){
         super(a);
-        windyness = w;
-        decayLimit = decay;
+        //this.windyness = windyness;
+        this.decayLimit = decayLimit;
         addCheck = (from, to) -> to.cameFrom==null && (to.checked==null||!to.checked) && to.roomNum==-1;
         if(prioritySkew!=null) frontier.setFunction(p -> R.nextDouble()*2D*windyness - windyness + p.currentCost + prioritySkew.apply(p));
         else frontier.setFunction(p -> R.nextDouble()*2D*windyness - windyness + p.currentCost);
@@ -159,6 +172,20 @@ public class SpiderCorridorBuilder extends CorridorBuilder implements PostCorrid
                     }
                 }
             }
+        }
+    }
+    
+    
+    public static final CorridorSpecifier<SpiderCorridorBuilder> SPIDER_SPECIFIER;
+    static{
+        try{
+            SPIDER_SPECIFIER = new CorridorSpecifier<>(
+                    SpiderCorridorBuilder.class.getConstructor(Area.class, 
+                            double.class, int.class),
+                    "Spider Corridor Builder", 
+                    "Design the corridor generation algorithm");
+        }catch(NoSuchMethodException e){
+            throw new IllegalStateException(e);
         }
     }
     

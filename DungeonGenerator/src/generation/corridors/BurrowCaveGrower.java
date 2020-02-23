@@ -5,6 +5,7 @@ import components.Area;
 import components.tiles.SpecialFloor;
 import components.tiles.Tile;
 import generation.PostCorridorPlacer;
+import gui.questions.CorridorSpecifier;
 
 /**
  * This class uses cellular automata to grow caves in the shape of burrows after
@@ -65,6 +66,21 @@ public class BurrowCaveGrower extends PavedCaveGrower implements PostCorridorPla
                 else area.map[p.y][p.x] = Tile.genFloor(area);
             }
         });
+    }
+    
+    
+    public static final CorridorSpecifier<BurrowCaveGrower> BURROW_CAVE_SPECIFIER;
+    static{
+        try{
+            BURROW_CAVE_SPECIFIER = new CorridorSpecifier<>(
+                    BurrowCaveGrower.class.getConstructor(Area.class, 
+                            double.class, int.class, int.class, int.class, 
+                            int.class, int.class, double.class, boolean.class),
+                    "Burrow Cave Grower", 
+                    "Design the burrow growing algorithm");
+        }catch(NoSuchMethodException e){
+            throw new IllegalStateException(e);
+        }
     }
     
 }

@@ -6,6 +6,4 @@ package generation;
  * would generate Rooms.
  * @author Adam Whittaker
  */
-public interface PreCorridorPlacer{
-    public void generate();
-}
+public interface PreCorridorPlacer extends Algorithm{}

@@ -9,9 +9,10 @@ import components.tiles.PassageTile;
 import components.tiles.Tile;
 import generation.MultiPlacer;
 import graph.Point.Type;
+import gui.questions.RoomPlacerSpecifier;
 import java.util.Comparator;
 import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.List;
 import java.util.function.Function;
 import utils.PriorityQueue;
 import static utils.Utils.PERFORMANCE_LOG;
@@ -25,14 +26,19 @@ import static utils.Utils.SPEED_TESTER;
 public class GreedyGoblinPlacer extends AbstractRoomPlacer implements MultiPlacer{
     
     
-    private final LinkedList<Room> rooms;
+    private final List<Room> rooms;
     private final PriorityQueue<Wall> walls;
     private final int maxLength;
     
     
-    public GreedyGoblinPlacer(Area a, int maxL, LinkedList<Room> ro, Function<Wall, Double> ordering, Comparator<Room> roomComparator){
+    public GreedyGoblinPlacer(Area a, List<Room> ro, int maxCorridorLength){
+        this(a, ro, maxCorridorLength, wall -> R.nextDouble(), 
+                AbstractRoomPlacer::roomSizeComparator);
+    }
+    
+    public GreedyGoblinPlacer(Area a, List<Room> ro, int maxCorridorLength, Function<Wall, Double> ordering, Comparator<Room> roomComparator){
         super(a);
-        maxLength = maxL;
+        maxLength = maxCorridorLength;
         rooms = ro;
         rooms.sort(roomComparator);
         walls = new PriorityQueue<>(ordering);
@@ -252,6 +258,21 @@ public class GreedyGoblinPlacer extends AbstractRoomPlacer implements MultiPlace
             }
         }
         
+    }
+    
+    
+    public static final RoomPlacerSpecifier<GreedyGoblinPlacer> 
+            GREEDY_GOBLIN_SPECIFIER;
+    static{
+        try{
+            GREEDY_GOBLIN_SPECIFIER = new RoomPlacerSpecifier<>(
+                    GreedyGoblinPlacer.class.getConstructor(Area.class, 
+                            List.class, int.class),
+                    GreedyGoblinPlacer.class, "Greedy Goblin Placer", 
+                    "Design the greedy goblin algorithm");
+        }catch(NoSuchMethodException e){
+            throw new IllegalStateException(e);
+        }
     }
 
 }

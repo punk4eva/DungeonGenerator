@@ -61,6 +61,10 @@ public abstract class Specifier extends QuestionBox{
                 y-f.getHeight()-PADDING + f.getDescent());
     }
     
+    public boolean isEmpty(){
+        return boxes.isEmpty();
+    }
+    
     @Override
     public final void registerKeys(DungeonViewer v){
         boxes.entrySet().stream().map(entry -> entry.getValue())

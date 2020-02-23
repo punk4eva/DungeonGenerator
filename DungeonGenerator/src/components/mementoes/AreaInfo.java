@@ -84,7 +84,6 @@ public class AreaInfo implements Serializable{
         feeling = f;
         waterColor = Color.decode("#0f7e9c").darker();
         initializeNoise();
-        SPEED_TESTER.test("Water image created");
         architecture = new ArchitectureInfo(this, f, b, s);
         SPEED_TESTER.test("Architechture created");
     }
@@ -116,6 +115,7 @@ public class AreaInfo implements Serializable{
         }
         SPEED_TESTER.test("Floor noise created");
         waterPainter = new WaterPainter(waterColor, width, height);
+        SPEED_TESTER.test("Water image created");
     }
             
     
@@ -161,9 +161,11 @@ public class AreaInfo implements Serializable{
     }
     
     
-    public static final AreaInfo DEFAULT_AREA_INFO = new AreaInfo(80, 80, 
+    public static  AreaInfo getDefaultAreaInfo(){
+        return new AreaInfo(80, 80, 
             LevelFeeling.DEFAULT_FEELING, Biome.DEFAULT_BIOME, 
             Society.DEFAULT_SOCIETY);
+    }
     
     
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException{

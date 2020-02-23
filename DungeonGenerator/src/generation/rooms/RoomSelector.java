@@ -2,13 +2,14 @@
 package generation.rooms;
 
 import biomes.BiomeProcessor.RoomConstructor;
+import components.Area;
 import components.rooms.*;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Map.Entry;
 import java.util.function.BiFunction;
 import static utils.Utils.R;
-import utils.Utils.Unfinished;
 
 /**
  * Stores a probability distribution selecting possible Room generation 
@@ -69,6 +70,15 @@ public class RoomSelector{
             }
         }
         throw new IllegalStateException("No large enough room for dimensions: " + w + ", " + h);
+    }
+    
+    
+    public static LinkedList<Room> getDefaultRoomList(int numRooms, Area area){
+        LinkedList<Room> list = new LinkedList<>();
+        for(int n=0;n<numRooms;n++) list.add(area.info.architecture.
+                biomeProcessor.roomSelector.select(
+                        7+2*R.nextInt(4), 7+2*R.nextInt(4)));
+        return list;
     }
 
 }

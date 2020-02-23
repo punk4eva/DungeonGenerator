@@ -73,7 +73,7 @@ public class Society{
         try{
             SOCIETY_SPECIFIER = new ClassSpecifier<>(
                     Society.class.getConstructor(int.class, int.class, int.class), 
-                    Society.class, "Society", "Design the society");
+                    "Society", "Design the society");
         }catch(NoSuchMethodException e){
             throw new IllegalStateException(e);
         }

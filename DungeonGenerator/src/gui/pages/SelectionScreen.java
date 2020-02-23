@@ -3,6 +3,7 @@ package gui.pages;
 
 import static biomes.Biome.BIOME_MENU;
 import static biomes.Society.SOCIETY_SPECIFIER;
+import static generation.RoomPlacer.ROOM_PLACER_MENU;
 import gui.core.DungeonViewer;
 import gui.core.DungeonViewer.State;
 import static gui.core.DungeonViewer.WIDTH;
@@ -14,10 +15,12 @@ import gui.tools.Button;
 import gui.questions.InputCollector;
 import gui.tools.NavigationButton;
 import gui.questions.QuestionBox;
+import gui.questions.Specifier;
 import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.LinkedList;
+import static utils.Utils.SPEED_TESTER;
 
 /**
  *
@@ -39,6 +42,7 @@ public class SelectionScreen extends MouseAdapter implements Screen{
         boxList.add(BIOME_MENU);
         boxList.add(SOCIETY_SPECIFIER);
         boxList.add(DIMENSION_SPECIFIER);
+        boxList.add(ROOM_PLACER_MENU);
     }
 
     
@@ -69,14 +73,33 @@ public class SelectionScreen extends MouseAdapter implements Screen{
     public void nextQuestion(){
         if(currentIndex<boxList.size()-1){
             currentIndex++;
+            while(isVoidQuestion(boxList.get(currentIndex))){
+                boxList.get(currentIndex).process(this);
+                currentIndex++;
+                if(currentIndex>=boxList.size()){
+                    finish();
+                    return;
+                }
+            }
             setQuestionBox(boxList.get(currentIndex));
         }else finish();
     }
     
+    public void addQuestionBox(QuestionBox box){
+        boxList.add(box);
+    }
+    
     public void finish(){
         VIEWER.setState(State.LOADING);
+        
         SCREEN.setArea(collector.createArea());
+        SCREEN.setTileFocus(SCREEN.getArea().info.width/2, SCREEN.getArea().info.height/2);
+        
         VIEWER.setState(State.VIEWING);
+    }
+    
+    private boolean isVoidQuestion(QuestionBox box){
+        return (box instanceof Specifier) && ((Specifier) box).isEmpty();
     }
     
     

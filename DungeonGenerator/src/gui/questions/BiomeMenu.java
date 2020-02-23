@@ -6,7 +6,7 @@ import static gui.core.DungeonViewer.WIDTH;
 import gui.tools.DropDownMenu;
 import static gui.tools.UIPanel.BUTTON_TEXT_FONT;
 import java.awt.Graphics2D;
-import java.util.Map.Entry;
+import java.util.Arrays;
 
 /**
  *
@@ -19,11 +19,9 @@ public class BiomeMenu extends DropDownMenu<Biome>{
     
 
     public BiomeMenu(){
-        super("Choose the climate", b -> true, COLUMN_WIDTH * 
+        super("Choose the climate", COLUMN_WIDTH * 
                 (Biome.values().length/BIOMES_PER_COLUMN + 1));
-        for(Biome b : Biome.values()){
-            map.put(b, () -> {});
-        }
+        items.addAll(Arrays.asList(Biome.values()));
     }
     
     
@@ -32,9 +30,9 @@ public class BiomeMenu extends DropDownMenu<Biome>{
         if(withinBounds(mx, my)) open = !open;
         else if(x<=mx && mx<=x+width){
             int n = 0;
-            for(Entry<Biome, Runnable> entry : map.entrySet()){
+            for(Biome b : items){
                 if(withinBounds(getX(n), getY(n), COLUMN_WIDTH, height, mx, my)){
-                    selection = entry;
+                    selection = b;
                     return;
                 }else n++;
             }
@@ -44,13 +42,11 @@ public class BiomeMenu extends DropDownMenu<Biome>{
     @Override    
     protected void paintOptions(Graphics2D g){
         int n = 0;
-        for(Entry<Biome, Runnable> entry : map.entrySet()){
-            if(predicate.test(entry.getKey())){
-                paintBox(g, getX(n), getY(n), COLUMN_WIDTH, height, PADDING/2);
-                paintText(g, entry.getKey().toString(), getX(n), getY(n), COLUMN_WIDTH, height, 
-                    BUTTON_TEXT_FONT, entry.equals(selection) ? HIGHLIGHT_COLOR : TEXT_COLOR);
-                n++;
-            }
+        for(Biome b : items){
+            paintBox(g, getX(n), getY(n), COLUMN_WIDTH, height, PADDING/2);
+            paintText(g, b.toString(), getX(n), getY(n), COLUMN_WIDTH, height, 
+                BUTTON_TEXT_FONT, b.equals(selection) ? HIGHLIGHT_COLOR : TEXT_COLOR);
+            n++;
         }
     }
     
