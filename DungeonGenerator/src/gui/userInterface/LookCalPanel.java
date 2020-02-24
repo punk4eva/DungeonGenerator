@@ -11,6 +11,8 @@ import gui.tools.ResettableButton;
 import gui.tools.Toggle;
 import static gui.tools.UIPanel.PANEL_WIDTH;
 import java.awt.Graphics2D;
+import java.io.File;
+import java.util.LinkedList;
 
 /**
  *
@@ -36,7 +38,7 @@ public class LookCalPanel extends CalibrationPanel{
             
             @Override
             public void click(int mx, int my){
-                VIEWER.getArea().savePNG("saves/area.png");
+                VIEWER.getArea().savePNG(getAreaFileName());
             }
 
             @Override
@@ -58,6 +60,18 @@ public class LookCalPanel extends CalibrationPanel{
             }
         
         };
+    }
+    
+    
+    private String getAreaFileName(){
+        LinkedList<String> fileNames = new LinkedList<>();
+        for(File entry : new File("saves").listFiles()) 
+            fileNames.add(entry.getName());
+        
+        int n = 0;
+        String name = "area0.png";
+        while(fileNames.contains(name)) name = "area" + (n++) + ".png";
+        return "saves/" + name;
     }
 
 }
