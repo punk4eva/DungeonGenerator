@@ -48,6 +48,7 @@ public class Settings{
      */
     public GraphicsQuality GRAPHICS = GraphicsQuality.HIGH;
     public int WATER_DELAY = (4-GRAPHICS.code) * 80;
+    public boolean DM_MODE = false;
     
     
     /**

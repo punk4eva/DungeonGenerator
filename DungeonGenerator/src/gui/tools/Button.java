@@ -15,7 +15,7 @@ public abstract class Button extends InputBox{
     
     
     private static final int BUTTON_DURATION = 50;   
-    private boolean selected = false; //for aesthetic purposes only.
+    protected boolean selected = false;
     
     
     public Button(int _x, int _y, int w, int h){

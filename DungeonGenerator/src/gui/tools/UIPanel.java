@@ -23,8 +23,9 @@ public class UIPanel extends MouseAdapter{
     public static final Color BUTTON_TEXT_COLOR = new Color(40, 40, 40);
     public static final Font BUTTON_TEXT_FONT = new Font(Font.SERIF, Font.BOLD, 18);
     public static final int MINIMIZE_SPEED = 5;
+    public static final int PANEL_WIDTH = WIDTH/8;
     
-    protected int x, width = WIDTH/8;
+    protected int x;
     protected final Button[] buttons;
     
     
@@ -41,7 +42,7 @@ public class UIPanel extends MouseAdapter{
     
     public void render(Graphics2D g){
         g.setColor(UI_COLOR);
-        g.fillRect(x, 0, width, HEIGHT);
+        g.fillRect(x, 0, PANEL_WIDTH, HEIGHT);
         for(Button b : buttons) b.paint(g);
     }
     
@@ -85,10 +86,10 @@ public class UIPanel extends MouseAdapter{
                 moving = true;
                 if(minimized){
                     minimized = false;
-                    addAnimation(left ? MINIMIZE_SPEED : -MINIMIZE_SPEED, UIPanel.this.width);
+                    addAnimation(left ? MINIMIZE_SPEED : -MINIMIZE_SPEED, UIPanel.this.PANEL_WIDTH);
                 }else{
                     minimized = true;
-                    addAnimation(left ? -MINIMIZE_SPEED : MINIMIZE_SPEED, UIPanel.this.width);
+                    addAnimation(left ? -MINIMIZE_SPEED : MINIMIZE_SPEED, UIPanel.this.PANEL_WIDTH);
                 }
             }
         }

@@ -2,6 +2,7 @@
 package components.traps;
 
 import components.decorations.FloorDecoration;
+import static components.tiles.Tile.paintHiddenFilter;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import static utils.Utils.R;
@@ -38,8 +39,8 @@ public class FloorTrap extends Trap implements FloorDecoration{
 
     
     @Override
-    public void drawImage(Graphics2D g, int x, int y){
-        if(!revealed) return;
+    public void drawImage(Graphics2D g, int x, int y, boolean drawHidden){
+        if(!revealed && !drawHidden) return;
         
         g.setColor(triggered ? Color.BLACK : color);
         //Outer border
@@ -82,6 +83,8 @@ public class FloorTrap extends Trap implements FloorDecoration{
             g.fillRect(x+7, y+9, 1, 1);
             g.fillRect(x+6, y+7, 1, 1);
         }
+        
+        if(!revealed && drawHidden) paintHiddenFilter(g, x, y);
     }
     
     

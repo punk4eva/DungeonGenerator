@@ -22,8 +22,8 @@ public class WallTrap extends Trap implements WallDecoration{
     
 
     @Override
-    public void drawImage(Graphics2D g, int x, int y){
-        if(!revealed) return;
+    public void drawImage(Graphics2D g, int x, int y, boolean drawHidden){
+        if(!revealed && !drawHidden) return;
         //@Unfinished
     }
 

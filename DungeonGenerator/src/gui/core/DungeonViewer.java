@@ -1,19 +1,14 @@
 
 package gui.core;
 
-import static biomes.Biome.BIOME_MENU;
-import static biomes.Society.SOCIETY_SPECIFIER;
 import components.Area;
-import generation.corridors.BurrowCaveGrower;
 import gui.pages.*;
-import gui.questions.ClassSpecifier;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
-import java.lang.reflect.Constructor;
 import utils.Utils.ThreadUsed;
 import static utils.Utils.PERFORMANCE_LOG;
 
@@ -67,9 +62,6 @@ public class DungeonViewer extends Canvas implements Runnable{
         addKeyListener(PERFORMANCE_LOG);
         
         SELECTION_SCREEN = new SelectionScreen(this);
-        /*SELECTION_SCREEN.setQuestionBox(new AlgorithmSpecifier<BurrowCaveGrower>(this, ((Constructor<BurrowCaveGrower>)BurrowCaveGrower.class.getConstructors()[0]), 
-                "Burrow Cave Grower", "Design the burrows", WIDTH/3, HEIGHT/3));*/
-        SELECTION_SCREEN.setQuestionBox(BIOME_MENU);
     }
     
     
@@ -168,6 +160,10 @@ public class DungeonViewer extends Canvas implements Runnable{
     
     public int getTitleBarSize(){
         return window.frame.getInsets().top;
+    }
+    
+    public int getRightLostSpace(){
+        return window.frame.getInsets().right;
     }
     
 }

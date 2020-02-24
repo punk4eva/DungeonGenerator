@@ -27,7 +27,7 @@ public class GUI{
     
     public void render(Graphics2D g){
         control.render(g);
-        //calibration.render(g);
+        if(calibration != null) calibration.render(g);
     }
     
     public void setCalibrationPanel(CalibrationPanel p){

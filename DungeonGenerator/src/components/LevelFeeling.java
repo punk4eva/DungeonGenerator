@@ -123,11 +123,11 @@ public class LevelFeeling{
     
     
     public static final LevelFeeling DEFAULT_FEELING = new LevelFeeling("Default", null, null, null, new Distribution(new int[]{2,3,4,5,6}, new double[]{1,3,5,3,2}), 
-            0.1, 0.05, 0.5, 0.03, 0.03, 0.5, 0.04, 0.03, 0.01, NoiseType.PERLIN, NoiseType.TILE, true, 
+            0.1, 0.05, 0.5, 0.03, 0.03, 0.1, 0.04, 0.03, 0.01, NoiseType.PERLIN, NoiseType.TILE, true, 
             new GaussProbability(80, 25), new GaussProbability(0.65, 0.25), new GaussProbability(80, 25), new GaussProbability(0.5, 0.2), new GaussProbability(0.8, 0.2));
     
     public static final LevelFeeling CAVE_FEELING = new LevelFeeling("Cave", null, null, null, new Distribution(new int[]{2,3,4,5,6}, new double[]{1,3,5,3,2}), 
-            0.1, 0.05, 0.5, 0.03, 0.03, 0.5, 0.04, 0.03, 0.01, NoiseType.MIDPOINT, NoiseType.MIDPOINT, true, 
+            0.1, 0.05, 0.5, 0.03, 0.03, 0.1, 0.04, 0.03, 0.01, NoiseType.MIDPOINT, NoiseType.MIDPOINT, true, 
             new GaussProbability(90, 25), new GaussProbability(0.8, 0.1), new GaussProbability(80, 25), new GaussProbability(0.5, 0.2), new GaussProbability(0.8, 0.2));
     
 }

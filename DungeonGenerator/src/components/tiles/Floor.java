@@ -4,7 +4,6 @@ package components.tiles;
 import components.Area;
 import components.decorations.Decoration;
 import graph.Point.Type;
-import java.awt.Graphics2D;
 
 /**
  * A stereotypical tile that can be walked on.
@@ -35,7 +34,7 @@ public class Floor extends Tile{
     @Override
     public void buildImage(Area area, int x, int y){
         generateFloorImage(area, x, y);
-        if(decoration!=null) decoration.drawImage((Graphics2D) image.getGraphics(), 0, 0);
+        //if(decoration!=null) decoration.drawImage((Graphics2D) image.getGraphics(), 0, 0);
     }
 
 }

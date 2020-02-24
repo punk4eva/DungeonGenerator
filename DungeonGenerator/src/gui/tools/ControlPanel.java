@@ -15,21 +15,21 @@ public class ControlPanel extends UIPanel{
     public ControlPanel(GUI gui){
         super(0, new Button[8]);
         
-        buttons[0] = new MinimizeButton(width, 0, 32, true);
-        buttons[1] = genNewButton(gui, 0, 0, width/3, width/3);
-        buttons[2] = genSaveButton(gui, width/3, 0, width/3, width/3);
-        buttons[3] = genLoadButton(gui, 2*width/3, 0, width/3, width/3);
+        buttons[0] = new MinimizeButton(PANEL_WIDTH, 0, 32, true);
+        buttons[1] = genNewButton(gui, 0, 0, PANEL_WIDTH/3, PANEL_WIDTH/3);
+        buttons[2] = genSaveButton(gui, PANEL_WIDTH/3, 0, PANEL_WIDTH/3, PANEL_WIDTH/3);
+        buttons[3] = genLoadButton(gui, 2*PANEL_WIDTH/3, 0, PANEL_WIDTH/3, PANEL_WIDTH/3);
         
-        int buffer = (HEIGHT-7*width/3)/5;
-        int y = width/3 + buffer;
-        buffer += width/2;
-        buttons[4] = genLookButton(gui, width/4, y, width/2, width/2);
+        int buffer = (HEIGHT-7*PANEL_WIDTH/3)/5;
+        int y = PANEL_WIDTH/3 + buffer;
+        buffer += PANEL_WIDTH/2;
+        buttons[4] = genLookButton(gui, PANEL_WIDTH/4, y, PANEL_WIDTH/2, PANEL_WIDTH/2);
         y += buffer;
-        buttons[5] = genSelectButton(gui, width/4, y, width/2, width/2);
+        buttons[5] = genSelectButton(gui, PANEL_WIDTH/4, y, PANEL_WIDTH/2, PANEL_WIDTH/2);
         y += buffer;
-        buttons[6] = genRoomsButton(gui, width/4, y, width/2, width/2);
+        buttons[6] = genRoomsButton(gui, PANEL_WIDTH/4, y, PANEL_WIDTH/2, PANEL_WIDTH/2);
         y += buffer;
-        buttons[7] = genEffectButton(gui, width/4, y, width/2, width/2);
+        buttons[7] = genEffectButton(gui, PANEL_WIDTH/4, y, PANEL_WIDTH/2, PANEL_WIDTH/2);
     }
     
     

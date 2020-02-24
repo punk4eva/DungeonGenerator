@@ -7,6 +7,7 @@ import components.decorations.Decoration;
 import components.decorations.FloorDecoration;
 import components.decorations.WallDecoration;
 import graph.Point.Type;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import static utils.Utils.R;
@@ -16,6 +17,10 @@ import static utils.Utils.R;
  * @author Adam Whittaker
  */
 public abstract class Tile{
+    
+    
+    private static final Color HIDDEN_FILTER_COLOR
+            = new Color(200, 100, 100, 100);
     
     
     /**
@@ -55,11 +60,29 @@ public abstract class Tile{
      * @param g The graphics.
      * @param _x the pixel x.
      * @param _y the pixel y.
+     * @param drawReal
      */
-    public void draw(Graphics2D g, int _x, int _y){
-        g.drawImage(image, _x, _y, null);
+    public void draw(Graphics2D g, int _x, int _y, boolean drawReal){
+        g.drawImage((alias == null || drawReal) ? image : alias.image, _x, _y, null);
+        if(decoration!=null) decoration.drawImage(g, _x, _y, drawReal);
+        if(drawReal && alias != null) paintHiddenFilter(g, _x, _y);
     }
     
+    public static void paintHiddenFilter(Graphics2D g, int _x, int _y){
+        g.setColor(HIDDEN_FILTER_COLOR);
+        g.fillRect(_x, _y, 16, 16);
+    }
+    
+    /**
+     * Generates the image of this tile and its alias if it has one.
+     * @param area The area.
+     * @param x The tile x.
+     * @param y The pixel y.
+     */
+    public void initializeImage(Area area, int x, int y){
+        buildImage(area, x, y);
+        if(alias != null) alias.buildImage(area, x, y);
+    }
     
     /**
      * Generates the image of this tile.
@@ -67,7 +90,7 @@ public abstract class Tile{
      * @param x The tile x.
      * @param y The pixel y.
      */
-    public abstract void buildImage(Area area, int x, int y);
+    protected abstract void buildImage(Area area, int x, int y);
     
     /**
      * Tests whether this Tile has the given class.

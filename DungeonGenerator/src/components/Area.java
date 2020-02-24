@@ -7,7 +7,7 @@ import components.tiles.Floor;
 import components.tiles.Grass;
 import components.tiles.Tile;
 import components.tiles.Water;
-import graph.Graph;
+import graph.PathfindingGrid;
 import graph.Point;
 import graph.Point.Type;
 import static gui.pages.DungeonScreen.ANIMATOR;
@@ -17,6 +17,7 @@ import static gui.core.MouseInterpreter.focusX;
 import static gui.core.MouseInterpreter.focusY;
 import static gui.core.MouseInterpreter.zoom;
 import gui.core.Window;
+import static gui.pages.DungeonScreen.getSettings;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -43,7 +44,7 @@ public class Area{
      */
     public final Tile[][] map;
     public final AreaInfo info;
-    public transient Graph graph;
+    public transient PathfindingGrid graph;
     public int orientation;
     
     private static final Color BORDER_COLOR = new Color(0, 0, 0, 100);
@@ -55,7 +56,7 @@ public class Area{
     public Area(AreaInfo i){
         info = i;
         map = new Tile[i.height][i.width];
-        graph = new Graph(i.width, i.height);
+        graph = new PathfindingGrid(i.width, i.height);
     }
     
     
@@ -75,7 +76,9 @@ public class Area{
                 try{
                     if(x>=-16 && x*zoom<=WIDTH &&
                             y >=-16 && y*zoom<=HEIGHT && map[tileY][tileX]!=null){
-                        map[tileY][tileX].draw(g, x, y);
+                        
+                        map[tileY][tileX].draw(g, x, y, getSettings().DM_MODE);
+                        
                     }
                 }catch(ArrayIndexOutOfBoundsException e){/*Skip frame*/}
             }
@@ -123,7 +126,7 @@ public class Area{
             for(int y=0;y<info.height;y++){
                 for(int x=0;x<info.width;x++){
                     if(map[y][x]!=null){
-                        map[y][x].draw(g, x*16, y*16);
+                        map[y][x].draw(g, x*16, y*16, getSettings().DM_MODE);
                     }
                 }
             }
@@ -197,7 +200,7 @@ public class Area{
         for(int y=0;y<map.length;y++){
             for(int x=0;x<map[0].length;x++){
                 if(map[y][x]!=null){
-                    map[y][x].buildImage(this, x*16, y*16);
+                    map[y][x].initializeImage(this, x*16, y*16);
                     if(map[y][x].decoration!=null && map[y][x].decoration.animation!=null)
                         ANIMATOR.add(map[y][x].decoration.animation.apply(x, y));
                 }

@@ -35,9 +35,9 @@ public class Wall extends Tile{
     @Override
     public void buildImage(Area area, int x, int y){
         generateWallImage(area, x, y);
-        if(decoration!=null){
+        /*if(decoration!=null){
             decoration.drawImage((Graphics2D) image.getGraphics(), 0, 0);
-        }
+        }*/
     }
 
 }

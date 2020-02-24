@@ -3,6 +3,8 @@ package gui.core;
 import components.Area;
 import components.mementoes.AreaInfo;
 import components.rooms.Room;
+import generation.corridors.RadialCaveGrower;
+import generation.corridors.WormholeCaveGrower;
 import generation.rooms.*;
 import gui.core.DungeonViewer.State;
 import gui.pages.DungeonScreen;
@@ -14,7 +16,6 @@ import java.util.LinkedList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import static textureGeneration.ImageBuilder.getRandomIcon;
-import static utils.Utils.R;
 import static utils.Utils.PERFORMANCE_LOG;
 import static utils.Utils.SPEED_TESTER;
 import utils.Utils.Unfinished;
@@ -35,7 +36,7 @@ public class Window{
     
     
     @Unfinished("For debugging only")
-    private final static boolean QUICK_START = false;
+    private final static boolean QUICK_START = true;
     
     
     /**
@@ -88,7 +89,7 @@ public class Window{
         //new OneToOneCorridorBuilder(viewer.area, 2, null).build();
         //SPEED_TESTER.test("Corridors built");
         //new DenseFractalRoomPlacer(viewer.area, 0).generate();
-        //CaveGrower grower = new RadialCaveGrower(SCREEN.getArea(), 0.48, 8);
+        //RadialCaveGrower grower = new RadialCaveGrower(SCREEN.getArea(), 0.55, 3);
         //CaveGrower grower = new ConwayCaveGrower(SCREEN.getArea(), 0.42, 8,  2, 9,  5, 8);
         //WormholeCaveGrower grower = new WormholeCaveGrower(SCREEN.getArea(), 7, 3, 1.0);
         //grower.generate();

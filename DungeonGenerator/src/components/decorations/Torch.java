@@ -34,7 +34,7 @@ public class Torch extends Decoration implements WallDecoration{
 
     
     @Override
-    public void drawImage(Graphics2D g, int _x, int _y){
+    public void drawImage(Graphics2D g, int _x, int _y, boolean drawHidden){
         BufferedImage torch = ImageBuilder.getImageFromFile("tiles/torch.png");
         RECOLORER.recolor(torch, palette);
         g.drawImage(torch, _x, _y, null);

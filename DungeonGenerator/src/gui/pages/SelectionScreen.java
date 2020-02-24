@@ -20,7 +20,6 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.LinkedList;
-import static utils.Utils.SPEED_TESTER;
 
 /**
  *
@@ -43,6 +42,7 @@ public class SelectionScreen extends MouseAdapter implements Screen{
         boxList.add(SOCIETY_SPECIFIER);
         boxList.add(DIMENSION_SPECIFIER);
         boxList.add(ROOM_PLACER_MENU);
+        setQuestionBox(boxList.getFirst());
     }
 
     

@@ -44,9 +44,10 @@ public abstract class Decoration{
     /**
      * Draws the decoration onto the given graphics.
      * @param g
-     * @param x
-     * @param y
+     * @param x The pixel x
+     * @param y The pixel y
+     * @param drawHidden Whether to draw hidden aspects of the tile.
      */
-    public abstract void drawImage(Graphics2D g, int x, int y);
+    public abstract void drawImage(Graphics2D g, int x, int y, boolean drawHidden);
 
 }

@@ -1,6 +1,7 @@
 
 package materials.wood;
 
+import java.util.Objects;
 import textureGeneration.DichromeTexture;
 import textureGeneration.ImageBuilder;
 import materials.Material;
@@ -39,9 +40,14 @@ public class WoodPlanks extends Material{
     }
     
     @Override
-    public boolean equals(Material mat){
-        if(mat instanceof WoodPlanks) return color.equals(mat.color);
+    public boolean equals(Object mat){
+        if(mat instanceof WoodPlanks) return color.equals(((Material)mat).color);
         else return false;
+    }
+
+    @Override
+    public int hashCode(){
+        return 37 * 3 + Objects.hashCode(this.color);
     }
 
 }

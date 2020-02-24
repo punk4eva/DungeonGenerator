@@ -7,6 +7,7 @@ import textureGeneration.DichromeTexture;
 import textureGeneration.Texture;
 import textureGeneration.ImageBuilder;
 import java.awt.Color;
+import java.util.Objects;
 
 /**
  * This class represents a real world material with a unique texture.
@@ -96,8 +97,21 @@ public abstract class Material{
         texture.buildFilterImage();
     }
     
-    public boolean equals(Material mat){
+    @Override
+    public boolean equals(Object mat){
         return mat.getClass().isInstance(this);
+    }
+
+    @Override
+    public int hashCode(){
+        int hash = 3;
+        hash = 37 * hash + Objects.hashCode(this.color);
+        hash = 37 * hash + (int) (Double.doubleToLongBits(this.resilience) ^ (Double.doubleToLongBits(this.resilience) >>> 32));
+        hash = 37 * hash + (int) (Double.doubleToLongBits(this.complexity) ^ (Double.doubleToLongBits(this.complexity) >>> 32));
+        hash = 37 * hash + (int) (Double.doubleToLongBits(this.maxTemp) ^ (Double.doubleToLongBits(this.maxTemp) >>> 32));
+        hash = 37 * hash + (int) (Double.doubleToLongBits(this.minHeight) ^ (Double.doubleToLongBits(this.minHeight) >>> 32));
+        hash = 37 * hash + (int) (Double.doubleToLongBits(this.maxHeight) ^ (Double.doubleToLongBits(this.maxHeight) >>> 32));
+        return hash;
     }
     
 }

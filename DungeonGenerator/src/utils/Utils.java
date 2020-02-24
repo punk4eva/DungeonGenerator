@@ -15,7 +15,6 @@ import static java.lang.Character.isUpperCase;
 import static java.lang.Character.toLowerCase;
 import static java.lang.Character.toUpperCase;
 import java.util.AbstractMap.SimpleEntry;
-import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 import static textureGeneration.Texture.rgbPixelEquals;
@@ -266,8 +265,6 @@ public final class Utils{
      */
     public static void main(String... args) throws Exception{
         System.out.println("Running...");
-        
-        
     }
     
 }

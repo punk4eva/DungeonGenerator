@@ -5,6 +5,8 @@ import static biomes.GrassColorer.getGrassColor;
 import components.Area;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import static java.awt.image.BufferedImage.TYPE_INT_ARGB;
 import static utils.Utils.R;
 
 /**
@@ -31,13 +33,14 @@ public class Grass extends Tile{
         super(t ? "high grass" : "low grass", "@Unfinished", tile.type, null, tile.decoration);
         tall = t;
         underTile = tile;
+        underTile.decoration = null;
     }
     
     
     @Override
     public void buildImage(Area area, int x, int y){
         Color color = getGrassColor(area.info.architecture.biomeProcessor.biome);
-        if(underTile.image==null) underTile.buildImage(area, x, y);
+        /*if(underTile.image==null) underTile.buildImage(area, x, y);
         image = underTile.image;
         if(tall) constructTallGrassImage(color, 
                 (Graphics2D) image.getGraphics());
@@ -46,6 +49,41 @@ public class Grass extends Tile{
             constructLowGrassImage(color, g);
             if(underTile.decoration!=null && underTile.decoration.aboveWater){
                 underTile.decoration.drawImage((Graphics2D) image.getGraphics(), 0, 0);
+            }
+        }*/
+        if(underTile.image==null) underTile.buildImage(area, x, y);
+        if(decoration == null){
+            if(tall) constructTallGrassImage(color, 
+                    (Graphics2D) underTile.image.getGraphics());
+            else{
+                constructLowGrassImage(color, 
+                        (Graphics2D) underTile.image.getGraphics());
+            }
+        }else{
+            if(!tall && decoration.aboveWater){
+                constructLowGrassImage(color, 
+                        (Graphics2D) underTile.image.getGraphics());
+            }else{
+                image = new BufferedImage(16, 16, TYPE_INT_ARGB);
+                if(tall) constructTallGrassImage(color, 
+                        (Graphics2D) image.getGraphics());
+                else{
+                    constructLowGrassImage(color, 
+                            (Graphics2D) image.getGraphics());
+                }
+            }
+        }
+    }
+    
+    @Override
+    public void draw(Graphics2D g, int _x, int _y, boolean drawReal){
+        underTile.draw(g, _x, _y, drawReal);
+        if(decoration != null){
+            if(!tall && decoration.aboveWater){
+                decoration.drawImage(g, _x, _y, drawReal);
+            }else{
+                decoration.drawImage(g, _x, _y, drawReal);
+                g.drawImage(image, _x, _y, null);
             }
         }
     }

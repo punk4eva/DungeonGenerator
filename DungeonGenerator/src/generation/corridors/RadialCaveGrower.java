@@ -8,7 +8,7 @@ import utils.Utils.Unfinished;
 
 /**
  * Uses cellular automata to grow caves. This implementation searches a wider
- * radius.
+ * radius. Creates jagged caves.
  * @author Adam Whittaker
  */
 @Unfinished("Flesh out with variable search radius.")
