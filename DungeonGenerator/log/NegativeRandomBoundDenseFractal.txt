@@ -1,0 +1,30 @@
+02-29 16:33:32:236: $ java.lang.IllegalArgumentException: bound must be positive
+java.lang.IllegalArgumentException: bound must be positive
+	at java.util.Random.nextInt(Random.java:388)
+	at generation.rooms.DenseFractalRoomPlacer.generateCoords(DenseFractalRoomPlacer.java:116)
+	at generation.rooms.DenseFractalRoomPlacer.fractalSplit(DenseFractalRoomPlacer.java:56)
+	at generation.rooms.DenseFractalRoomPlacer.fractalSplit(DenseFractalRoomPlacer.java:70)
+	at generation.rooms.DenseFractalRoomPlacer.fractalSplit(DenseFractalRoomPlacer.java:82)
+	at generation.rooms.DenseFractalRoomPlacer.generate(DenseFractalRoomPlacer.java:38)
+	at gui.core.Window.quickStart(Window.java:86)
+	at gui.core.Window.main(Window.java:123)
+02-29 16:33:32:236:      ---- CRASH DATA ----
+02-29 16:33:32:236:  -   Current state: LOADING
+02-29 16:33:32:236:  -   Dimensions: 1920, 1080
+02-29 16:33:32:236:  -   Animations: 1
+02-29 16:33:32:236:  -   Particles: 0
+02-29 16:33:32:236:  -   sfxVolume: 0.0
+02-29 16:33:32:236:  -   musicVolume: 0.0
+02-29 16:33:32:236:  -   Calibration panel: null
+02-29 16:33:32:236:       ---- Area ----
+02-29 16:33:32:236:  -    Area width, height: 80, 80
+02-29 16:33:32:237:  -    initialJitter: 72.90741398398352
+02-29 16:33:32:237:  -    jitterJecay: 0.8343328794489319
+02-29 16:33:32:237:  -    amlpitude: 84.67791536925574
+02-29 16:33:32:237:  -    lacunarity: 0.8770434209608284
+02-29 16:33:32:237:  -    persistence: 0.5155005013442986
+02-29 16:33:32:237:  -    octaves: 3
+02-29 16:33:32:237:  -    seed: -9051127241595108047
+02-29 16:33:32:237:       ---- Biome information ----
+02-29 16:33:32:237:  -    Biome: PLAINS
+02-29 16:33:32:237: $    ---- END OF CRASH DATA ----

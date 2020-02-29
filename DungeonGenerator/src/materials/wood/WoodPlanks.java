@@ -6,6 +6,8 @@ import textureGeneration.DichromeTexture;
 import textureGeneration.ImageBuilder;
 import materials.Material;
 import materials.Wood;
+import static textureGeneration.ImageBuilder.colorToPixelArray;
+import static textureGeneration.Texture.rgbPixelEquals;
 import static utils.Utils.R;
 
 /**
@@ -41,7 +43,9 @@ public class WoodPlanks extends Material{
     
     @Override
     public boolean equals(Object mat){
-        if(mat instanceof WoodPlanks) return color.equals(((Material)mat).color);
+        if(mat instanceof WoodPlanks) return rgbPixelEquals(
+                colorToPixelArray(color), 
+                colorToPixelArray(((Material)mat).color));
         else return false;
     }
 

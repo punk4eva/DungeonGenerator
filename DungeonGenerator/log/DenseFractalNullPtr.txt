@@ -1,0 +1,26 @@
+02-29 15:10:05:157: $ java.lang.NullPointerException: null
+java.lang.NullPointerException
+	at generation.rooms.DenseFractalRoomPlacer.generateRooms(DenseFractalRoomPlacer.java:136)
+	at generation.rooms.DenseFractalRoomPlacer.generate(DenseFractalRoomPlacer.java:39)
+	at gui.core.Window.quickStart(Window.java:86)
+	at gui.core.Window.main(Window.java:123)
+02-29 15:10:05:157:      ---- CRASH DATA ----
+02-29 15:10:05:157:  -   Current state: LOADING
+02-29 15:10:05:157:  -   Dimensions: 1920, 1080
+02-29 15:10:05:157:  -   Animations: 1
+02-29 15:10:05:157:  -   Particles: 0
+02-29 15:10:05:157:  -   sfxVolume: 0.0
+02-29 15:10:05:157:  -   musicVolume: 0.0
+02-29 15:10:05:157:  -   Calibration panel: null
+02-29 15:10:05:158:       ---- Area ----
+02-29 15:10:05:158:  -    Area width, height: 80, 80
+02-29 15:10:05:158:  -    initialJitter: 65.23601195439909
+02-29 15:10:05:158:  -    jitterJecay: 0.9116373838228764
+02-29 15:10:05:158:  -    amlpitude: 99.47797865820462
+02-29 15:10:05:158:  -    lacunarity: 0.41594552417035796
+02-29 15:10:05:158:  -    persistence: 0.733479565363218
+02-29 15:10:05:158:  -    octaves: 6
+02-29 15:10:05:158:  -    seed: -6896917103690312191
+02-29 15:10:05:159:       ---- Biome information ----
+02-29 15:10:05:159:  -    Biome: PLAINS
+02-29 15:10:05:159: $    ---- END OF CRASH DATA ----

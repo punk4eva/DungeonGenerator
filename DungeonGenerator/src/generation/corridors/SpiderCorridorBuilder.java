@@ -43,7 +43,6 @@ public class SpiderCorridorBuilder extends CorridorBuilder implements PostCorrid
      * windyness: How windy the corridors are.
      */
     private final int decayLimit;
-    //private final double windyness;
     
     
     /**
@@ -71,7 +70,6 @@ public class SpiderCorridorBuilder extends CorridorBuilder implements PostCorrid
      */
     public SpiderCorridorBuilder(Area a, double windyness, int decayLimit, Function<Point, Double> prioritySkew){
         super(a);
-        //this.windyness = windyness;
         this.decayLimit = decayLimit;
         addCheck = (from, to) -> to.cameFrom==null && (to.checked==null||!to.checked) && to.roomNum==-1;
         if(prioritySkew!=null) frontier.setFunction(p -> R.nextDouble()*2D*windyness - windyness + p.currentCost + prioritySkew.apply(p));
@@ -152,16 +150,15 @@ public class SpiderCorridorBuilder extends CorridorBuilder implements PostCorrid
         start.checked = true;
         start.cameFrom = start;
         int nx, ny;
-        //System.out.println("Starting point: " + start.x + ", " + start.y);
         while(!frontier.isEmpty()){
             Point p = frontier.removeFirst();
             for(Direction dir : Direction.values()){
                 nx = p.x+dir.x;
                 ny = p.y+dir.y;
-                area.graph.map[ny][nx].currentCost = p.currentCost + 1;
                 
                 if(area.withinBounds(nx-1, ny-1)&&area.withinBounds(nx+1, ny+1)){
                     if(addCheck.test(p, area.graph.map[ny][nx])){
+                        area.graph.map[ny][nx].currentCost = p.currentCost + 1;
                         area.graph.map[ny][nx].checked = true;
                         area.graph.map[ny][nx].cameFrom = p;
                         frontier.add(area.graph.map[ny][nx]);

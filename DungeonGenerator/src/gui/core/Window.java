@@ -79,10 +79,11 @@ public class Window{
         SCREEN.setArea(new Area(AreaInfo.getDefaultAreaInfo()));
         SCREEN.setTileFocus(SCREEN.getArea().info.width/2, SCREEN.getArea().info.height/2);
 
-        LinkedList<Room> list = RoomSelector.getDefaultRoomList(35, SCREEN.getArea());
+        //LinkedList<Room> list = RoomSelector.getDefaultRoomList(35, SCREEN.getArea());
         //BurrowCaveGrower grower = new BurrowCaveGrower(viewer.area, 0.3, 2, 9, 4, 5, 20, true);
         //new RandomRoomPlacer(SCREEN.getArea(), list, r -> r.addDoorsSparcely(SCREEN.getArea())).generate();
-        new GreedyGoblinPlacer(SCREEN.getArea(), list, 5).generate();
+        //new GreedyGoblinPlacer(SCREEN.getArea(), list, 5).generate();
+        new DenseFractalRoomPlacer(SCREEN.getArea(), 1).generate();
         SCREEN.getArea().refreshGraph();
         SPEED_TESTER.test("Rooms placed");
         //new SpiderCorridorBuilder(viewer.area, 3, 4, CorridorBuilder.gaussianKernel(new Point(40, 79), 120, 24)).build();

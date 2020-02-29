@@ -1,0 +1,27 @@
+02-29 16:32:16:033: $ java.lang.ArrayIndexOutOfBoundsException: -1
+java.lang.ArrayIndexOutOfBoundsException: -1
+	at components.Area.blitRoom(Area.java:184)
+	at generation.rooms.DenseFractalRoomPlacer.generateRooms(DenseFractalRoomPlacer.java:145)
+	at generation.rooms.DenseFractalRoomPlacer.generate(DenseFractalRoomPlacer.java:39)
+	at gui.core.Window.quickStart(Window.java:86)
+	at gui.core.Window.main(Window.java:123)
+02-29 16:32:16:034:      ---- CRASH DATA ----
+02-29 16:32:16:034:  -   Current state: LOADING
+02-29 16:32:16:034:  -   Dimensions: 1920, 1080
+02-29 16:32:16:034:  -   Animations: 1
+02-29 16:32:16:034:  -   Particles: 0
+02-29 16:32:16:034:  -   sfxVolume: 0.0
+02-29 16:32:16:034:  -   musicVolume: 0.0
+02-29 16:32:16:034:  -   Calibration panel: null
+02-29 16:32:16:034:       ---- Area ----
+02-29 16:32:16:034:  -    Area width, height: 80, 80
+02-29 16:32:16:035:  -    initialJitter: 92.5995514137573
+02-29 16:32:16:035:  -    jitterJecay: 0.7631945218473426
+02-29 16:32:16:035:  -    amlpitude: 84.15788964383165
+02-29 16:32:16:035:  -    lacunarity: 0.4888446657555049
+02-29 16:32:16:035:  -    persistence: 0.601415520174702
+02-29 16:32:16:035:  -    octaves: 5
+02-29 16:32:16:035:  -    seed: 411461886379234812
+02-29 16:32:16:035:       ---- Biome information ----
+02-29 16:32:16:035:  -    Biome: PLAINS
+02-29 16:32:16:035: $    ---- END OF CRASH DATA ----

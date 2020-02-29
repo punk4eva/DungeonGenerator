@@ -78,7 +78,7 @@ public final class Utils{
      * An annotation to keep track of when each method has been tested.
      */
     public static @interface Tested{
-        String value() default "";
+        String value() default ""; //Store the date of current testing.
     }
     
     
@@ -96,6 +96,7 @@ public final class Utils{
      * Prints an integer array.
      * @param ary
      */
+    @Tested("12/11/2019")
     public static void printArray(int[] ary){
         System.out.print("[");
         for(int x : ary){
@@ -108,6 +109,7 @@ public final class Utils{
      * Prints a 2D integer array.
      * @param ary
      */
+    @Tested("12/11/2019")
     public static void print2DArray(int[][] ary){
         for(int[] row : ary){
             printArray(row);

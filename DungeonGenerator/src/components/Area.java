@@ -27,6 +27,7 @@ import javax.imageio.ImageIO;
 import static utils.Utils.PERFORMANCE_LOG;
 import static utils.Utils.R;
 import utils.Utils.ThreadUsed;
+import utils.Utils.Unfinished;
 
 /**
  *
@@ -35,6 +36,7 @@ import utils.Utils.ThreadUsed;
  * This class represents a single floor of the dungeon.
  */
 public class Area{
+    
     
     /**
      * Map: The 2D array of tiles.
@@ -49,6 +51,9 @@ public class Area{
     
     private static final Color BORDER_COLOR = new Color(0, 0, 0, 100);
     
+    private static final boolean TILE_COUNT_MODE = false;
+    
+    
     /**
      * Creates a new instance.
      * @param i The information about the Area.
@@ -59,6 +64,12 @@ public class Area{
         graph = new PathfindingGrid(i.width, i.height);
     }
     
+    
+    @Unfinished("Debug only")
+    private void paintTileCount(Graphics2D g, int x, int y){
+        g.setColor(BORDER_COLOR.brighter());
+        g.fillRect(x, y, 16, 16);
+    }
     
     /**
      * Paints the given area on the given graphics.
@@ -79,6 +90,9 @@ public class Area{
                         
                         map[tileY][tileX].draw(g, x, y, getSettings().DM_MODE);
                         
+                        if(TILE_COUNT_MODE && (tileX+tileY)%2==0) 
+                            paintTileCount(g, x, y);
+                        
                     }
                 }catch(ArrayIndexOutOfBoundsException e){/*Skip frame*/}
             }
@@ -88,7 +102,7 @@ public class Area{
         for(tileY=1;tileY<info.height-1;tileY++){
             for(tileX=1;tileX<info.width-1;tileX++){
                 if(map[tileY][tileX] != null && map[tileY][tileX].type.equals(Type.FLOOR)){
-                    paintInsideBorder(tileX, tileY, g, focusX, focusY);
+                    //paintInsideBorder(tileX, tileY, g, focusX, focusY);
                 }
             }
         }

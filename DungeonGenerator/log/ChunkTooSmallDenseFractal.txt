@@ -1,0 +1,27 @@
+02-29 16:32:35:131: $ java.lang.IllegalStateException: No large enough room for dimensions: 39, 4
+java.lang.IllegalStateException: No large enough room for dimensions: 39, 4
+	at generation.rooms.RoomSelector.select(RoomSelector.java:72)
+	at generation.rooms.DenseFractalRoomPlacer.generateRooms(DenseFractalRoomPlacer.java:143)
+	at generation.rooms.DenseFractalRoomPlacer.generate(DenseFractalRoomPlacer.java:39)
+	at gui.core.Window.quickStart(Window.java:86)
+	at gui.core.Window.main(Window.java:123)
+02-29 16:32:35:131:      ---- CRASH DATA ----
+02-29 16:32:35:131:  -   Current state: LOADING
+02-29 16:32:35:131:  -   Dimensions: 1920, 1080
+02-29 16:32:35:131:  -   Animations: 1
+02-29 16:32:35:131:  -   Particles: 0
+02-29 16:32:35:131:  -   sfxVolume: 0.0
+02-29 16:32:35:131:  -   musicVolume: 0.0
+02-29 16:32:35:131:  -   Calibration panel: null
+02-29 16:32:35:131:       ---- Area ----
+02-29 16:32:35:131:  -    Area width, height: 80, 80
+02-29 16:32:35:132:  -    initialJitter: 65.72693949548052
+02-29 16:32:35:132:  -    jitterJecay: 0.8588546215989493
+02-29 16:32:35:132:  -    amlpitude: 111.44731782898067
+02-29 16:32:35:132:  -    lacunarity: 0.9434817039948011
+02-29 16:32:35:132:  -    persistence: 0.6051563101556066
+02-29 16:32:35:132:  -    octaves: 2
+02-29 16:32:35:132:  -    seed: -3740592222367876957
+02-29 16:32:35:132:       ---- Biome information ----
+02-29 16:32:35:132:  -    Biome: PLAINS
+02-29 16:32:35:132: $    ---- END OF CRASH DATA ----

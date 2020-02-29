@@ -96,8 +96,9 @@ public abstract class CaveGrower extends Searcher{
     protected void flashChecked(){
         for(int x=1;x<area.info.width-1;x++){
             for(int y=1;y<area.info.height-1;y++){
-                if(area.graph.map[y][x].roomNum!=-1) continue;
-                area.graph.map[y][x].isCorridor = area.graph.map[y][x].checked;
+                if(area.graph.map[y][x].roomNum==-1)
+                    area.graph.map[y][x].isCorridor
+                            = area.graph.map[y][x].checked;
             }
         }
     }
