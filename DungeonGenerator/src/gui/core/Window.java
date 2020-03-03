@@ -2,9 +2,6 @@ package gui.core;
 
 import components.Area;
 import components.mementoes.AreaInfo;
-import components.rooms.Room;
-import generation.corridors.RadialCaveGrower;
-import generation.corridors.WormholeCaveGrower;
 import generation.rooms.*;
 import gui.core.DungeonViewer.State;
 import gui.pages.DungeonScreen;
@@ -12,7 +9,6 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.io.IOException;
-import java.util.LinkedList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import static textureGeneration.ImageBuilder.getRandomIcon;
@@ -36,7 +32,7 @@ public class Window{
     
     
     @Unfinished("For debugging only")
-    private final static boolean QUICK_START = true;
+    private final static boolean QUICK_START = false;
     
     
     /**

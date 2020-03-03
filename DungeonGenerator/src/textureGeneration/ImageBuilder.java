@@ -256,14 +256,20 @@ public final class ImageBuilder{
             case "roachwood": return Color.decode("#556b00");
             case "crying brown magmatic wood": return Color.decode("#5b0606");
             case "white magmatic wood": return Color.decode("#ffffff");
+            case "fungal wood": return Color.decode("#7bb661").darker();
+            case "hellstone": return Color.decode("#b32134");
+            case "downstone": return Color.decode("#2b2028");
             //real materials
             case "clay": return Color.decode("#966432");
             case "stone": return Color.decode("#7b7a73");
             case "marble": return Color.decode("#8b8563");
             case "birch": return Color.decode("#e1c785").darker();
             case "dark oak": return Color.decode("#261609");
+            case "redwood": return Color.decode("#a45a52");
             case "oak": return Color.decode("#c89959").darker();
             case "mahogany": return Color.decode("#5a2e11");
+            case "spruce": return Color.decode("#6a432d");
+            case "palm": return Color.decode("#deb887");
             case "ebony": return new Color(40, 20, 20);
             case "brick": return Color.decode("#68250a").darker();
             default: throw new IllegalStateException("Illegal color: " + name);

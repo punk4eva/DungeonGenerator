@@ -1,6 +1,7 @@
 
 package biomes;
 
+import materials.wood.*;
 import materials.*;
 import components.rooms.*;
 import generation.rooms.RoomSelector;
@@ -13,7 +14,6 @@ import java.util.stream.Collectors;
 import materials.composite.*;
 import materials.improvised.*;
 import materials.stone.*;
-import materials.wood.*;
 import utils.Distribution;
 import static utils.Utils.R;
 import static utils.Utils.PERFORMANCE_LOG;
@@ -39,17 +39,27 @@ public class BiomeProcessor{
         new WoodConstructor(15, 0.10,  00, 0.00,  16, 0.12,  10, 0.40,  00, 0.0,  new Oak()),
         new WoodConstructor(25, 0.27,  00, 0.00,  14, 0.12,  05, 0.43,  00, 0.0,  new Mahogany()),
         new WoodConstructor(14, 0.15,  00, 0.00,  15, 0.13,  10, 0.35,  00, 0.0,  new Ebony()),
+        
+        new WoodConstructor(10, 0.12,  00, 0.00,  16, 0.11,  12, 0.33,  00, 0.0,  new Schmetterhaus()),
+        new WoodConstructor(50, 0.20,  00, 0.00,  60, 0.05,  -90, 0.30, 00, 0.0,  new CryingBrownMagmatia()),
+        new WoodConstructor(-15, 0.1,  00, 0.00,  45, 0.04,  50, 0.28,  00, 0.0,  new WhiteMagmatia()),
+        new WoodConstructor(8,  0.12,  00, 0.00,  15, 0.12,  18, 0.40,  00, 0.0,  new Spruce()),
+        new WoodConstructor(6,  0.11,  00, 0.00,  18, 0.14,  22, 0.42,  00, 0.0,  new Redwood()),
+        new WoodConstructor(0,  0.07,  00, 0.00,  20, 0.07,  -20, 0.15, 00, 0.0,  new FungalWood()),
+        new WoodConstructor(18, 0.14,  00, 0.00,  15, 0.13,  00, 0.47,  00, 0.0,  new Palm()),
     };
     private final MaterialConstructor[] MATERIALS = new MaterialConstructor[]{
         //                     temp       acco       host      height      tech     minTech
-        new MaterialConstructor(20, 0.03,  40, 0.02,  00, 0.02,  05, 0.20,  65, 0.01,  22,  b -> new WoodPlanks(b.getRandomWood())),
+        new MaterialConstructor(20, 0.03,  40, 0.02,  00, 0.02,  00, 0.10,  65, 0.01,  22,  b -> new WoodPlanks(b.getRandomWood())),
         new MaterialConstructor(25, 0.02,  50, 0.04,  10, 0.02,  00, 0.01,  75, 0.01,  30,  b -> new Bricks()),
         new MaterialConstructor(20, 0.07,  18, 0.10,  00, 0.20,  00, 0.10,  12, 0.15,  05,  b -> new Thatch(b.getRandomWood())),
         new MaterialConstructor(20, 0.00,  00, 0.08,  00, 0.00,  -10, 0.2,  10, 0.02,  00,  b -> new CaveStone()),
         new MaterialConstructor(20, 0.01,  75, 0.06,  10, 0.02,  00, 0.01,  70, 0.07,  50,  b -> new Marble()),
         new MaterialConstructor(20, 0.00,  40, 0.15,  10, 0.07,  30, 0.06,  60, 0.07,  40,  b -> new Slate()),
         new MaterialConstructor(20, 0.00,  55, 0.07,  10, 0.02,  00, 0.00,  60, 0.07,  43,  b -> new StoneBricks()),
-        new MaterialConstructor(20, 0.00,  45, 0.05,  10, 0.02,  00, 0.00,  60, 0.07,  42,  b -> new StoneSlab())
+        new MaterialConstructor(20, 0.00,  45, 0.05,  10, 0.02,  00, 0.00,  60, 0.07,  42,  b -> new StoneSlab()),
+        new MaterialConstructor(60, 0.04,  00, 0.00,  80, 0.02,  -90, 0.1,  05, 0.00,  00,  b -> new HellStone()),
+        new MaterialConstructor(40, 0.04,  00, 0.00,  70, 0.02,  -80, 0.1,  05, 0.00,  00,  b -> new DownStone()),
     };
     public final RoomConstructor[] ROOM_ALGORITHMS = new RoomConstructor[]{
         //                 temp       acco       host      height     tech

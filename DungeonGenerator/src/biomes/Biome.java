@@ -23,7 +23,7 @@ public enum Biome{
     //Underground
     SHALLOW_CAVE(10, 20, 30, -25, 35), MEDIUM_CAVE(-5, 20, 35, -50, 45),
     DEEP_CAVE(27, 27, 55, -75, 55), BURIED_OASIS(23, 35, 25, -60, 20), 
-    HELL(60, 40, 85, -100, 95), THE_DEEP(37, 32, 70, -85, 75),
+    HELL(70, 40, 85, -100, 95), THE_DEEP(37, 32, 70, -85, 75),
     
     //Plain
     PLAINS(16, 100, 10, 0, 0), LOWLANDS(12, 80, 25, 10, 10), 

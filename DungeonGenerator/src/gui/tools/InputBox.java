@@ -17,11 +17,12 @@ public abstract class InputBox{
     
     
     protected static final int MENU_HEIGHT = HEIGHT*64/1080;
-    protected static final int PADDING = 6;
+    protected static final int PADDING = 6*HEIGHT/1080;
     protected static final Color TITLE_COLOR = Color.YELLOW,
             HIGHLIGHT_COLOR = new Color(98, 96, 147),
             TEXT_COLOR = Color.YELLOW.darker();
-    protected static final Font TITLE_FONT = new Font(Font.MONOSPACED, Font.BOLD, 36);
+    protected static final Font TITLE_FONT = 
+            new Font(Font.MONOSPACED, Font.BOLD, 36*HEIGHT/1080);
     
     
     protected int x, y, width, height;

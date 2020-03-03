@@ -44,7 +44,7 @@ public class LookCalPanel extends CalibrationPanel{
             @Override
             public void paint(Graphics2D g){
                 paintButtonBox(g);
-                paintText(g, "Save as PNG");
+                paintText(g, "Save PNG");
             }
         
         };

@@ -2,7 +2,7 @@
 package materials.improvised;
 
 import materials.Material;
-import materials.Wood;
+import materials.wood.Wood;
 import static utils.Utils.R;
 
 /**

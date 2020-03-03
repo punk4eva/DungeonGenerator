@@ -1,6 +1,7 @@
 
-package materials;
+package materials.wood;
 
+import materials.wood.Wood;
 import textureGeneration.ImageBuilder;
 
 /**
@@ -14,7 +15,7 @@ public class Mahogany extends Wood{
      * Creates an instance.
      */
     public Mahogany(){
-        super("@Unfinished", ImageBuilder.getColor("mahogany"), 53, 67, -20, 25);
+        super("@Unfinished", ImageBuilder.getColor("mahogany"), 53, 0, 67, -20, 25);
     }
     
 }

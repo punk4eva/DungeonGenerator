@@ -2,6 +2,7 @@
 package gui.tools;
 
 import static gui.core.DungeonViewer.HEIGHT;
+import static gui.core.DungeonViewer.WIDTH;
 import gui.userInterface.*;
 import java.awt.Graphics2D;
 
@@ -15,7 +16,7 @@ public class ControlPanel extends UIPanel{
     public ControlPanel(GUI gui){
         super(0, new Button[8]);
         
-        buttons[0] = new MinimizeButton(PANEL_WIDTH, 0, 32, true);
+        buttons[0] = new MinimizeButton(PANEL_WIDTH, 0, 32*WIDTH/1920, true);
         buttons[1] = genNewButton(gui, 0, 0, PANEL_WIDTH/3, PANEL_WIDTH/3);
         buttons[2] = genSaveButton(gui, PANEL_WIDTH/3, 0, PANEL_WIDTH/3, PANEL_WIDTH/3);
         buttons[3] = genLoadButton(gui, 2*PANEL_WIDTH/3, 0, PANEL_WIDTH/3, PANEL_WIDTH/3);

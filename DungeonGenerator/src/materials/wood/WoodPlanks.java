@@ -5,7 +5,6 @@ import java.util.Objects;
 import textureGeneration.DichromeTexture;
 import textureGeneration.ImageBuilder;
 import materials.Material;
-import materials.Wood;
 import static textureGeneration.ImageBuilder.colorToPixelArray;
 import static textureGeneration.Texture.rgbPixelEquals;
 import static utils.Utils.R;

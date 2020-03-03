@@ -1,5 +1,5 @@
 
-package materials;
+package materials.wood;
 
 import biomes.Biome;
 import biomes.Society;
@@ -16,14 +16,14 @@ public abstract class Wood{
      * description: The description of this wood.
      * color: The color of the wood.
      * resilience: The maximum hostility this wood can tolerate.
-     * maxTemp: The maximum temperature this wood can tolerate.
+     * minTemp, maxTemp: The temperature range where this wood can tolerate.
      * minHeight, maxHeight: The altitude range where this wood is found.
      */
     public final String description;
     public final Color color;
     
     public final double resilience;
-    public final double maxTemp;
+    public final double minTemp, maxTemp;
     public final double minHeight, maxHeight;
     
     
@@ -32,14 +32,17 @@ public abstract class Wood{
      * @param desc
      * @param col
      * @param res
+     * @param minT
      * @param maxT
      * @param minH
      * @param maxH
      */
-    public Wood(String desc, Color col, double res, double maxT, double minH, double maxH){
+    public Wood(String desc, Color col, double res, double minT, double maxT, 
+            double minH, double maxH){
         description = desc;
         color = col;
         resilience = res;
+        minTemp = minT;
         maxTemp = maxT;
         minHeight = minH;
         maxHeight = maxH;
@@ -54,9 +57,9 @@ public abstract class Wood{
      * @return
      */
     public boolean biomeCompatible(Biome b, Society s){
-        return b.temperature<=maxTemp && b.hostility<=resilience && 
-                minHeight <= b.height && b.height <= maxHeight && 
-                s.technology>20;
+        return b.temperature>=minTemp && b.temperature<=maxTemp && 
+                b.hostility<=resilience && minHeight <= b.height && 
+                b.height <= maxHeight && s.technology>20;
     }
 
 }

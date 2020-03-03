@@ -29,10 +29,11 @@ public class LoadingScreen implements Screen{
      * rotation: The transform representing the current orientation of the 
      * negative space rectangle.
      */
-    private final static int CIRCLE_DIAMETER = 112, CIRCLE_WIDTH = 8;
+    private final static int CIRCLE_DIAMETER = 112*HEIGHT/1080, 
+            CIRCLE_WIDTH = 8*HEIGHT/1080;
     private final static Color BACKGROUND_COLOR = Color.BLACK, 
             CIRCLE_COLOR = Color.WHITE;
-    private final static Font LOADING_TEXT_FONT = new Font(Font.MONOSPACED, Font.BOLD, 36);
+    private final static Font LOADING_TEXT_FONT = new Font(Font.MONOSPACED, Font.BOLD, 36*HEIGHT/1080);
     
     private final static double ANGULAR_VELOCITY = 0.04;
     private final static int RECTANGLE_HEIGHT = CIRCLE_WIDTH*3;

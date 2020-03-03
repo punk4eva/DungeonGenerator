@@ -1,6 +1,7 @@
 
-package materials;
+package materials.wood;
 
+import materials.wood.Wood;
 import textureGeneration.ImageBuilder;
 
 /**
@@ -14,7 +15,7 @@ public class Birch extends Wood{
      * Creates an instance.
      */
     public Birch(){
-        super("@Unfinished", ImageBuilder.getColor("birch"), 57, 50, -20, 40);
+        super("@Unfinished", ImageBuilder.getColor("birch"), 57, -23, 50, -20, 40);
     }
 
 }

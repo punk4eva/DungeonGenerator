@@ -21,7 +21,7 @@ public class UIPanel extends MouseAdapter{
     public final static Color UI_COLOR = new Color(80, 80, 80);
     public final static Color BUTTON_COLOR = new Color(140, 140, 140);
     public static final Color BUTTON_TEXT_COLOR = new Color(40, 40, 40);
-    public static final Font BUTTON_TEXT_FONT = new Font(Font.SERIF, Font.BOLD, 18);
+    public static final Font BUTTON_TEXT_FONT = new Font(Font.SERIF, Font.BOLD, 24*HEIGHT/1080);
     public static final int MINIMIZE_SPEED = 5;
     public static final int PANEL_WIDTH = WIDTH/8;
     

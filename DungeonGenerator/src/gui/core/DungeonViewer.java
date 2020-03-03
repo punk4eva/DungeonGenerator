@@ -40,6 +40,9 @@ public class DungeonViewer extends Canvas implements Runnable{
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         WIDTH = (int)screen.getWidth();
         HEIGHT = (int)screen.getHeight();
+        if(WIDTH < 300 || HEIGHT < 300) throw new 
+                IllegalArgumentException("Your screen size is too small! The "
+                        + "minimum screen size is 300 by 300.");
     }
 
     protected volatile boolean running = false;
