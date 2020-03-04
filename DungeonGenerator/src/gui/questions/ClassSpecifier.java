@@ -84,6 +84,10 @@ public class ClassSpecifier<T extends Object> extends Specifier{
     }
     
     private void addToMap(Parameter param, int y){
+        if(!param.isNamePresent()) throw new IllegalStateException("The project"
+                + " has been erroneously compiled! Please include the "
+                + "\"-parameter\" when compiling.");
+        
         if(param.getType().equals(boolean.class)){
             boxes.put(spaceCamelCase(param.getName()), 
                     new Toggle(BOX_X, y, MENU_HEIGHT, MENU_HEIGHT));
