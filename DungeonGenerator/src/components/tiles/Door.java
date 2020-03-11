@@ -5,12 +5,16 @@ import components.Area;
 import components.traps.Trap;
 import graph.Point.Type;
 import java.awt.image.BufferedImage;
+import textureGeneration.SerImage;
 
 /**
  * A passage way between two rooms.
  * @author Adam Whittaker
  */
 public class Door extends PassageTile{
+
+    
+    private static final long serialVersionUID = 1368L;
     
     
     /**
@@ -38,9 +42,10 @@ public class Door extends PassageTile{
     @Override
     public void buildImage(Area area, int x, int y){
         area.info.architecture.doorGenerator.generateAllImages(this, x, y);
-        if(open) image = openImage;
-        else if(locked) image = lockedImage;
-        else image = closedImage;
+        image = new SerImage(() -> null);
+        if(open) image.setImage(openImage, true);
+        else if(locked) image.setImage(lockedImage, true);
+        else image.setImage(closedImage, true);
     }
     
     
@@ -73,7 +78,7 @@ public class Door extends PassageTile{
      * Opens this door.
      */
     public void open(){
-        image = openImage;
+        image.setImage(openImage, true);
         open = true;
     }
     
@@ -81,7 +86,7 @@ public class Door extends PassageTile{
      * Closes this door.
      */
     public void close(){
-        image = closedImage;
+        image.setImage(closedImage, true);
         open = false;
     }
     
@@ -89,7 +94,7 @@ public class Door extends PassageTile{
      * Unlocks this door.
      */
     public void unlock(){
-        image = closedImage;
+        image.setImage(closedImage, true);
         locked = false;
     }
     
@@ -97,7 +102,7 @@ public class Door extends PassageTile{
      * Locks this door.
      */
     public void lock(){
-        image = lockedImage;
+        image.setImage(lockedImage, true);
         locked = true;
         open = false;
     }

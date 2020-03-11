@@ -20,7 +20,7 @@ public class CaveStone extends Material{
         super("@Unfinished", ImageBuilder.getColor("stone"), 70, 0, 400, -100, 50, false, false, true, true);
         texture = new DichromeTexture(Texture::defaultSupplier, color);
         texture.addInstruction(img -> ImageBuilder.applyAlphaNoise(img, 15, 9));
-        texture.buildFilterImage();
+        texture.buildImage();
     }
 
 }

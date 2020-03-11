@@ -1,15 +1,19 @@
 
 package components.traps;
 
-import components.decorations.WallDecoration;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 
 /**
  * A trap on the wall.
  * @author Adam Whittaker
  */
-public class WallTrap extends Trap implements WallDecoration{
+public class WallTrap extends Trap{
 
+    
+    private static final long serialVersionUID = 72894243L;
+
+    
     /**
      * Creates an instance by forwarding the arguments.
      * @param n
@@ -22,8 +26,13 @@ public class WallTrap extends Trap implements WallDecoration{
     
 
     @Override
-    public void drawImage(Graphics2D g, int x, int y, boolean drawHidden){
-        if(!revealed && !drawHidden) return;
+    public void accept(BufferedImage t){
+        if(!revealed) return;
+        //@Unfinished
+    }
+
+    @Override
+    public void drawHiddenAspects(Graphics2D g, int x, int y){
         //@Unfinished
     }
 

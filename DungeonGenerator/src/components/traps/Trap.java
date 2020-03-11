@@ -1,16 +1,20 @@
 
 package components.traps;
 
-import components.decorations.Decoration;
-import textureGeneration.ImageBuilder;
+import components.decorations.ComplexDecoration;
+import components.decorations.SneakyDecoration;
 import java.awt.Color;
+import textureGeneration.ImageBuilder;
 
 
 /**
  * A decoration meant to damage or ensnare entities.
  * @author Adam Whittaker
  */
-public abstract class Trap extends Decoration{
+public abstract class Trap extends ComplexDecoration implements SneakyDecoration{
+
+    
+    private static final long serialVersionUID = 423432L;
     
     
     /**
@@ -30,7 +34,7 @@ public abstract class Trap extends Decoration{
      * @param rev Whether the trap is revealed.
      */
     public Trap(String n, String desc, boolean rev){
-        super(n, desc, false, null);
+        super(n, desc, false);
         color = ImageBuilder.getRandomColor();
         revealed = rev;
     }

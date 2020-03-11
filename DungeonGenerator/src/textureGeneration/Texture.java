@@ -1,19 +1,15 @@
 
 package textureGeneration;
 
-import textureGeneration.ImageBuilder.*;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.Serializable;
-import java.util.LinkedList;
+import textureGeneration.ImageBuilder.SerSupplier;
 
 /**
  * This class represents a list of commands to generate an image.
  * @author Adam Whittaker
  */
-public abstract class Texture implements Serializable{
+public abstract class Texture extends SerImage{
     
     
     /**
@@ -24,18 +20,13 @@ public abstract class Texture implements Serializable{
      */
     private static final long serialVersionUID = 427675489602L;
     
-    protected transient BufferedImage filterImage;
-    
-    private final SerSupplier supplier;
-    private final LinkedList<SerInstruction> instructions = new LinkedList<>();
-    
     
     /**
      * Creates an instance.
      * @param s The supplier of the initial image.
      */
     public Texture(SerSupplier s){
-        supplier = s;
+        super(s);
     }
     
     
@@ -46,26 +37,7 @@ public abstract class Texture implements Serializable{
      * @param map The noise map.
      * @return
      */
-    public abstract BufferedImage generateImage(int _x, int _y, double[][] map);
-    
-    /**
-     * Builds the filter image using the supplier and then performing the
-     * instructions.
-     */
-    public void buildFilterImage(){
-        filterImage = supplier.get();
-        instructions.forEach((i) -> {
-            i.accept(filterImage);
-        });
-    }
-    
-    /**
-     * Adds an filter building instruction to the instruction list.
-     * @param inst The instruction.
-     */
-    public void addInstruction(SerInstruction inst){
-        instructions.add(inst);
-    }
+    public abstract SerImage generateImage(int _x, int _y, double[][] map);
     
     
     /**
@@ -139,10 +111,4 @@ public abstract class Texture implements Serializable{
         return true;
     }
     
-    
-    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException{
-        in.defaultReadObject();
-        buildFilterImage();
-    }
-
 }

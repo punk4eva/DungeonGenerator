@@ -1,11 +1,11 @@
 
 package textureGeneration;
 
-import textureGeneration.ImageBuilder.SerSupplier;
 import static gui.pages.DungeonScreen.getSettings;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
+import textureGeneration.ImageBuilder.SerSupplier;
 
 /**
  * A filter that combines two colors together based on the underlying noise.
@@ -46,10 +46,15 @@ public class DichromeTexture extends Texture{
     
 
     @Override
-    public BufferedImage generateImage(int _x, int _y, double[][] map){
-        BufferedImage img = new BufferedImage(16, 16, BufferedImage.TYPE_INT_RGB);
-        if(getSettings().GRAPHICS.code>=3) buildFilterImage();
-        WritableRaster raster = img.getRaster(), filterRaster = filterImage.getAlphaRaster();
+    public SerImage generateImage(int _x, int _y, double[][] map){
+        SerImage ret = new SerImage(() -> new BufferedImage(16, 16, BufferedImage.TYPE_INT_RGB));
+        ret.addInstruction(img -> applyFilter(img, _x, _y, map));
+        return ret;
+    }
+    
+    private void applyFilter(BufferedImage img, int _x, int _y, double[][] map){
+        if(getSettings().GRAPHICS.code>=3) buildImage();
+        WritableRaster raster = img.getRaster(), filterRaster = image.getAlphaRaster();
         int[] pixel = new int[3], filterPixel = new int[4];
         for(int y=0;y<img.getHeight();y++){
             for(int x=0;x<img.getWidth();x++){
@@ -58,7 +63,6 @@ public class DichromeTexture extends Texture{
                                 filterRaster.getPixel(x, y, filterPixel)));
             }
         }
-        return img;
     }
 
 }

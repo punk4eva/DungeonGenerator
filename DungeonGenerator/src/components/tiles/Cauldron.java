@@ -2,14 +2,17 @@
 package components.tiles;
 
 import components.Area;
-import textureGeneration.ImageBuilder;
 import graph.Point.Type;
+import static textureGeneration.ImageBuilder.getImageFromFile;
 
 /**
  * A cauldron.
  * @author Adam Whittaker
  */
 public class Cauldron extends OverFloorTile{
+
+    
+    private static final long serialVersionUID = 94519327L;
     
     
     /**
@@ -27,7 +30,9 @@ public class Cauldron extends OverFloorTile{
     public void buildImage(Area area, int x, int y){
         super.buildImage(area, x, y);
         
-        image.getGraphics().drawImage(ImageBuilder.getImageFromFile("tiles/cauldrons/cauldron0.png"), 0, 0, null);
+        image.addInstruction(img -> 
+                img.getGraphics().drawImage(getImageFromFile(
+                        "tiles/cauldrons/cauldron0.png"), 0, 0, null));
     }
 
 }

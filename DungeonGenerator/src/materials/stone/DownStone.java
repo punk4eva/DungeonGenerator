@@ -20,7 +20,7 @@ public class DownStone extends Material{
         super("@Unfinished", ImageBuilder.getColor("downstone"), 100, 0, 450, -100, -65, false, false, true, true);
         texture = new DichromeTexture(Texture::defaultSupplier, color);
         texture.addInstruction(img -> ImageBuilder.applyAlphaNoise(img, 35, 19));
-        texture.buildFilterImage();
+        texture.buildImage();
     }
     
 }

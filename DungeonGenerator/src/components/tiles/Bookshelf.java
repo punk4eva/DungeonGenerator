@@ -3,11 +3,12 @@ package components.tiles;
 
 import components.Area;
 import components.traps.Trap;
+import graph.Point.Type;
+import static text.RegexParser.generateDescription;
 import textureGeneration.ImageBuilder;
 import static textureGeneration.ImageBuilder.colorToPixelArray;
 import textureGeneration.ImageRecolorer;
-import graph.Point.Type;
-import static text.RegexParser.generateDescription;
+import textureGeneration.SerImage;
 import static utils.Utils.R;
 import utils.Utils.Unfinished;
 
@@ -28,6 +29,8 @@ public class Bookshelf extends PassageTile{
         {152, 24, 32, 255}, {120, 148, 24, 255}, {160, 96, 24, 255}, 
         {72,  132, 56, 255}
     });
+    
+    private static final long serialVersionUID = 6539282L;
 
     
     /**
@@ -79,8 +82,8 @@ public class Bookshelf extends PassageTile{
      * @param area
      */
     private void generateStyle1(Area area){
-        image = ImageBuilder.getImageFromFile("tiles/bookshelf0.png");
-        RECOLORER.recolor(image, new int[][]{
+        image = new SerImage("tiles/bookshelf0.png");
+        image.addInstruction(img -> RECOLORER.recolor(img, new int[][]{
             colorToPixelArray(area.info.architecture.furnitureMaterial.color.darker(), true),
             colorToPixelArray(area.info.architecture.furnitureMaterial.color, true),
             colorToPixelArray(area.info.architecture.furnitureMaterial.color.brighter(), true),
@@ -94,7 +97,7 @@ public class Bookshelf extends PassageTile{
             colorToPixelArray(ImageBuilder.getRandomColor().darker(), true),
             colorToPixelArray(ImageBuilder.getRandomColor().darker(), true),
             colorToPixelArray(ImageBuilder.getRandomColor().darker(), true)
-        });
+        }));
     }
 
 }

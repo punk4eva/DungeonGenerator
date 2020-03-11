@@ -4,14 +4,16 @@ package components.tiles;
 import components.Area;
 import graph.Point.Type;
 import java.awt.image.BufferedImage;
-import utils.Utils.Unfinished;
+import textureGeneration.SerImage;
 
 /**
  * A hole.
  * @author Adam Whittaker
  */
-@Unfinished("Link to other dungeon floors.")
 public class Chasm extends Tile{
+
+    
+    private static final long serialVersionUID = 56728905L;
 
     
     /**
@@ -24,7 +26,8 @@ public class Chasm extends Tile{
     
     @Override
     public void buildImage(Area area, int x, int y){
-        image = new BufferedImage(16, 16, BufferedImage.TYPE_INT_RGB);
+        image = new SerImage(() -> 
+                new BufferedImage(16, 16, BufferedImage.TYPE_INT_RGB));
     }
 
 }

@@ -1,17 +1,20 @@
 
 package components.traps;
 
-import components.decorations.FloorDecoration;
 import static components.tiles.Tile.paintHiddenFilter;
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import static utils.Utils.R;
 
 /**
  * A trap located on the floor.
  * @author Adam Whittaker
  */
-public class FloorTrap extends Trap implements FloorDecoration{
+public class FloorTrap extends Trap{
+
+    
+    private static final long serialVersionUID = 6578930952456L;
     
     
     /**
@@ -36,12 +39,9 @@ public class FloorTrap extends Trap implements FloorDecoration{
         innerLeft = R.nextDouble()<0.5;
         innerRight = R.nextDouble()<0.5;
     }
-
     
-    @Override
-    public void drawImage(Graphics2D g, int x, int y, boolean drawHidden){
-        if(!revealed && !drawHidden) return;
-        
+    
+    private void paint(Graphics2D g, int x, int y){       
         g.setColor(triggered ? Color.BLACK : color);
         //Outer border
         g.drawLine(x+6, y+3, x+9, y+3);
@@ -83,17 +83,14 @@ public class FloorTrap extends Trap implements FloorDecoration{
             g.fillRect(x+7, y+9, 1, 1);
             g.fillRect(x+6, y+7, 1, 1);
         }
-        
-        if(!revealed && drawHidden) paintHiddenFilter(g, x, y);
     }
-    
     
     /**
      * Creates a copy of this floor trap.
      * @return
      */
     public final FloorTrap copy(){
-        FloorTrap trap = new FloorTrap(name, description, revealed);
+        FloorTrap trap = new FloorTrap(getName(), getDescription(), revealed);
         trap.color = color;
         trap.horizontalOuter = horizontalOuter;
         trap.verticalOuter = verticalOuter;
@@ -101,6 +98,19 @@ public class FloorTrap extends Trap implements FloorDecoration{
         trap.innerLeft = innerLeft;
         trap.innerRight = innerRight;
         return trap;
+    }
+
+    @Override
+    public void accept(BufferedImage t){
+        if(revealed) paint((Graphics2D)t.getGraphics(), 0, 0);
+    }
+
+    @Override
+    public void drawHiddenAspects(Graphics2D g, int x, int y){
+        if(!revealed){
+            paint(g, x, y);
+            paintHiddenFilter(g, x, y);
+        }
     }
 
 }

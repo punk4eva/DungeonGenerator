@@ -94,7 +94,7 @@ public abstract class Material{
     protected final void setDefaultTexture(String filePath, int num){
         texture = new DichromeTexture(() -> ImageBuilder.getImageFromFile("tiles/" +filePath + "/" + filePath + num + ".png"), color);
         texture.addInstruction(img -> ImageBuilder.applyAlphaNoise(img, 10, 4));
-        texture.buildFilterImage();
+        texture.buildImage();
     }
     
     @Override

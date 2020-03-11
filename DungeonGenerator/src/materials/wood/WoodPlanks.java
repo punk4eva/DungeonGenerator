@@ -26,7 +26,7 @@ public class WoodPlanks extends Material{
         int boardNum = 2 + R.nextInt(2);
         texture = new DichromeTexture(() -> ImageBuilder.getImageFromFile("tiles/floorBoards/boards" + boardNum + ".png"), color);
         texture.addInstruction(img -> ImageBuilder.applyAlphaNoise(img, 30, 15));
-        texture.buildFilterImage();
+        texture.buildImage();
     }
     
     

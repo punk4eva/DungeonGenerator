@@ -3,17 +3,21 @@ package components.tiles;
 
 import components.Area;
 import components.mementoes.AreaInfo;
-import textureGeneration.ImageBuilder;
 import graph.Point.Type;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
 import materials.Material;
+import textureGeneration.ImageBuilder;
+import textureGeneration.SerImage;
 
 /**
  * A table.
  * @author Adam Whittaker
  */
 public class Desk extends OverFloorTile{
+
+    
+    private static final long serialVersionUID = 578293L;
     
     
     /**
@@ -42,7 +46,7 @@ public class Desk extends OverFloorTile{
     public void buildImage(Area area, int x, int y){
         super.buildImage(area, x, y);
         
-        overlayDeskTop(area, x, y);
+        image.addInstruction(img -> overlayDeskTop(img, area, x, y));
     }
     
     /**
@@ -51,9 +55,12 @@ public class Desk extends OverFloorTile{
      * @param _x The x coordinate of the tile.
      * @param _y The y coordinate of the tile.
      */
-    private void overlayDeskTop(Area area, int _x, int _y){
+    private void overlayDeskTop(BufferedImage img, Area area, int _x, int _y){
         BufferedImage filter = ImageBuilder.getImageFromFile(filterPath);
-        WritableRaster tableRaster = material.texture.generateImage(_x, _y, area.info.floorNoise).getRaster(),
+        SerImage mat = material.texture.generateImage(_x, _y, area.info.floorNoise);
+        mat.buildImage();
+        
+        WritableRaster tableRaster = mat.getImage().getRaster(),
                 filterRaster = filter.getRaster();
         int pixel[] = new int[4];
         
@@ -63,7 +70,7 @@ public class Desk extends OverFloorTile{
             }
         }
         
-        image.getGraphics().drawImage(filter, 0, 0, null);
+        img.getGraphics().drawImage(filter, 0, 0, null);
     }
 
 }

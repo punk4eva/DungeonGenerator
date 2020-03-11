@@ -1,20 +1,24 @@
 
-package components.decorations;
+package components.decorations.assets;
 
+import animation.Animation;
+import components.decorations.AnimatedDecoration;
+import components.decorations.ComplexDecoration;
 import components.mementoes.AreaInfo;
+import static gui.pages.DungeonScreen.getSettings;
+import java.awt.image.BufferedImage;
 import textureGeneration.ImageBuilder;
 import static textureGeneration.ImageBuilder.colorToPixelArray;
 import textureGeneration.ImageRecolorer;
-import static gui.pages.DungeonScreen.getSettings;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 
 /**
  *
  * @author Adam Whittaker
  */
-public class Torch extends Decoration implements WallDecoration{
+public class Torch extends ComplexDecoration implements AnimatedDecoration{
 
+    
+    private static final long serialVersionUID = 1589745L;
     
     private final int[][] palette;
     
@@ -26,18 +30,24 @@ public class Torch extends Decoration implements WallDecoration{
     
     
     public Torch(AreaInfo info){
-        super("torch", "A simple torch hanging from the wall.", false, (x, y) -> getSettings().getTorchAnimation(x*16, y*16));
+        super("torch", "A simple torch hanging from the wall.", false);
         palette = new int[][]{colorToPixelArray(info.architecture.furnitureMaterial.color.brighter(), true),
             colorToPixelArray(info.architecture.furnitureMaterial.color, true),
             colorToPixelArray(info.architecture.furnitureMaterial.color.darker(), true)};
     }
+    
 
+    @Override
+    public Animation createAnimation(int x, int y){
+        return getSettings().getTorchAnimation(x*16, y*16);
+    }
+    
     
     @Override
-    public void drawImage(Graphics2D g, int _x, int _y, boolean drawHidden){
+    public void accept(BufferedImage t){
         BufferedImage torch = ImageBuilder.getImageFromFile("tiles/torch.png");
         RECOLORER.recolor(torch, palette);
-        g.drawImage(torch, _x, _y, null);
+        t.getGraphics().drawImage(torch, 0, 0, null);
     }
 
 }

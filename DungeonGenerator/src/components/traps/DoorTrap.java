@@ -2,6 +2,7 @@
 package components.traps;
 
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 
 /**
  * A trap that is activated when opening doors.
@@ -9,6 +10,10 @@ import java.awt.Graphics2D;
  */
 public class DoorTrap extends Trap{
 
+    
+    private static final long serialVersionUID = 7634895993623L;
+
+    
     /**
      * Creates an instance by forwarding the arguments.
      * @param n
@@ -19,11 +24,15 @@ public class DoorTrap extends Trap{
         super(n, desc, rev);
     }
     
-    
+
     @Override
-    public void drawImage(Graphics2D g, int x, int y, boolean drawHidden){
-        if(!revealed) return;
+    public void drawHiddenAspects(Graphics2D g, int x, int y){
         throw new UnsupportedOperationException("@Unfinished");
+    }
+
+    @Override
+    public void accept(BufferedImage t){
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
 }

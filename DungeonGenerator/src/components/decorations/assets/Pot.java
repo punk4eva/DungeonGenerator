@@ -1,11 +1,11 @@
 
-package components.decorations;
+package components.decorations.assets;
 
+import components.decorations.ComplexDecoration;
 import components.mementoes.AreaInfo;
-import textureGeneration.ImageBuilder;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
+import textureGeneration.ImageBuilder;
 import static utils.Utils.R;
 
 /**
@@ -13,15 +13,17 @@ import static utils.Utils.R;
  * @author Adam Whittaker
  * A decorative pot.
  */
-public class Pot extends Decoration implements FloorDecoration{
+public class Pot extends ComplexDecoration{
+
     
+    private static final long serialVersionUID = 14532L;
+    
+    private final static int COLOR_VARIANCE = 49;
     
     /**
      * color: The r,g,b color info of the pot.
      */
     private final int[] color;
-    
-    private final static int COLOR_VARIANCE = 49;
 
     
     /**
@@ -38,26 +40,8 @@ public class Pot extends Decoration implements FloorDecoration{
      * @param col The color of the pot.
      */
     public Pot(AreaInfo info, int[] col){
-        super("Pot", "@Unfinished", true, null);
+        super("Pot", "@Unfinished", true);
         color = col;
-    }
-
-    
-    @Override
-    public void drawImage(Graphics2D g, int _x, int _y, boolean drawHidden){
-        BufferedImage img = ImageBuilder.getImageFromFile("tiles/pots/pot0.png");
-        WritableRaster raster = img.getRaster();
-        int[] pixel = new int[4];
-        
-        for(int y=0;y<16;y++){
-            for(int x=0;x<16;x++){
-                raster.getPixel(x, y, pixel);
-                for(int n=0;n<3;n++) pixel[n] = color[n] * pixel[n]/255;
-                raster.setPixel(x, y, pixel);
-            }
-        }
-        
-        g.drawImage(img, _x, _y, null);
     }
     
     
@@ -73,6 +57,24 @@ public class Pot extends Decoration implements FloorDecoration{
         /*return new int[]{150 + (R.nextDouble()<0.5 ? COLOR_VARIANCE : -COLOR_VARIANCE),
                 100 + (R.nextDouble()<0.5 ? COLOR_VARIANCE : -COLOR_VARIANCE),
                 50 + (R.nextDouble()<0.5 ? COLOR_VARIANCE : -COLOR_VARIANCE)};*/
+    }
+    
+    
+    @Override
+    public void accept(BufferedImage t){
+        BufferedImage img = ImageBuilder.getImageFromFile("tiles/pots/pot0.png");
+        WritableRaster raster = img.getRaster();
+        int[] pixel = new int[4];
+
+        for(int y=0;y<16;y++){
+            for(int x=0;x<16;x++){
+                raster.getPixel(x, y, pixel);
+                for(int n=0;n<3;n++) pixel[n] = color[n] * pixel[n]/255;
+                raster.setPixel(x, y, pixel);
+            }
+        }
+
+        t.getGraphics().drawImage(img, 0, 0, null);
     }
 
 }

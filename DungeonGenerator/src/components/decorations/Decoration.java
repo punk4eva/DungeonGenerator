@@ -1,53 +1,29 @@
 
 package components.decorations;
 
-import animation.Animation;
-import java.awt.Graphics2D;
-import java.util.function.BiFunction;
+import java.io.Serializable;
+import textureGeneration.SerImage;
 
 /**
  *
  * @author Adam Whittaker
  * This class represents an aesthetic/functional addition to a tile.
  */
-public abstract class Decoration{
+public interface Decoration extends Serializable{
     
     
     /**
-     * name: The name of the decoration.
-     * description: The description of the decoration.
-     * aboveWater: Whether to render the decoration above water.
-     * animation: A supplier for an animation based on the coordinates where the
-     * decoration is.
+     * Adds instructions to draw the Decoration to the given serializable image.
+     * @param im The image.
      */
-    public final String name;
-    public final String description;
-    public final boolean aboveWater;
-    public final BiFunction<Integer, Integer, Animation> animation;
+    public abstract void addDecoration(SerImage im);
     
+    public abstract void removeDecoration(SerImage im);
     
-    /**
-     * Creates a new instance.
-     * @param na The name.
-     * @param desc The description.
-     * @param above whether the decoration is above water.
-     * @param ani The animation of the decoration, null if there is none.
-     */
-    public Decoration(String na, String desc, boolean above, BiFunction<Integer, Integer, Animation> ani){
-        name = na;
-        description = desc;
-        aboveWater = above;
-        animation = ani;
-    }
+    public abstract String getName();
     
+    public abstract String getDescription();
     
-    /**
-     * Draws the decoration onto the given graphics.
-     * @param g
-     * @param x The pixel x
-     * @param y The pixel y
-     * @param drawHidden Whether to draw hidden aspects of the tile.
-     */
-    public abstract void drawImage(Graphics2D g, int x, int y, boolean drawHidden);
-
+    public abstract boolean isAboveBackground();
+    
 }

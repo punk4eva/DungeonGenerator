@@ -3,14 +3,18 @@ package components.tiles;
 
 import components.Area;
 import components.mementoes.AreaInfo;
-import textureGeneration.ImageBuilder;
 import java.awt.Graphics2D;
+import textureGeneration.ImageBuilder;
+import textureGeneration.SerImage;
 
 /**
  * A water tile.
  * @author Adam Whittaker
  */
 public class Water extends Tile{    
+
+    
+    private static final long serialVersionUID = 476128934192L;
 
     
     /**
@@ -47,8 +51,9 @@ public class Water extends Tile{
     @Override
     public void buildImage(Area area, int x, int y){
         if(underTile.image==null) underTile.buildImage(area, x, y);
-        image = ImageBuilder.applyWaterShader(
-                underTile.image, genShaderCode(area, x/16, y/16));
+        underTile.image.buildImage();
+        image = new SerImage(ImageBuilder.applyWaterShader(
+                underTile.image.getImage(), genShaderCode(area, x/16, y/16)));
     }
     
     /**
@@ -72,8 +77,8 @@ public class Water extends Tile{
     public void draw(Graphics2D g, int _x, int _y, boolean drawHidden){
         info.waterPainter.paint(g, _x, _y);
         super.draw(g, _x, _y, drawHidden);
-        if(underTile.decoration!=null && underTile.decoration.aboveWater) 
-            underTile.decoration.drawImage(g, _x, _y, drawHidden);
+        /*if(underTile.decoration!=null && underTile.decoration.aboveBackground) 
+            underTile.decoration.drawImage(g, _x, _y, drawHidden);*/
     }
 
 }

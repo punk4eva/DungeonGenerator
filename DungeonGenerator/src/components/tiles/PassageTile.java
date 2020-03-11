@@ -10,6 +10,9 @@ import graph.Point.Type;
  * @author Adam Whittaker
  */
 public abstract class PassageTile extends Tile{
+
+    
+    private static final long serialVersionUID = 27492L;
     
     
     /**

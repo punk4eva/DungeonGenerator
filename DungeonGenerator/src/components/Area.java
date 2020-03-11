@@ -1,6 +1,7 @@
 
 package components;
 
+import components.decorations.AnimatedDecoration;
 import components.rooms.Room;
 import components.mementoes.AreaInfo;
 import components.tiles.Floor;
@@ -102,7 +103,7 @@ public class Area{
         for(tileY=1;tileY<info.height-1;tileY++){
             for(tileX=1;tileX<info.width-1;tileX++){
                 if(map[tileY][tileX] != null && map[tileY][tileX].type.equals(Type.FLOOR)){
-                    //paintInsideBorder(tileX, tileY, g, focusX, focusY);
+                    paintInsideBorder(tileX, tileY, g, focusX, focusY);
                 }
             }
         }
@@ -215,8 +216,10 @@ public class Area{
             for(int x=0;x<map[0].length;x++){
                 if(map[y][x]!=null){
                     map[y][x].initializeImage(this, x*16, y*16);
-                    if(map[y][x].decoration!=null && map[y][x].decoration.animation!=null)
-                        ANIMATOR.add(map[y][x].decoration.animation.apply(x, y));
+                    if(map[y][x].decoration instanceof AnimatedDecoration)
+                        ANIMATOR.add(
+                                ((AnimatedDecoration)map[y][x].decoration)
+                                        .createAnimation(x, y));
                 }
             }
         }

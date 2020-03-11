@@ -2,9 +2,9 @@
 package components.tiles;
 
 import components.Area;
-import textureGeneration.ImageBuilder;
 import graph.Point.Type;
 import java.awt.Graphics2D;
+import textureGeneration.ImageBuilder;
 import static utils.Utils.R;
 import utils.Utils.Unfinished;
 
@@ -14,6 +14,9 @@ import utils.Utils.Unfinished;
  * @author Adam Whittaker
  */
 public class Statue extends OverFloorTile{
+
+    
+    private static final long serialVersionUID = 5872093L;
     
     
     /**
@@ -47,12 +50,14 @@ public class Statue extends OverFloorTile{
     public void buildImage(Area area, int x, int y){
         super.buildImage(area, x, y);
         
-        Graphics2D g = (Graphics2D) image.getGraphics();
-        if(isHead(area, x/16, y/16)){
-            g.drawImage(ImageBuilder.getImageFromFile("tiles/statues/head/head"+headCode+".png"), 0, 0, null);
-        }else{
-            g.drawImage(ImageBuilder.getImageFromFile("tiles/statues/body/body"+bodyCode+".png"), 0, 0, null);
-        }
+        image.addInstruction(img -> {
+            Graphics2D g = (Graphics2D) img.getGraphics();
+            if(isHead(area, x/16, y/16)){
+                g.drawImage(ImageBuilder.getImageFromFile("tiles/statues/head/head"+headCode+".png"), 0, 0, null);
+            }else{
+                g.drawImage(ImageBuilder.getImageFromFile("tiles/statues/body/body"+bodyCode+".png"), 0, 0, null);
+            }
+        });
     }
     
     

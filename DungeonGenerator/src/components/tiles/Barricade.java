@@ -16,6 +16,9 @@ import static utils.Utils.R;
 public class Barricade extends PassageTile{
 
     
+    private static final long serialVersionUID = 28564L;
+
+    
     /**
      * Creates a new instance.
      * @param p Whether the pathfinding algorithm should consider this barricade.
@@ -28,20 +31,22 @@ public class Barricade extends PassageTile{
     @Override
     public void buildImage(Area area, int x, int y){
         generateFloorImage(area, x, y);
-        Graphics2D g = (Graphics2D) image.getGraphics();
-        Color wood = area.info.architecture.biomeProcessor.getRandomWood().color.darker();
-        g.setTransform(getRandomRotation());
-        g.setColor(wood.darker());
-        for(int n=0;n<20;n++)
-            g.fillRect(R.nextInt(12), R.nextInt(15), 5+R.nextInt(5), 2);
-        g.setTransform(getRandomRotation());
-        g.setColor(wood);
-        for(int n=0;n<17;n++)
-            g.fillRect(R.nextInt(13), R.nextInt(15), 4+R.nextInt(4), 1);
-        g.setTransform(getRandomRotation());
-        g.setColor(wood.brighter());
-        for(int n=0;n<17;n++)
-            g.fillRect(R.nextInt(13), R.nextInt(15), 4+R.nextInt(3), 1);
+        image.addInstruction(img -> {
+            Graphics2D g = (Graphics2D) img.getGraphics();
+            Color wood = area.info.architecture.biomeProcessor.getRandomWood().color.darker();
+            g.setTransform(getRandomRotation());
+            g.setColor(wood.darker());
+            for(int n=0;n<20;n++)
+                g.fillRect(R.nextInt(12), R.nextInt(15), 5+R.nextInt(5), 2);
+            g.setTransform(getRandomRotation());
+            g.setColor(wood);
+            for(int n=0;n<17;n++)
+                g.fillRect(R.nextInt(13), R.nextInt(15), 4+R.nextInt(4), 1);
+            g.setTransform(getRandomRotation());
+            g.setColor(wood.brighter());
+            for(int n=0;n<17;n++)
+                g.fillRect(R.nextInt(13), R.nextInt(15), 4+R.nextInt(3), 1);
+        });
     }
     
     /**

@@ -20,7 +20,7 @@ public class HellStone extends Material{
         super("@Unfinished", ImageBuilder.getColor("hellstone"), 100, 0, 450, -100, -80, false, false, true, true);
         texture = new DichromeTexture(Texture::defaultSupplier, color);
         texture.addInstruction(img -> ImageBuilder.applyAlphaNoise(img, 35, 19));
-        texture.buildFilterImage();
+        texture.buildImage();
     }
     
 }

@@ -4,20 +4,22 @@ package components.tiles;
 import builders.TrapBuilder;
 import components.Area;
 import components.decorations.Decoration;
-import components.decorations.FloorDecoration;
-import components.decorations.WallDecoration;
 import graph.Point.Type;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
+import java.io.Serializable;
+import textureGeneration.SerImage;
 import static utils.Utils.R;
+import utils.Utils.ThreadUsed;
 
 /**
  * This class represents a metre-squared of dungeon.
  * @author Adam Whittaker
  */
-public abstract class Tile{
+public abstract class Tile implements Serializable{
     
+    
+    private static final long serialVersionUID = 142L;
     
     private static final Color HIDDEN_FILTER_COLOR
             = new Color(200, 100, 100, 100);
@@ -35,7 +37,7 @@ public abstract class Tile{
     public Tile alias;
     public Decoration decoration;
     public Type type;
-    protected transient BufferedImage image;
+    protected SerImage image;
     
     
     /**
@@ -62,9 +64,9 @@ public abstract class Tile{
      * @param _y the pixel y.
      * @param drawReal
      */
+    @ThreadUsed("Render")
     public void draw(Graphics2D g, int _x, int _y, boolean drawReal){
-        g.drawImage((alias == null || drawReal) ? image : alias.image, _x, _y, null);
-        if(decoration!=null) decoration.drawImage(g, _x, _y, drawReal);
+        g.drawImage((alias == null || drawReal) ? image.getImage() : alias.image.getImage(), _x, _y, null);
         if(drawReal && alias != null) paintHiddenFilter(g, _x, _y);
     }
     
@@ -81,7 +83,13 @@ public abstract class Tile{
      */
     public void initializeImage(Area area, int x, int y){
         buildImage(area, x, y);
-        if(alias != null) alias.buildImage(area, x, y);
+        if(decoration != null)
+            decoration.addDecoration(image);
+        image.buildImage();
+        if(alias != null){
+            alias.buildImage(area, x, y);
+            alias.image.buildImage();
+        }
     }
     
     /**
@@ -158,7 +166,7 @@ public abstract class Tile{
      */
     public static Decoration floorDeco(Area area){
         return R.nextDouble() < area.info.feeling.floorDecoChance ?
-                FloorDecoration.getFloorDecoration(area) : 
+                area.info.architecture.biomeProcessor.decorationBuilder.getFloorDecoration(area) : 
                 (R.nextDouble() < area.info.feeling.floorTrapChance ?
                         TrapBuilder.getFloorTrap(area) : null);
     }
@@ -170,7 +178,7 @@ public abstract class Tile{
      */
     public static Decoration wallDeco(Area area){
         return R.nextDouble() < area.info.feeling.wallDecoChance ?
-                WallDecoration.getWallDecoration(area) : 
+                area.info.architecture.biomeProcessor.decorationBuilder.getWallDecoration(area) : 
                 (R.nextDouble() < area.info.feeling.floorTrapChance ?
                         TrapBuilder.getWallTrap(area) : null);
     }
