@@ -23,12 +23,15 @@ public class ParticleAnimator extends Animation{
     
     @Override
     public void animate(Graphics2D g, int focusX, int focusY, int frames){
+        //Adds all newly generated particles to the particle list.
         generators.stream().filter(gen -> gen.tickUp(frames))
                 .map(gen -> gen.getParticle()).collect(Collectors.toCollection(() -> particles));
+        //Draws and moves all particles.
         particles.stream().forEach(p -> {
             p.update(frames);
             p.draw(g, focusX, focusY, frames);
         });
+        //Remove particles and generators that are complete.
         particles.removeIf(p -> p.expired);
         generators.removeIf(gen -> gen.done);
     }

@@ -34,7 +34,7 @@ public class Window{
     
     
     @Unfinished("For debugging only")
-    private final static boolean QUICK_START = true;
+    private final static boolean QUICK_START = false;
     
     
     /**

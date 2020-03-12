@@ -51,10 +51,24 @@ public class Water extends Tile{
     @Override
     public void buildImage(Area area, int x, int y){
         if(underTile.image==null) underTile.buildImage(area, x, y);
+        if(decoration != null && !decoration.isAboveBackground()) 
+            decoration.addDecoration(underTile.image);
         underTile.image.buildImage();
         image = new SerImage(ImageBuilder.applyWaterShader(
                 underTile.image.getImage(), genShaderCode(area, x/16, y/16)));
+        if(decoration != null && decoration.isAboveBackground()) 
+            decoration.addDecoration(image);
     }
+    
+    @Override
+    public void initializeImage(Area area, int x, int y){
+        buildImage(area, x, y);
+        image.buildImage();
+        if(alias != null){
+            alias.buildImage(area, x, y);
+            alias.image.buildImage();
+        }
+    }  
     
     /**
      * Gets the int code corresponding to the location of the adjacent water 

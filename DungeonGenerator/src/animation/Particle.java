@@ -98,17 +98,19 @@ public abstract class Particle{
     
     /**
      * Moves the particle.
-     * @param frames
+     * @param frames The number of frames elapsed since the last movement.
      */
     protected void motor(int frames){
         dx += velx*frames;
         dy += vely*frames;
         if(Math.abs(dx)>=1){
             x += dx;
+            //Stores the overflow in a double.
             dx %= 1.0;
         }
         if(Math.abs(dy)>=1){
             y += dy;
+            //Stores the overflow in a double.
             dy %= 1.0;
         }
     }

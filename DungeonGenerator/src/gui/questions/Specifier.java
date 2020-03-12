@@ -10,7 +10,7 @@ import gui.tools.ValueInputBox;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyListener;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 /**
  *
@@ -23,7 +23,7 @@ public abstract class Specifier extends QuestionBox{
             BOX_WIDTH = WIDTH/8;
     
     private final String title;
-    protected final HashMap<String, ValueInputBox> boxes = new HashMap<>();
+    protected final LinkedHashMap<String, ValueInputBox> boxes = new LinkedHashMap<>();
     
     
     public Specifier(DungeonViewer v, String ti, int width, int height){

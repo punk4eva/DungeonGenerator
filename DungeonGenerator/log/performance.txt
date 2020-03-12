@@ -1,24 +1,130 @@
-02-10 19:38:50:876: 198 millis: Viewer instanciated
-02-10 19:38:50:887: 11 millis: Area information initialized
-02-10 19:38:51:244: 356 millis: Wall noise created
-02-10 19:38:51:315: 71 millis: Floor noise created
-02-10 19:38:52:239: 924 millis: Water image created
-02-10 19:38:52:302: 63 millis: Architechture created
-02-10 19:38:52:327: 25 millis: Goblin rooms placed
-02-10 19:38:52:328: 1 millis: Rooms placed
-02-10 19:38:52:332: 4 millis: Decorations added
-02-10 19:38:52:980: 648 millis: Images initialized
-02-10 19:38:52:983:      ---- Speed Report ----
-02-10 19:38:52:983: Total time: 2301 millis
-02-10 19:38:52:984: Viewer instanciated: 8.60%
-02-10 19:38:52:984: Area information initialized: 0.47%
-02-10 19:38:52:984: Wall noise created: 15.4%
-02-10 19:38:52:984: Floor noise created: 3.08%
-02-10 19:38:52:984: Water image created: 40.1%
-02-10 19:38:52:984: Architechture created: 2.73%
-02-10 19:38:52:984: Goblin rooms placed: 1.08%
-02-10 19:38:52:984: Rooms placed: 0.04%
-02-10 19:38:52:984: Decorations added: 0.17%
-02-10 19:38:52:984: Images initialized: 28.1%
-02-10 19:39:11:669: Keypress: KEY_PRESSED,keyCode=524,keyText=Windows,keyChar=Undefined keyChar,keyLocation=KEY_LOCATION_LEFT,rawCode=91,primaryLevelUnicode=0,scancode=91,extendedKeyCode=0x20c
-02-10 19:39:11:772: Keypress: KEY_PRESSED,keyCode=16,keyText=Shift,keyChar=Undefined keyChar,modifiers=Shift,extModifiers=Shift,keyLocation=KEY_LOCATION_LEFT,rawCode=16,primaryLevelUnicode=0,scancode=42,extendedKeyCode=0x10
+03-12 21:56:46:738: Free memory: 239MB
+03-12 21:56:47:491: Mouse x, y, tile x, tile y: 941, 367, 58, 22
+03-12 21:56:47:601: Mouse x, y, tile x, tile y: 941, 367, 58, 22
+03-12 21:56:47:601: Mouse x, y, tile x, tile y: 941, 367, 58, 22
+03-12 21:56:48:138: Mouse x, y, tile x, tile y: 1173, 481, 73, 30
+03-12 21:56:48:230: Mouse x, y, tile x, tile y: 1173, 481, 73, 30
+03-12 21:56:48:230: Mouse x, y, tile x, tile y: 1173, 481, 73, 30
+03-12 21:56:48:570: Mouse x, y, tile x, tile y: 1278, 245, 79, 15
+03-12 21:56:48:717: Mouse x, y, tile x, tile y: 1278, 245, 79, 15
+03-12 21:56:48:717: Mouse x, y, tile x, tile y: 1278, 245, 79, 15
+03-12 21:56:49:173: Mouse x, y, tile x, tile y: 1278, 245, 79, 15
+03-12 21:56:49:288: Mouse x, y, tile x, tile y: 1278, 245, 79, 15
+03-12 21:56:49:288: Mouse x, y, tile x, tile y: 1278, 245, 79, 15
+03-12 21:56:49:649: Mouse x, y, tile x, tile y: 1278, 245, 79, 15
+03-12 21:56:49:757: Mouse x, y, tile x, tile y: 1278, 245, 79, 15
+03-12 21:56:49:757: Mouse x, y, tile x, tile y: 1278, 245, 79, 15
+03-12 21:56:50:287: Mouse x, y, tile x, tile y: 1195, 342, 74, 21
+03-12 21:56:50:417: Mouse x, y, tile x, tile y: 1195, 342, 74, 21
+03-12 21:56:50:417: Mouse x, y, tile x, tile y: 1195, 342, 74, 21
+03-12 21:56:50:933: Mouse x, y, tile x, tile y: 1101, 407, 68, 25
+03-12 21:56:51:041: Mouse x, y, tile x, tile y: 1101, 407, 68, 25
+03-12 21:56:51:041: Mouse x, y, tile x, tile y: 1101, 407, 68, 25
+03-12 21:56:51:869: Mouse x, y, tile x, tile y: 1303, 222, 81, 13
+03-12 21:56:51:999: Mouse x, y, tile x, tile y: 1303, 222, 81, 13
+03-12 21:56:51:999: Mouse x, y, tile x, tile y: 1303, 222, 81, 13
+03-12 21:56:52:508: Mouse x, y, tile x, tile y: 1137, 385, 71, 24
+03-12 21:56:52:616: Mouse x, y, tile x, tile y: 1137, 385, 71, 24
+03-12 21:56:52:617: Mouse x, y, tile x, tile y: 1137, 385, 71, 24
+03-12 21:56:54:219: Mouse x, y, tile x, tile y: 1049, 705, 65, 44
+03-12 21:56:54:323: Mouse x, y, tile x, tile y: 1049, 705, 65, 44
+03-12 21:56:54:323: Mouse x, y, tile x, tile y: 1049, 705, 65, 44
+03-12 21:56:54:855: Mouse x, y, tile x, tile y: 1321, 242, 82, 15
+03-12 21:56:54:976: Mouse x, y, tile x, tile y: 1321, 242, 82, 15
+03-12 21:56:54:976: Mouse x, y, tile x, tile y: 1321, 242, 82, 15
+03-12 21:56:56:581: Mouse x, y, tile x, tile y: 1321, 242, 82, 15
+03-12 21:56:56:741: Mouse x, y, tile x, tile y: 1321, 242, 82, 15
+03-12 21:56:56:741: Mouse x, y, tile x, tile y: 1321, 242, 82, 15
+03-12 21:56:56:749: 8 millis: Area information initialized
+03-12 21:56:57:065: 315 millis: Wall noise created
+03-12 21:56:57:117: 52 millis: Floor noise created
+03-12 21:56:58:081: 964 millis: Water image created
+03-12 21:56:58:123: 42 millis: Architechture created
+03-12 21:56:58:136: RandomRoomPlacer cannot place this many rooms! 26/27 rooms have been placed.
+03-12 21:56:58:150: 27 millis: Rooms placed
+03-12 21:56:58:163: 12 millis: Corridors built
+03-12 21:56:58:166: 3 millis: Decorations added
+03-12 21:56:58:367: 200 millis: Images initialized
+03-12 21:56:58:369:      ---- Speed Report ----
+03-12 21:56:58:369: Total time: 1623 millis
+03-12 21:56:58:370: Area information initialized: 0.49%
+03-12 21:56:58:370: Wall noise created: 19.4%
+03-12 21:56:58:370: Floor noise created: 3.20%
+03-12 21:56:58:370: Water image created: 59.3%
+03-12 21:56:58:370: Architechture created: 2.58%
+03-12 21:56:58:370: Rooms placed: 1.66%
+03-12 21:56:58:370: Corridors built: 0.73%
+03-12 21:56:58:370: Decorations added: 0.18%
+03-12 21:56:58:370: Images initialized: 12.3%
+03-12 21:57:00:992: ZOOM: 1.25
+03-12 21:57:01:023: ZOOM: 1.5625
+03-12 21:57:01:070: ZOOM: 1.953125
+03-12 21:57:01:108: ZOOM: 2.44140625
+03-12 21:57:03:747: Mouse x, y, tile x, tile y: 959, 754, 52, 53
+03-12 21:57:03:930: Mouse x, y, tile x, tile y: 1296, 620, 52, 53
+03-12 21:57:07:550: ZOOM: 1.953125
+03-12 21:57:07:909: ZOOM: 1.5625
+03-12 21:57:10:429: Mouse x, y, tile x, tile y: 815, 624, 42, 52
+03-12 21:57:11:989: Mouse x, y, tile x, tile y: 749, 682, 42, 52
+03-12 21:57:12:263: ZOOM: 1.953125
+03-12 21:57:12:278: ZOOM: 2.44140625
+03-12 21:57:12:303: ZOOM: 3.0517578125
+03-12 21:57:12:336: ZOOM: 3.814697265625
+03-12 21:57:12:452: ZOOM: 4.76837158203125
+03-12 21:57:13:540: ZOOM: 5.9604644775390625
+03-12 21:57:13:574: ZOOM: 7.450580596923828
+03-12 21:57:13:614: ZOOM: 9.313225746154785
+03-12 21:57:13:924: ZOOM: 7.450580596923828
+03-12 21:57:13:948: ZOOM: 5.9604644775390625
+03-12 21:57:13:971: ZOOM: 4.76837158203125
+03-12 21:57:13:990: ZOOM: 3.814697265625
+03-12 21:57:14:028: ZOOM: 3.0517578125
+03-12 21:57:14:892: Mouse x, y, tile x, tile y: 1356, 666, 57, 47
+03-12 21:57:15:257: Mouse x, y, tile x, tile y: 949, 794, 57, 47
+03-12 21:57:15:990: Mouse x, y, tile x, tile y: 1239, 749, 63, 46
+03-12 21:57:16:619: Mouse x, y, tile x, tile y: 1092, 875, 63, 46
+03-12 21:57:17:003: ZOOM: 3.814697265625
+03-12 21:57:17:031: ZOOM: 4.76837158203125
+03-12 21:57:17:059: ZOOM: 5.9604644775390625
+03-12 21:57:17:144: ZOOM: 7.450580596923828
+03-12 21:57:18:548: ZOOM: 5.9604644775390625
+03-12 21:57:18:584: ZOOM: 4.76837158203125
+03-12 21:57:18:606: ZOOM: 3.814697265625
+03-12 21:57:18:638: ZOOM: 3.0517578125
+03-12 21:57:18:693: ZOOM: 2.44140625
+03-12 21:57:20:120: ZOOM: 3.0517578125
+03-12 21:57:20:155: ZOOM: 3.814697265625
+03-12 21:57:20:201: ZOOM: 4.76837158203125
+03-12 21:57:20:749: ZOOM: 5.9604644775390625
+03-12 21:57:21:994: ZOOM: 4.76837158203125
+03-12 21:57:22:027: ZOOM: 3.814697265625
+03-12 21:57:22:061: ZOOM: 3.0517578125
+03-12 21:57:22:105: ZOOM: 2.44140625
+03-12 21:57:24:753: Mouse x, y, tile x, tile y: 1264, 691, 71, 43
+03-12 21:57:25:132: Mouse x, y, tile x, tile y: 1342, 924, 71, 43
+03-12 21:57:27:011: Mouse x, y, tile x, tile y: 1201, 741, 67, 38
+03-12 21:57:29:720: Mouse x, y, tile x, tile y: 1603, 787, 67, 38
+03-12 21:57:30:130: ZOOM: 1.953125
+03-12 21:57:30:182: ZOOM: 1.5625
+03-12 21:57:30:254: ZOOM: 1.25
+03-12 21:57:31:779: ZOOM: 1.5625
+03-12 21:57:31:843: ZOOM: 1.953125
+03-12 21:57:32:875: ZOOM: 1.5625
+03-12 21:57:32:929: ZOOM: 1.25
+03-12 21:57:34:017: Mouse x, y, tile x, tile y: 1453, 550, 62, 30
+03-12 21:57:34:251: Mouse x, y, tile x, tile y: 1591, 637, 62, 30
+03-12 21:57:35:963: Mouse x, y, tile x, tile y: 1482, 416, 57, 18
+03-12 21:57:36:632: Mouse x, y, tile x, tile y: 1402, 589, 57, 19
+03-12 21:57:36:939: ZOOM: 1.5625
+03-12 21:57:36:970: ZOOM: 1.953125
+03-12 21:57:37:006: ZOOM: 2.44140625
+03-12 21:57:37:060: ZOOM: 3.0517578125
+03-12 21:57:37:888: ZOOM: 2.44140625
+03-12 21:57:37:920: ZOOM: 1.953125
+03-12 21:57:37:959: ZOOM: 1.5625
+03-12 21:57:39:253: ZOOM: 1.953125
+03-12 21:57:39:271: ZOOM: 2.44140625
+03-12 21:57:39:298: ZOOM: 3.0517578125
+03-12 21:57:39:330: ZOOM: 3.814697265625
+03-12 21:57:40:910: ZOOM: 3.0517578125
+03-12 21:57:40:963: ZOOM: 2.44140625

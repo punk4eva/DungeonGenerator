@@ -123,6 +123,8 @@ public class TrailGenerator{
             gr.setColor(new Color(r,g,b,alpha));
             gr.fillRect(x+focusX, y+focusY, width, height);
             
+            //Updates the alpha value and stores the overflow in the remainder
+            //variable.
             alphaRemainder += fadeSpeed*frames;
             if(alphaRemainder>=1){
                 alpha -= alphaRemainder;

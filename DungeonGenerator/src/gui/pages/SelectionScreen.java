@@ -11,11 +11,11 @@ import static gui.core.Window.SCREEN;
 import static gui.core.Window.VIEWER;
 import static gui.pages.DungeonScreen.ANIMATOR;
 import static gui.questions.DimensionSpecifier.DIMENSION_SPECIFIER;
-import gui.tools.Button;
 import gui.questions.InputCollector;
-import gui.tools.NavigationButton;
 import gui.questions.QuestionBox;
 import gui.questions.Specifier;
+import gui.tools.Button;
+import gui.tools.NavigationButton;
 import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -56,9 +56,11 @@ public class SelectionScreen extends MouseAdapter implements Screen{
     }
     
     public final void setQuestionBox(QuestionBox box){
-        if(input != null) input.deregisterKeys(VIEWER);
-        input = box;
-        input.registerKeys(VIEWER);
+        if(box != null){
+            if(input != null) input.deregisterKeys(VIEWER);
+            input = box;
+            input.registerKeys(VIEWER);
+        }
     }
     
     public final InputCollector getInputCollector(){
