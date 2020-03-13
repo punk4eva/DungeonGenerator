@@ -5,9 +5,8 @@ import gui.questions.BiomeMenu;
 import static utils.Utils.convertUnderscoreCase;
 
 /**
- *
- * @author Adam Whittaker
  * This class contains the attributes of different climate zones.
+ * @author Adam Whittaker
  */
 public enum Biome{
     

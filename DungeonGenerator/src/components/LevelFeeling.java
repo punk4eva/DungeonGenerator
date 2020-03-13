@@ -8,11 +8,9 @@ import utils.Distribution;
 import utils.GaussProbability;
 
 /**
- *
- * @author Adam Whittaker
- * 
  * This class contains all of the probabilities for each customisable value used
  * in the dungeon generation.
+ * @author Adam Whittaker
  */
 public class LevelFeeling{
     

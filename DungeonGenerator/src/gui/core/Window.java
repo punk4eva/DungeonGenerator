@@ -99,7 +99,7 @@ public class Window{
         SCREEN.getArea().initializeImages();
         SPEED_TESTER.test("Images initialized");
 
-        /*SCREEN.getArea().savePNG("saves/area.png");
+        /*SCREEN.getArea().saveAsImage("saves/area.png");
         SPEED_TESTER.test("Area saved");*/
 
         SPEED_TESTER.report();

@@ -13,13 +13,13 @@ import utils.Distribution;
 import utils.Utils.Unfinished;
 
 /**
- *
+ * Selects and generates decorations.
  * @author Adam Whittaker
- * A decoration for the floor.
  */
 public final class DecorationBuilder{
     
     
+    //The possible decorations for the floor and walls.
     private static final DecConstructor[] FLOOR_DECORATIONS = new DecConstructor[]{
         new DecConstructor(27, 0.12,  100, 0.08,  0, 0.10,  0, 0.05,  20, 0.12,  50, 0.08,  60, 0.03,  (a) -> new Excrement(0.5)),
         new DecConstructor(28, 0.05,  55, 0.07,  0, 0.04,  0, 0.00,  47, 0.08,  10, 0.06,  30, 0.02,  (a) -> new Pot(a.info)),
@@ -31,10 +31,19 @@ public final class DecorationBuilder{
     };
     
     
+    /**
+     * The relative probability distributions of the selection of floor and wall
+     * decorations.
+     */
     private final Distribution floorDistrib,
             wallDistrib;
     
     
+    /**
+     * Creates an instance.
+     * @param b The Biome.
+     * @param s The society.
+     */
     public DecorationBuilder(Biome b, Society s){
         floorDistrib = selectFromBiome(FLOOR_DECORATIONS, b, s);
         wallDistrib = selectFromBiome(WALL_DECORATIONS, b, s);
@@ -64,6 +73,10 @@ public final class DecorationBuilder{
     }
     
     
+    /**
+     * This class represents a function to generate a decoration for the given 
+     * Area.
+     */
     private static class DecConstructor extends BiomeDependent{
     
         

@@ -18,13 +18,13 @@ import materials.wood.*;
 import utils.Distribution;
 import static utils.Utils.PERFORMANCE_LOG;
 import static utils.Utils.R;
+import utils.Utils.Unfinished;
 
 /**
- *
- * @author Adam Whittaker
  * This class holds the biome and society information for the current project as
  * well as processing this information into the material/room palette that the
  * Area will use.
+ * @author Adam Whittaker
  */
 public class BiomeProcessor{
     
@@ -120,11 +120,15 @@ public class BiomeProcessor{
      * Initializes the internal woodPalette and returns the woodDist.
      */
     private Distribution selectWoods(Biome b, Society s){
-        Arrays.asList(WOODS).stream().filter(w -> w.wood.biomeCompatible(b, s)).forEach(w -> w.evaluateProbability(b, s));
+        //Sort the list of woods by decreasing probability.
+        Arrays.asList(WOODS).stream().filter(w -> w.wood.biomeCompatible(b, s))
+                .forEach(w -> w.evaluateProbability(b, s));
         Arrays.sort(WOODS, (w1, w2) -> -Double.compare(w1.probability, w2.probability));
         
+        //Copies the first section of the wood array into the woodPallete array.
         for(int n=0;n<woodPalette.length;n++) woodPalette[n] = WOODS[n].wood;
         
+        //Creates a new distribution.
         double[] cha = new double[woodPalette.length];
         for(int n=0;n<woodPalette.length;n++) cha[n] = WOODS[n].probability;
         
@@ -154,12 +158,18 @@ public class BiomeProcessor{
      * considered.
      * @return
      */
+    @Unfinished("Inefficient")
     public Material getMaterial(Predicate<Material> filter){
+        //Filters the material constructors based on whether they are compatible
+        //with the given biome and society.
         List<MaterialConstructor> constructors = Arrays.asList(MATERIALS).stream()
             .filter(mat -> filter.and(m -> m.biomeCompatible(biome, society))
                     .test(mat.material.apply(this))).collect(Collectors.toList());
+        //Sums the total probability weights
         double chance = R.nextDouble() * constructors.stream().mapToDouble(mat -> mat.probability).sum();
         double count = 0;
+        //Return a material based on its desirability with respect to the given
+        //biome and society.
         for(MaterialConstructor mat : constructors){
             count += mat.probability;
             if(chance<=count) return mat.material.apply(this);
@@ -191,9 +201,15 @@ public class BiomeProcessor{
     }
     
     
+    /**
+     * This class represents a function to construct a random Room.
+     */
     public static class RoomConstructor extends BiomeDependent{
         
         
+        /**
+         * Constructs a random Room with the given width and height.
+         */
         public final BiFunction<Integer, Integer, Room> constructor;
         
         
@@ -208,6 +224,9 @@ public class BiomeProcessor{
         
     }
     
+    /**
+     * This class represents a function to construct a Material.
+     */
     private static class MaterialConstructor extends BiomeDependent{
         
         
@@ -227,6 +246,9 @@ public class BiomeProcessor{
         
     }
     
+    /**
+     * This class represents a function to construct a Wood.
+     */
     private static class WoodConstructor extends BiomeDependent{
         
         

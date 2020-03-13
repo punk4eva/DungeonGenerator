@@ -4,11 +4,9 @@ package animation;
 import java.awt.Graphics2D;
 
 /**
- *
- * @author Adam Whittaker
- * 
  * This class represents an animation, i.e: A task to be called each render-tick
  * until it is done.
+ * @author Adam Whittaker
  */
 public abstract class Animation{
 

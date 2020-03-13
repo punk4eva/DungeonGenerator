@@ -1,7 +1,6 @@
 
 package animation.assets;
 
-import textureGeneration.Texture;
 import generation.noise.PerlinNoiseGenerator;
 import static gui.core.MouseInterpreter.focusX;
 import static gui.core.MouseInterpreter.focusY;
@@ -11,11 +10,11 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.RasterFormatException;
 import java.awt.image.WritableRaster;
+import textureGeneration.Texture;
 
 /**
- *
- * @author Adam Whittaker
  * Generates and paints the water animation onto the screen.
+ * @author Adam Whittaker
  */
 public class WaterPainter{
     
@@ -40,7 +39,8 @@ public class WaterPainter{
      * @param height The amount of tiles the Area is high.
      */
     public WaterPainter(Color waterColor, int width, int height){
-        waterImage = new BufferedImage(width*16, height*16+16, BufferedImage.TYPE_INT_RGB);
+        waterImage = new BufferedImage(width*16, height*16+16, 
+                BufferedImage.TYPE_INT_RGB);
         generateWaterImage(waterColor, width*16, height*16);
         this.height = height*16;
     }
@@ -53,12 +53,16 @@ public class WaterPainter{
      * @param height The pixel height of the water image.
      */
     private void generateWaterImage(Color waterColor, int width, int height){
+        //Generates a Perlin noise height map and initializes the color of the
+        //water.
         double[][] waterNoise = new double[height][width];
         new PerlinNoiseGenerator(width, height,  100, 5*getSettings().GRAPHICS.code+1,  0.5, 0.9).apply(waterNoise);
         WritableRaster raster = waterImage.getRaster();
         Color br = waterColor.brighter(), da = waterColor.darker();
         int[] pixel = new int[3];
         
+        //Loops through the water image and colors it according to the noise 
+        //map.
         int y;
         for(int x=0;x<waterImage.getWidth();x++){
             for(y=0;y<height;y++){
@@ -67,9 +71,6 @@ public class WaterPainter{
             }
             for(;y<height+16;y++) raster.setPixel(x, y, raster.getPixel(x, y-height, pixel));
         }
-        /*try{
-            ImageIO.write(waterImage, "png", new File("saves/water.png"));
-        }catch(IOException ex){}*/
     }
     
     /**

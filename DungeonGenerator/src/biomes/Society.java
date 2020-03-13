@@ -4,10 +4,9 @@ package biomes;
 import gui.questions.ClassSpecifier;
 
 /**
- *
- * @author Adam Whittaker
  * This class is an abstraction of a society and contains all the factors that 
  * govern a society.
+ * @author Adam Whittaker
  */
 public class Society{
 
@@ -65,6 +64,9 @@ public class Society{
     }
     
     
+    /**
+     * The default society for quick, hard-coded running of the program.
+     */
     public static final Society DEFAULT_SOCIETY = new Society(90, 40, 50);
     
     

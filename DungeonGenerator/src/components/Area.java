@@ -2,8 +2,8 @@
 package components;
 
 import components.decorations.AnimatedDecoration;
-import components.rooms.Room;
 import components.mementoes.AreaInfo;
+import components.rooms.Room;
 import components.tiles.Floor;
 import components.tiles.Grass;
 import components.tiles.Tile;
@@ -11,13 +11,13 @@ import components.tiles.Water;
 import graph.PathfindingGrid;
 import graph.Point;
 import graph.Point.Type;
-import static gui.pages.DungeonScreen.ANIMATOR;
 import static gui.core.DungeonViewer.HEIGHT;
 import static gui.core.DungeonViewer.WIDTH;
 import static gui.core.MouseInterpreter.focusX;
 import static gui.core.MouseInterpreter.focusY;
 import static gui.core.MouseInterpreter.zoom;
 import gui.core.Window;
+import static gui.pages.DungeonScreen.ANIMATOR;
 import static gui.pages.DungeonScreen.getSettings;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -31,10 +31,8 @@ import utils.Utils.ThreadUsed;
 import utils.Utils.Unfinished;
 
 /**
- *
- * @author Adam Whittaker
- * 
  * This class represents a single floor of the dungeon.
+ * @author Adam Whittaker
  */
 public class Area{
     
@@ -44,6 +42,9 @@ public class Area{
      * Info: The AreaInfo memento to be serialized.
      * Graph: The pathfinding tools.
      * Orientation: The cardinal code for this Area's orientation.
+     * BORDER_COLOR: The color of the contrast border between walls and floor.
+     * TILE_COUNT_MODE: Whether to color adjacent tiles slightly different 
+     * colors so that they are easier to count for debugging purposes.
      */
     public final Tile[][] map;
     public final AreaInfo info;
@@ -66,6 +67,12 @@ public class Area{
     }
     
     
+    /**
+     * Shades a tile slightly to make it easier to see.
+     * @param g The Graphics.
+     * @param x The tile x.
+     * @param y The tile y.
+     */
     @Unfinished("Debug only")
     private void paintTileCount(Graphics2D g, int x, int y){
         g.setColor(BORDER_COLOR.brighter());
@@ -80,15 +87,19 @@ public class Area{
      */
     @ThreadUsed("Render")
     public void paint(Graphics2D g, int focusX, int focusY){
+        //Iterates over all the tiles in the area.
         int tileX, tileY;
         for(int y=focusY, maxY=focusY+info.height*16;y<maxY;y+=16){
             for(int x=focusX, maxX=focusX+info.width*16;x<maxX;x+=16){
+                //Calculates the current tile coordinates.
                 tileX = (x-focusX)/16;
                 tileY = (y-focusY)/16;
                 try{
+                    //Checks if the tile is in bounds.
                     if(x>=-16 && x*zoom<=WIDTH &&
                             y >=-16 && y*zoom<=HEIGHT && map[tileY][tileX]!=null){
                         
+                        //Draws the tiles.
                         map[tileY][tileX].draw(g, x, y, getSettings().DM_MODE);
                         
                         if(TILE_COUNT_MODE && (tileX+tileY)%2==0) 
@@ -98,6 +109,8 @@ public class Area{
                 }catch(ArrayIndexOutOfBoundsException e){/*Skip frame*/}
             }
         }
+        
+        //Paints all the contrast borders.
         g.setColor(BORDER_COLOR);
         paintOutsideBorder(g, focusX, focusY);
         for(tileY=1;tileY<info.height-1;tileY++){
@@ -108,6 +121,7 @@ public class Area{
             }
         }
         
+        //Moves the water animation down.
         info.waterPainter.checkFrameUpdate();
     }
     
@@ -131,13 +145,26 @@ public class Area{
         if(map[ty][tx+1].type.equals(Type.WALL)) g.fillRect(tx*16+focusX+15, ty*16+focusY, 2, 16);
     }
     
-    public void savePNG(String filepath){
+    /**
+     * Saves the Area as an image.
+     * @param filepath The filepath of the image.
+     * @param fileType The type of the image (i.e: JPEG, PNG, etc).
+     */
+    public void saveAsImage(String filepath, String fileType){
+        //Creates a blank image to paint the area onto.
         BufferedImage img = new BufferedImage(info.width*16, info.height*16, BufferedImage.TYPE_INT_RGB);
         Graphics2D g = (Graphics2D) img.getGraphics();
+        
+        //Synchronizes on the Viewer so that rendering pauses while the image is
+        //being constructed. This is because the focus will be adjusted during
+        //construction, so slipped race conditions need to be avoided.
         synchronized(Window.VIEWER){
+            //Save the current focus in temporary variables
             int fx=focusX, fy=focusY;
+            //Set the focus to top-left corner of image.
             focusX = 0;
             focusY = 0;
+            //Draw all tiles in the Area.
             for(int y=0;y<info.height;y++){
                 for(int x=0;x<info.width;x++){
                     if(map[y][x]!=null){
@@ -145,6 +172,7 @@ public class Area{
                     }
                 }
             }
+            //Paint the borders.
             g.setColor(BORDER_COLOR);
             paintOutsideBorder(g, 0, 0);
             for(int y=1;y<info.height-1;y++){
@@ -154,12 +182,14 @@ public class Area{
                     }
                 }
             }
+            //Reset the focus.
             focusX = fx;
             focusY = fy;
         }
         
+        //Save the image to the file.
         try{
-            ImageIO.write(img, "png", new File(filepath));
+            ImageIO.write(img, fileType, new File(filepath));
         }catch(IOException e){
             PERFORMANCE_LOG.log(e);
         }
@@ -212,9 +242,11 @@ public class Area{
      * Builds the image of each Tile in the Area.
      */
     public void initializeImages(){
+        //Loop through all tiles.
         for(int y=0;y<map.length;y++){
             for(int x=0;x<map[0].length;x++){
                 if(map[y][x]!=null){
+                    //Initialize the images.
                     map[y][x].initializeImage(this, x*16, y*16);
                     if(map[y][x].decoration instanceof AnimatedDecoration)
                         ANIMATOR.add(
