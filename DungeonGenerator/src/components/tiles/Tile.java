@@ -4,6 +4,7 @@ package components.tiles;
 import builders.TrapBuilder;
 import components.Area;
 import components.decorations.Decoration;
+import components.decorations.SneakyDecoration;
 import graph.Point.Type;
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -68,6 +69,8 @@ public abstract class Tile implements Serializable{
     public void draw(Graphics2D g, int _x, int _y, boolean drawReal){
         g.drawImage((alias == null || drawReal) ? image.getImage() : alias.image.getImage(), _x, _y, null);
         if(drawReal && alias != null) paintHiddenFilter(g, _x, _y);
+        if(decoration instanceof SneakyDecoration && drawReal)
+            ((SneakyDecoration) decoration).drawHiddenAspects(g, _x, _y);
     }
     
     public static void paintHiddenFilter(Graphics2D g, int _x, int _y){

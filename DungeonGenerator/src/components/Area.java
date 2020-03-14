@@ -1,11 +1,11 @@
 
 package components;
 
-import components.decorations.AnimatedDecoration;
 import components.mementoes.AreaInfo;
 import components.rooms.Room;
 import components.tiles.Floor;
 import components.tiles.Grass;
+import components.tiles.PostProcessingTile;
 import components.tiles.Tile;
 import components.tiles.Water;
 import graph.PathfindingGrid;
@@ -29,6 +29,7 @@ import static utils.Utils.PERFORMANCE_LOG;
 import static utils.Utils.R;
 import utils.Utils.ThreadUsed;
 import utils.Utils.Unfinished;
+import animation.Animatable;
 
 /**
  * This class represents a single floor of the dungeon.
@@ -248,9 +249,11 @@ public class Area{
                 if(map[y][x]!=null){
                     //Initialize the images.
                     map[y][x].initializeImage(this, x*16, y*16);
-                    if(map[y][x].decoration instanceof AnimatedDecoration)
-                        ANIMATOR.add(
-                                ((AnimatedDecoration)map[y][x].decoration)
+                    if(map[y][x].decoration instanceof Animatable)
+                        ANIMATOR.add(((Animatable)map[y][x].decoration)
+                                        .createAnimation(x, y));
+                    if(map[y][x] instanceof Animatable)
+                        ANIMATOR.add(((Animatable)map[y][x])
                                         .createAnimation(x, y));
                 }
             }
@@ -320,10 +323,32 @@ public class Area{
         return x<map.length-1 && clazz.isInstance(map[y][x+1]);
     }
     
+    
+    /**
+     * Runs post processing phase and then adds macro-decorations to the Area.
+     */
+    public void decorate(){
+        postProcessing();
+        growGrass();
+        spillWater();
+    }
+    
+    /**
+     * Runs the postProcessing() method for all tiles which use it.
+     */
+    private void postProcessing(){
+        for(int y=1;y<info.height-1;y++){
+            for(int x=1;x<info.width-1;x++){
+                if(map[y][x] instanceof PostProcessingTile) 
+                    ((PostProcessingTile) map[y][x]).postProcessing(this, x, y);
+            }
+        }
+    }
+    
     /**
      * Fills the area with grass.
      */
-    public void growGrass(){
+    private void growGrass(){
         for(int y=1;y<map.length-1;y++){
             for(int x=1;x<map[0].length-1;x++){
                 if(map[y][x] instanceof Floor && R.nextDouble()<info.feeling.grassGenChance){
@@ -357,7 +382,7 @@ public class Area{
     /**
      * Fills the area with water.
      */
-    public void spillWater(){
+    private void spillWater(){
         for(int y=1;y<map.length-1;y++){
             for(int x=1;x<map[0].length-1;x++){
                 if(map[y][x] instanceof Floor && R.nextDouble()<info.feeling.waterGenChance){

@@ -7,8 +7,8 @@ import components.Area;
 import components.LevelFeeling;
 import components.mementoes.AreaInfo;
 import generation.*;
-import java.util.function.Function;
 import static generation.rooms.RoomSelector.getDefaultRoomList;
+import java.util.function.Function;
 import static utils.Utils.SPEED_TESTER;
 
 /**
@@ -63,8 +63,7 @@ public class InputCollector{
             SPEED_TESTER.test("Corridors built");
         }
         
-        area.growGrass();
-        area.spillWater();
+        area.decorate();
         SPEED_TESTER.test("Decorations added");
         area.initializeImages();
         SPEED_TESTER.test("Images initialized");

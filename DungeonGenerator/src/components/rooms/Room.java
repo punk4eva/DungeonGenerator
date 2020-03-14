@@ -6,8 +6,8 @@ import components.tiles.PassageTile;
 import components.tiles.Tile;
 import graph.Point.Type;
 import utils.Distribution;
-import static utils.Utils.R;
 import static utils.Utils.PERFORMANCE_LOG;
+import static utils.Utils.R;
 
 /**
  * This class represents a room in the dungeon.
@@ -93,6 +93,11 @@ public abstract class Room{
      */
     protected abstract void plopItems(Area area);
     
+    /**
+     * Generates the entrance to this Room.
+     * @param area The area.
+     * @return A door or barricade, etc.
+     */
     public abstract PassageTile getEntrance(Area area);
     
     

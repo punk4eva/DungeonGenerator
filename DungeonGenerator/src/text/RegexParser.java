@@ -4,8 +4,8 @@ package text;
 import java.util.HashMap;
 import java.util.function.Supplier;
 import static utils.Utils.R;
-import static utils.Utils.getRandomItem;
 import utils.Utils.Unfinished;
+import static utils.Utils.getRandomElement;
 
 /**
  * Parses a given well-formed regular expression String into a procedurally
@@ -110,41 +110,41 @@ public final class RegexParser{
         "cockroach", "slug", "worm", "wasp", "moth"};
     
     static{
-        EXPRESSIONS.put("<rune>", () -> getRandomItem(RUNE_DESC));
-        EXPRESSIONS.put("<color>", () -> getRandomItem(COLOR));
-        EXPRESSIONS.put("<red>", () -> getRandomItem(RED_COLORS));
-        EXPRESSIONS.put("<colorMod>", () -> getRandomItem(COLOR_MOD));
-        EXPRESSIONS.put("<temperature>", () -> getRandomItem(TEMPERATURE));
-        EXPRESSIONS.put("<wood>", () -> getRandomItem(WOODS));
-        EXPRESSIONS.put("<shapeMod>", () -> getRandomItem(SHAPE_MOD));
-        EXPRESSIONS.put("<shape>", () -> getRandomItem(SHAPE));
-        EXPRESSIONS.put("<container>", () -> getRandomItem(CONTAINER));
-        EXPRESSIONS.put("<contStopper>", () -> getRandomItem(CONTAINER_STOPPER));
-        EXPRESSIONS.put("<smellsLike>", () -> getRandomItem(SMELLS_LIKE));
-        EXPRESSIONS.put("<food>", () -> getRandomItem(FOOD));
-        EXPRESSIONS.put("<viscosity>", () -> getRandomItem(VISCOSITY));
-        EXPRESSIONS.put("<appearance>", () -> getRandomItem(APPEARANCE));
-        EXPRESSIONS.put("<script>", () -> getRandomItem(SCRIPT));
-        EXPRESSIONS.put("<pile>", () -> getRandomItem(PILE));
-        EXPRESSIONS.put("<book>", () -> getRandomItem(BOOK));
-        EXPRESSIONS.put("<critter>", () -> getRandomItem(CRITTER));        
+        EXPRESSIONS.put("<rune>", () -> getRandomElement(RUNE_DESC));
+        EXPRESSIONS.put("<color>", () -> getRandomElement(COLOR));
+        EXPRESSIONS.put("<red>", () -> getRandomElement(RED_COLORS));
+        EXPRESSIONS.put("<colorMod>", () -> getRandomElement(COLOR_MOD));
+        EXPRESSIONS.put("<temperature>", () -> getRandomElement(TEMPERATURE));
+        EXPRESSIONS.put("<wood>", () -> getRandomElement(WOODS));
+        EXPRESSIONS.put("<shapeMod>", () -> getRandomElement(SHAPE_MOD));
+        EXPRESSIONS.put("<shape>", () -> getRandomElement(SHAPE));
+        EXPRESSIONS.put("<container>", () -> getRandomElement(CONTAINER));
+        EXPRESSIONS.put("<contStopper>", () -> getRandomElement(CONTAINER_STOPPER));
+        EXPRESSIONS.put("<smellsLike>", () -> getRandomElement(SMELLS_LIKE));
+        EXPRESSIONS.put("<food>", () -> getRandomElement(FOOD));
+        EXPRESSIONS.put("<viscosity>", () -> getRandomElement(VISCOSITY));
+        EXPRESSIONS.put("<appearance>", () -> getRandomElement(APPEARANCE));
+        EXPRESSIONS.put("<script>", () -> getRandomElement(SCRIPT));
+        EXPRESSIONS.put("<pile>", () -> getRandomElement(PILE));
+        EXPRESSIONS.put("<book>", () -> getRandomElement(BOOK));
+        EXPRESSIONS.put("<critter>", () -> getRandomElement(CRITTER));        
         
         EXPRESSIONS.put("<texture>", () -> {
             switch(R.nextInt(5)){
-                case 0: case 1: case 2: return getRandomItem(TEXTURE);
-                case 3: return "full of " + getRandomItem(COLOR_MOD) + getRandomItem(COLOR) + " coloured " + getRandomItem(SHAPE_MOD) + " "
-                    + getRandomItem(SHAPE) + " fragments";
-                default: return "speckled with " + getRandomItem(APPEARANCE) + " " + getRandomItem(COLOR) + " "
-                    + getRandomItem(SHAPE) + " " + getRandomItem(new String[]{"particulates", "flakes", "particles", "residue"});
+                case 0: case 1: case 2: return getRandomElement(TEXTURE);
+                case 3: return "full of " + getRandomElement(COLOR_MOD) + getRandomElement(COLOR) + " coloured " + getRandomElement(SHAPE_MOD) + " "
+                    + getRandomElement(SHAPE) + " fragments";
+                default: return "speckled with " + getRandomElement(APPEARANCE) + " " + getRandomElement(COLOR) + " "
+                    + getRandomElement(SHAPE) + " " + getRandomElement(new String[]{"particulates", "flakes", "particles", "residue"});
             }
         });
-        EXPRESSIONS.put("<taste>", () -> R.nextDouble()<0.5 ? getRandomItem(TASTE) : "like " + getRandomItem(FOOD));
+        EXPRESSIONS.put("<taste>", () -> R.nextDouble()<0.5 ? getRandomElement(TASTE) : "like " + getRandomElement(FOOD));
         EXPRESSIONS.put("<smell>", () -> {
             switch(R.nextInt(6)){
-                case 0: case 1: case 2: return getRandomItem(SMELL);
-                case 3: return "like " + getRandomItem(FOOD);
-                case 4: return "like " + getRandomItem(WOODS);
-                default: return "like " + getRandomItem(SMELLS_LIKE);
+                case 0: case 1: case 2: return getRandomElement(SMELL);
+                case 3: return "like " + getRandomElement(FOOD);
+                case 4: return "like " + getRandomElement(WOODS);
+                default: return "like " + getRandomElement(SMELLS_LIKE);
             }
         });
         

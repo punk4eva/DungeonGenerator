@@ -3,17 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package components.decorations;
-
-import animation.Animation;
+package animation;
 
 /**
- *
- * @author Adam
+ * An entity that has an associated Animation.
+ * @author Adam Whittaker
  */
-public interface AnimatedDecoration extends Decoration{
+public interface Animatable{
     
-    
+    /**
+     * Creates the Animation of this entity.
+     * @param x The tile x.
+     * @param y The tile y.
+     * @return
+     */
     public Animation createAnimation(int x, int y);
     
 }

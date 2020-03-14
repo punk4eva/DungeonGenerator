@@ -1,8 +1,11 @@
 
 package components.tiles;
 
+import animation.Animatable;
+import animation.Animation;
 import components.Area;
 import graph.Point.Type;
+import static gui.pages.DungeonScreen.getSettings;
 import java.awt.image.BufferedImage;
 import textureGeneration.SerImage;
 
@@ -10,7 +13,7 @@ import textureGeneration.SerImage;
  * A hole.
  * @author Adam Whittaker
  */
-public class Chasm extends Tile{
+public class Chasm extends Tile implements Animatable{
 
     
     private static final long serialVersionUID = 56728905L;
@@ -28,6 +31,11 @@ public class Chasm extends Tile{
     public void buildImage(Area area, int x, int y){
         image = new SerImage(() -> 
                 new BufferedImage(16, 16, BufferedImage.TYPE_INT_RGB));
+    }
+
+    @Override
+    public Animation createAnimation(int x, int y){
+        return getSettings().getChasmAnimation(x*16, y*16);
     }
 
 }

@@ -27,7 +27,7 @@ public class ParticleGenerator extends Animation{
     
     
     /**
-     * Creates a default particle generator with a uniform delay and uniform 
+     * Creates a default particle generator with a fixed delay and uniform 
      * particle spread.
      * @param i the delay between particles.
      * @param sup the function to generate new particles.
@@ -37,7 +37,20 @@ public class ParticleGenerator extends Animation{
      * @param h the height of the generation rectangle.
      */
     public ParticleGenerator(int i, Supplier<Particle> sup, int x, int y, int w, int h){
-        this(sup, getUniformSupplier(x, w), getUniformSupplier(y, h), () -> i);
+        this(sup, x, y, w, h, () -> i);
+    }
+    
+    /**
+     * Creates a default particle generator with uniform particle spread.
+     * @param sup the function to generate new particles.
+     * @param x the top-left corner x of the generation rectangle.
+     * @param y the top-left corner y of the generation rectangle.
+     * @param w the width of the generation rectangle.
+     * @param delay the function to generate the delay between two particles.
+     * @param h the height of the generation rectangle.
+     */
+    public ParticleGenerator(Supplier<Particle> sup, int x, int y, int w, int h, Supplier<Integer> delay){
+        this(sup, getUniformSupplier(x, w), getUniformSupplier(y, h), delay);
     }
     
     /**

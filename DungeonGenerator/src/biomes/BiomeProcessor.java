@@ -64,14 +64,20 @@ public class BiomeProcessor{
     };
     public final RoomConstructor[] ROOM_ALGORITHMS = new RoomConstructor[]{
         //                 temp       acco       host      height     tech       ruin       aggro
-        new RoomConstructor(20, 0.10,  25, 0.10,  40, 0.05,  0, 0.01,  35, 0.03,  40, 0.10,  0,  0.00,  PlainRoom::new),
+        new RoomConstructor(20, 0.10,  25, 0.05,  40, 0.05,  0, 0.01,  35, 0.03,  40, 0.10,  0,  0.00,  PlainRoom::new),
         new RoomConstructor(30, 0.00,  65, 0.30,  60, 0.15,  0, 0.00,  55, 0.20,  50, 0.04,  40, 0.12,  CentralTrapRoom::new),
         new RoomConstructor(30, 0.00,  65, 0.30,  55, 0.15,  0, 0.00,  60, 0.20,  50, 0.04,  40, 0.12,  StatueTrapRoom::new),
-        new RoomConstructor(20, 0.00,  50, 0.03,  00, 0.02,  0, 0.10,  42, 0.03,  30, 0.06,  30, 0.10,  ChasmVault::new),
+        new RoomConstructor(20, 0.00,  50, 0.03,  50, 0.02,  0, 0.10,  42, 0.03,  30, 0.06,  30, 0.10,  ChasmVault::new),
         new RoomConstructor(20, 0.06,  70, 0.35,  50, 0.03,  0, 0.00,  85, 0.25,  0,  0.07,  80, 0.03,  Laboratory::new),
         new RoomConstructor(15, 0.35,  80, 0.15,  05, 0.50,  0, 0.01,  78, 0.21,  0,  0.12,  0,  0.07,  Library::new),
         new RoomConstructor(20, 0.00,  00, 0.02,  70, 0.02,  -35, 0.15, 0, 0.03,  80, 0.25,  0,  0.04,  StalagmiteRoom::new),  
         new RoomConstructor(-30, 0.07, 10, 0.05,  20, 0.02,  0, 0.00,  10, 0.01,  60, 0.25,  50, 0.06,  CampfireRoom::new),
+        
+        new RoomConstructor(23, 0.03,  100, 0.04, 40, 0.05,  0, 0.00,  39, 0.03,  00, 0.02,  00, 0.00,  StorageRoom::new),
+        new RoomConstructor(38, 0.03,  45, 0.05, 80, 0.03, -100, 0.02, 33, 0.03,  50, 0.07, 100, 0.04,  BurntRoom::new),
+        new RoomConstructor(20, 0.00,  00, 0.02,  70, 0.02,  45, 0.04, 00, 0.03,  80, 0.25,  00, 0.06,  CaveInRoom::new),
+        new RoomConstructor(20, 0.00,  75, 0.10,  65, 0.03,  0, 0.04,  65, 0.03,  20, 0.10,  90, 0.03,  Graveyard::new),
+        new RoomConstructor(20, 0.00,  100, 0.04, 60, 0.05,  0, 0.00,  65, 0.03,  15, 0.07,  50, 0.02,  AltarRoom::new),
     };
     
     

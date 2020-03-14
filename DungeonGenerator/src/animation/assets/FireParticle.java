@@ -13,25 +13,15 @@ import static utils.Utils.R;
  * @author Adam Whittaker
  */
 public class FireParticle extends Particle{
-    
-    
-    /**
-     * A factor inversely proportional to the probability that a 
-     * particle will expire in a given tick.
-     */
-    private final double decayFactor;
 
     
     /**
      * Creates a simple FireParticle by auto-initializing some fields.
      * @param w The width
      * @param h The height
-     * @param decay A factor inversely proportional to the probability that a 
-     * particle will expire in a given tick.
      */
-    public FireParticle(int w, int h, double decay){
+    public FireParticle(int w, int h){
         super(w, h, 240, 50, 0);
-        decayFactor = decay;
         vely = -(R.nextDouble()*0.1+0.05);
         velx = 0;
     }
@@ -40,15 +30,12 @@ public class FireParticle extends Particle{
      * Creates a FireParticle with a trail.
      * @param w The width
      * @param h The height
-     * @param decay A factor inversely proportional to the probability that a 
-     * particle will expire in a given tick.
      * @param intensity The intensity of the trail generator.
      * @param trailFade The fade speed of the trail.
      * @param tr The trail speck generator for the trail.
      */
-    public FireParticle(int w, int h, double decay, int intensity, double trailFade, Function<Particle, TrailSpeck> tr){
+    public FireParticle(int w, int h, int intensity, double trailFade, Function<Particle, TrailSpeck> tr){
         super(w, h, 240, 50, 0, intensity, trailFade, tr);
-        decayFactor = decay;
         vely = -(R.nextDouble()*0.1+0.05);
         velx = 0;
     }
@@ -66,8 +53,7 @@ public class FireParticle extends Particle{
         //Make yellower and decrease visibility.
         if(g<120) g+=5;
         if(alpha>5) alpha-=3;
-        //Tests whether the particle should expire.
-        expired = R.nextDouble() < (1.0 - (double)alpha/255.0)*decayFactor;
+        else expired = true;
     }
 
     @Override
@@ -81,7 +67,7 @@ public class FireParticle extends Particle{
      * @return
      */
     public static FireParticle getStaticGraphicsParticle(){
-        return new FireParticle(2, 2, -1){
+        return new FireParticle(2, 2){
             
             private final Color col = new Color(r, g, b);
             
@@ -102,7 +88,7 @@ public class FireParticle extends Particle{
      * @return
      */
     public static FireParticle getLowGraphicsParticle(){
-        return new FireParticle(1+R.nextInt(2), 2, 0.05);
+        return new FireParticle(1+R.nextInt(2), 2);
     }
     
     /**
@@ -110,7 +96,7 @@ public class FireParticle extends Particle{
      * @return
      */
     public static FireParticle getMediumGraphicsParticle(){
-        return new FireParticle(1, 1, 0.1,   20, 1.0, p -> new TrailSpeck(p){
+        return new FireParticle(1, 1,  20, 1.0, p -> new TrailSpeck(p){
             
             @Override
             public void update(double frames){
@@ -125,7 +111,7 @@ public class FireParticle extends Particle{
      * @return
      */
     public static FireParticle getHighGraphicsParticle(){
-        return new FireParticle(1, 1, -1,   1, 3.0, p -> new TrailSpeck(p){
+        return new FireParticle(1, 1,  1, 3.0, p -> new TrailSpeck(p){
             
             @Override
             public void update(double frames){
@@ -144,7 +130,7 @@ public class FireParticle extends Particle{
 
                 if(g<120) g+=5;
                 if(alpha>10) alpha-=6;
-                else expired = R.nextDouble() < 0.1;
+                else expired = true;
             }
             
         };

@@ -50,7 +50,7 @@ public abstract class Particle{
     }
     
     /**
-     * Creates an instance.
+     * Creates an instance without a trail generator.
      * @param w
      * @param h
      * @param r

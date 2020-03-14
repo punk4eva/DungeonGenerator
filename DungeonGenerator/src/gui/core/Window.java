@@ -93,8 +93,7 @@ public class Window{
         //WormholeCaveGrower grower = new WormholeCaveGrower(SCREEN.getArea(), 7, 3, 1.0);
         //grower.generate();
 
-        SCREEN.getArea().growGrass();
-        SCREEN.getArea().spillWater();
+        SCREEN.getArea().decorate();
         SPEED_TESTER.test("Decorations added");
         SCREEN.getArea().initializeImages();
         SPEED_TESTER.test("Images initialized");

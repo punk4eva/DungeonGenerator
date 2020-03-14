@@ -51,12 +51,12 @@ public class Water extends Tile{
     @Override
     public void buildImage(Area area, int x, int y){
         if(underTile.image==null) underTile.buildImage(area, x, y);
-        if(decoration != null && !decoration.isAboveBackground()) 
+        if(decoration != null && !decoration.aboveBackground) 
             decoration.addDecoration(underTile.image);
         underTile.image.buildImage();
         image = new SerImage(ImageBuilder.applyWaterShader(
                 underTile.image.getImage(), genShaderCode(area, x/16, y/16)));
-        if(decoration != null && decoration.isAboveBackground()) 
+        if(decoration != null && decoration.aboveBackground) 
             decoration.addDecoration(image);
     }
     

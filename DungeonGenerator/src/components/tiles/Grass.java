@@ -54,7 +54,7 @@ public class Grass extends Tile{
                         (Graphics2D) img.getGraphics()));
             }
         }else{
-            if(!tall && decoration.isAboveBackground()){
+            if(!tall && decoration.aboveBackground){
                 image.addInstruction(img -> constructLowGrassImage(color, 
                         (Graphics2D) img.getGraphics()));
                 decoration.addDecoration(image);

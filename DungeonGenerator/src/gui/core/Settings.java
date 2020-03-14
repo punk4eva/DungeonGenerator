@@ -2,7 +2,8 @@
 package gui.core;
 
 import animation.ParticleGenerator;
-import animation.assets.FireParticle;
+import animation.assets.*;
+import static utils.Utils.R;
 
 /**
  * The general settings of the program.
@@ -65,6 +66,12 @@ public class Settings{
             case MEDIUM: return new ParticleGenerator(2, FireParticle::getMediumGraphicsParticle, x+6, y+5, 4, 2);
             case HIGH: return new ParticleGenerator(10, FireParticle::getHighGraphicsParticle, x+7, y+5, 2, 2);
             default: throw new IllegalStateException();
+        }
+    }
+    
+    public ParticleGenerator getChasmAnimation(int x, int y){
+        switch(GRAPHICS){
+            default: return new ParticleGenerator(ChasmParticle::new, x+1, y+1, 14, 14, () -> 1700+R.nextInt(1400));
         }
     }
     

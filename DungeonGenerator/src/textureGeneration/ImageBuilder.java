@@ -14,7 +14,7 @@ import javax.swing.ImageIcon;
 import static utils.Utils.R;
 import static text.RegexParser.COLOR;
 import static utils.Utils.PERFORMANCE_LOG;
-import static utils.Utils.getRandomItem;
+import static utils.Utils.getRandomElement;
 
 /**
  * A static convenience class containing various image generation functions.
@@ -281,7 +281,7 @@ public final class ImageBuilder{
      * @return
      */
     public static Color getRandomColor(){
-        return getColor(getRandomItem(COLOR));
+        return getColor(getRandomElement(COLOR));
     }
     
     

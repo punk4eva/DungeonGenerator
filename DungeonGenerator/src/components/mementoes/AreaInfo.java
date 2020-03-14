@@ -5,9 +5,9 @@ import animation.assets.WaterPainter;
 import biomes.Biome;
 import biomes.Society;
 import components.LevelFeeling;
-import generation.noise.PerlinNoiseGenerator;
-import generation.noise.MidpointDisplacmentNoise;
 import components.tiles.Tile;
+import generation.noise.MidpointDisplacmentNoise;
+import generation.noise.PerlinNoiseGenerator;
 import graph.Point.Type;
 import gui.core.Settings;
 import gui.pages.DungeonScreen;
@@ -15,16 +15,14 @@ import java.awt.Color;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
-import static utils.Utils.R;
-import utils.Utils.Unfinished;
 import static utils.Utils.PERFORMANCE_LOG;
+import static utils.Utils.R;
 import static utils.Utils.SPEED_TESTER;
+import utils.Utils.Unfinished;
 
 /**
- *
- * @author Adam Whittaker
- * 
  * The information about an Area to be serialized.
+ * @author Adam Whittaker
  */
 public class AreaInfo implements Serializable{
     
@@ -161,7 +159,12 @@ public class AreaInfo implements Serializable{
     }
     
     
-    public static  AreaInfo getDefaultAreaInfo(){
+    /**
+     * Gents the default Area info for quick hard-coded running for debugging
+     * purposes.
+     * @return
+     */
+    public static AreaInfo getDefaultAreaInfo(){
         return new AreaInfo(80, 80, 
             LevelFeeling.DEFAULT_FEELING, Biome.DEFAULT_BIOME, 
             Society.DEFAULT_SOCIETY);

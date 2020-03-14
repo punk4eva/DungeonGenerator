@@ -6,20 +6,24 @@ import biomes.BiomeProcessor;
 import biomes.Society;
 import components.LevelFeeling;
 import java.util.LinkedList;
-import textureGeneration.DoorIconGenerator;
 import materials.Material;
+import textureGeneration.DoorIconGenerator;
 import utils.Distribution;
 
 /**
- *
+ * This class holds all the information required to color individual tiles in a 
+ * location. It holds the materials used to build different parts of the place, 
+ * the biome, and the door generation algorithm.
  * @author Adam Whittaker
- *
- * This class holds all the information required to color individual tiles in a location.
- * It holds the materials used to build different parts of the place, the biome, and the door generation algorithm.
  */
 public class ArchitectureInfo{
 
     
+    /**
+     * Material: The materials to use for the various purposes of the dungeon.
+     * doorGenerator: The algorithm to generate the images for the doors.
+     * biomeProcessor: The biome and society information.
+     */
     public final Material doorMaterial;
     public final Material floorMaterial;
     public final Material wallMaterial;
@@ -28,7 +32,7 @@ public class ArchitectureInfo{
 
     public final DoorIconGenerator doorGenerator;
     
-    public final BiomeProcessor biomeProcessor/* = new BiomeProcessor(Biome.PLAINS, new Society(50, 50, 50))*/;
+    public final BiomeProcessor biomeProcessor;
     
     
     /**
@@ -39,25 +43,28 @@ public class ArchitectureInfo{
      * @param s The society.
      */
     public ArchitectureInfo(AreaInfo info, LevelFeeling f, Biome b, Society s){
+        //Creates the biome processor and door generator.
         biomeProcessor = new BiomeProcessor(b, s);
-        
         doorGenerator = new DoorIconGenerator(info, () -> 
                 DoorIconGenerator.getRandomDoorBackground(
                         new Distribution(new double[]{1, 1})));
         
-        LinkedList<Material> banned = new LinkedList<>();
+        //A list of used materials so that the floor and walls are not made out
+        //of the same material.
+        LinkedList<Material> used = new LinkedList<>();
         
+        //Initializes the materials to use in the Area.
         doorMaterial = biomeProcessor.getMaterial(m -> m.door);
-        banned.add(doorMaterial);
+        used.add(doorMaterial);
         
-        floorMaterial = biomeProcessor.getMaterial(m -> m.floor && !banned.contains(m));
-        banned.add(floorMaterial);
+        floorMaterial = biomeProcessor.getMaterial(m -> m.floor && !used.contains(m));
+        used.add(floorMaterial);
         
-        wallMaterial = biomeProcessor.getMaterial(m -> m.wall && !banned.contains(m));
-        banned.add(wallMaterial);
+        wallMaterial = biomeProcessor.getMaterial(m -> m.wall && !used.contains(m));
+        used.add(wallMaterial);
         
-        specFloorMaterial = biomeProcessor.getMaterial(m -> m.floor && !banned.contains(m));
-        furnitureMaterial = biomeProcessor.getMaterial(m -> m.furniture && !banned.contains(m));
+        specFloorMaterial = biomeProcessor.getMaterial(m -> m.floor && !used.contains(m));
+        furnitureMaterial = biomeProcessor.getMaterial(m -> m.furniture && !used.contains(m));
     }
     
 }

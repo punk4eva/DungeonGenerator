@@ -27,11 +27,13 @@ public class Library extends PlainRoom{
     public void generate(Area area){
         buildWalls(area);
         
+        //Decides the length of the library shelves.
         int mod;
         if(width<14) mod = 3;
         else if(width<18) mod = 4;
         else mod = 5;
         
+        //Places the shelves at regular intervals.
         for(int y=1;y<height-1;y++){
             for(int x=1;x<width-1;x++){
                 if(y>1&&y<height-2&&y%2==0&&x%mod!=0&&

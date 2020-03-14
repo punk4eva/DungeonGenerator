@@ -15,6 +15,11 @@ import utils.Utils.Unfinished;
 public class ChasmVault extends PlainLockedRoom{
 
     
+    /**
+     * Creates an instance.
+     * @param w The width.
+     * @param h The height.
+     */
     public ChasmVault(int w, int h){
         super(DoorStyle.SOUTH, "chasm vault", w, h);
         assertDimensions(w, h, 5, 5);
@@ -37,6 +42,7 @@ public class ChasmVault extends PlainLockedRoom{
     public void generate(Area area){
         buildWalls(area);
         
+        //Generates the pedestal platform at the end of the vault.
         map[1][width/2-1] = new SpecialFloor("floor");
         map[1][width/2] = new Desk("pedestal", "A place-holder of some high value item.", area.info, true);
         map[1][width/2+1] = new SpecialFloor("floor");
@@ -45,6 +51,7 @@ public class ChasmVault extends PlainLockedRoom{
         map[2][width/2] = new SpecialFloor("floor");
         map[2][width/2+1] = new SpecialFloor("floor");
         
+        //Fills in the Chasm.
         for(int y=1;y<height-1;y++)
             for(int x=1;x<width-1;x++) if(map[y][x] == null)
                 map[y][x] = new Chasm();

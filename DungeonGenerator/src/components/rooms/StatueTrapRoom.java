@@ -3,8 +3,8 @@ package components.rooms;
 
 import builders.TrapBuilder;
 import components.Area;
-import components.tiles.Floor;
 import components.tiles.Desk;
+import components.tiles.Floor;
 import components.tiles.SpecialFloor;
 import components.tiles.Statue;
 import components.traps.FloorTrap;
@@ -38,15 +38,20 @@ public class StatueTrapRoom extends PlainLockedRoom{
     public void generate(Area area){
         buildWalls(area);
         
+        //Builds the pedestal platform and places two statues.
         map[1][width/2-1] = new SpecialFloor("floor");
         map[1][width/2] = new Desk("pedestal", "A place-holder of some high value item.", area.info, true);
         map[1][width/2+1] = new SpecialFloor("floor");
+        map[2][width/2] = new SpecialFloor("floor");
         
-        map[2][width/2] = new Statue(true);
+        map[2][width/2-2] = new Statue(false);
+        map[2][width/2+2] = new Statue(false);
         
+        //Creates a random trap.
         FloorTrap trap = TrapBuilder.getFloorTrap(area);
         trap.revealed = true;
         
+        //Copies the trap on to the Tiles in the Room.
         for(int y=1;y<height-1;y++)
             for(int x=1;x<width-1;x++) if(map[y][x] == null){
                 map[y][x] = new Floor(R.nextDouble()<0.5 ? trap.copy() : null);

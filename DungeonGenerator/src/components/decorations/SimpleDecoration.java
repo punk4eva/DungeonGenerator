@@ -8,10 +8,10 @@ import textureGeneration.ImageBuilder.SerInstruction;
 import textureGeneration.SerImage;
 
 /**
- *
+ * A decoration that is simply an image.
  * @author Adam Whittaker
  */
-public class SimpleDecoration extends AbstractDecoration{
+public class SimpleDecoration extends Decoration{
 
     
     private static final long serialVersionUID = 78930L;
@@ -28,10 +28,11 @@ public class SimpleDecoration extends AbstractDecoration{
     
     /**
      * Creates a new instance.
-     * @param imagePath
+     * @param imagePath The file path to the image relative to the decorations
+     * folder.
      * @param na The name.
      * @param desc The description.
-     * @param above whether the decoration is above water.
+     * @param above Whether the decoration is above water.
      */
     public SimpleDecoration(String imagePath, String na, String desc, 
             boolean above){

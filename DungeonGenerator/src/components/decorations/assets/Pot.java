@@ -18,6 +18,7 @@ public class Pot extends ComplexDecoration{
     
     private static final long serialVersionUID = 14532L;
     
+    //The variation in the colors of the pots.
     private final static int COLOR_VARIANCE = 49;
     
     /**
@@ -53,19 +54,18 @@ public class Pot extends ComplexDecoration{
         return new int[]{150 + R.nextInt(COLOR_VARIANCE+1)-COLOR_VARIANCE, 
                 100 + R.nextInt(COLOR_VARIANCE+1)-COLOR_VARIANCE,
                 50 + R.nextInt(COLOR_VARIANCE+1)-COLOR_VARIANCE};
-        //For debugging vibrant colors.
-        /*return new int[]{150 + (R.nextDouble()<0.5 ? COLOR_VARIANCE : -COLOR_VARIANCE),
-                100 + (R.nextDouble()<0.5 ? COLOR_VARIANCE : -COLOR_VARIANCE),
-                50 + (R.nextDouble()<0.5 ? COLOR_VARIANCE : -COLOR_VARIANCE)};*/
     }
     
     
     @Override
     public void accept(BufferedImage t){
+        //Prepares the uncolored pot image.
         BufferedImage img = ImageBuilder.getImageFromFile("tiles/pots/pot0.png");
         WritableRaster raster = img.getRaster();
         int[] pixel = new int[4];
 
+        //Loops through all the pixels and converts them to color from 
+        //greyscale.
         for(int y=0;y<16;y++){
             for(int x=0;x<16;x++){
                 raster.getPixel(x, y, pixel);
@@ -74,6 +74,7 @@ public class Pot extends ComplexDecoration{
             }
         }
 
+        //Draws the image to the given receptor buffered image.
         t.getGraphics().drawImage(img, 0, 0, null);
     }
 

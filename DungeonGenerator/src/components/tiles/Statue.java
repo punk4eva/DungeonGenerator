@@ -3,8 +3,10 @@ package components.tiles;
 
 import components.Area;
 import graph.Point.Type;
+import static graph.Point.Type.FLOOR;
 import java.awt.Graphics2D;
 import textureGeneration.ImageBuilder;
+import static utils.Utils.PERFORMANCE_LOG;
 import static utils.Utils.R;
 import utils.Utils.Unfinished;
 
@@ -13,7 +15,7 @@ import utils.Utils.Unfinished;
  * decided at run-time assuming no statues are on top of each other).
  * @author Adam Whittaker
  */
-public class Statue extends OverFloorTile{
+public class Statue extends OverFloorTile implements PostProcessingTile{
 
     
     private static final long serialVersionUID = 5872093L;
@@ -23,6 +25,7 @@ public class Statue extends OverFloorTile{
      * The number of the head and body image choice for this statue.
      */
     private final int headCode, bodyCode;
+    private boolean paired = false;
     
     
     /**
@@ -30,7 +33,7 @@ public class Statue extends OverFloorTile{
      * @param sp Whether this tile is on a special floor.
      */
     public Statue(boolean sp){
-        this(sp, R.nextInt(5), R.nextInt(2));
+        this(sp, R.nextInt(7), R.nextInt(4));
     }
     
     /**
@@ -71,6 +74,21 @@ public class Statue extends OverFloorTile{
     @Unfinished("Deal with case when multiple statues are on top of each other.")
     private boolean isHead(Area area, int x, int y){
         return area.map[y+1][x] instanceof Statue;
+    }
+    
+    @Override
+    public void postProcessing(Area area, int x, int y){
+        if(!paired){
+            if(area.map[y-1][x].equals(FLOOR)){
+                area.map[y-1][x] = new Statue(area.map[y-1][x] instanceof SpecialFloor);
+                ((Statue) area.map[y-1][x]).paired = true;
+            }else{
+                if(area.map[y][x].equals(FLOOR)) PERFORMANCE_LOG.dualPrint("Statue erroneously generated.");
+                area.map[y+1][x] = new Statue(area.map[y+1][x] instanceof SpecialFloor);
+                ((Statue) area.map[y+1][x]).paired = true;
+            }
+            paired = true;
+        }
     }
 
 }

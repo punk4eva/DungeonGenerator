@@ -90,7 +90,7 @@ public class FloorTrap extends Trap{
      * @return
      */
     public final FloorTrap copy(){
-        FloorTrap trap = new FloorTrap(getName(), getDescription(), revealed);
+        FloorTrap trap = new FloorTrap(name, description, revealed);
         trap.color = color;
         trap.horizontalOuter = horizontalOuter;
         trap.verticalOuter = verticalOuter;

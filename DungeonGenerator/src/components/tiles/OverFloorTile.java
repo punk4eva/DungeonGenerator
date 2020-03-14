@@ -10,6 +10,9 @@ import graph.Point.Type;
  * @author Adam Whittaker
  */
 public abstract class OverFloorTile extends Tile{
+
+    
+    private static final long serialVersionUID = 67389321967319356L;
     
     
     /**

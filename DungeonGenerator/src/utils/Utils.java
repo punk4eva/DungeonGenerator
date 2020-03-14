@@ -7,7 +7,6 @@
 package utils;
 
 import java.awt.AWTException;
-import utils.test.PerformanceLog;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import static java.lang.Character.isDigit;
@@ -19,6 +18,7 @@ import java.util.List;
 import java.util.Random;
 import static textureGeneration.Texture.rgbPixelEquals;
 import utils.test.AutoClicker;
+import utils.test.PerformanceLog;
 import utils.test.SpeedTester;
 import utils.test.StressTester;
 
@@ -88,7 +88,7 @@ public final class Utils{
      * @param ary The array.
      * @return
      */
-    public static <T> T getRandomItem(T[] ary){
+    public static <T> T getRandomElement(T[] ary){
         return ary[R.nextInt(ary.length)];
     }
     
@@ -177,7 +177,7 @@ public final class Utils{
      * weight.
      * @param a The first value.
      * @param b The second value.
-     * @param x The relative weight of the second value (0: a, 0: b).
+     * @param x The relative weight of the second value (0: a, 1: b).
      * @return
      */
     public static double interpolate(double a, double b, double x){

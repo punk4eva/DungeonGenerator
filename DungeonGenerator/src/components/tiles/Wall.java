@@ -4,7 +4,6 @@ package components.tiles;
 import components.Area;
 import components.decorations.Decoration;
 import graph.Point.Type;
-import java.awt.Graphics2D;
 
 /**
  * A non-traversable wall.
@@ -35,9 +34,6 @@ public class Wall extends Tile{
     @Override
     public void buildImage(Area area, int x, int y){
         generateWallImage(area, x, y);
-        /*if(decoration!=null){
-            decoration.drawImage((Graphics2D) image.getGraphics(), 0, 0);
-        }*/
     }
 
 }
