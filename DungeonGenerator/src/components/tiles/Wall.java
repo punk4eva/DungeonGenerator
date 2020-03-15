@@ -32,7 +32,7 @@ public class Wall extends Tile{
     
     
     @Override
-    public void buildImage(Area area, int x, int y){
+    public void generateImage(Area area, int x, int y){
         generateWallImage(area, x, y);
     }
 

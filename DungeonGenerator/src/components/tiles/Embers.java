@@ -27,10 +27,11 @@ public class Embers extends OverFloorTile{
     
     
     @Override
-    public void buildImage(Area area, int x, int y){
-        super.buildImage(area, x, y);
+    public void generateImage(Area area, int x, int y){
+        super.generateImage(area, x, y);
         
         image.addInstruction(img -> {
+            //Paints some random burny colored specks.
             Graphics2D g = (Graphics2D) img.getGraphics();
             g.setColor(Color.BLACK);
             for(int n=0;n<23;n++)

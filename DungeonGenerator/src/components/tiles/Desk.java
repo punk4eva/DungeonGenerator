@@ -43,8 +43,8 @@ public class Desk extends OverFloorTile{
 
     
     @Override
-    public void buildImage(Area area, int x, int y){
-        super.buildImage(area, x, y);
+    public void generateImage(Area area, int x, int y){
+        super.generateImage(area, x, y);
         
         image.addInstruction(img -> overlayDeskTop(img, area, x, y));
     }
@@ -56,6 +56,7 @@ public class Desk extends OverFloorTile{
      * @param _y The y coordinate of the tile.
      */
     private void overlayDeskTop(BufferedImage img, Area area, int _x, int _y){
+        //Initializes the filter image and retrieves the image raster.
         BufferedImage filter = ImageBuilder.getImageFromFile(filterPath);
         SerImage mat = material.texture.generateImage(_x, _y, area.info.floorNoise);
         mat.buildImage();
@@ -64,6 +65,7 @@ public class Desk extends OverFloorTile{
                 filterRaster = filter.getRaster();
         int pixel[] = new int[4];
         
+        //Loops through the pixels and sets their value to that of the table.
         for(int y=0;y<16;y++) for(int x=0;x<16;x++){
             if(filterRaster.getPixel(x, y, pixel)[0]!=0){
                 filterRaster.setPixel(x, y, tableRaster.getPixel(x, y, pixel));

@@ -22,6 +22,8 @@ public abstract class Tile implements Serializable{
     
     private static final long serialVersionUID = 142L;
     
+    //The color of the hue added to the tile to indicate that something is 
+    //hidden.
     private static final Color HIDDEN_FILTER_COLOR
             = new Color(200, 100, 100, 100);
     
@@ -67,12 +69,23 @@ public abstract class Tile implements Serializable{
      */
     @ThreadUsed("Render")
     public void draw(Graphics2D g, int _x, int _y, boolean drawReal){
-        g.drawImage((alias == null || drawReal) ? image.getImage() : alias.image.getImage(), _x, _y, null);
-        if(drawReal && alias != null) paintHiddenFilter(g, _x, _y);
-        if(decoration instanceof SneakyDecoration && drawReal)
-            ((SneakyDecoration) decoration).drawHiddenAspects(g, _x, _y);
+        //Draws the image of the tile or its alias if it is hidden.
+        g.drawImage((alias == null || drawReal) ? image.getImage()
+                : alias.image.getImage(), _x, _y, null);
+        //If DM mode is active, draw the hidden aspects of the tile.
+        if(drawReal){
+            if(decoration instanceof SneakyDecoration)
+                ((SneakyDecoration) decoration).drawHiddenAspects(g, _x, _y);
+            else if(alias != null) paintHiddenFilter(g, _x, _y);
+        }
     }
     
+    /**
+     * Paints the hue indicating the tile is hiding something on a tile.
+     * @param g The graphics.
+     * @param _x The pixel x.
+     * @param _y The pixel x.
+     */
     public static void paintHiddenFilter(Graphics2D g, int _x, int _y){
         g.setColor(HIDDEN_FILTER_COLOR);
         g.fillRect(_x, _y, 16, 16);
@@ -85,12 +98,12 @@ public abstract class Tile implements Serializable{
      * @param y The pixel y.
      */
     public void initializeImage(Area area, int x, int y){
-        buildImage(area, x, y);
+        generateImage(area, x, y);
         if(decoration != null)
             decoration.addDecoration(image);
         image.buildImage();
         if(alias != null){
-            alias.buildImage(area, x, y);
+            alias.generateImage(area, x, y);
             alias.image.buildImage();
         }
     }
@@ -101,7 +114,7 @@ public abstract class Tile implements Serializable{
      * @param x The tile x.
      * @param y The pixel y.
      */
-    protected abstract void buildImage(Area area, int x, int y);
+    protected abstract void generateImage(Area area, int x, int y);
     
     /**
      * Tests whether this Tile has the given class.

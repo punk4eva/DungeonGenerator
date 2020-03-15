@@ -27,8 +27,8 @@ public class Cauldron extends OverFloorTile{
 
     
     @Override
-    public void buildImage(Area area, int x, int y){
-        super.buildImage(area, x, y);
+    public void generateImage(Area area, int x, int y){
+        super.generateImage(area, x, y);
         
         image.addInstruction(img -> 
                 img.getGraphics().drawImage(getImageFromFile(

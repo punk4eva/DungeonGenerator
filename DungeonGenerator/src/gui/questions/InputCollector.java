@@ -4,7 +4,6 @@ package gui.questions;
 import biomes.Biome;
 import biomes.Society;
 import components.Area;
-import components.LevelFeeling;
 import components.mementoes.AreaInfo;
 import generation.*;
 import static generation.rooms.RoomSelector.getDefaultRoomList;
@@ -24,7 +23,6 @@ public class InputCollector{
     private Biome biome = Biome.DEFAULT_BIOME;
     private Society society = Society.DEFAULT_SOCIETY;
     private int[] dimensions = DimensionSpecifier.DEFAULT_DIMENSIONS;
-    private LevelFeeling feeling = LevelFeeling.DEFAULT_FEELING;
     
     
     public void collect(Object obj){
@@ -48,7 +46,7 @@ public class InputCollector{
     public Area createArea(){
         SPEED_TESTER.start();
         
-        AreaInfo info = new AreaInfo(dimensions[0], dimensions[1], feeling, biome, society);
+        AreaInfo info = new AreaInfo(dimensions[0], dimensions[1], biome, society);
         Area area = new Area(info);
         
         if(multiPlacer != null){

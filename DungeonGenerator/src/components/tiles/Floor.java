@@ -12,6 +12,9 @@ import graph.Point.Type;
 public class Floor extends Tile{
 
     
+    private static final long serialVersionUID = 6738954L;
+
+    
     /**
      * Creates a default instance.
      * @param deco The decoration on this floor.
@@ -32,7 +35,7 @@ public class Floor extends Tile{
     
     
     @Override
-    public void buildImage(Area area, int x, int y){
+    public void generateImage(Area area, int x, int y){
         generateFloorImage(area, x, y);
         //if(decoration!=null) decoration.drawImage((Graphics2D) image.getGraphics(), 0, 0);
     }

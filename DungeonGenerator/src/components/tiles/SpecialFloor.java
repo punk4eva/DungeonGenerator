@@ -10,6 +10,9 @@ import components.Area;
 public class SpecialFloor extends Floor{
 
     
+    private static final long serialVersionUID = 57843091L;
+
+    
     /**
      * Creates a new instance.
      * @param name The name.
@@ -20,8 +23,9 @@ public class SpecialFloor extends Floor{
     
     
     @Override
-    public void buildImage(Area area, int x, int y){
-        image = area.info.architecture.specFloorMaterial.texture.generateImage(x, y, area.info.floorNoise);
+    public void generateImage(Area area, int x, int y){
+        image = area.info.architecture.specFloorMaterial
+                .texture.generateImage(x, y, area.info.floorNoise);
     }
     
 }

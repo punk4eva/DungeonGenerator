@@ -1,6 +1,7 @@
 
 package components;
 
+import animation.Animatable;
 import components.mementoes.AreaInfo;
 import components.rooms.Room;
 import components.tiles.Floor;
@@ -29,7 +30,6 @@ import static utils.Utils.PERFORMANCE_LOG;
 import static utils.Utils.R;
 import utils.Utils.ThreadUsed;
 import utils.Utils.Unfinished;
-import animation.Animatable;
 
 /**
  * This class represents a single floor of the dungeon.
@@ -204,14 +204,17 @@ public class Area{
      * @param y1 The top left y.
      */
     public void blitRoom(Room r, int x1, int y1){
+        //Sets the coordinates and generates the Room.
         r.setCoords(x1, y1);
         r.ensureGenerated(this);
+        //Gets the relative orientation and dimensions of the room.
         int o = getApparentOrientation(r), w = r.getWidth(), h = r.getHeight();
         if(r.orientation%2!=0){
             int temp = w;
             w = h;
             h = temp;
         }
+        //Copies the Room into the Area.
         for(int y=0;y<h;y++) for(int x=0;x<w;x++)
             map[yOrient(o,x,y,w,h)+y1][xOrient(o,x,y,w,h)+x1] = r.map[y][x];
     }
@@ -349,6 +352,7 @@ public class Area{
      * Fills the area with grass.
      */
     private void growGrass(){
+        //Adds grass tiles randomly to the area.
         for(int y=1;y<map.length-1;y++){
             for(int x=1;x<map[0].length-1;x++){
                 if(map[y][x] instanceof Floor && R.nextDouble()<info.feeling.grassGenChance){
@@ -356,7 +360,7 @@ public class Area{
                 }
             }
         }
-        
+        //Spreads those grass tiles randomly.
         for(int c=3;c<12;c++){
             for(int y=1;y<map.length-1;y++){
                 for(int x=1;x<map[0].length-1;x++){
@@ -383,6 +387,7 @@ public class Area{
      * Fills the area with water.
      */
     private void spillWater(){
+        //Adds water tiles to the Area randomly.
         for(int y=1;y<map.length-1;y++){
             for(int x=1;x<map[0].length-1;x++){
                 if(map[y][x] instanceof Floor && R.nextDouble()<info.feeling.waterGenChance){
@@ -390,7 +395,7 @@ public class Area{
                 }
             }
         }
-        
+        //Spreads the water tiles.
         for(int c=3;c<12;c++){
             for(int y=1;y<map.length-1;y++){
                 for(int x=1;x<map[0].length-1;x++){

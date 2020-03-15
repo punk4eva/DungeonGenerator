@@ -28,7 +28,7 @@ public class Chasm extends Tile implements Animatable{
     
     
     @Override
-    public void buildImage(Area area, int x, int y){
+    public void generateImage(Area area, int x, int y){
         image = new SerImage(() -> 
                 new BufferedImage(16, 16, BufferedImage.TYPE_INT_RGB));
     }

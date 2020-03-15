@@ -90,7 +90,7 @@ public class BiomeProcessor{
      * society: The object capturing the characteristics of the society which
      * built the Area.
      */
-    private final Wood woodPalette[] = new Wood[3];
+    private final Wood woodPalette[] = new Wood[WOODS.length];
     private final Distribution woodDist;
     public final RoomSelector roomSelector;
     public final Biome biome;
@@ -168,9 +168,20 @@ public class BiomeProcessor{
     public Material getMaterial(Predicate<Material> filter){
         //Filters the material constructors based on whether they are compatible
         //with the given biome and society.
+        
         List<MaterialConstructor> constructors = Arrays.asList(MATERIALS).stream()
             .filter(mat -> filter.and(m -> m.biomeCompatible(biome, society))
                     .test(mat.material.apply(this))).collect(Collectors.toList());
+        /*HashMap<MaterialConstructor, Material> materialMap = new HashMap<>();
+        Material material;
+        for(MaterialConstructor mat : MATERIALS){
+            material = mat.material.apply(this);
+            if(mat.usesWood){
+                for(Wood wood : woodPalette)
+            }
+            if(material.biomeCompatible(biome, society) && filter.test(material)) materialMap.put(mat, material);
+        }*/
+        
         //Sums the total probability weights
         double chance = R.nextDouble() * constructors.stream().mapToDouble(mat -> mat.probability).sum();
         double count = 0;

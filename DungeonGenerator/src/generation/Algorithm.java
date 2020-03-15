@@ -2,7 +2,7 @@
 package generation;
 
 /**
- *
+ * A corridor generation/room placement algorithm that acts on an Area.
  * @author Adam Whittaker
  */
 public interface Algorithm{

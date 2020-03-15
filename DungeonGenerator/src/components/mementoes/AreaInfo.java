@@ -5,6 +5,7 @@ import animation.assets.WaterPainter;
 import biomes.Biome;
 import biomes.Society;
 import components.LevelFeeling;
+import static components.LevelFeeling.getDefaultFeeling;
 import components.tiles.Tile;
 import generation.noise.MidpointDisplacmentNoise;
 import generation.noise.PerlinNoiseGenerator;
@@ -64,25 +65,24 @@ public class AreaInfo implements Serializable{
      * Creates a random instance based on a given level feeling.
      * @param w The width.
      * @param h The height.
-     * @param f The ethos of the level.
      * @param b The biome.
      * @param s The society.
      */
     @Unfinished("Remove temporary declarations")
-    public AreaInfo(int w, int h, LevelFeeling f, Biome b, Society s){
+    public AreaInfo(int w, int h, Biome b, Society s){
         width = w;
         height = h;
         seed = R.nextLong();
-        initialJitter = f.initialJitter.next(0,120);
-        jitterDecay = f.jitterDecay.next(0.7, 0.95); 
-        amplitude = f.amplitude.next(30, 120);
-        octaves = f.octaves.next(); 
-        lacunarity = f.lacunarity.next(0.3, 1.0);
-        persistence = f.persistence.next(0.3, 1.0);
-        feeling = f;
+        feeling = getDefaultFeeling(b, s);
+        initialJitter = feeling.initialJitter.next(0,120);
+        jitterDecay = feeling.jitterDecay.next(0.7, 0.95); 
+        amplitude = feeling.amplitude.next(30, 120);
+        octaves = feeling.octaves.next(); 
+        lacunarity = feeling.lacunarity.next(0.3, 1.0);
+        persistence = feeling.persistence.next(0.3, 1.0);
         waterColor = Color.decode("#0f7e9c").darker();
         initializeNoise();
-        architecture = new ArchitectureInfo(this, f, b, s);
+        architecture = new ArchitectureInfo(this, feeling, b, s);
         SPEED_TESTER.test("Architechture created");
     }
     
@@ -165,9 +165,7 @@ public class AreaInfo implements Serializable{
      * @return
      */
     public static AreaInfo getDefaultAreaInfo(){
-        return new AreaInfo(80, 80, 
-            LevelFeeling.DEFAULT_FEELING, Biome.DEFAULT_BIOME, 
-            Society.DEFAULT_SOCIETY);
+        return new AreaInfo(80, 80, Biome.DEFAULT_BIOME, Society.DEFAULT_SOCIETY);
     }
     
     

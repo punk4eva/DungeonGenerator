@@ -44,17 +44,24 @@ public class Searcher{
      * @param start The starting point.
      */
     public void floodfill(Point start){
+        //Prepares the graph for the flood fill.
         area.graph.reset();
         frontier.clear();
+        //Initializes the first point of the search
         start.currentCost = 0;
         frontier.add(start);
         int nx, ny;
+        //Loops until there are no tiles left to be searched.
         while(!frontier.isEmpty()){
+            //Gets the highest value point in the frontier.
             Point p = frontier.poll();
+            //Checks the adjacent points.
             for(Direction dir : Direction.values()){
                 nx = p.x+dir.x;
                 ny = p.y+dir.y;
-                try{ 
+                try{
+                    //If the point is eligable to be added to the frontier, it
+                    //is added and connected to the previous point.
                     if(addCheck.test(p, area.graph.map[ny][nx])){
                         area.graph.map[ny][nx].checked = true;
                         area.graph.map[ny][nx].cameFrom = p;

@@ -70,7 +70,8 @@ public class Bookshelf extends PassageTile{
     
     @Override
     @Unfinished("Write generateStyle0()")
-    public void buildImage(Area area, int x, int y){
+    public void generateImage(Area area, int x, int y){
+        //Chooses a random style of bookshelf to generate.
         switch(R.nextInt(2)){
             case 0: generateStyle1(area); break;
             default: generateStyle1(area); break;
@@ -82,7 +83,9 @@ public class Bookshelf extends PassageTile{
      * @param area
      */
     private void generateStyle1(Area area){
+        //Creates a new serializable image with the uncolored blank bookshelf.
         image = new SerImage("tiles/bookshelf0.png");
+        //Adds an instruction to recolor each pixel with new random colors.
         image.addInstruction(img -> RECOLORER.recolor(img, new int[][]{
             colorToPixelArray(area.info.architecture.furnitureMaterial.color.darker(), true),
             colorToPixelArray(area.info.architecture.furnitureMaterial.color, true),

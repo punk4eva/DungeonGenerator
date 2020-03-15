@@ -38,7 +38,7 @@ public abstract class OverFloorTile extends Tile{
     
     
     @Override
-    public void buildImage(Area area, int x, int y){
+    public void generateImage(Area area, int x, int y){
         if(specialFloor) generateSpecFloorImage(area, x, y);
         else generateFloorImage(area, x, y);
     }

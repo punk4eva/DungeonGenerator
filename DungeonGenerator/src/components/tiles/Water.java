@@ -49,8 +49,8 @@ public class Water extends Tile{
     
 
     @Override
-    public void buildImage(Area area, int x, int y){
-        if(underTile.image==null) underTile.buildImage(area, x, y);
+    public void generateImage(Area area, int x, int y){
+        if(underTile.image==null) underTile.generateImage(area, x, y);
         if(decoration != null && !decoration.aboveBackground) 
             decoration.addDecoration(underTile.image);
         underTile.image.buildImage();
@@ -62,10 +62,10 @@ public class Water extends Tile{
     
     @Override
     public void initializeImage(Area area, int x, int y){
-        buildImage(area, x, y);
+        generateImage(area, x, y);
         image.buildImage();
         if(alias != null){
-            alias.buildImage(area, x, y);
+            alias.generateImage(area, x, y);
             alias.image.buildImage();
         }
     }  

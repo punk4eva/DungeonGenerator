@@ -40,7 +40,7 @@ public class Door extends PassageTile{
     
     
     @Override
-    public void buildImage(Area area, int x, int y){
+    public void generateImage(Area area, int x, int y){
         area.info.architecture.doorGenerator.generateAllImages(this, x, y);
         image = new SerImage(() -> null);
         if(open) image.setImage(openImage, true);

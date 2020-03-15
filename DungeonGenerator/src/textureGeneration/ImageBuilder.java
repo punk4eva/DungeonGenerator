@@ -11,9 +11,9 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import static utils.Utils.R;
 import static text.RegexParser.COLOR;
 import static utils.Utils.PERFORMANCE_LOG;
+import static utils.Utils.R;
 import static utils.Utils.getRandomElement;
 
 /**
@@ -256,7 +256,7 @@ public final class ImageBuilder{
             case "roachwood": return Color.decode("#556b00");
             case "crying brown magmatic wood": return Color.decode("#5b0606");
             case "white magmatic wood": return Color.decode("#ffffff");
-            case "fungal wood": return Color.decode("#7bb661").darker();
+            case "fungal wood": return Color.decode("#7bb661").darker().darker();
             case "hellstone": return Color.decode("#b32134");
             case "downstone": return Color.decode("#2b2028");
             //real materials
