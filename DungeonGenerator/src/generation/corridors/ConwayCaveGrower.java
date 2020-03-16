@@ -15,8 +15,8 @@
  */
 package generation.corridors;
 
-import generation.PreCorridorPlacer;
 import components.Area;
+import generation.PreCorridorPlacer;
 
 /**
  * This class uses cellular automata to grow Areas in the style of John Conway's
@@ -67,16 +67,19 @@ public class ConwayCaveGrower extends CaveGrower implements PreCorridorPlacer{
             for(int y=1;y<area.info.height-1;y++){
                 n = getNeighborNum(x, y, 1);
                 if(area.graph.map[y][x].isCorridor){
+                    //Checks if the cell will die.
                     if(starveLimit >= n || n >= overpopulationLimit)
                         area.graph.map[y][x].checked = false;
                     else area.graph.map[y][x].checked = area.graph.map[y][x].isCorridor;
                 }else{
+                    //Checks if the cell will be born.
                     if(birthMin <= n && n <= birthMax)
                         area.graph.map[y][x].checked = true;
                     else area.graph.map[y][x].checked = area.graph.map[y][x].isCorridor;
                 }
             }
         }
+        //Performs the simultaneous update.
         for(int x=1;x<area.info.width-1;x++) 
             for(int y=1;y<area.info.height-1;y++)
             area.graph.map[y][x].isCorridor = area.graph.map[y][x].checked;

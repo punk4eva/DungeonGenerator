@@ -29,9 +29,13 @@ public class WormholeCaveGrower extends PavedCaveGrower implements PostCorridorP
     
     @Override
     public void generate(){
+        //See superclass documentation.
         initialize();
+        //Flood fills from a free point.
         corridorFloodFill(getFreePoint());
+        //Builds skinny corridors.
         pavePaths();
+        //Carves out the corridors.
         for(;iterNum>0;iterNum--) iterate();
         convertGraphToArea();
     }

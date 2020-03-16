@@ -39,22 +39,31 @@ public abstract class PavedCaveGrower extends ConwayCaveGrower{
      * @param start The free point.
      */
     protected void corridorFloodFill(Point start){
+        //Prepares the graph for the flood fill.
         area.graph.reset();
         frontier.clear();
+        //Initializes the first point of the search and adds it to the queue.
         start.cameFrom = start;
         frontier.add(start);
         int nx, ny;
+        //Loops until there are no tiles left to be searched.
         while(!frontier.isEmpty()){
+            //Gets the highest value point in the frontier.
             Point p = frontier.poll();
+            //Checks the adjacent points.
             for(Point.Direction dir : Point.Direction.values()){
                 nx = p.x+dir.x;
                 ny = p.y+dir.y;
                 try{ 
+                    //If the point is eligable to be added to the frontier, it
+                    //is added and connected to the previous point.
                     if(area.withinBounds(nx-1, ny-1) && area.withinBounds(nx+1, ny+1) && area.graph.map[ny][nx].cameFrom==null){
                         if(area.graph.map[ny][nx].roomNum==-1){
                             area.graph.map[ny][nx].cameFrom = p;
                             frontier.add(area.graph.map[ny][nx]);
                         }else if(area.map[ny][nx].equals(Point.Type.DOOR))
+                            //If it is a door it doesn't need to be added to the 
+                            //frontier.
                             area.graph.map[ny][nx].cameFrom = p;
                     }
                 }catch(ArrayIndexOutOfBoundsException | NullPointerException e){}

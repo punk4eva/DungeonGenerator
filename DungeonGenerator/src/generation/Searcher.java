@@ -47,7 +47,7 @@ public class Searcher{
         //Prepares the graph for the flood fill.
         area.graph.reset();
         frontier.clear();
-        //Initializes the first point of the search
+        //Initializes the first point of the search.
         start.currentCost = 0;
         frontier.add(start);
         int nx, ny;

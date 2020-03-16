@@ -1,9 +1,9 @@
 
 package generation.corridors;
 
-import generation.PostCorridorPlacer;
 import components.Area;
 import components.tiles.Tile;
+import generation.PostCorridorPlacer;
 import generation.Searcher;
 import graph.Point;
 import java.util.function.Function;
@@ -49,24 +49,6 @@ public abstract class CorridorBuilder extends Searcher implements PostCorridorPl
                 area.map[a.y+1][a.x] = Tile.genWall(area);
                 area.graph.map[a.y+1][a.x].isCorridor = true;
             }
-            if(p==null||a.x==p.x){
-                if(area.map[a.y-1][a.x-1]==null){
-                    area.map[a.y-1][a.x-1] = Tile.genWall(area);
-                    area.graph.map[a.y-1][a.x-1].isCorridor = true;
-                }
-                if(area.map[a.y-1][a.x+1]==null){
-                    area.map[a.y-1][a.x+1] = Tile.genWall(area);
-                    area.graph.map[a.y-1][a.x+1].isCorridor = true;
-                }
-                if(area.map[a.y+1][a.x-1]==null){
-                    area.map[a.y+1][a.x-1] = Tile.genWall(area);
-                    area.graph.map[a.y+1][a.x-1].isCorridor = true;
-                }
-                if(area.map[a.y+1][a.x+1]==null){
-                    area.map[a.y+1][a.x+1] = Tile.genWall(area);
-                    area.graph.map[a.y+1][a.x+1].isCorridor = true;
-                }
-            }
         }else{
             if(area.map[b.y][b.x-1]==null){
                 area.map[b.y][b.x-1] = Tile.genWall(area);
@@ -84,22 +66,12 @@ public abstract class CorridorBuilder extends Searcher implements PostCorridorPl
                 area.map[a.y][a.x+1] = Tile.genWall(area);
                 area.graph.map[a.y][a.x+1].isCorridor = true;
             }
-            if(p==null||a.x!=p.x){
-                if(area.map[a.y-1][a.x-1]==null){
-                    area.map[a.y-1][a.x-1] = Tile.genWall(area);
-                    area.graph.map[a.y-1][a.x-1].isCorridor = true;
-                }
-                if(area.map[a.y-1][a.x+1]==null){
-                    area.map[a.y-1][a.x+1] = Tile.genWall(area);
-                    area.graph.map[a.y-1][a.x+1].isCorridor = true;
-                }
-                if(area.map[a.y+1][a.x-1]==null){
-                    area.map[a.y+1][a.x-1] = Tile.genWall(area);
-                    area.graph.map[a.y+1][a.x-1].isCorridor = true;
-                }
-                if(area.map[a.y+1][a.x+1]==null){
-                    area.map[a.y+1][a.x+1] = Tile.genWall(area);
-                    area.graph.map[a.y+1][a.x+1].isCorridor = true;
+        }
+        if(p==null||a.x!=p.x){
+            for(int y=a.y-1;y<=a.y+1;y+=2){
+                for(int x=a.x-1;x<=a.x+1;x+=2){
+                    area.map[y][x] = Tile.genWall(area);
+                    area.graph.map[y][x].isCorridor = true;
                 }
             }
         }
@@ -113,6 +85,7 @@ public abstract class CorridorBuilder extends Searcher implements PostCorridorPl
         Point np, pp = null;
         while(p.cameFrom!=p&&p.cameFrom!=null){
             np = p.cameFrom;
+            //Builds the corridor slightly.
             extend(pp, p, np);
             pp = p;
             p = np;

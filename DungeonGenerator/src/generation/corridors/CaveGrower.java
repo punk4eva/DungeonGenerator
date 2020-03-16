@@ -6,8 +6,9 @@ import components.tiles.Tile;
 import generation.Searcher;
 import graph.Point;
 import graph.Point.Type;
+import static java.lang.Integer.max;
+import static java.lang.Integer.min;
 import static utils.Utils.R;
-import static utils.Utils.SPEED_TESTER;
 
 /**
  * Blueprint for cellular automata based cave generation algorithms.
@@ -38,15 +39,17 @@ public abstract class CaveGrower extends Searcher{
     
     
     /**
-     * Iterates through every non-room cell in the Area and initializes them to "dead" or
-     * "alive" based on the startAliveChance.
+     * Iterates through every non-room cell in the Area and initializes them to 
+     * "dead" or "alive" based on the startAliveChance.
      * Assumptions: A tile's roomNum is -1 if it is not part of a room.
      */
     protected void initialize(){
         for(int x=1;x<area.info.width-1;x++) 
             for(int y=1;y<area.info.height-1;y++)
-                if(area.graph.map[y][x].roomNum==-1 && R.nextDouble()<startAliveChance)
+                if(area.graph.map[y][x].roomNum==-1 
+                        && R.nextDouble()<startAliveChance)
                     area.graph.map[y][x].isCorridor = true;
+        //Changes the edges of the map to alive. 
         for(int x=0;x<area.info.width;x++){
             area.graph.map[0][x].isCorridor = true;
             area.graph.map[area.info.height-1][x].isCorridor = true;
@@ -67,10 +70,11 @@ public abstract class CaveGrower extends Searcher{
      */
     protected int getNeighborNum(int _x, int _y, int dist){
         int n = 0;
-        for(int y=Math.max(_y-dist, 0);y<=Math.min(_y+dist, area.info.height-1);y++){
-            for(int x=Math.max(_x-dist, 0);x<=Math.min(_x+dist, area.info.width-1);x++){
+        for(int y=max(_y-dist, 0);y<=min(_y+dist, area.info.height-1);y++){
+            for(int x=max(_x-dist, 0);x<=min(_x+dist, area.info.width-1);x++){
                 if(x!=_x||y!=_y){
                     if(area.map[y][x]!=null){
+                        //If the tile is next to a door, then it has to be free.
                         if(area.map[y][x].equals(Type.WALL)) n++;
                         else if(area.map[y][x].equals(Type.DOOR)) return 0;
                     }else if(area.graph.map[y][x].isCorridor) n++;
@@ -116,12 +120,13 @@ public abstract class CaveGrower extends Searcher{
      * Converts living cells to walls and dead ones to floor.
      */
     protected void convertGraphToArea(){
+        //Iterates through the tiles in the Area.
         for(int x=0;x<area.info.width;x++) for(int y=0;y<area.info.height;y++) 
             if(area.map[y][x]==null){
+                //Generates new floor/wall tiles accordingly.
                 if(area.graph.map[y][x].isCorridor) area.map[y][x] = Tile.genWall(area);
                 else area.map[y][x] = Tile.genFloor(area);
         }
-        SPEED_TESTER.test("Caves grown");
     }
     
     /**

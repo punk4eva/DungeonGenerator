@@ -19,7 +19,8 @@ import components.Area;
 import components.tiles.Tile;
 import generation.PostCorridorPlacer;
 import graph.Point;
-import graph.Point.*;
+import graph.Point.Direction;
+import graph.Point.Type;
 import gui.questions.CorridorSpecifier;
 import java.util.function.Function;
 import static utils.Utils.R;
@@ -106,15 +107,19 @@ public class SpiderCorridorBuilder extends CorridorBuilder implements PostCorrid
     
     @Override
     public void generate(){
+        //Floodfills around a door.
         Point p = getFreePoint();
         floodfill(p);
+        //Builds the corridor aroung the first door.
         if(area.map[p.y-1][p.x-1]==null) area.map[p.y-1][p.x-1] = Tile.genWall(area);
         if(area.map[p.y-1][p.x+1]==null) area.map[p.y-1][p.x+1] = Tile.genWall(area);
         if(area.map[p.y+1][p.x-1]==null) area.map[p.y+1][p.x-1] = Tile.genWall(area);
         if(area.map[p.y+1][p.x+1]==null) area.map[p.y+1][p.x+1] = Tile.genWall(area);
         area.graph.doors.forEach((door) -> {
+            //Builds all corridors.
             buildCorridor(door);
         });
+        //Makes the corridors more cavernous.
         if(decayLimit<9) growCavities();
     }
     
@@ -129,6 +134,7 @@ public class SpiderCorridorBuilder extends CorridorBuilder implements PostCorrid
             for(Direction dir : Direction.values()){
                 x = p.x+dir.x;
                 y = p.y+dir.y;
+                //If the tile is not initialized then it is free.
                 if(area.map[y][x] == null) return area.graph.map[y][x];
             }
         }
@@ -143,19 +149,25 @@ public class SpiderCorridorBuilder extends CorridorBuilder implements PostCorrid
      */
     @Override
     public void floodfill(Point start){
+        //Prepares the graph for the flood fill.
         area.graph.reset(); //Verifies assumption (1)
         frontier.clear();
+        //Initializes the first point of the search.
         start.currentCost = 0;
         frontier.add(start);
         start.checked = true;
         start.cameFrom = start;
         int nx, ny;
+        //Loops until there are no tiles left to be searched.
         while(!frontier.isEmpty()){
+            //Gets the highest value point in the frontier.
             Point p = frontier.removeFirst();
+            //Checks the adjacent points.
             for(Direction dir : Direction.values()){
                 nx = p.x+dir.x;
                 ny = p.y+dir.y;
-                
+                //If the point is eligable to be added to the frontier, it
+                //is added and connected to the previous point.
                 if(area.withinBounds(nx-1, ny-1)&&area.withinBounds(nx+1, ny+1)){
                     if(addCheck.test(p, area.graph.map[ny][nx])){
                         area.graph.map[ny][nx].currentCost = p.currentCost + 1;

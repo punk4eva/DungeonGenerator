@@ -81,22 +81,28 @@ public class OneToOneCorridorBuilder extends CorridorBuilder implements PostCorr
     private void corridorFloodFill(Point start, Point end){
         area.graph.reset(); //Verifies assumption (1)
         frontier.clear();
+        //Prepares the frontier with a windy corridor function and adds the 
+        //first point.
         frontier.setFunction(p -> R.nextDouble()*2D*windyness - windyness + manhattanDist(p, end) + prioritySkewer.apply(p));
         frontier.add(start);
         start.cameFrom = start;
         int nx, ny;
-        //System.out.println("Starting point: " + start.x + ", " + start.y);
+        //Loops until there are no tiles left to be searched.
         while(!frontier.isEmpty()){
+            //Gets the highest value point in the frontier.
             Point p = frontier.removeFirst();
+            //Checks the adjacent points.
             for(Direction dir : Direction.values()){
                 nx = p.x+dir.x;
                 ny = p.y+dir.y;
+                //If the point is eligable to be added to the frontier, it added
+                //and connected to the previous point.
                 if(area.withinBounds(nx-1, ny-1)&&area.withinBounds(nx+1, ny+1)){
                     if(addCheck.test(p, area.graph.map[ny][nx])){
                         area.graph.map[ny][nx].cameFrom = p;
                         frontier.add(area.graph.map[ny][nx]);
                     }else if(nx==end.x && ny==end.y){
-                        System.out.println("Found end!");
+                        //Stops the search early when the end point is found.
                         area.graph.map[ny][nx].cameFrom = p;
                         return;
                     }
