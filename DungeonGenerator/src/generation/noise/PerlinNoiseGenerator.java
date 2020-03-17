@@ -63,15 +63,19 @@ public class PerlinNoiseGenerator{
      * @param map
      */
     public void apply(double[][] map){
+        //The initial grid size is a quarter of the array.
         int xCoarse = map[0].length/4, yCoarse = map.length/4;
         for(int n = 0; n < octaveNum; n++){
+            //Adds an octave of noise to the array.
             overlayOctave(map, amplitude, xCoarse, yCoarse);
+            //Decreases the amplitude and grid size for the next iteration.
             amplitude *= persistence;
             xCoarse *= lacunarity;
             yCoarse *= lacunarity;
             if(xCoarse<1) xCoarse = 1;
             if(yCoarse<1) yCoarse = 1;
         }
+        //Shifts the mean by 125.
         shiftMean(map, 125);
     }
     
@@ -96,19 +100,12 @@ public class PerlinNoiseGenerator{
      * @param yCoarse The height of the current Perlin rectangle.
      */
     private void overlayOctave(double[][] map, double p, int xCoarse, int yCoarse){
-        //double min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
         for(int y = 0; y < map.length; y++){
             for(int x = 0; x < map[0].length; x++){
+                //Calculates the perlin noise function for one point in the map.
                 map[y][x] += p * getPerlin(x, y, xCoarse, yCoarse);
-                /*if(min > map[y][x]){
-                    min = map[y][x];
-                }
-                if(max < map[y][x]){
-                    max = map[y][x];
-                }*/
             }
         }
-        //System.out.println("Min: " + min * Math.sqrt(2D) + "; Max: " + max * Math.sqrt(2D));
     }
 
     /**
@@ -120,8 +117,12 @@ public class PerlinNoiseGenerator{
      * @return
      */
     private double getPerlin(int x, int y, int xC, int yC){
+        //Smoothes the distance of the point from the side of the grid.
         double xN = fade((double) (x % xC) / xC), 
                 yN = fade((double) (y % yC) / yC),
+                //Dots the vector on the corners of the grid with the current
+                //point vector relative to the grid. Interpolates the four 
+                //results.
                 iU = interpolate(dotTL(x, y, xC, yC), dotTR(x, y, xC, yC), xN),
                 iD = interpolate(dotBL(x, y, xC, yC), dotBR(x, y, xC, yC), xN);
         return interpolate(iU, iD, yN);
@@ -169,13 +170,9 @@ public class PerlinNoiseGenerator{
      * @return
      */
     private double dotTR(int x, int y, int xC, int yC){
-        //try{
-            int xV = x - (x % xC) + xC;
-            int yV = y - (y % yC);
-            return dot(x, y, xV, yV, xC, yC);
-        /*}catch(ArrayIndexOutOfBoundsException e){
-            return 0;
-        }*/
+        int xV = x - (x % xC) + xC;
+        int yV = y - (y % yC);
+        return dot(x, y, xV, yV, xC, yC);
     }
 
     /**
@@ -188,13 +185,9 @@ public class PerlinNoiseGenerator{
      * @return
      */
     private double dotBL(int x, int y, int xC, int yC){
-        //try{
-            int xV = x - (x % xC);
-            int yV = y - (y % yC) + yC;
-            return dot(x, y, xV, yV, xC, yC);
-        /*}catch(ArrayIndexOutOfBoundsException e){
-            return 0;
-        }*/
+        int xV = x - (x % xC);
+        int yV = y - (y % yC) + yC;
+        return dot(x, y, xV, yV, xC, yC);
     }
 
     /**
@@ -207,13 +200,9 @@ public class PerlinNoiseGenerator{
      * @return
      */
     private double dotBR(int x, int y, int xC, int yC){
-        //try{
-            int xV = x - (x % xC) + xC;
-            int yV = y - (y % yC) + yC;
-            return dot(x, y, xV, yV, xC, yC);
-        /*}catch(ArrayIndexOutOfBoundsException e){
-            return 0;
-        }*/
+        int xV = x - (x % xC) + xC;
+        int yV = y - (y % yC) + yC;
+        return dot(x, y, xV, yV, xC, yC);
     }
 
 }
