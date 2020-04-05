@@ -4,11 +4,11 @@ package generation.rooms;
 import components.Area;
 import components.rooms.Room;
 import gui.questions.RoomPlacerSpecifier;
-import static utils.Utils.copy2DArray;
 import java.util.List;
 import java.util.function.Consumer;
 import static utils.Utils.PERFORMANCE_LOG;
 import static utils.Utils.R;
+import static utils.Utils.copy2DArray;
 
 /**
  * Places Rooms randomly in an Area. If the Area is too small to support the 
@@ -63,12 +63,17 @@ public class RandomRoomPlacer extends AbstractRoomPlacer{
         rooms.sort(AbstractRoomPlacer::roomSizeComparator);
         
         int n = 0, bestRoomNum = -1; //the index of the room
-        int i, width, height, placementFailCounter = 0; //incrementing variable
+        int i, width, height, placementFailCounter = 0; //incrementing variable.
+        //The current array of coordinates of all the rooms and the best one 
+        //currently found.
         int[][] coords = new int[rooms.size()][4], bestSolution = null;
+        //Iterates thorugh the rooms.
         while(n<rooms.size()){
+            //Gets the width and height of the current room.
             width = rooms.get(n).getWidth();
             height = rooms.get(n).getHeight();
-            
+            //Tries to place a room by generating random coordinates until the
+            //placement attempt limit is reached.
             for(i=0;i<PLACEMENT_ATTEMPT_LIMIT;i++){
                 int[] point = generatePoint(width, height);
                 if(spaceFree(point[0], point[1], width, height)){
@@ -79,10 +84,12 @@ public class RandomRoomPlacer extends AbstractRoomPlacer{
             }
             if(i==PLACEMENT_ATTEMPT_LIMIT){
                 placementFailCounter++;
+                //Stores the current solution if it is the best.
                 if(bestRoomNum<n){
                     bestRoomNum = n;
                     bestSolution = copy2DArray(coords, n);
                 }
+                //If the attempt limit is up, reloads the best solution.
                 if(placementFailCounter>=BACKTRACK_LIMIT){
                     PERFORMANCE_LOG.dualPrint("RandomRoomPlacer cannot place this "
                             + "many rooms! " + bestRoomNum + "/" + rooms.size() + 
@@ -91,12 +98,14 @@ public class RandomRoomPlacer extends AbstractRoomPlacer{
                     remarkFromPreviousSolution(coords);
                     break;
                 }
+                //Removes a room in order to place it in a better location.
                 for(int j=0;j<Math.min(placementFailCounter, n);j++){
                     n--;
                     unmark(coords[n], coords[n][2], coords[n][3], n, coords);
                 }
             }
         }
+        //Generates the rooms from the coordinate solution.
         Room r;
         for(i=0;i<coords.length;i++){
             r = rooms.get(i);
@@ -111,7 +120,9 @@ public class RandomRoomPlacer extends AbstractRoomPlacer{
      */
     private void remarkFromPreviousSolution(int[][] c){
         area.graph.flushRoomNumbers();
+        //Loops through all the coordinates in a previous solution.
         for(int n=0;n<c.length;n++){
+            //Loops through all the points under the Room.
             for(int x=c[n][0];x<c[n][0]+c[n][2];x++)
                 for(int y=c[n][1];y<c[n][1]+c[n][3];y++)
                     area.graph.map[y][x].roomNum = n;
@@ -153,6 +164,7 @@ public class RandomRoomPlacer extends AbstractRoomPlacer{
      * @param coords The current coordinates of all Rooms.
      */
     protected void unmark(int[] c, int width, int height, int n, int[][] coords){
+        //Loops through all the points under the Room.
         for(int x=c[0];x<c[0]+width;x++)
             for(int y=c[1];y<c[1]+height;y++)
                 area.graph.map[y][x].roomNum = -1;

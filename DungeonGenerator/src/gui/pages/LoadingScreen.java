@@ -28,6 +28,7 @@ public class LoadingScreen implements Screen{
      * RECTANGLE: The negative space rectangle.
      * rotation: The transform representing the current orientation of the 
      * negative space rectangle.
+     * message: What the program is currently doing.
      */
     private final static int CIRCLE_DIAMETER = 112*HEIGHT/1080, 
             CIRCLE_WIDTH = 8*HEIGHT/1080;
@@ -47,10 +48,12 @@ public class LoadingScreen implements Screen{
     
     @Override
     public void paint(Graphics2D g, int frames){
+        //Rotates the circle.
         updateAngle(frames);
-        
+        //Paints the background.
         g.setColor(BACKGROUND_COLOR);
         g.fillRect(0, 0, WIDTH, HEIGHT);
+        //Paints the rotating loading circle.
         g.setColor(CIRCLE_COLOR);
         g.fillOval((WIDTH-CIRCLE_DIAMETER)/2, (HEIGHT-CIRCLE_DIAMETER)/2, 
                 CIRCLE_DIAMETER, CIRCLE_DIAMETER);
@@ -60,7 +63,7 @@ public class LoadingScreen implements Screen{
                 CIRCLE_DIAMETER - 2*CIRCLE_WIDTH, 
                 CIRCLE_DIAMETER - 2*CIRCLE_WIDTH);
         g.fill(rotation.createTransformedShape(RECTANGLE));
-        
+        //Paints the loading message.
         g.setFont(LOADING_TEXT_FONT);
         g.setColor(CIRCLE_COLOR);
         FontMetrics f = g.getFontMetrics();

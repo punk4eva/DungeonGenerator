@@ -8,15 +8,8 @@ package graph;
 
 import components.Area;
 import components.tiles.PassageTile;
-import java.awt.image.BufferedImage;
-import java.awt.image.WritableRaster;
-import java.io.File;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.LinkedList;
-import java.util.function.BiFunction;
-import javax.imageio.ImageIO;
-import utils.Utils.Unfinished;
 
 /**
  * A representation of a dungeon floor optimized for path-finding. This class
@@ -84,37 +77,6 @@ public class PathfindingGrid{
             }
         }
         Collections.shuffle(doors);
-    }
-    
-    
-    @Unfinished("Debug")
-    public void makePNG(String filepath, BiFunction<Point, int[], int[]> colorGetter) throws IOException{
-        BufferedImage img = new BufferedImage(map[0].length, map.length, BufferedImage.TYPE_INT_RGB);
-        WritableRaster raster = img.getRaster();
-        int[] pixel = new int[3];
-        for(int y=0;y<map.length;y++){
-            for(int x=0;x<map[y].length;x++){
-                pixel = colorGetter.apply(map[y][x], pixel);
-                raster.setPixel(x, y, pixel);
-            }
-        }
-        ImageIO.write(img, "png", new File(filepath));
-    }
-    
-    @Unfinished("Debug")
-    public static void makePNG(double[][] map, String filepath) throws IOException{
-        BufferedImage img = new BufferedImage(map[0].length, map.length, BufferedImage.TYPE_INT_RGB);
-        WritableRaster raster = img.getRaster();
-        int[] pixel = new int[3];
-        for(int y=0;y<map.length;y++){
-            for(int x=0;x<map[y].length;x++){
-                pixel[0] = (int)map[y][x];
-                pixel[1] = (int)map[y][x];
-                pixel[2] = (int)map[y][x];
-                raster.setPixel(x, y, pixel);
-            }
-        }
-        ImageIO.write(img, "png", new File(filepath));
     }
     
 }

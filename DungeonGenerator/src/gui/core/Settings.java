@@ -69,6 +69,13 @@ public class Settings{
         }
     }
     
+    /**
+     * Gets an animation for a chasm based on the graphics setting for the given
+     * coordinates.
+     * @param x The tile x.
+     * @param y The tile y.
+     * @return A ParticleGenerator.
+     */
     public ParticleGenerator getChasmAnimation(int x, int y){
         switch(GRAPHICS){
             default: return new ParticleGenerator(ChasmParticle::new, x+1, y+1, 14, 14, () -> 1700+R.nextInt(1400));

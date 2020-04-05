@@ -22,12 +22,19 @@ import java.awt.event.MouseEvent;
 import java.util.LinkedList;
 
 /**
- *
+ * A screen that lets the user specify the dungeon parameters.
  * @author Adam Whittaker
  */
 public class SelectionScreen extends MouseAdapter implements Screen{
     
     
+    /**
+     * input: The current question posed to the user.
+     * collector: The entity that accumulates all input form the user so far.
+     * boxList: Stores the list of questions for the user.
+     * currentIndex: The index of the current question in the boxList.
+     * next/prevButton: Buttons to navigate the question menu.
+     */
     private QuestionBox input;
     private final InputCollector collector = new InputCollector();
     private final LinkedList<QuestionBox> boxList = new LinkedList<>();
@@ -36,6 +43,10 @@ public class SelectionScreen extends MouseAdapter implements Screen{
             prevButton = new BackButton();
     
     
+    /**
+     * Creates a new instance.
+     * @param v The viewer.
+     */
     public SelectionScreen(DungeonViewer v){
         v.addMouseListener(this);
         boxList.add(BIOME_MENU);
@@ -55,6 +66,10 @@ public class SelectionScreen extends MouseAdapter implements Screen{
         ANIMATOR.animate(g, 0, 0, frames);
     }
     
+    /**
+     * Changes the current question box.
+     * @param box The new box.
+     */
     public final void setQuestionBox(QuestionBox box){
         if(box != null){
             if(input != null) input.deregisterKeys(VIEWER);
@@ -63,17 +78,29 @@ public class SelectionScreen extends MouseAdapter implements Screen{
         }
     }
     
+    /**
+     * Gets the input collector.
+     * @return
+     */
     public final InputCollector getInputCollector(){
         return collector;
     }
     
+    /**
+     * Navigates to the previous question.
+     */
     public void previousQuestion(){
         currentIndex--;
         setQuestionBox(boxList.get(currentIndex));
     }
     
+    /**
+     * Navigates to the next question.
+     */
     public void nextQuestion(){
+        //Checks if there are more questions remaining.
         if(currentIndex<boxList.size()-1){
+            //Increments the question index until there is a valid question.
             currentIndex++;
             while(isVoidQuestion(boxList.get(currentIndex))){
                 boxList.get(currentIndex).process(this);
@@ -84,13 +111,21 @@ public class SelectionScreen extends MouseAdapter implements Screen{
                 }
             }
             setQuestionBox(boxList.get(currentIndex));
+            //Otherwise creates the dungeon.
         }else finish();
     }
     
+    /**
+     * Adds another question to the boxList.
+     * @param box
+     */
     public void addQuestionBox(QuestionBox box){
         boxList.add(box);
     }
     
+    /**
+     * Creates the dungeon using the user's parameters.
+     */
     public void finish(){
         VIEWER.setState(State.LOADING);
         
@@ -100,6 +135,11 @@ public class SelectionScreen extends MouseAdapter implements Screen{
         VIEWER.setState(State.VIEWING);
     }
     
+    /**
+     * Checks whether the question is blank (no user options).
+     * @param box The question.
+     * @return true if it is.
+     */
     private boolean isVoidQuestion(QuestionBox box){
         return (box instanceof Specifier) && ((Specifier) box).isEmpty();
     }
@@ -115,9 +155,15 @@ public class SelectionScreen extends MouseAdapter implements Screen{
     }
     
     
+    /**
+     * The button that goes to the next question.
+     */
     private class NextButton extends NavigationButton{
 
         
+        /**
+         * Creates an instance.
+         */
         public NextButton(){
             super(5*WIDTH/8, "Next");
         }
@@ -132,9 +178,15 @@ public class SelectionScreen extends MouseAdapter implements Screen{
     }
     
     
+    /**
+     * The button that goes to the previous question.
+     */
     private class BackButton extends NavigationButton{
 
         
+        /**
+         * Creates an instance.
+         */
         public BackButton(){
             super(WIDTH/4, "Back");
         }

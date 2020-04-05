@@ -33,6 +33,7 @@ public class RoomSelector{
      */
     public RoomSelector(RoomConstructor[] cons){
         rooms = new HashMap<>();
+        //converts the constructor array to a hashmap.
         for(RoomConstructor con : cons){
             rooms.put(con.constructor, con.probability);
         }
@@ -47,22 +48,31 @@ public class RoomSelector{
      * @return
      */
     public Room select(int w, int h){
+        //Clones the room map.
         HashMap<BiFunction<Integer, Integer, Room>, Double> map = 
                 (HashMap<BiFunction<Integer, Integer, Room>, Double>) rooms.clone();
         double chance, count;
         Entry<BiFunction<Integer, Integer, Room>, Double> entry;
-        
+        //Iterates through the map.
         while(!map.isEmpty()){
+            //A random double between 0 and the max probability. 
+            //See Distribution class.
             chance = R.nextDouble()*(map.entrySet().stream().mapToDouble(e -> e.getValue()).sum());
             count = 0;
-
-            for(Iterator<Entry<BiFunction<Integer, Integer, Room>, Double>> iter = map.entrySet().iterator();iter.hasNext();){
+            //Iterates through the entries in the map.
+            for(Iterator<Entry<BiFunction<Integer, Integer, Room>, Double>> iter
+                    = map.entrySet().iterator();iter.hasNext();){
                 entry = iter.next();
+                //Adds the relative probability of the room function.
                 count += entry.getValue();
                 if(chance<count){
                     try{
+                        //If the chance is less than the current count then 
+                        //return the generated room.
                         return entry.getKey().apply(w, h);
                     }catch(IllegalArgumentException e){
+                        //If the dimensions are roo small for the room, remove 
+                        //it and try again.
                         iter.remove();
                         break;
                     }

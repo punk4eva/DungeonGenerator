@@ -17,10 +17,18 @@ import utils.Utils.Unfinished;
 public class MouseInterpreter extends MouseAdapter{
     
     
+    /**
+     * focus: The coordinates to draw the top-left of the dungeon in with 
+     * respect to the top-left of the screen.
+     * xyOfDrag: The coordinates where a mouse drag event started.
+     * zoom: The zoom level.
+     * MAX/MIN_ZOOM: The boundary levels for the zoom.
+     */
     public volatile static int focusX, focusY;
     private int xOfDrag=-1, yOfDrag=-1;
     public volatile static double zoom = 1.0;
     public static final double MAX_ZOOM = 8.0, MIN_ZOOM = 0.512;
+    
     
     @Override
     @Unfinished("Complete (might remove entire class)")
@@ -67,7 +75,6 @@ public class MouseInterpreter extends MouseAdapter{
                 PERFORMANCE_LOG.printZoom(zoom);
             }
         }
-        //setFocusBounds(Window.VIEWER.area);
     }
     
     /**
@@ -119,29 +126,6 @@ public class MouseInterpreter extends MouseAdapter{
         focusX = x;
         focusY = y;
     }
-    
-    /**
-     * Sets the focus bounds for a given Area.
-     * @param area The Area.
-     */
-    /*public void setFocusBounds(Area area){
-        int temp = WIDTH - 32 - (int)((area.info.width*16)*zoom);
-        if(temp > 16){
-            maxFX = temp;
-            minFX = 16;
-        }else{
-            maxFX = 16;
-            minFX = temp;
-        }
-        temp = HEIGHT - 32 - (int)((area.info.height*16)*zoom);
-        if(temp > 16){
-            maxFY = temp;
-            minFY = 16;
-        }else{
-            maxFY = 16;
-            minFY = temp;
-        }
-    }*/
     
     /**
      * Returns the centre coordinates of the screen.

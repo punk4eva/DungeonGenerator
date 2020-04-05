@@ -6,15 +6,22 @@ import components.rooms.Room;
 import generation.RoomPlacer;
 
 /**
- *
+ * A blueprint class for room placement algorithms.
  * @author Adam Whittaker
  */
 public abstract class AbstractRoomPlacer implements RoomPlacer{
     
     
+    /**
+     * The area that the rooms will be placed in.
+     */
     protected final Area area;
     
     
+    /**
+     * Creates a new instance.
+     * @param a The Area.
+     */
     protected AbstractRoomPlacer(Area a){
         area = a;
     }
@@ -55,6 +62,13 @@ public abstract class AbstractRoomPlacer implements RoomPlacer{
     }
     
     
+    /**
+     * A default comparator that compares rooms based on their area.
+     * @param r
+     * @param r1
+     * @return -1, 0, 1 if the first room is smaller, the same size as, or 
+     * larger than the second room in volume.
+     */
     public static int roomSizeComparator(Room r, Room r1){
         return new Integer(r1.getWidth()*r1.getHeight())
                 .compareTo(r.getWidth()*r.getHeight());

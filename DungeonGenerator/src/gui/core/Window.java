@@ -9,7 +9,6 @@ import gui.pages.DungeonScreen;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
-import java.io.IOException;
 import java.util.LinkedList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -25,12 +24,18 @@ import utils.Utils.Unfinished;
 public class Window{
     
     
+    /**
+     * VIEWER: The dungeon viewer.
+     * SCREEN: The dungeon screen.
+     * frame: The backbone panel of the GUI.
+     * pacemaker: The FPS manager of the program.
+     * QUICK_START: Whether to start the program in a default manner to save
+     * time.
+     */
     public static DungeonViewer VIEWER;
     public static DungeonScreen SCREEN;
     protected JFrame frame;
-    //public static final SoundSystem soundSystem = new SoundSystem();
     public Pacemaker pacemaker;
-    public static float sfxVolume = 0, musicVolume = 0;
     
     
     @Unfinished("For debugging only")
@@ -67,6 +72,9 @@ public class Window{
     }
     
     
+    /**
+     * Starts the program using default dungeon parameters.
+     */
     private static void quickStart(){
         SPEED_TESTER.start();
         DungeonViewer viewer = new DungeonViewer();
@@ -107,6 +115,9 @@ public class Window{
         //ROBOT.spamButton(SCREEN.getGUI().getControlPanelButtons()[0], 150, 5);
     }
     
+    /**
+     * Starts the program, letting the user specify the dungeon's parameters.
+     */
     private static void start(){
         DungeonViewer viewer = new DungeonViewer();
         viewer.setState(State.CHOOSING);
@@ -114,7 +125,11 @@ public class Window{
     }
     
     
-    public static void main(String... args) throws IOException{
+    /**
+     * Runs the program.
+     * @param args The command line arguments.
+     */
+    public static void main(String... args){
         try{
             
             if(QUICK_START) quickStart();

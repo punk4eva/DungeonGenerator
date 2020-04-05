@@ -4,7 +4,6 @@ package utils.test;
 import static gui.core.DungeonViewer.HEIGHT;
 import static gui.core.DungeonViewer.WIDTH;
 import gui.core.MouseInterpreter;
-import gui.core.Window;
 import static gui.core.Window.SCREEN;
 import static gui.core.Window.VIEWER;
 import static gui.pages.DungeonScreen.ANIMATOR;
@@ -63,8 +62,6 @@ public class PerformanceLog extends PrintStream implements MouseListener, KeyLis
         println(" -   Dimensions: " + WIDTH + ", " + HEIGHT);
         println(" -   Animations: " + ANIMATOR.getAnimationNum());
         println(" -   Particles: " + ANIMATOR.getParticleNum());
-        println(" -   sfxVolume: " + Window.sfxVolume);
-        println(" -   musicVolume: " + Window.musicVolume);
         println(" -   Calibration panel: " + SCREEN.getGUI()
                 .getCalibrationPanelName());
         if(VIEWER.getArea()!=null){

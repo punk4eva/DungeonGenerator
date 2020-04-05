@@ -17,7 +17,6 @@ import java.util.function.Function;
 import utils.PriorityQueue;
 import static utils.Utils.PERFORMANCE_LOG;
 import static utils.Utils.R;
-import static utils.Utils.SPEED_TESTER;
 
 /**
  * Generates a goblin-style "centroidal" dungeon.
@@ -26,16 +25,36 @@ import static utils.Utils.SPEED_TESTER;
 public class GreedyGoblinPlacer extends AbstractRoomPlacer implements MultiPlacer{
     
     
+    /**
+     * rooms: The list of rooms remaining to add.
+     * walls: The list of available walls.
+     * maxLength: The maximum length of a corridor.
+     */
     private final List<Room> rooms;
     private final PriorityQueue<Wall> walls;
     private final int maxLength;
     
     
+    /**
+     * Creates a default instance. Uses a random wall ordering and orders the
+     * rooms by ascending size.
+     * @param a The target area.
+     * @param ro The list of rooms.
+     * @param maxCorridorLength The maximum corridor length.
+     */
     public GreedyGoblinPlacer(Area a, List<Room> ro, int maxCorridorLength){
         this(a, ro, maxCorridorLength, wall -> R.nextDouble(), 
                 AbstractRoomPlacer::roomSizeComparator);
     }
     
+    /**
+     * Creates an instance.
+     * @param a The area.
+     * @param ro The rooms to place.
+     * @param maxCorridorLength The maximum corridor length.
+     * @param ordering The function that orders the walls to choose.
+     * @param roomComparator The function that sorts the rooms.
+     */
     public GreedyGoblinPlacer(Area a, List<Room> ro, int maxCorridorLength, Function<Wall, Double> ordering, Comparator<Room> roomComparator){
         super(a);
         maxLength = maxCorridorLength;
@@ -47,28 +66,36 @@ public class GreedyGoblinPlacer extends AbstractRoomPlacer implements MultiPlace
 
     @Override
     public void generate(){
+        //Places the starting room in the area.
         placeInitialRoom(popStartingRoom());
         
         Room r;
         Wall toRemove = null;
+        //Loops through the rooms.
         for(int n=0;n<rooms.size();n++){
             r = rooms.get(n);
+            //Rotates the current room
             if(!r.doorStyle.equals(DoorStyle.SOUTH))
                 r.randomizeOrientation();
-            
+            //A flag to see whether the room could be successfully placed.
             boolean placed = false;
             
+            //Loops through the walls to find one to place the room on.
             for(Wall wall : walls){
+                //Rotates the room if it needs to face the correct direction.
                 if(r.doorStyle.equals(DoorStyle.SOUTH)){
                     if(wall.orientation%2==1) r.orientation = (wall.orientation+2)%4;
                     else r.orientation = wall.orientation;
                 }
-                int[] c;
+                int[] coords;
+                //Decreases from a random corridor length until the room is 
+                //placeable.
                 for(int corLength = R.nextInt(maxLength+1);corLength>=0;corLength--){
                     if(corLength==1) continue;
-                    c = wall.getCoordinates(r, corLength);
-                    if(spaceFree(c[0], c[1], r.getWidth(), r.getHeight())){
-                        placeRoom(c[0], c[1], r, wall, n+1);
+                    coords = wall.getCoordinates(r, corLength);
+                    //Places the room if there is space free.
+                    if(spaceFree(coords[0], coords[1], r.getWidth(), r.getHeight())){
+                        placeRoom(coords[0], coords[1], r, wall, n+1);
                         placed = true;
                         break;
                     }
@@ -78,6 +105,7 @@ public class GreedyGoblinPlacer extends AbstractRoomPlacer implements MultiPlace
                     break;
                 }
             }
+            //Removes the now used up wall if there was a placement.
             if(placed){
                 walls.remove(toRemove);
             }else{
@@ -87,10 +115,16 @@ public class GreedyGoblinPlacer extends AbstractRoomPlacer implements MultiPlace
         }
     }
     
+    
+    /**
+     * Gets the initial room to start the generation with.
+     * @return The first room in the list with free door placement range.
+     */
     private Room popStartingRoom(){
         Room room;
         Iterator<Room> iter = rooms.iterator();
-        
+        //Iterates through the room list and pops the first room with the "ANY"
+        //Door placement tag.
         while(iter.hasNext()){
             room = iter.next();
             if(room.doorStyle.equals(DoorStyle.ANY)){
@@ -98,31 +132,48 @@ public class GreedyGoblinPlacer extends AbstractRoomPlacer implements MultiPlace
                 return room;
             }
         }
+        //If there is no such room, a new room is generated.
         return new PlainRoom(5 + R.nextInt(5) * 2, 5 + R.nextInt(5) * 2);
-    }
+    }    
     
+    /**
+     * Places the starting room.
+     * @param room The first room.
+     */
     private void placeInitialRoom(Room room){
+        //Rotates the room.
         room.randomizeOrientation();
+        //Places the room in the center of the Area.
         int x = (area.info.width-room.getWidth())/2;
         int y = (area.info.height-room.getHeight())/2;
         markAndBlit(room, x, y, 0);
         
+        //Adds the walls to the list of available walls.
         walls.add(new Wall(x, y, room.getWidth(), 0, room::getEntrance));
         walls.add(new Wall(x+room.getWidth()-1, y, room.getHeight(), 1, room::getEntrance));
         walls.add(new Wall(x, y+room.getHeight()-1, room.getWidth(), 2, room::getEntrance));
         walls.add(new Wall(x, y, room.getHeight(), 3, room::getEntrance));
     }
     
-    private void placeRoom(int x, int y, Room room, Wall wall, int n){
-        markAndBlit(room, x, y, n);
-        
+    /**
+     * Places a room in the Area.
+     * @param x The top-left x.
+     * @param y The top-left y.
+     * @param room The room to place.
+     * @param wall The existing wall that will connect the room.
+     * @param roomNumber The room number.
+     */
+    private void placeRoom(int x, int y, Room room, Wall wall, int roomNumber){
+        //Adds the room to the area.
+        markAndBlit(room, x, y, roomNumber);
+        //Adds the 3 newly exposed walls to the wall list.
         if(room.doorStyle.equals(DoorStyle.ANY)){
             if(wall.orientation!=2) walls.add(new Wall(x, y, room.getWidth(), 0, room::getEntrance));
             if(wall.orientation!=3) walls.add(new Wall(x+room.getWidth()-1, y, room.getHeight(), 1, room::getEntrance));
             if(wall.orientation!=0) walls.add(new Wall(x, y+room.getHeight()-1, room.getWidth(), 2, room::getEntrance));
             if(wall.orientation!=1) walls.add(new Wall(x, y, room.getHeight(), 3, room::getEntrance));
         }
-        
+        //Extends a corridor between the new room and the existing complex.
         switch(wall.orientation){
             case 0: extendNorthCorridor(x, y, wall, room);
                 break;
@@ -135,32 +186,63 @@ public class GreedyGoblinPlacer extends AbstractRoomPlacer implements MultiPlace
         }
     }
     
-    private void markAndBlit(Room r, int x, int y, int n){
-        mark(x+1, y+1, r.getWidth()-2, r.getHeight()-2, n);
+    /**
+     * Adds the Room to the Area.
+     * @param r The Room.
+     * @param x The top-left x.
+     * @param y The top-left y.
+     * @param roomNumber The room number.
+     */
+    private void markAndBlit(Room r, int x, int y, int roomNumber){
+        //Marks the surrounding space on the graph to prevent room clipping.
+        mark(x+1, y+1, r.getWidth()-2, r.getHeight()-2, roomNumber);
+        //Adds the room to the area.
         area.blitRoom(r, x, y);
     }
     
+    /**
+     * Creates a corridor north from the given (x, y) point.
+     * @param x
+     * @param y
+     * @param wall The wall to extend from.
+     * @param room The Room to extend to.
+     */
     private void extendNorthCorridor(int x, int y, Wall wall, Room room){
+        //Gets the initial point of the corridor randomly.
         x = getCorridorPoint(wall.x, wall.length, room.getWidth());
+        //If the room needs no corridor, just creates a door.
         if(y+room.getHeight()-1==wall.y){
             area.map[wall.y][x] = room.getEntrance(area);
         }else{
+            //Otherwise creates a corridor.
             area.map[wall.y][x] = wall.doorFunction.apply(area);
+            //Adjusts the relevant coordinate until the room is intersected.
             for(y=wall.y-1;true;y--){
                 if(area.graph.map[y-1][x].roomNum>-1) break;
+                //Generates the floor and wall of the corridor at that point.
                 area.map[y][x] = Tile.genFloor(area);
                 if(area.map[y][x-1]==null || !area.map[y][x-1].equals(Type.FLOOR)) 
                     area.map[y][x-1] = Tile.genWall(area);
                 if(area.map[y][x+1]==null || !area.map[y][x+1].equals(Type.FLOOR)) 
                     area.map[y][x+1] = Tile.genWall(area);
+                //Marks the space in the Area as corridor.
                 area.graph.map[y][x].roomNum = -2;
                 area.graph.map[y][x-1].roomNum = -2;
                 area.graph.map[y][x+1].roomNum = -2;
             }
+            //Creates an entrance for the room.
             area.map[y][x] = room.getEntrance(area);
         }
     }
     
+    /**
+     * Creates a corridor east from the given (x, y) point.
+     * See extendNorthCorridor() for fuller method Javadocs.
+     * @param x
+     * @param y
+     * @param wall The wall to extend from.
+     * @param room The Room to extend to.
+     */
     private void extendEastCorridor(int x, int y, Wall wall, Room room){
         y = getCorridorPoint(wall.y, wall.length, room.getHeight());
         if(x==wall.x){
@@ -182,6 +264,14 @@ public class GreedyGoblinPlacer extends AbstractRoomPlacer implements MultiPlace
         }
     }
     
+    /**
+     * Creates a corridor south from the given (x, y) point.
+     * See extendNorthCorridor() for fuller method Javadocs.
+     * @param x
+     * @param y
+     * @param wall The wall to extend from.
+     * @param room The Room to extend to.
+     */
     private void extendSouthCorridor(int x, int y, Wall wall, Room room){
         x = getCorridorPoint(wall.x, wall.length, room.getWidth());
         if(y==wall.y){
@@ -203,6 +293,14 @@ public class GreedyGoblinPlacer extends AbstractRoomPlacer implements MultiPlace
         }
     }
     
+    /**
+     * Creates a corridor west from the given (x, y) point.
+     * See extendNorthCorridor() for fuller method Javadocs.
+     * @param x
+     * @param y
+     * @param wall The wall to extend from.
+     * @param room The Room to extend to.
+     */
     private void extendWestCorridor(int x, int y, Wall wall, Room room){
         y = getCorridorPoint(wall.y, wall.length, room.getHeight());
         if(x+room.getWidth()-1==wall.x){
@@ -224,6 +322,14 @@ public class GreedyGoblinPlacer extends AbstractRoomPlacer implements MultiPlace
         }
     }
     
+    /**
+     * Gets a random point on the existing wall that will result in a corridor
+     * intersecting the new wall.
+     * @param wallX The start coordinate of the wall.
+     * @param wallLength The length of the existing wall.
+     * @param roomLength The length of the new wall.
+     * @return A coordinate to start the corridor at.
+     */
     private int getCorridorPoint(int wallX, int wallLength, int roomLength){
         if(wallLength<roomLength){
             return wallX + R.nextInt(wallLength-2) + 1;
@@ -231,11 +337,31 @@ public class GreedyGoblinPlacer extends AbstractRoomPlacer implements MultiPlace
     }
     
     
+    /**
+     * Represents a wall of a room.
+     */
     public static class Wall{
     
+        
+        /**
+         * x, y: The position of the top-left of the wall.
+         * length: The length of the wall.
+         * orientation: The rotation code of the wall, following the convention
+         * given in the Area class.
+         * doorFunction: Creates a door for this wall.
+         */
         private final int x, y, length, orientation;
         private final Function<Area, PassageTile> doorFunction;
         
+        /**
+         * Creates a new instance by initializing the fields in order of 
+         * declaration.
+         * @param _x
+         * @param _y
+         * @param len
+         * @param orient
+         * @param func
+         */
         private Wall(int _x, int _y, int len, int orient, Function<Area, PassageTile> func){
             x = _x;
             y = _y;
@@ -244,6 +370,13 @@ public class GreedyGoblinPlacer extends AbstractRoomPlacer implements MultiPlace
             doorFunction = func;
         }
         
+        /**
+         * Gets the coordinates of centre of the wall relative to the given 
+         * room.
+         * @param r The room.
+         * @param corLength The length of the corridor.
+         * @return
+         */
         private int[] getCoordinates(Room r, int corLength){
             switch(orientation){
                 case 0: return new int[]{x + (length-r.getWidth())/2,

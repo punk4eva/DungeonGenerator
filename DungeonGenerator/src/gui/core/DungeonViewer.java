@@ -9,8 +9,8 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
-import utils.Utils.ThreadUsed;
 import static utils.Utils.PERFORMANCE_LOG;
+import utils.Utils.ThreadUsed;
 
 /**
  * The main hub class of the project. It manages the different states and 
@@ -37,6 +37,7 @@ public class DungeonViewer extends Canvas implements Runnable{
     public static final int WIDTH, HEIGHT;
     public static final Color BACKGROUND_COLOR = new Color(20,20,20);
     static{
+        //Figures out the height and width of the user's display.
         Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         WIDTH = (int)screen.getWidth();
         HEIGHT = (int)screen.getHeight();
@@ -45,6 +46,17 @@ public class DungeonViewer extends Canvas implements Runnable{
                         + "minimum screen size is 300 by 300.");
     }
 
+    /**
+     * running: Whether the program is running.
+     * state: The current state of the program.
+     * runThread: The thread that runs the program.
+     * window: The backbone window component of the gui.
+     * DUNGEON_SCREEN: The screen that displays the dungeon.
+     * LOADING_SCREEN: The default screen that displays when the program is 
+     * loading the dungeon.
+     * SELECTION_SCREEN: The screen that handles direct user input when 
+     * specifying the parameters of the dungeon.
+     */
     protected volatile boolean running = false;
     private State state;
     protected Thread runThread;
@@ -161,10 +173,18 @@ public class DungeonViewer extends Canvas implements Runnable{
         LOADING_SCREEN.setMessage(str);
     }
     
+    /**
+     * Returns the vertical size of the title bar.
+     * @return The pixel height.
+     */
     public int getTitleBarSize(){
         return window.frame.getInsets().top;
     }
     
+    /**
+     * Gets the border size on the right of the display.
+     * @return pixel amount.
+     */
     public int getRightLostSpace(){
         return window.frame.getInsets().right;
     }
