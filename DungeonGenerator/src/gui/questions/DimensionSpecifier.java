@@ -5,18 +5,24 @@ import gui.pages.SelectionScreen;
 import gui.tools.IntegerBox;
 
 /**
- *
+ * The user selects the dimensions of the area.
  * @author Adam Whittaker
  */
 public final class DimensionSpecifier extends Specifier{
     
     
+    /**
+     * The default dimensions.
+     */
     public static final int[] DEFAULT_DIMENSIONS = new int[]{80, 80, 27};
 
     
+    /**
+     * Creates a new instance.
+     */
     private DimensionSpecifier(){
         super("Specify the size of the area");
-        
+        //Adds the questions about the dimensions and number of rooms.
         boxes.put("width", new IntegerBox(BOX_X, y, BOX_WIDTH, 
                 MENU_HEIGHT, 40, 500, DEFAULT_DIMENSIONS[0]));
         boxes.put("height", new IntegerBox(BOX_X, y + MENU_HEIGHT + PADDING, 
@@ -28,6 +34,7 @@ public final class DimensionSpecifier extends Specifier{
     
     @Override
     public void process(SelectionScreen sc){
+        //Adds the information to the input collector.
         sc.getInputCollector().collect(new int[]{
             (int)boxes.get("width").getValue(),
             (int)boxes.get("height").getValue(),

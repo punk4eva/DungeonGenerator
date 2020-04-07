@@ -12,13 +12,16 @@ import gui.pages.SelectionScreen;
 import gui.tools.DropDownMenu;
 
 /**
- *
+ * User chooses the corridor generation algorithm.
  * @author Adam Whittaker
  */
 public class CorridorMenu extends 
         DropDownMenu<ClassSpecifier<? extends PostCorridorPlacer>>{
 
     
+    /**
+     * Creates a new instance.
+     */
     public CorridorMenu(){
         super("Select the corridor generation algorithm", WIDTH/3);
         

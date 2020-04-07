@@ -12,16 +12,26 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- *
+ * Specifies the parameters of the given room placer.
  * @author Adam Whittaker
- * @param <T>
+ * @param <T> The type of the room placer.
  */
 public class RoomPlacerSpecifier<T extends RoomPlacer> extends ClassSpecifier<T>{
     
     
+    /**
+     * The room placer's type.
+     */
     public final Class<T> type;
 
     
+    /**
+     * Creates an instance.
+     * @param con The constructor.
+     * @param algName The name of the algorithm.
+     * @param ti The title.
+     * @param typ The class type of the algorithm.
+     */
     public RoomPlacerSpecifier(Constructor<T> con, 
             Class<T> typ, String algName, String ti){
         super(con, algName, ti);
@@ -29,6 +39,12 @@ public class RoomPlacerSpecifier<T extends RoomPlacer> extends ClassSpecifier<T>
     }
     
     
+    /**
+     * Creates an instance of the room placer using the given parameters.
+     * @param area The Area.
+     * @param rooms The rooms to place.
+     * @return A room placement algorithm.
+     */
     public final RoomPlacer apply(Area area, List<Room> rooms){
         List<Object> params = boxes.entrySet().stream()
                 .map(entry -> entry.getValue().getValue())

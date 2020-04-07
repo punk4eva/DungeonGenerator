@@ -7,14 +7,19 @@ import java.awt.Graphics2D;
 import utils.Utils.Unfinished;
 
 /**
- *
+ * A simple button implementation.
  * @author Adam Whittaker
  */
 @Unfinished("Rework to make more similar to other input boxes and think about getValue()")
 public abstract class Button extends InputBox{
     
     
-    private static final int BUTTON_DURATION = 50;   
+    /**
+     * BUTTON_CLICK_DURATION: The duration that the button remains in the "clicked"
+     * animation state.
+     * selected: Whether the button is clicked.
+     */
+    private static final int BUTTON_CLICK_DURATION = 50;   
     protected boolean selected = false;
     
     
@@ -47,10 +52,13 @@ public abstract class Button extends InputBox{
     }
     
     
+    /**
+     * Adds the click animation to the animator.
+     */
     private void registerClickAnimation(){
         ANIMATOR.add(new Animation(){
             
-            private int duration = BUTTON_DURATION;
+            private int duration = BUTTON_CLICK_DURATION;
             
             @Override
             public void animate(Graphics2D g, int focusX, int focusY, int frames){

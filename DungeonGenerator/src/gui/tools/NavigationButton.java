@@ -7,18 +7,26 @@ import static gui.tools.InputBox.MENU_HEIGHT;
 import java.awt.Graphics2D;
 
 /**
- *
+ * A button that navigates between different panels in the selection screen.
  * @author Adam Whittaker
  */
 public abstract class NavigationButton extends Button{
 
     
+    /**
+     * name: The name of the button.
+     */
     protected final String name;
     
     
-    public NavigationButton(int _x, String n){
-        super(_x, HEIGHT/5, WIDTH/8, MENU_HEIGHT);
-        name = n;
+    /**
+     * Creates an instance.
+     * @param x The x coordinate of the button
+     * @param name The name of the button.
+     */
+    public NavigationButton(int x, String name){
+        super(x, HEIGHT/5, WIDTH/8, MENU_HEIGHT);
+        this.name = name;
     }
     
 

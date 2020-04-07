@@ -18,40 +18,67 @@ import java.util.stream.Collectors;
 import static utils.Utils.spaceCamelCase;
 
 /**
- *
+ * A question that lets the user choose all the attributes of a class based on a
+ * given constructor.
  * @author Adam Whittaker
- * @param <T>
+ * @param <T> The type of the object that will be constructed.
  */
 public class ClassSpecifier<T extends Object> extends Specifier{
     
     
+    /**
+     * construct: The constructor to ask the user about.
+     * algorithmName: The user friendly name of the class to display.
+     */
     private final Constructor<T> construct;
     private final String algorithmName;
     
     
+    /**
+     * Creates an instance of the specifier.
+     * @param v The viewer.
+     * @param con The constructor.
+     * @param algName The name of the algorithm.
+     * @param ti The title.
+     * @param width The width of the menu.
+     * @param height The height of the menu.
+     */
     public ClassSpecifier(DungeonViewer v, Constructor<T> con, String algName, String ti, int width, int height){
         super(v, ti, width, height);
         construct = con;
         algorithmName = algName;
-        
+        //Creates questions for all the parameters of the constructor.
         int yInc = MENU_HEIGHT + PADDING, _y = y;
         for(Parameter param : construct.getParameters()){
             if(!Area.class.isAssignableFrom(param.getType()) 
                     && !List.class.isAssignableFrom(param.getType())){
-                addToMap(param, _y);
+                addQuestionToMap(param, _y);
                 _y += yInc;
             }
         }
     }
     
+    /**
+     * Creates an instance with the default width and height (Assumes the 
+     * dungeon viewer exists).
+     * @param con The constructor.
+     * @param algName The name of the algorithm.
+     * @param ti The title.
+     */
     public ClassSpecifier(Constructor<T> con, String algName, String ti){
         this(VIEWER, con, algName, ti, WIDTH/3, HEIGHT/3);
     }
 
     
+    /**
+     * Constructs an instance of the given type using the list of parameters.
+     * @param params The list of user specified parameters.
+     * @return A new instance of the object.
+     */
     protected T construct(List<Object> params){
         try{
             return construct.newInstance(params.toArray());
+            //Error handling
         }catch(InstantiationException e){
             System.out.println("Invalid parameters for " + algorithmName +": " + params);
             throw new IllegalStateException(e);
@@ -65,6 +92,12 @@ public class ClassSpecifier<T extends Object> extends Specifier{
         return algorithmName;
     }
     
+    /**
+     * Translates a given parameter name into the boundary values that it can
+     * take.
+     * @param name The name of the parameter.
+     * @return An integer array in the form {min, max}.
+     */
     protected int[] getBounds(String name){
         switch(name){
             case "windyness":
@@ -83,11 +116,19 @@ public class ClassSpecifier<T extends Object> extends Specifier{
         throw new IllegalStateException("Unrecognised parameter: " + name);
     }
     
-    private void addToMap(Parameter param, int y){
+    /**
+     * Creates and adds a question to the map of all questions.
+     * @param param The parameter.
+     * @param y The y coordinate at which the question should be placed.
+     */
+    private void addQuestionToMap(Parameter param, int y){
+        //Checks that the parameter was compiled with its name.
         if(!param.isNamePresent()) throw new IllegalStateException("The project"
                 + " has been erroneously compiled! Please include the "
                 + "\"-parameter\" when compiling.");
         
+        //Classifies the parameter based on its type and generates the 
+        //appropriate question.
         if(param.getType().equals(boolean.class)){
             boxes.put(spaceCamelCase(param.getName()), 
                     new Toggle(BOX_X, y, MENU_HEIGHT, MENU_HEIGHT));
@@ -108,6 +149,8 @@ public class ClassSpecifier<T extends Object> extends Specifier{
     
     @Override
     public void process(SelectionScreen sc){
+        //Collects the paramtere and constructs a new instance with them, adding
+        //it to the input collector.
         List<Object> params = boxes.entrySet().stream()
                 .map(entry -> entry.getValue().getValue())
                 .collect(Collectors.toList());

@@ -9,13 +9,16 @@ import gui.pages.SelectionScreen;
 import gui.tools.DropDownMenu;
 
 /**
- *
+ * The user chooses a room placement algorithm.
  * @author Adam Whittaker
  */
 public class RoomPlacerMenu extends 
         DropDownMenu<ClassSpecifier<? extends RoomPlacer>>{
 
     
+    /**
+     * Creates an instance.
+     */
     public RoomPlacerMenu(){
         super("Select the room placement algorithm", WIDTH/3);
         
