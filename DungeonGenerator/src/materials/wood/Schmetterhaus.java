@@ -4,7 +4,7 @@ package materials.wood;
 import textureGeneration.ImageBuilder;
 
 /**
- *
+ * Represents a fantasy wood.
  * @author Adam Whittaker
  */
 public class Schmetterhaus extends Wood{

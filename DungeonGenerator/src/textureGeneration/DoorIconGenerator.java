@@ -122,16 +122,19 @@ public class DoorIconGenerator{
      * @param ty The tile y.
      */
     private void fillFloor(BufferedImage img, int tx, int ty){
+        //Construct a full floor image.
         SerImage floor = info.architecture.floorMaterial.texture.generateImage(tx, ty, info.floorNoise);
         floor.buildImage();
         WritableRaster raster = img.getRaster(), floorRaster = floor.image.getRaster();
         int[] pixel = new int[4];
         int temp;
-        
+        //Loop through all pixels.
         for(int y=0;y<img.getHeight();y++)
             for(int x=0;x<img.getWidth();x++){
                 pixel = raster.getPixel(x, y, pixel);
+                //If the pixel is black.
                 if(pixel[0]==0 && pixel[1]==0 && pixel[2]==0){
+                    //Colors the pixel in like a floor.
                     temp = pixel[3];
                     pixel = floorRaster.getPixel(x, y, pixel);
                     pixel[3] = 255 - temp;
@@ -147,27 +150,36 @@ public class DoorIconGenerator{
      * @param ty The tile y.
      */
     private void fillDoor(BufferedImage img, int tx, int ty){
+        //Contruct the door image.
         SerImage door = info.architecture.doorMaterial.texture.generateImage(tx, ty, info.wallNoise);
         door.buildImage();
         WritableRaster raster = img.getRaster(), doorRaster = door.image.getRaster();
         int[] pixel = new int[4];
         int temp;
-        
+        //Loop through all pixels.
         for(int y=0;y<img.getHeight();y++)
             for(int x=0;x<img.getWidth();x++){
                 pixel = raster.getPixel(x, y, pixel);
+                //If the pixel is black.
                 if(pixel[0]==0 && pixel[1]==0 && pixel[2]==0){
                     temp = pixel[3];
-                    pixel = doorRaster.getPixel(y, x, pixel); //intentional reflection in line y = x
+                    //intentional reflection in line y = x to vary it from floor.
+                    pixel = doorRaster.getPixel(y, x, pixel);
                     pixel[3] = 255 - temp;
+                    //Colors the pixel like a door.
                     raster.setPixel(x, y, pixel);
                 }
         }
-        
+        //Draws in the handle.
         img.getGraphics().drawImage(ImageBuilder.getImageFromFile("tiles/handle.png"), 0, 0, null);
     }
     
     
+    /**
+     * Gets a random door background texture.
+     * @param doorDistrib The distribution of textures.
+     * @return a BufferedImage regex texture.
+     */
     public static BufferedImage getRandomDoorBackground(Distribution doorDistrib){
         switch(doorDistrib.next()){
             case 0: return ImageBuilder.getImageFromFile("tiles/doors/rectDoor.png");

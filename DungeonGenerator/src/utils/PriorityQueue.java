@@ -83,14 +83,15 @@ public class PriorityQueue<T extends Object> extends LinkedList<T> implements Co
     
     @Override
     public boolean add(T element){
+        //Iterates through the existing elements until one is found that is 
+        //lower priority.
         for(int n=0;n<size();n++){
-            if(compare(element, get(n))==-1){
+            if(compare(element, get(n))<0){
                 add(n, element);
                 return true;
             }
         }
-        super.add(element);
-        return true;
+        return super.add(element);
     }
     
     /**

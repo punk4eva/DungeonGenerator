@@ -109,12 +109,18 @@ public final class ImageBuilder{
         return colorToPixelArray(c, false);
     }
     
-    public static ImageIcon getRandomIcon(){
+    
+    /**
+     * Gets a random icon for the toolbar.
+     * @return an image icon.
+     */
+    public static ImageIcon getRandomToolBarIcon(){
         switch(R.nextInt(1)){
             case 0: return new ImageIcon("graphics/gui/icon64.png");
         }
         throw new IllegalStateException();
     }
+    
     
     /**
      * Converts the given image to RGB-only format by redrawing it.
@@ -127,6 +133,14 @@ public final class ImageBuilder{
         return ret;
     }
     
+    
+    /**
+     * Makes the given color slightly bluer.
+     * @param col The color.
+     * @param factor The amount to adjust it by.
+     * @param preserveBrightness whether to keep the image as bright as before.
+     * @return An adjusted color.
+     */
     public static Color makeBluer(Color col, double factor, boolean preserveBrightness){
         Color c = new Color(col.getRed(), col.getGreen(), 
                 col.getBlue() + (int)((255D - col.getBlue())*factor));
@@ -134,6 +148,13 @@ public final class ImageBuilder{
         else return c;
     }
     
+    /**
+     * Makes the given color slightly greener.
+     * @param col The color.
+     * @param factor The amount to adjust it by.
+     * @param preserveBrightness whether to keep the image as bright as before.
+     * @return An adjusted color.
+     */
     public static Color makeGreener(Color col, double factor, boolean preserveBrightness){
         Color c = new Color(col.getRed(), 
                 col.getGreen() + (int)((255D - col.getGreen())*factor), 
@@ -142,6 +163,13 @@ public final class ImageBuilder{
         else return c;
     }
     
+    /**
+     * Makes the given color slightly redder.
+     * @param col The color.
+     * @param factor The amount to adjust it by.
+     * @param preserveBrightness whether to keep the image as bright as before.
+     * @return An adjusted color.
+     */
     public static Color makeRedder(Color col, double factor, boolean preserveBrightness){
         Color c = new Color(col.getRed() + (int)((255D - col.getRed())*factor),
                 col.getGreen(), col.getBlue());
@@ -149,10 +177,21 @@ public final class ImageBuilder{
         else return c;
     }
     
+    /**
+     * Gets the brightness level of the color (Average of RGB values).
+     * @param col The color.
+     * @return A 0->255 int.
+     */
     public static int getBrightness(Color col){
         return (col.getBlue() + col.getGreen() + col.getRed())/3;
     }
     
+    /**
+     * Sets the brightness of the given color.
+     * @param col The color.
+     * @param brightness The new brightness (0->255).
+     * @return An adjusted color.
+     */
     public static Color setBrightness(Color col, double brightness){
        double factor = brightness / getBrightness(col);
        return new Color((int)(col.getRed()*factor), 

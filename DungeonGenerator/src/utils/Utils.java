@@ -20,7 +20,6 @@ import static textureGeneration.Texture.rgbPixelEquals;
 import utils.test.AutoClicker;
 import utils.test.PerformanceLog;
 import utils.test.SpeedTester;
-import utils.test.StressTester;
 
 /**
  * A static library of miscellaneous functions, utilities and a main method for 
@@ -40,13 +39,14 @@ public final class Utils{
      * R: The randomizer for the project.
      * PERFORMANCE_LOG: The crash and performance logger.
      * SPEED_TESTER: The speed tester.
+     * ROBOT: An entity which can perform automatic clicks at high-speed.
      */
     public static final Random R = new Random();
     public static PerformanceLog PERFORMANCE_LOG;
     public final static SpeedTester SPEED_TESTER = new SpeedTester();
-    public final static StressTester STRESS_TESTER = new StressTester();
     public static AutoClicker ROBOT;
     static{
+        //Initializes the performance logs and auto-clicker.
         try{
             PERFORMANCE_LOG = new PerformanceLog();
         }catch(FileNotFoundException e){
@@ -140,6 +140,7 @@ public final class Utils{
         if(str.startsWith("-")) str = str.substring(1);
         if(str.isEmpty() || str.startsWith(".") || str.endsWith(".")) return false;
         boolean dot = false; //If a decimal point has been found in the string.
+        //Iterates through all the string's characters.
         for(char c : str.toCharArray()){
             if(!isDigit(c)){
                 if(c=='.'){
@@ -184,16 +185,42 @@ public final class Utils{
         return (1D - x) * a + x * b;
     }
     
+    /**
+     * interpolates between three points by using a triangular function (two
+     * sloping lines).
+     * @param input The input to predict.
+     * @param x0 The input at the start.
+     * @param x1 The input at the middle.
+     * @param x2 The input at the end.
+     * @param y0 The output at the start.
+     * @param y1 The output at the middle.
+     * @param y2 The output at the end.
+     * @return The predicted output value.
+     */
     public static double triangulate(double input, double x0, double x1, double x2,
             double y0, double y1, double y2){
         if(input<x1) return gradient(x0, y0, x1, y1)*(input-x1) + y1;
         else return gradient(x1, y1, x2, y2)*(input-x1) + y1;
     }
     
+    /**
+     * Finds the gradient of the line between two given points.
+     * @param x0
+     * @param y0
+     * @param x1
+     * @param y1
+     * @return
+     */
     public static double gradient(double x0, double y0, double x1, double y1){
         return (y1-y0)/(x1-x0);
     }
     
+    /**
+     * Computes the average of the nth entries in the given array of arrays.
+     * @param n The index.
+     * @param arrays The arrays.
+     * @return The average for that entry.
+     */
     public static int indexAverage(int n, int[]... arrays){
         int total = 0;
         for(int[] ary : arrays)
@@ -201,10 +228,21 @@ public final class Utils{
         return total/arrays.length;
     }
     
+    /**
+     * Capitalizes the first letter of the string.
+     * @param str The string.
+     * @return
+     */
     public static String capitalize(String str){
         return toUpperCase(str.charAt(0)) + str.substring(1);
     }
     
+    /**
+     * Converts parameter names of the form "thisIsAnExample" to user friendly
+     * "This Is An Example".
+     * @param str The string.
+     * @return
+     */
     public static String spaceCamelCase(String str){
         for(int n=0;n<str.length();n++){
             if(isUpperCase(str.charAt(n))){
@@ -215,6 +253,12 @@ public final class Utils{
         return capitalize(str);
     }
     
+    /**
+     * Converts strings of the form "this_is_an_example" to user friendly
+     * "This Is An Example".
+     * @param str The string.
+     * @return
+     */
     public static String convertUnderscoreCase(String str){
         boolean allowCapital = true;
         for(int n=0;n<str.length();n++){
@@ -230,6 +274,14 @@ public final class Utils{
         return str;
     }
     
+    /**
+     * Substitutes the letter in the given index of the string with the given
+     * character.
+     * @param str The string.
+     * @param n The index.
+     * @param sub The substitute character.
+     * @return
+     */
     public static String substitute(String str, int n, char sub){
         return str.substring(0, n) + sub + str.substring(n+1);
     }

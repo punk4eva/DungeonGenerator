@@ -4,7 +4,7 @@ package materials.wood;
 import textureGeneration.ImageBuilder;
 
 /**
- *
+ * Represents fantasy wood found in cold places.
  * @author Adam Whittaker
  */
 public class WhiteMagmatia extends Wood{

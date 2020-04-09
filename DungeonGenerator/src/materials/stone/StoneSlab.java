@@ -1,8 +1,6 @@
 
 package materials.stone;
 
-import textureGeneration.DichromeTexture;
-import textureGeneration.Texture;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
@@ -11,6 +9,8 @@ import static java.lang.Math.min;
 import static java.lang.Math.pow;
 import java.util.function.BiFunction;
 import materials.Material;
+import textureGeneration.DichromeTexture;
+import textureGeneration.Texture;
 import static utils.Utils.R;
 
 /**
@@ -48,6 +48,8 @@ public class StoneSlab extends Material{
         WritableRaster raster = img.getRaster();
         int[] pixel = new int[4];
         double prob;
+        //Loops through all pixels and assigns them a color based on the 
+        //probability function.
         for(int y=0;y<img.getHeight();y++){
             for(int x=0;x<img.getWidth();x++){
                 pixel = raster.getPixel(x, y, pixel);

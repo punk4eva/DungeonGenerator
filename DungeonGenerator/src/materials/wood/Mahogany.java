@@ -1,7 +1,6 @@
 
 package materials.wood;
 
-import materials.wood.Wood;
 import textureGeneration.ImageBuilder;
 
 /**

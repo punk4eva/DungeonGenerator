@@ -3,11 +3,11 @@ package materials;
 
 import biomes.Biome;
 import biomes.Society;
-import textureGeneration.DichromeTexture;
-import textureGeneration.Texture;
-import textureGeneration.ImageBuilder;
 import java.awt.Color;
 import java.util.Objects;
+import textureGeneration.DichromeTexture;
+import textureGeneration.ImageBuilder;
+import textureGeneration.Texture;
 
 /**
  * This class represents a real world material with a unique texture.
@@ -26,7 +26,7 @@ public abstract class Material{
      * minHeight, maxHeight: The altitude boundaries where the material spawns.
      * furniture, door, floor, wall: Whether the material can be used to make
      * the respective tile types.
-     * filter: The texture of the material.
+     * texture: The texture of the material.
      */
     public final String description;
     public final Color color;

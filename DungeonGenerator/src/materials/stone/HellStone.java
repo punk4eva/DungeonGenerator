@@ -7,7 +7,7 @@ import textureGeneration.ImageBuilder;
 import textureGeneration.Texture;
 
 /**
- *
+ * Represents the type of stone found in hell.
  * @author Adam Whittaker
  */
 public class HellStone extends Material{

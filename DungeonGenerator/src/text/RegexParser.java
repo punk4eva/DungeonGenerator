@@ -110,6 +110,7 @@ public final class RegexParser{
         "cockroach", "slug", "worm", "wasp", "moth"};
     
     static{
+        //Pairs the regular expressions with their meanings.
         EXPRESSIONS.put("<rune>", () -> getRandomElement(RUNE_DESC));
         EXPRESSIONS.put("<color>", () -> getRandomElement(COLOR));
         EXPRESSIONS.put("<red>", () -> getRandomElement(RED_COLORS));
@@ -128,7 +129,7 @@ public final class RegexParser{
         EXPRESSIONS.put("<pile>", () -> getRandomElement(PILE));
         EXPRESSIONS.put("<book>", () -> getRandomElement(BOOK));
         EXPRESSIONS.put("<critter>", () -> getRandomElement(CRITTER));        
-        
+        //Creates a randomized texture description.
         EXPRESSIONS.put("<texture>", () -> {
             switch(R.nextInt(5)){
                 case 0: case 1: case 2: return getRandomElement(TEXTURE);
@@ -138,7 +139,9 @@ public final class RegexParser{
                     + getRandomElement(SHAPE) + " " + getRandomElement(new String[]{"particulates", "flakes", "particles", "residue"});
             }
         });
+        //Creates a randomized taste description.
         EXPRESSIONS.put("<taste>", () -> R.nextDouble()<0.5 ? getRandomElement(TASTE) : "like " + getRandomElement(FOOD));
+        //Creates a randomized smell description.
         EXPRESSIONS.put("<smell>", () -> {
             switch(R.nextInt(6)){
                 case 0: case 1: case 2: return getRandomElement(SMELL);
@@ -147,7 +150,6 @@ public final class RegexParser{
                 default: return "like " + getRandomElement(SMELLS_LIKE);
             }
         });
-        
     }
     
     
@@ -159,17 +161,22 @@ public final class RegexParser{
     public static String generateDescription(String blueprint){
         String text = "", exp = "";
         boolean inExpression = false, capital = false;
+        //Iterates through the text to find regular expressions.
         for(char c : blueprint.toCharArray()){
             switch(c){
                 case '<':
+                    //starts reading the expression.
                     inExpression = true;
                     exp = "<";
                     break;
                 case '>':
+                    //Stops reading the expression and substitutes in the 
+                    //generated description.
                     inExpression = false;
                     if(capital){ 
                         String temp = EXPRESSIONS.get(exp + ">").get();
-                        if(!temp.isEmpty()) text += temp.substring(0,1).toUpperCase() + temp.substring(1);
+                        if(!temp.isEmpty()) text += temp.substring(0,1)
+                                .toUpperCase() + temp.substring(1);
                         capital = false;
                     }else text += EXPRESSIONS.get(exp + ">").get();
                     break;
@@ -178,7 +185,8 @@ public final class RegexParser{
                     break;
                 default:
                     if(inExpression) exp += c;
-                    else if(c != ' ' || text.isEmpty() || text.charAt(text.length()-1) != ' '){
+                    else if(c != ' ' || text.isEmpty() || 
+                            text.charAt(text.length()-1) != ' '){
                         text += c;
                     }
                     break;

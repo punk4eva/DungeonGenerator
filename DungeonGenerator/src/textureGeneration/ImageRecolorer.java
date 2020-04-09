@@ -44,17 +44,23 @@ public class ImageRecolorer{
         WritableRaster raster = img.getRaster();
         int[] pixel = new int[4];
         int alpha, r, g, b;
-        
-        for(int y=0;y<img.getHeight();y++) for(int x=0;x<img.getWidth();x++){
+        //Loops through all the pixels.
+        for(int y=0;y<img.getHeight();y++) 
+            for(int x=0;x<img.getWidth();x++){
             pixel = raster.getPixel(x, y, pixel);
+            //Stores the alpha
             alpha = pixel[3];
+            //Loops through all the pixels that equal the reject pixel.
             for(int n=0;n<reject.length;n++) if(rgbPixelEquals(reject[n], pixel)){
+                //Creates a copy of the replacement pixel.
                 replace[n][3] = alpha;
                 r = replace[n][0];
                 g = replace[n][1];
                 b = replace[n][2];
+                //Applies a random jitter and sets the pixel.
                 applyJitter(replace[n]);
                 raster.setPixel(x, y, replace[n]);
+                //Resets the replace pixel to the original copy.
                 replace[n][0] = r;
                 replace[n][1] = g;
                 replace[n][2] = b;

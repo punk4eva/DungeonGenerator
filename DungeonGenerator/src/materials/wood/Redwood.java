@@ -4,7 +4,7 @@ package materials.wood;
 import textureGeneration.ImageBuilder;
 
 /**
- *
+ * Represents real life redwood.
  * @author Adam Whittaker
  */
 public class Redwood extends Wood{

@@ -4,7 +4,7 @@ package materials.wood;
 import textureGeneration.ImageBuilder;
 
 /**
- *
+ * Represents a fantasy wood found in geothermal hotspots.
  * @author Adam Whittaker
  */
 public class CryingBrownMagmatia extends Wood{

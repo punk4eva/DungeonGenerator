@@ -53,11 +53,17 @@ public class DichromeTexture extends Texture{
     }
     
     private void applyFilter(BufferedImage img, int _x, int _y, double[][] map){
+        //Builds a unique image for every tile if the graphics setting is high
+        //enough
         if(getSettings().GRAPHICS.code>=3) buildImage();
+        //Variable declaration.
         WritableRaster raster = img.getRaster(), filterRaster = image.getAlphaRaster();
         int[] pixel = new int[3], filterPixel = new int[4];
+        //Loops through every pixel.
         for(int y=0;y<img.getHeight();y++){
             for(int x=0;x<img.getWidth();x++){
+                //Sets the pixel to an average of hte two filter colors based on
+                //the background noise and the filter.
                 raster.setPixel(x, y, 
                         overlayColor(getColorAverage(pixel, col1, col2, map[_y+y][_x+x]),
                                 filterRaster.getPixel(x, y, filterPixel)));

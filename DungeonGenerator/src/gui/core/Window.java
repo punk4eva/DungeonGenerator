@@ -12,10 +12,10 @@ import java.awt.Toolkit;
 import java.util.LinkedList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import static textureGeneration.ImageBuilder.getRandomIcon;
 import static utils.Utils.PERFORMANCE_LOG;
 import static utils.Utils.SPEED_TESTER;
 import utils.Utils.Unfinished;
+import static textureGeneration.ImageBuilder.getRandomToolBarIcon;
 
 /**
  * The actual Window onto which everything is painted.
@@ -57,7 +57,7 @@ public class Window{
         frame.setMinimumSize(new Dimension(width, height));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
-        frame.setIconImage(getRandomIcon().getImage());
+        frame.setIconImage(getRandomToolBarIcon().getImage());
         frame.setCursor(Toolkit.getDefaultToolkit().createCustomCursor(
             new ImageIcon("graphics/gui/cursor.png").getImage(),
             new Point(0,0), "Blue Cursor"));

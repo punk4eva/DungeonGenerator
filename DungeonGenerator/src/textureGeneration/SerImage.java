@@ -11,7 +11,8 @@ import textureGeneration.ImageBuilder.SerInstruction;
 import textureGeneration.ImageBuilder.SerSupplier;
 
 /**
- *
+ * Stores an image in instruction format so that it can be regenerated from a
+ * serialized file without storing the image directly.
  * @author Adam Whittaker
  */
 public class SerImage implements Serializable{
@@ -19,6 +20,12 @@ public class SerImage implements Serializable{
     
     private static final long serialVersionUID = 80074216L;
     
+    /**
+     * image: The image.
+     * supplier: The initial instructions that supply the buffered image.
+     * instructions: The list of instructions to perform on the image.
+     * upToDate: Whether the image is as its instructions describe it.
+     */
     protected transient BufferedImage image;
     
     private final SerSupplier supplier;
@@ -26,24 +33,45 @@ public class SerImage implements Serializable{
     private transient boolean upToDate;
     
     
+    /**
+     * Create a new instance.
+     * @param s The buffered image supplier.
+     */
     public SerImage(SerSupplier s){
         supplier = s;
     }
     
+    /**
+     * Creates a new instance by extracting an image from the given filepath.
+     * @param str The filepath.
+     */
     public SerImage(String str){
         this(createSupplier(str));
     }
     
+    /**
+     * Creates an instance.
+     * @param img The image.
+     */
     public SerImage(BufferedImage img){
         this(() -> img);
     }
     
     
-    public static SerSupplier createSupplier(String str){
-        return () -> ImageBuilder.getImageFromFile(str);
+    /**
+     * Creates a supplier that retrieves the image from the given file location.
+     * @param filepath The filepath.
+     * @return
+     */
+    public static SerSupplier createSupplier(String filepath){
+        return () -> ImageBuilder.getImageFromFile(filepath);
     }
     
-    public static SerImage getBlank(){
+    /**
+     * A default convenience method that gets a blank image supplier.
+     * @return
+     */
+    public static SerImage getBlankSupplier(){
         return new SerImage(() -> new BufferedImage(16, 16, TYPE_INT_ARGB));
     }
     
@@ -80,11 +108,20 @@ public class SerImage implements Serializable{
         upToDate = false;
     }
     
+    /**
+     * Sets the image raw and sets the "up to date" flag.
+     * @param img The image.
+     * @param upToDate Whether it is up to date according to the instructions.
+     */
     public void setImage(BufferedImage img, boolean upToDate){
         image = img;
         this.upToDate = upToDate;
     }
     
+    /**
+     * Retrieves the image.
+     * @return The image.
+     */
     public BufferedImage getImage(){
         return image;
     }

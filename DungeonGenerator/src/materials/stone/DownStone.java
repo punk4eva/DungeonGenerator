@@ -7,7 +7,7 @@ import textureGeneration.ImageBuilder;
 import textureGeneration.Texture;
 
 /**
- *
+ * Represents the type of stone found in the underworld.
  * @author Adam Whittaker
  */
 public class DownStone extends Material{

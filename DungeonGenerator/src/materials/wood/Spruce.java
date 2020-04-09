@@ -4,7 +4,7 @@ package materials.wood;
 import textureGeneration.ImageBuilder;
 
 /**
- *
+ * Represents spruce wood.
  * @author Adam Whittaker
  */
 public class Spruce extends Wood{

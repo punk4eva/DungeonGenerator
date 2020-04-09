@@ -4,7 +4,7 @@ package materials.wood;
 import textureGeneration.ImageBuilder;
 
 /**
- *
+ * Represents real life palm wood.
  * @author Adam Whittaker
  */
 public class Palm extends Wood{

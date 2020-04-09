@@ -10,14 +10,8 @@ import textureGeneration.ImageBuilder.SerSupplier;
  * @author Adam Whittaker
  */
 public abstract class Texture extends SerImage{
+
     
-    
-    /**
-     * filterImage: The image that is used to recolour all relevant tile images. 
-     * supplier: The supplier of the initial filterImage.
-     * instructions: The instructions to transform the initial filterImage to
-     * its final form. These instructions are added post-instantiation.
-     */
     private static final long serialVersionUID = 427675489602L;
     
     
