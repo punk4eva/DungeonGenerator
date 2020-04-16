@@ -55,7 +55,8 @@ public class GreedyGoblinPlacer extends AbstractRoomPlacer implements MultiPlace
      * @param ordering The function that orders the walls to choose.
      * @param roomComparator The function that sorts the rooms.
      */
-    public GreedyGoblinPlacer(Area a, List<Room> ro, int maxCorridorLength, Function<Wall, Double> ordering, Comparator<Room> roomComparator){
+    public GreedyGoblinPlacer(Area a, List<Room> ro, int maxCorridorLength, Function<Wall, Double> ordering, 
+                              Comparator<Room> roomComparator){
         super(a);
         maxLength = maxCorridorLength;
         rooms = ro;
