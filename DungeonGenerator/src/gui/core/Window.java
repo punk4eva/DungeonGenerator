@@ -3,6 +3,7 @@ package gui.core;
 import components.Area;
 import components.mementoes.AreaInfo;
 import components.rooms.Room;
+import generation.corridors.OneToOneCorridorBuilder;
 import generation.rooms.*;
 import gui.core.DungeonViewer.State;
 import gui.pages.DungeonScreen;
@@ -12,10 +13,10 @@ import java.awt.Toolkit;
 import java.util.LinkedList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import static textureGeneration.ImageBuilder.getRandomToolBarIcon;
 import static utils.Utils.PERFORMANCE_LOG;
 import static utils.Utils.SPEED_TESTER;
 import utils.Utils.Unfinished;
-import static textureGeneration.ImageBuilder.getRandomToolBarIcon;
 
 /**
  * The actual Window onto which everything is painted.
@@ -87,13 +88,13 @@ public class Window{
 
         LinkedList<Room> list = RoomSelector.getDefaultRoomList(35, SCREEN.getArea());
         //BurrowCaveGrower grower = new BurrowCaveGrower(viewer.area, 0.3, 2, 9, 4, 5, 20, true);
-        //new RandomRoomPlacer(SCREEN.getArea(), list, r -> r.addDoorsSparcely(SCREEN.getArea())).generate();
-        new GreedyGoblinPlacer(SCREEN.getArea(), list, 5).generate();
+        new RandomRoomPlacer(SCREEN.getArea(), list, r -> r.addDoorsSparcely(SCREEN.getArea())).generate();
+        //new GreedyGoblinPlacer(SCREEN.getArea(), list, 5).generate();
         //new DenseFractalRoomPlacer(SCREEN.getArea(), 1).generate();
         SCREEN.getArea().refreshGraph();
         SPEED_TESTER.test("Rooms placed");
-        //new SpiderCorridorBuilder(viewer.area, 3, 4, CorridorBuilder.gaussianKernel(new Point(40, 79), 120, 24)).build();
-        //new OneToOneCorridorBuilder(viewer.area, 2, null).build();
+        //new SpiderCorridorBuilder(SCREEN.getArea(), 3, 4, CorridorBuilder.gaussianKernel(new graph.Point(40, 79), 120, 24)).generate();
+        new OneToOneCorridorBuilder(SCREEN.getArea(), 2, null).generate();
         //SPEED_TESTER.test("Corridors built");
         //new DenseFractalRoomPlacer(viewer.area, 0).generate();
         //RadialCaveGrower grower = new RadialCaveGrower(SCREEN.getArea(), 0.55, 3);
