@@ -31,69 +31,50 @@ public abstract class CorridorBuilder extends Searcher implements PostCorridorPl
      * @param b The next point in the path.
      */
     protected void extend(Point p, Point a, Point b){
-        if(!(area.map[b.y][b.x]!=null && area.map[b.y][b.x].equals(Point.Type.DOOR))) area.map[b.y][b.x] = Tile.genFloor(area);
+        //If it is not a door, make it a floor.
+        if(!(area.map[b.y][b.x]!=null && 
+                area.map[b.y][b.x].equals(Point.Type.DOOR))) 
+            area.map[b.y][b.x] = Tile.genFloor(area);
+        //If the adjacent points are horizontal.
         if(a.x!=b.x){
-            if(area.map[b.y-1][b.x]==null){
-                area.map[b.y-1][b.x] = Tile.genWall(area);
-                area.graph.map[b.y-1][b.x].isCorridor = true;
-            }
-            if(area.map[b.y+1][b.x]==null){
-                area.map[b.y+1][b.x] = Tile.genWall(area);
-                area.graph.map[b.y+1][b.x].isCorridor = true;
-            }
-            if(area.map[a.y-1][a.x]==null){
-                area.map[a.y-1][a.x] = Tile.genWall(area);
-                area.graph.map[a.y-1][a.x].isCorridor = true;
-            }
-            if(area.map[a.y+1][a.x]==null){
-                area.map[a.y+1][a.x] = Tile.genWall(area);
-                area.graph.map[a.y+1][a.x].isCorridor = true;
-            }
-            if(p==null||a.x==p.x){
-                if(area.map[a.y-1][a.x-1]==null){
-                    area.map[a.y-1][a.x-1] = Tile.genWall(area);
-                    area.graph.map[a.y-1][a.x-1].isCorridor = true;
-                }
-                if(area.map[a.y-1][a.x+1]==null){
-                    area.map[a.y-1][a.x+1] = Tile.genWall(area);
-                    area.graph.map[a.y-1][a.x+1].isCorridor = true;
-                }
-                if(area.map[a.y+1][a.x-1]==null){
-                    area.map[a.y+1][a.x-1] = Tile.genWall(area);
-                    area.graph.map[a.y+1][a.x-1].isCorridor = true;
-                }
-                if(area.map[a.y+1][a.x+1]==null){
-                    area.map[a.y+1][a.x+1] = Tile.genWall(area);
-                    area.graph.map[a.y+1][a.x+1].isCorridor = true;
-                }
-            }
+            placeWall(b.x, b.y-1);
+            placeWall(b.x, b.y+1);
+            placeWall(a.x, a.y-1);
+            placeWall(a.x, a.y+1);
+            if(p==null||a.x==p.x) buildCorridor(a);
+        //If they are vertical.
         }else{
-            if(area.map[b.y][b.x-1]==null){
-                area.map[b.y][b.x-1] = Tile.genWall(area);
-                area.graph.map[b.y][b.x-1].isCorridor = true;
-            }
-            if(area.map[b.y][b.x+1]==null){
-                area.map[b.y][b.x+1] = Tile.genWall(area);
-                area.graph.map[b.y][b.x+1].isCorridor = true;
-            }
-            if(area.map[a.y][a.x-1]==null){
-                area.map[a.y][a.x-1] = Tile.genWall(area);
-                area.graph.map[a.y][a.x-1].isCorridor = true;
-            }
-            if(area.map[a.y][a.x+1]==null){
-                area.map[a.y][a.x+1] = Tile.genWall(area);
-                area.graph.map[a.y][a.x+1].isCorridor = true;
-            }
-            if(p==null||a.x!=p.x){
-                for(int y=a.y-1;y<=a.y+1;y+=2){
-                    for(int x=a.x-1;x<=a.x+1;x+=2) if(area.map[y][x]==null){
-                        area.map[y][x] = Tile.genWall(area);
-                        area.graph.map[y][x].isCorridor = true;
-                    }
-                }
-            }
+            placeWall(b.x-1, b.y);
+            placeWall(b.x+1, b.y);
+            placeWall(a.x-1, a.y);
+            placeWall(a.x+1, a.y);
+            if(p==null||a.x!=p.x) buildCornerWall(a);
         }
     }
+    
+    /**
+     * Creates a wall at the given point.
+     * @param x The x coordinate.
+     * @param y The y coordinate.
+     */
+    private void placeWall(int x, int y){
+        if(area.map[y][x]==null){
+            area.map[y][x] = Tile.genWall(area);
+            area.graph.map[y][x].isCorridor = true;
+        }
+    }
+    
+    /**
+     * Generates walls on the corners around the given point.
+     * @param a The point.
+     */
+    private void buildCornerWall(Point a){
+        //Loops through the x and y coordinates.
+        for(int y=a.y-1;y<=a.y+1;y+=2)
+            for(int x=a.x-1;x<=a.x+1;x+=2)
+                placeWall(x, y);
+    }
+    
     
     /**
      * Builds a corridor from a singular Point after a flood fill.
