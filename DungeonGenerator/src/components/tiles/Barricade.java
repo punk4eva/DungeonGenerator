@@ -24,7 +24,8 @@ public class Barricade extends PassageTile{
      * @param p Whether the pathfinding algorithm should consider this barricade.
      */
     public Barricade(boolean p){
-        super("Wooden logs", generateDescription("An impregnable <pile> of old logs stacked high enough to be unliftable. They smell <smell>."), Type.WALL, null, null, p);
+        super("Wooden logs", generateDescription("An impregnable <pile> of old logs stacked high enough to be unliftable. " + 
+                                                 "They smell <smell>."), Type.WALL, null, null, p);
     }
 
     

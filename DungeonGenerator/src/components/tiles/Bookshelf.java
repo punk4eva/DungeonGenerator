@@ -39,8 +39,9 @@ public class Bookshelf extends PassageTile{
      * @param p
      */
     public Bookshelf(Trap tr, final boolean p){
-        super("bookshelf", generateDescription("An old, dry, wooden bookshelf with a <color> finish and volumes of even older <shapeMod> books,"
-                + " some in forgotten languages. One of the books is titled \""+getBookName()+"\"."), Type.WALL, null, tr, p);
+        super("bookshelf", generateDescription("An old, dry, wooden bookshelf with a <color> finish and volumes of even older " + 
+              "<shapeMod> books, some in forgotten languages. One of the books is titled \""+getBookName()+"\"."), Type.WALL, 
+              null, tr, p);
     }
     
     
