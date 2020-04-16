@@ -79,7 +79,8 @@ public class DenseFractalRoomPlacer extends AbstractRoomPlacer
         
         //Runs the algorithm on the bottom-left rectangle.
         if(x+w-c[2]>MIN_WIDTH*3 && y+h-c[1]>MIN_WIDTH*3) fractalSplit(c[2], c[1], x+w-c[2], y+h-c[1]);
-        else if((x+w-c[2]>MIN_WIDTH*2 || y+h-c[1]>MIN_WIDTH*2) && R.nextDouble()<splitChance) dissectRoom(c[2], c[1], x+w-c[2], y+h-c[1]);
+        else if((x+w-c[2]>MIN_WIDTH*2 || y+h-c[1]>MIN_WIDTH*2) && R.nextDouble()<splitChance) dissectRoom(c[2], c[1], x+w-c[2],
+                        y+h-c[1]);
         else rooms.add(new int[]{c[2], c[1], x+w-c[2], y+h-c[1]});
         
         //Runs the algorithm on the top-right rectangle.
@@ -89,7 +90,8 @@ public class DenseFractalRoomPlacer extends AbstractRoomPlacer
         
         //Runs the algorithm on the middle rectangle.
         if(c[2]-c[0]>MIN_WIDTH*3 && c[3]-c[1]>MIN_WIDTH*3) fractalSplit(c[0], c[1], c[2]-c[0]+1, c[3]-c[1]+1);
-        else if((c[2]-c[0]>MIN_WIDTH*2 || c[3]-c[1]>MIN_WIDTH*2) && R.nextDouble()<splitChance) dissectRoom(c[0], c[1], c[2]-c[0]+1, c[3]-c[1]+1);
+        else if((c[2]-c[0]>MIN_WIDTH*2 || c[3]-c[1]>MIN_WIDTH*2) && R.nextDouble()<splitChance) dissectRoom(c[0], c[1], c[2]-c[0]+1, 
+                        c[3]-c[1]+1);
         else rooms.add(new int[]{c[0], c[1], c[2]-c[0]+1, c[3]-c[1]+1});
     }
     
