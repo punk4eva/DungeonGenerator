@@ -133,8 +133,8 @@ public final class RegexParser{
         EXPRESSIONS.put("<texture>", () -> {
             switch(R.nextInt(5)){
                 case 0: case 1: case 2: return getRandomElement(TEXTURE);
-                case 3: return "full of " + getRandomElement(COLOR_MOD) + getRandomElement(COLOR) + " coloured " + getRandomElement(SHAPE_MOD) + " "
-                    + getRandomElement(SHAPE) + " fragments";
+                case 3: return "full of " + getRandomElement(COLOR_MOD) + getRandomElement(COLOR) + " coloured " + 
+                    getRandomElement(SHAPE_MOD) + " " + getRandomElement(SHAPE) + " fragments";
                 default: return "speckled with " + getRandomElement(APPEARANCE) + " " + getRandomElement(COLOR) + " "
                     + getRandomElement(SHAPE) + " " + getRandomElement(new String[]{"particulates", "flakes", "particles", "residue"});
             }
